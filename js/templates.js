@@ -1,39 +1,32 @@
-/*
- * TODO: Create declarative mapping instead of an imperative one.
- */
-
 var app = angular.module('odalic-app', ['ngRoute']);
 
-// configure our routes
-app.config(function ($routeProvider) {
-
-    $routeProvider
-
-        // Home page
-        .when('/', {
-            templateUrl: 'templates/home.html',
-            controller: 'odalic-home-ctrl'
-        })
-
-        // Test page
-        .when('/test', {
-            templateUrl: 'templates/test.html',
-            controller: 'odalic-test-ctrl'
-        })
-
-});
+// Declare the mapping between routes, templates and their controllers
+var mapping = [
+    ['/', 'templates/home.html', 'odalic-home-ctrl'],
+    ['/test', 'templates/test.html', 'odalic-test-ctrl']
+];
 
 // Create the controller for the root
 app.controller('odalic-root-ctrl', function ($scope) {
     // ...
 });
 
-// Create the controller for the home
-app.controller('odalic-home-ctrl', function ($scope) {
-    // ...
-});
+// Configure the routes
+app.config(function ($routeProvider) {
+    mapping.forEach(function (item) {
 
-// Create the controller for the test
-app.controller('odalic-test-ctrl', function ($scope) {
-    // ...
+        // Set a template for a given route
+        $routeProvider.when(item[0], {
+            templateUrl: item[1],
+            controller: item[2]
+        });
+
+        // Create a controller for a given page
+        app.controller(item[2], function ($scope) {
+            // ...
+            // The implementation may be left empty for now.
+            // ...
+        });
+
+    });
 });
