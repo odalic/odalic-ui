@@ -1,0 +1,110 @@
+/*
+ * General textfields declarations
+ */
+.odalic-textfield-skeleton {
+    padding: 5px 10px 5px 10px;
+	.odalic-gfont-general;
+}
+
+.odalic-textfield-border {
+    border-width: 2px;
+	border-style: solid;
+}
+
+.odalic-textfield-shadow {
+    box-shadow: 0 5px @odalic-color-grey;
+}
+
+
+/*
+ * Different textfield styles
+ */
+input.style1 {
+    .odalic-textfield-skeleton;
+	.odalic-textfield-border;
+	.odalic-bstyle-orange;
+    border-radius: 4px;
+	transition: @odalic-animation-quick;
+    &:focus {
+        border-color: @odalic-color-yellow;
+        background-color: @odalic-color-yellow;
+    }
+}
+
+.texfields-style23 {
+    .odalic-textfield-skeleton;
+	.odalic-textfield-border;
+	.odalic-bstyle-iorange;
+	transition: @odalic-animation-quick;
+    &:focus {
+	    color: @odalic-color-white;
+        border-color: @odalic-color-orange;
+        background-color: @odalic-color-orange;
+    }
+}
+
+input.style2 {
+    .texfields-style23;
+}
+
+input.style3 {
+    .texfields-style23;
+}
+
+input.style4 {
+    .odalic-textfield-skeleton;
+	.odalic-textfield-border;
+	.odalic-bstyle-iorange;
+	transition: @odalic-animation-quick;
+    &:focus {
+	    color: @odalic-color-darkorange;
+        border-color: @odalic-color-darkorange;
+    }
+}
+
+input.style5 {
+    .odalic-textfield-skeleton;
+	.odalic-textfield-border;
+	.odalic-bstyle-iblue;
+	transition: @odalic-animation-quick;
+    &:focus {
+	    color: @odalic-color-darkblue;
+        border-color: @odalic-color-darkblue;
+    }
+}
+
+input.style6 {
+    .odalic-textfield-skeleton;
+	.odalic-textfield-border;
+	.odalic-bstyle-iblue;
+    .odalic-textfield-shadow;
+    border-radius: 6px;
+    &:focus {
+        color: @odalic-color-darkblue;
+        border-color: @odalic-color-darkblue;
+        box-shadow: 0 5px @odalic-color-darkgrey;
+    }
+}
+
+input.style7 {
+    .odalic-textfield-skeleton;
+	.odalic-textfield-border;
+	.odalic-bstyle-blue;
+    .odalic-textfield-shadow;
+	transition: @odalic-animation-fast;
+    &:focus {
+	    color: @odalic-color-black;
+	    border-color: @odalic-color-lightblue;
+        background-color: @odalic-color-lightblue;
+    }
+}
+
+input.style8 {
+    .odalic-textfield-skeleton;
+	.odalic-textfield-border;
+	.odalic-bstyle-lightgrey;
+	transition: @odalic-animation-fast;
+    &:focus {
+	    border-color: @odalic-color-almostblack;
+    }
+}

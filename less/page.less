@@ -1,0 +1,54 @@
+/*
+ * Page
+ */
+html, body {
+    background-color: @odalic-color-almostwhite;
+    height: 100%;
+}
+
+
+/*
+ * Borders
+ */
+.odalic-borders-middle {
+    /* Borders */
+    @odalic-bc-color1: @odalic-color-almostwhite;
+    @odalic-bc-color2: @odalic-color-lightgrey;
+    border-width: 0 10px 0 10px;
+    border-style: solid; 
+    border-color: @odalic-bc-color1;
+    -webkit-border-image: -webkit-linear-gradient(left, @odalic-bc-color1, @odalic-bc-color2, @odalic-bc-color1) 1 50%; 
+    -moz-border-image: -moz-linear-gradient(left, @odalic-bc-color1, @odalic-bc-color2, @odalic-bc-color1) 1 50%; 
+    -o-border-image: -o-linear-gradient(left, @odalic-bc-color1, @odalic-bc-color2, @odalic-bc-color1) 1 50%;
+    border-image: linear-gradient(to left, @odalic-bc-color1, @odalic-bc-color2, @odalic-bc-color1) 1 50%;
+
+    /* No borders when using small display */
+    @media (max-width: @bootstrap-screen-sm) {
+      border-width: 0;
+    }
+}
+
+
+/*
+ * Main content
+ */
+.odalic-content {
+    .odalic-gfont-general;
+    .odalic-bstyle-white;
+    .odalic-borders-middle;
+}
+
+
+/*
+ * Footer
+ */
+.odalic-footer {
+    .odalic-gfont-alternative;
+    .odalic-borders-middle;
+    &> div {
+        .odalic-bstyle-almostwhite;
+        margin-left: -@bootstrap-padding-inner;
+        margin-right: -@bootstrap-padding-inner;
+        border-bottom: 1px solid @odalic-color-lightgrey;
+    }
+}

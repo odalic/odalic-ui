@@ -1,0 +1,161 @@
+/*
+ * General button declarations
+ */
+.odalic-button-skeleton {
+	cursor: pointer;
+	min-width: 85px;
+	padding: 4px 20px 4px 20px;
+	.odalic-gfont-general;
+}
+
+.odalic-button-border {
+    border-width: 2px;
+	border-style: solid;
+}
+
+.odalic-button-shadow {
+    box-shadow: 0 5px @odalic-color-grey;
+}
+
+.odalic-button-clickable {
+     &:active span {
+        position: relative;
+	    left: +1px;
+	    top: +1px;
+    }
+}
+
+.odalic-button-shadowclick {
+    &:active {
+        position: relative;
+	    top: +2px;
+	    box-shadow: 0 3px @odalic-color-darkgrey;
+    }
+}
+
+
+/*
+ * Different button styles
+ */
+button.style1 {
+    .odalic-button-skeleton;
+	.odalic-bstyle-orange;
+    padding: 6px 20px 6px 20px;
+	border-width: 0px;
+	border-radius: 4px;
+	transition: @odalic-animation-quick;
+    span {
+	    position: relative;
+	    transition: @odalic-animation-quick;
+        &:before {
+            content: '»';
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: -20px;
+            transition: 0.5s;
+        }
+    }
+    &:hover {
+        border-color: @odalic-color-yellow;
+	    background-color: @odalic-color-yellow;
+        span {
+    	    color: @odalic-color-orange;
+	        padding-left: 10px;
+            &:before {
+                opacity: 1;
+                left: 0px;
+            }
+        }
+    }
+    &:active {
+        box-shadow: 0 3px @odalic-color-grey;
+	    transition: 0s;
+    }
+}
+
+button.style2 {
+	.odalic-button-skeleton;
+	.odalic-button-border;
+    .odalic-button-clickable;
+    .odalic-bstyle-iorange;
+	border-radius: 4px;
+	transition: @odalic-animation-fast;
+    &:hover {
+    	color: @odalic-color-white;
+    	background-color: @odalic-color-orange;
+    }
+}
+
+button.style3 {
+	.odalic-button-skeleton;
+	.odalic-button-border;
+    .odalic-button-clickable;
+    .odalic-bstyle-iorange;
+	transition: @odalic-animation-fast;
+    &:hover {
+        color: @odalic-color-white;
+	    background-color: @odalic-color-orange;
+    }
+}
+
+button.style4 {
+    .odalic-button-skeleton;
+    .odalic-button-border;
+    .odalic-button-clickable;
+    .odalic-bstyle-iorange;
+    &:hover {
+        border-color: @odalic-color-darkorange;
+        color: @odalic-color-darkorange;
+    }
+}
+
+button.style5 {
+	.odalic-button-skeleton;
+    .odalic-button-border;
+    .odalic-button-clickable;
+	.odalic-bstyle-blue;
+	transition: @odalic-animation-fast;
+    &:hover {
+        color: @odalic-color-blue;
+	    background-color: @odalic-color-white;
+    }
+}
+
+button.style6 {
+	.odalic-button-skeleton;
+	.odalic-button-border;
+    .odalic-button-shadowclick;
+    .odalic-bstyle-blue;
+	.odalic-button-shadow;
+    border-radius: 6px;
+	transition: background-color @odalic-animation-fast;
+    &:hover {
+    	border-color: @odalic-color-darkblue;
+    	background-color: @odalic-color-darkblue;
+    }
+}
+
+button.style7 {
+    .odalic-button-skeleton;
+    .odalic-button-border;
+    .odalic-button-shadowclick;
+    .odalic-bstyle-blue;
+    .odalic-button-shadow;
+    transition: background-color @odalic-animation-fast;
+    &:hover {
+    	border-color: @odalic-color-darkblue;
+    	background-color: @odalic-color-darkblue;
+    }
+}
+
+button.style8 {
+	.odalic-button-skeleton;
+	.odalic-button-border;
+    .odalic-button-clickable;
+    .odalic-bstyle-lightgrey;
+	transition: border-color @odalic-animation-fast;
+    &:hover {
+    	border-color: @odalic-color-almostblack;
+    }
+}

@@ -1,0 +1,132 @@
+/*
+ * Bootstrap NavBar override (+ child DropDown override)
+ */
+.odalic-navbar {
+    /* Color and visual settings */
+    .odalic-bstyle-orange;
+
+    @navbar-defaulttext: @odalic-color-white;
+
+    @navbar-highlighted: @odalic-color-darkorange;
+
+    .navbar-active {
+        color: @odalic-color-black;
+        background-color: @odalic-color-lightorange;
+    }
+
+    .navbar-selected {
+        background-color: @odalic-color-darkorange;
+    }
+    
+    /* Overrides */
+    border-radius: 0px;
+    div > div > ul > li > a {
+        color: @navbar-defaulttext;
+    }
+
+    /* Links */
+    * li {
+        &> a {
+            &:hover {
+                color: @navbar-defaulttext;
+                background-color: @navbar-highlighted;
+            }
+            &:focus {
+                background-color: @navbar-highlighted;
+            }
+
+            /* Menu item currently clicked on */
+            &:active {
+                .navbar-active;
+            }
+        }
+
+        /* Menu currently open */
+        &.open > a {
+            background-color: @navbar-highlighted;
+            &:focus {
+                background-color: @navbar-highlighted;
+            }
+            &:hover {
+                background-color: @navbar-highlighted;
+            }
+        }
+
+        /* Menu currently marked as "active" */
+        &.active > a {
+            .navbar-selected;   
+        }
+    }
+    
+    /* Small display - menu icon */
+    @odalic-nb-button-static: @odalic-color-darkorange;
+    @odalic-nb-button-hover: @odalic-color-black;
+    * button {
+        border-color: @odalic-nb-button-static;
+        &> span {
+            background-color: @odalic-nb-button-static;
+        }
+        &:hover {
+            border-color: @odalic-nb-button-hover;
+            &> span {
+                background-color: @odalic-nb-button-hover;
+            }
+        }
+    }
+}
+
+
+/*
+ * Bootstrap Panel override
+ */
+.panel {
+    a:link, a:visited {
+        .odalic-font-blue;
+        transition: @odalic-animation-quick;
+    }
+    a:hover, a:active {
+        .odalic-font-darkblue;
+    }
+    border: none;
+    box-shadow: none;
+}
+
+.odalic-pb-padding {
+    @odalic-ph-height: @odalic-height-medium;
+    padding-top: @odalic-ph-height/2;
+    padding-bottom: @odalic-ph-height/2;
+}
+
+.panel-body {
+    .odalic-pb-padding;
+}
+
+.list-group-item {
+    .odalic-pb-padding;
+}
+
+
+/*
+ * Panel Button
+ */
+.odalic-button-panel {
+    .odalic-bstyle-iblue;
+    .odalic-gfont-small;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 5px 12px 5px 12px;
+    &:hover {
+        .odalic-bstyle-blue;
+    }
+}
+
+
+/*
+ * Progress override
+ */
+.progress {
+    height: 5px;
+    .progress-bar {
+        background-color: @odalic-color-blue;
+    }
+}

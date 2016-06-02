@@ -1,0 +1,12 @@
+lodcloud.png
+	- modified using an editor
+	- source: https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/LOD_Cloud_2014.svg/3888px-LOD_Cloud_2014.svg.png
+	
+link.png
+	- unmodified
+	- author must be credited: http://www.freepik.com made by Freepik
+	- source: http://www.flaticon.com
+	- license: http://creativecommons.org/licenses/by/3.0/
+	
+link.ico
+	- directly converted to .ico from link.png
