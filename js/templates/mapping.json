@@ -1,0 +1,4 @@
+[
+	["/", "pages/home/home.html", "odalic-home-ctrl"],
+	["/test", "pages/test.html", "odalic-test-ctrl"]
+]
