@@ -6,13 +6,13 @@
     <!-- Content -->
     <div class="col-sm-12">
         <div ng-switch="tab">
+
             <!-- Task definition -->
             <div ng-switch-when="taskdef">
                 <div class="panel">
                     <div class="panel-body odalic-gfont-moderate panel-border odalic-bstyle-iorange">
                         Task definition
                     </div>
-
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-2">
@@ -23,7 +23,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-2">
@@ -34,16 +33,15 @@
                             </div>
                         </div>
                     </div>
-
-                    <button ng-click="tab='task-2'">Next</button>
                 </div>
             </div>
 
-            <div ng-switch-when="task-2">
-
+            <!-- TODO -->
+            <div ng-switch-when="todo-a">
             </div>
 
-            <div ng-switch-when="task-2">
+            <!-- TODO -->
+            <div ng-switch-when="todo-b">
 
             </div>
         </div>
