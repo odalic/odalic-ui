@@ -18,13 +18,22 @@
                 <ul class="nav navbar-nav">
                     <!-- Main menu -->
                     <li ng-repeat="singleMenu in leftMenu" ng-class="{ active: selectedIndex == $index }">
-                        <a href="{{ singleMenu.link }}" class="dropdown-toggle" data-toggle="dropdown">{{ singleMenu.title }} <span class="caret" ng-show="singleMenu.menu.length > 0"></span></a>
-                        <!-- Submenu -->
-                        <ul class="dropdown-menu" role="menu" ng-show="singleMenu.menu.length > 0">
+                        
+                        <!-- With submenu -->
+                        <a ng-show="singleMenu.menu.length > 0" class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer">
+                            {{ singleMenu.title }} <span class="caret"></span>
+                        </a>
+                        <ul ng-show="singleMenu.menu.length > 0" class="dropdown-menu" role="menu">
                             <li ng-repeat="singleSubmenu in singleMenu.menu" ng-class="{ divider: !singleSubmenu.hasOwnProperty('title') }">
                                 <a href="{{ singleSubmenu.link }}" ng-show="singleSubmenu.hasOwnProperty('title')">{{ singleSubmenu.title }}</a>
                             </li>
                         </ul>
+
+                        <!-- Without submenu -->
+                        <a ng-show="singleMenu.menu.length == 0" href="{{ singleMenu.link }}">
+                            {{ singleMenu.title }}
+                        </a>
+
                     </li>
                 </ul>
 

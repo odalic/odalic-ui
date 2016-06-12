@@ -1,4 +1,17 @@
 [
-	["/", "home/home.html", "odalic-home-ctrl"],
-	["/test", "test/test.html", "odalic-test-ctrl"]
+    {
+        "route": "/",
+        "folder": "home",
+        "controller": "generic"
+    },
+    {
+        "route": "/test",
+        "folder": "test",
+        "controller": "generic"
+    },
+    {
+        "route": "/taskconfig",
+        "folder": "taskconfig",
+        "controller": "odalic-taskconfig-ctrl"
+    }
 ]
