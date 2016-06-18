@@ -1,0 +1,126 @@
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="0" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
+
+    
+
+<div class="container"  ng-controller="createNewTask-ctrl">
+  <h2>Creation of new task</h2>
+  <form class="form-horizontal" role="form">
+
+
+
+ <legend>New task </legend> 
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Task name:</label>
+      <div class="col-sm-9">
+        <input class="form-control style4" type="text" ng-model="taskName" required>
+      </div>
+    </div>
+
+
+<legend>Upload file </legend>   
+<div class="form-group">
+      <label class="col-sm-2 control-label">Upload a CSV file:</label>
+      <div class="col-sm-9">
+            <input   type="file" ng-model="file"\>
+      </div>
+ </div>
+ 
+ <div class="form-group">
+                    <label class="col-sm-2 control-label">or</label>
+ </div>
+ 
+ 
+<div class="form-group">
+      <label class="col-sm-2 control-label">specify a location:</label>
+      <div class="col-sm-9">
+        <input class=" form-control" type="text"  ng-model="location"\>
+      </div>
+ </div>
+
+  <div class="form-group">
+                    <label class="col-sm-2 control-label">or</label>
+ </div>
+
+<div class="form-group">
+      <label class="col-sm-2 control-label">available files:</label>
+      <div class="col-sm-9">
+           <select   class="style4 form-control" ng-model="selectedFile" ng-options="x for x in savedFiles">
+           </select>
+      </div>
+</div>
+
+
+ <legend>File settings </legend>  
+  <div class="form-group">
+
+      <label class="col-sm-2 control-label">Choose encoding:</label>
+      <div class="col-sm-9">
+           <select   class="style4 form-control" ng-model="encoding" ng-options="x for x in encodingPossibilities">
+           </select>
+      </div>
+ </div>
+
+
+
+  <div class="form-group">
+  <label class="col-sm-2 control-label">Line ending:</label>
+      <div class="col-sm-1 radio">
+        <label ><input type="radio" ng-model="lineEnding" value="unix">Unix</label>
+      </div>
+      <div class="col-sm-1 radio">
+        <label ><input type="radio" ng-model="lineEnding" value="windows">Windows</label>
+      </div>
+ </div>
+
+
+<div class="form-group">
+      <label class="col-sm-2 control-label">Line ending:</label>
+      <div class="col-sm-9">
+        <label class="radio-inline"><input type="radio" ng-model="delimiter" value="semicolon">;</label>
+        <label class="radio-inline"><input type="radio" ng-model="delimiter" value="colon">:</label>
+        <label class="radio-inline"><input type="radio" ng-model="delimiter" value="tab">tab</label>
+
+
+        <label class="radio-inline"><input type="radio" ng-model="delimiter"   value="other"> other:  </label>
+        <input  type="text" ng-model="otherDelimiter">
+
+      </div>
+ </div>
+ 
+   <div class="form-group">
+
+      <label class="col-sm-2 control-label"></label>
+      <div class="col-sm-9">
+         <label class="checkbox-inline"><input type="checkbox" ng-model="isWrapp" value="">text fields wrapped in ""</label>
+      </div>
+ </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Description:</label>
+      <div class="col-sm-9">
+        <input class="form-control" type="text" ng-model = "description">
+      </div>
+</div>
+</div>
+
+
+
+<button   type="submit" class="btn btn-lg  pull-right  ">Create</button>
+
+  </form>
+</div>
+
+
+
+
+
+</main-cnt>
+
+<!-- Footer -->
+<footer>
+    <p>A brand new footer.</p>
+</footer>
+
