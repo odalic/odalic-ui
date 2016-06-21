@@ -1,11 +1,11 @@
 <!-- Main Content -->
 <main-cnt>
-    <!-- NavBar --> <navbar selected="0"
+    <!-- NavBar --> <navbar selected="2"
                             lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
 
 
-    <div class="container-fluid" ng-controller="createNewTask-ctrl">
+    <div class="container-fluid" ng-controller="createnewtask-ctrl">
         <h2>Creation of new task</h2>
         <form class="form-horizontal" role="form">
 
@@ -24,39 +24,40 @@
             <!--Uploading input file -->
             <fieldset>
                 <legend>Upload file </legend>
-                <!--from pc -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Upload a CSV file:</label>
-                    <div class="col-md-10">
-                        <input type="file" ng-model="file" \>
-                    </div>
-                </div>
-
-                <!--TODO mozna opravit doporuceni sum=12, ale zatim to funguje diky tomu ze to je obaleny formgroup-->
-                <div class="form-group">
-                    <label class="col-md-2 control-label">or</label>
-                </div>
-
-                <!--from web -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label">specify a location:</label>
-                    <div class="col-md-10">
-                        <input class=" form-control" type="text" ng-model="location" \>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-2 control-label">or</label>
-                </div>
-
-                <!--already uplouded -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label">available files:</label>
-                    <div class="col-md-10">
-                        <select class=" form-control" ng-model="selectedFile"
-                                ng-options="x for x in savedFiles"></select>
-                    </div>
-                </div>
+				<div ng-switch="fileProvision">
+					<!-- When a file that was already uploaded is to be selected -->
+					<div ng-switch-when="uploaded">
+						<!-- Select from the already uploaded ones -->
+						<div class="form-group">
+							<label class="col-md-2 control-label">Available files:</label>
+							<div class="col-md-10">
+								<select class=" form-control" ng-model="selectedFile"
+										ng-options="x for x in savedFiles"></select>
+							</div>
+						</div>
+						
+						<!-- Upload a new local file -->
+						<div class="form-group">
+							<label class="col-md-2 control-label">Upload a new file:</label>
+							<div class="col-md-8">
+								<input type="file" ng-model="file" \>
+							</div>
+							<div class="col-md-2">
+								<button class="form-control">Upload</button>
+							</div>
+						</div>
+					</div>
+					
+					<!-- When a remote file is to be specified -->
+					<div ng-switch-when="remote">
+						<div class="form-group">
+							<label class="col-md-2 control-label">specify a location:</label>
+							<div class="col-md-10">
+								<input class="form-control" type="text" ng-model="location" \>
+							</div>
+						</div>
+					</div>
+				</div>
             </fieldset>
 
             <!--File settings -->
@@ -130,7 +131,7 @@
             </fieldset>
 
             <!--submit button-->
-            <button type="submit" class="btn btn-lg  pull-right  ">Create</button>
+            <button type="submit" class="btn btn-lg  pull-right">Create</button>
 
         </form>
     </div>

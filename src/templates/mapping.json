@@ -15,8 +15,8 @@
         "controller": "odalic-taskconfig-ctrl"
     },
     {
-        "route": "/createNewTask",
-        "folder": "createNewTask",
-        "controller": "createNewTask-ctrl"
+        "route": "/createnewtask",
+        "folder": "createnewtask",
+        "controller": "createnewtask-ctrl"
     }
 ]
