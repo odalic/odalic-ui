@@ -23,10 +23,29 @@
 
             <!--Uploading input file -->
             <fieldset>
-                <legend>Upload file </legend>
+                <legend>Input file</legend>
+				<!-- Specifying a source -->
+				<div class="form-group">
+					<label class="control-label col-md-2">
+							Source:
+					</label>
+					<div class="col-md-5">
+						<label class="radio-inline">
+							<input type="radio" ng-model="fileProvision" value="local" /> 
+							Uploaded or local file
+						</label>
+					</div>
+					<div class="col-md-5">
+						<label class="radio-inline">
+							<input type="radio" ng-model="fileProvision" value="remote" /> 
+							Remote file
+						</label>
+					</div>
+				</div>
+				
 				<div ng-switch="fileProvision">
 					<!-- When a file that was already uploaded is to be selected -->
-					<div ng-switch-when="uploaded">
+					<div ng-switch-when="local">
 						<!-- Select from the already uploaded ones -->
 						<div class="form-group">
 							<label class="col-md-2 control-label">Available files:</label>
