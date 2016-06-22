@@ -5,7 +5,8 @@
 	
 	// Settings
 	var settings = {
-		fileProvisionTypes : ['local', 'remote']
+		fileProvisionTypes : ['local', 'remote'],
+		savedFiles : ['file-identifier-1', 'file-identifier-2', 'file-identifier-3']
 	};
 
     // Create a controller for taskconfig
@@ -14,7 +15,7 @@
 		$scope.fileProvision = settings.fileProvisionTypes[0];
 		
 		// savedFiles
-        $scope.savedFiles = [];
+        $scope.savedFiles = settings.savedFiles;
     });
 
 })();

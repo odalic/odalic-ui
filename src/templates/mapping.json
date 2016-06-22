@@ -18,5 +18,10 @@
         "route": "/createnewtask",
         "folder": "createnewtask",
         "controller": "createnewtask-ctrl"
+    },
+	{
+        "route": "/loading",
+        "folder": "loading",
+        "controller": "loading-ctrl"
     }
 ]
