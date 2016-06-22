@@ -18,5 +18,10 @@
         "route": "/createNewTask",
         "folder": "createNewTask",
         "controller": "createNewTask-ctrl"
+    },
+    {
+        "route": "/taskResult",
+        "folder": "taskResult",
+        "controller": "taskResult-ctrl"
     }
 ]

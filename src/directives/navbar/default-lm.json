@@ -9,6 +9,6 @@
     },
     { "title": "TEST", "link": "#/test", "menu": [] },
     { "title": "Create new task", "link": "#/createNewTask", "menu": [] },
-    { "title": "NO-LINK", "link": "", "menu": [] },
+    { "title": "Task result", "link": "#/taskResult", "menu": [] },
     { "title": "NO-LINK", "link": "", "menu": [] }
 ]
