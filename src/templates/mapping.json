@@ -23,5 +23,10 @@
         "route": "/loading",
         "folder": "loading",
         "controller": "loading-ctrl"
+    },
+	{
+        "route": "/result",
+        "folder": "result",
+        "controller": "result-ctrl"
     }
 ]

@@ -1,6 +1,7 @@
 [
-    "templates/templates.js",
     "directives/maincnt/maincnt.js",
     "directives/navbar/navbar.js",
-    "directives/footer/footer.js"
+    "directives/footer/footer.js",
+	"services/sharedata/sharedata.js",
+	"templates/templates.js"
 ]
