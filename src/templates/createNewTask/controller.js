@@ -17,8 +17,41 @@
 		// savedFiles
         $scope.savedFiles = settings.savedFiles;
 		
+		
+		// uploadFile
+		$scope.uploadingFile = false;
+		$scope.uploadFileError = false;
+		
+		$scope.uploadFileErrorClose = function() {
+			$scope.uploadFileError = false;
+		}
+		
+		$scope.uploadFile = function() {
+			// The file is now uploading. Hide the 'upload' button to prevent multiple uploads.
+			$scope.uploadingFile = true;
+			
+			// Upload the file asynchronously
+			$http({
+				method : "POST",
+				url : "not-specified-yet",
+			}).then(
+				// The file has been uploaded successfully => refresh the list of available files
+				function success(response) {
+					// $scope.savedFiles = ['something'];
+					$scope.uploadingFile = false;
+				},
+				// The file has not been uploaded => display an error message
+				function failure(response) {
+					$scope.uploadFileError = true;
+					$scope.uploadingFile = false;
+				}
+			);
+		}
+		
+		
 		// createTask
 		$scope.createTask = function() {
+			// Validate the form
 			if (!$scope.taskCreationForm.$valid) {
 				alert("Form validation failed.");
 				return;

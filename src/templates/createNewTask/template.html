@@ -59,9 +59,18 @@
 							<div class="col-md-8">
 								<input type="file" ng-model="file" \>
 							</div>
-							<div class="col-md-2">
-								<button class="form-control">Upload</button>
+							<div class="col-md-2 text-center">
+								<!-- Button 'upload' -->
+								<button ng-hide="uploadingFile" type="button" class="form-control" ng-click="uploadFile()">Upload</button>
+								<!-- Icon 'loading' -->
+								<i ng-hide="!uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
 							</div>
+						</div>
+						
+						<!--  Alert 'error while uploading' -->
+						<div ng-show="uploadFileError" class="alert alert-danger">
+							<a class="close" ng-click="uploadFileErrorClose()" aria-label="close">&times;</a>
+							An error occured while uploading the file.
 						</div>
 					</div>
 					
@@ -147,7 +156,7 @@
             </fieldset>
 
             <!-- submit button -->
-            <button type="submit" class="btn btn-lg pull-right" ng-click="createTask()">Create</button>
+            <button type="button" class="btn btn-lg pull-right" ng-click="createTask()">Create</button>
 
         </form>
     </div>
