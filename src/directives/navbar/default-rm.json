@@ -1,4 +1,3 @@
 [
-    { "title": "Login", "link": "#/login", "icon": "glyphicon-log-in" }, 
-    { "title": "Headphones, lol", "link": "#/lol", "icon": "glyphicon-headphones" }
+    { "title": "Login", "link": "#/login", "icon": "glyphicon-log-in" }    
 ]

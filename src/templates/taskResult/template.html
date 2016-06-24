@@ -1,11 +1,7 @@
 <!-- Main Content -->
 <style>
-    .odd {
-        color: red;
-    }
-
-    .even {
-        color: blue;
+    .marked {
+  background-color: #f2f2f2
     }
 </style>
 
@@ -30,7 +26,7 @@
 
                     <thead>
                         <tr>
-                            <td ng-repeat="cell in inputFile.columns " ng-class="  $index==selectedPosition.column ?'even':''" ng-click="selectPosition($index, $parent.$index)">
+                            <td ng-repeat="cell in inputFile.columns " ng-class="  $index==selectedPosition.column ?'marked':''" ng-click="selectPosition($index, $parent.$index)">
                                 {{cell[0]}}
                             </td>
                         </tr>
@@ -38,7 +34,7 @@
                     <tbody>
                         <tr ng-repeat="column in inputFile.results">
 
-                            <td ng-repeat="cell in column " ng-class="$index==selectedPosition.column ?'even':''" ng-click="selectPosition($index, $parent.$index)">
+                            <td ng-repeat="cell in column " ng-class="$index==selectedPosition.column ?'marked':''" ng-click="selectPosition($index, $parent.$index)">
                                 {{cell[0]}}
                             </td>
                         </tr>
@@ -62,7 +58,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <td ng-repeat="cell in inputFile.columns " ng-class="($parent.$index== selectedPosition.row && $index==selectedPosition.column) ?'even':''" ng-click="selectPosition($index, -1)">
+                            <td ng-repeat="cell in inputFile.columns " ng-class="($parent.$index== selectedPosition.row && $index==selectedPosition.column) ?'marked':''" ng-click="selectPosition($index, -1)">
                                 {{cell[0]}}{{cell.property}}
                             </td>
                         </tr>
@@ -70,7 +66,7 @@
                     <tbody>
                         <tr ng-repeat="column in inputFile.results">
 
-                            <td ng-repeat="cell in column " ng-class="($parent.$index== selectedPosition.row && $index==selectedPosition.column) ?'even':''" ng-click="selectPosition($index, $parent.$index)">
+                            <td ng-repeat="cell in column " ng-class="($parent.$index== selectedPosition.row && $index==selectedPosition.column) ?'marked':''" ng-click="selectPosition($index, $parent.$index)">
                                 <div>
                                     {{cell[0]}}
                                 </div>

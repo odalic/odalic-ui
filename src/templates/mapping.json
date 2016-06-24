@@ -23,5 +23,11 @@
         "route": "/taskresult",
         "folder": "taskresult",
         "controller": "taskresult-ctrl"
+    },
+    {
+        "route": "/loading",
+        "folder": "loading",
+        "controller": "loading-ctrl"
     }
+
 ]

@@ -16,6 +16,7 @@
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope) {
 
+        //$scope.responseText = sharedata.get("example");
         //TODO vstupni data z nahraneho souboru
         $scope.inputFile =
         {
