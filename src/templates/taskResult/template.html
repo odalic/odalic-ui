@@ -1,31 +1,126 @@
 <!-- Main Content -->
+<style>
+    .odd {
+        color: red;
+    }
+
+    .even {
+        color: blue;
+    }
+</style>
+
 <main-cnt>
+
     <!-- NavBar -->
     <navbar selected="0"
             lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
+    <div> stav : {{state}}</div>
+    <any ng-switch="state">
 
-    <!-- table of input file -->
-    <div class="table-responsive">
-        <table>
-            <tr ng-repeat="column in inputFile.results">
-                <td ng-repeat="cell in column " ng-click="selectPosition($parent.$index, $index)">
-                    {{cell}}
-                </td>
-            </tr>
-        </table>
-    </div>
+        <!-- sets subject column  -->
+        <any ng-switch-when="0">
+            <h2>Choosing of a subject column</h2>
 
-   
-    <div class="container-flow">
+            <div> pokusna promena : {{pokus}}</div>
 
-        <div ng-repeat=" z in result.Values.Cells[selectedPosition.parent].Suggestions ">
-            <!--  <div ng-repeat=" z in reseult.cells | json (Column = 1 Row = 1).Sugestion ">  -->
-            {{z}}
-        </div>
+            <!-- table of input file -->
+            <div class="table-responsive">
+                <table class="table table-bordered" navigatable>
+
+                    <thead>
+                        <tr>
+                            <td ng-repeat="cell in inputFile.columns " ng-class="  $index==selectedPosition.column ?'even':''" ng-click="selectPosition($index, $parent.$index)">
+                                {{cell[0]}}
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="column in inputFile.results">
+
+                            <td ng-repeat="cell in column " ng-class="$index==selectedPosition.column ?'even':''" ng-click="selectPosition($index, $parent.$index)">
+                                {{cell[0]}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </any>
 
 
-    </div>
+        <!-- sets classifications and disambiguations -->
+        <any ng-switch-when="1">
+            <h2>Choosing of classifications and disambiguations</h2>
+
+            <div> pokusna promena : {{pokus}}</div>
+
+
+
+            <!-- table of input file -->
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td ng-repeat="cell in inputFile.columns " ng-class="($parent.$index== selectedPosition.row && $index==selectedPosition.column) ?'even':''" ng-click="selectPosition($index, -1)">
+                                {{cell[0]}}{{cell.property}}
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="column in inputFile.results">
+
+                            <td ng-repeat="cell in column " ng-class="($parent.$index== selectedPosition.row && $index==selectedPosition.column) ?'even':''" ng-click="selectPosition($index, $parent.$index)">
+                                <div>
+                                    {{cell[0]}}
+                                </div>
+                                <div ng-repeat="disambiguation in cell.property ">
+                                    {{disambiguation}}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- selection of classification and disambiguation -->
+            <div class="container-flow">
+                <!-- TODO nelze odselektit prozatimni reseni pomoci prazdne volby-->
+                <!-- TODO opakovat pro vice kb -zavisle na datech -->
+                <!-- TODO synchronizace pri prepnuti bunky -->
+                <!-- blbne grid-->
+
+                <select class="col-md-12" size="3" ng-model="currentItems" multiple
+                        ng-options="opt as opt for opt in result.Values.Cells[selectedPosition.row][selectedPosition.column].Suggestions"
+                        ng-change="change(currentItems)">
+                    <option value=''></option>
+                </select>
+                <h3>
+                    You have selected: {{currentItems}}
+                </h3>
+
+            </div>
+       
+
+        </any>
+
+
+
+
+
+        <!-- sets relationships between two columns/cells -->
+        <any ng-switch-default>  <h2>Choosing of relationships between columns</h2>
+        
+        </any>
+
+
+    </any>
+
+
+    <!-- button for change of state-->
+    <button class="btn btn-lg  pull-right" ng-click="getOtherPage()">Next</button>
+
+
 </main-cnt>
 
 <!-- Footer -->

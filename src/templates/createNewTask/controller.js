@@ -2,9 +2,18 @@
 
     // Main module
     var app = angular.module('odalic-app');
+	
+	// Settings
+	var settings = {
+		fileProvisionTypes : ['local', 'remote']
+	};
 
     // Create a controller for taskconfig
-    app.controller('createNewTask-ctrl', function ($scope) {
+    app.controller('createnewtask-ctrl', function ($scope) {
+		// fileProvision
+		$scope.fileProvision = settings.fileProvisionTypes[0];
+		
+		// savedFiles
         $scope.savedFiles = [];
     });
 

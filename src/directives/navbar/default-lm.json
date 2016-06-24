@@ -2,13 +2,12 @@
     {
         "title": "ODALIC", "menu": [
             { "title": "Task configuration", "link": "#/taskconfig" },
-            {},
-            { "title": "NO-LINK", "link": "" },
-            { "title": "NO-LINK", "link": "" }
+            {}
         ]
     },
     { "title": "TEST", "link": "#/test", "menu": [] },
-    { "title": "Create new task", "link": "#/createNewTask", "menu": [] },
-    { "title": "Task result", "link": "#/taskResult", "menu": [] },
+    { "title": "Create new task", "link": "#/createnewtask", "menu": [] },
+    { "title": "Task result", "link": "#/taskresult", "menu": [] },
     { "title": "NO-LINK", "link": "", "menu": [] }
+
 ]

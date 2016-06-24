@@ -15,13 +15,13 @@
         "controller": "odalic-taskconfig-ctrl"
     },
     {
-        "route": "/createNewTask",
-        "folder": "createNewTask",
-        "controller": "createNewTask-ctrl"
+        "route": "/createnewtask",
+        "folder": "createnewtask",
+        "controller": "createnewtask-ctrl"
     },
     {
-        "route": "/taskResult",
-        "folder": "taskResult",
-        "controller": "taskResult-ctrl"
+        "route": "/taskresult",
+        "folder": "taskresult",
+        "controller": "taskresult-ctrl"
     }
 ]
