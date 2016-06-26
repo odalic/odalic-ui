@@ -8,7 +8,7 @@
 <main-cnt>
 
     <!-- NavBar -->
-    <navbar selected="2"
+    <navbar selected="3"
             lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
     <div class="container-flow">
         <div> stav : {{state}}</div>
@@ -113,8 +113,19 @@
         </any>
 
 
-        <!-- button for change of state-->
-        <button class="btn btn-lg  pull-right" ng-click="getOtherPage()">Next</button>
+        <!-- View selection -->
+		<div class="text-center">
+			<ul class="pagination">
+				<li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
+				<li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
+					<a class="pointer" ng-click="setState($index)">
+						{{ $index }}
+					</a>
+				</li>
+				<li><a class="pointer" ng-click="setState(state + 1)">Next</a></li>
+			</ul>
+		</div>
+		
     </div>
 
 </main-cnt>

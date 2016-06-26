@@ -14,9 +14,11 @@
     //});
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope) {
+    app.controller('taskresult-ctrl', function ($scope, sharedata) {
 
+		// TODO: sharedata will be needed to load resulting data from a previous AJAX request
         //$scope.responseText = sharedata.get("example");
+		
         //TODO vstupni data z nahraneho souboru
         $scope.inputFile =
         {
@@ -53,8 +55,6 @@
 
         $scope.pokus = 0;
 
-        $scope.state = 0;
-
         $scope.subjectColumn = 0;
 
 
@@ -80,9 +80,20 @@
                 $scope.pokus++;
 
         }
-        $scope.getOtherPage = function () {
-
-            if ($scope.state == 0) {
+		
+		
+		// View selection
+		$scope.state = 0;
+		$scope.states = new Array(3);			// Must be an array, because the angular ng-repeat does not operate over integers
+		$scope.setState = function (index) {
+			
+			// Check ranges
+			if ((index >= 0) && (index < $scope.states.length)) {
+				$scope.state = index;
+			}
+			
+			// Is saving the variable this way necessary?
+			/*if ($scope.state == 0) {
                 $scope.subjectColumn = $scope.selectedPosition.column;
             }
             if ($scope.state == 1) {
@@ -90,13 +101,16 @@
             }
             if ($scope.state == 2) {
                 //uloz zmeny pro vztahy a odesli
-            }
-            //presmerovani kam??
+            }*/
+			
+			// I mean, you can access it anytime, see this in the "developer mode":
+			console.log($scope.selectedPosition.column);
+			
+			//presmerovani kam??
+			
+		};
 
-            $scope.state++;
-
-
-        };
+		
 
 
 
@@ -118,7 +132,6 @@
                     "Cells": [
                                   [
                                        { "Suggestions": ["http://adequate.at/concept/Joe"] },
-
 
                                        { "Suggestions": ["http://adequate.at/concept/Schmoe"] },
                                        { "Suggestions": [] },
