@@ -3,72 +3,59 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    //TODO sipkova navigace
-    //app.directive('keyTrap', function () {
-    //    alert("dffsd");
-    //    return function (scope, elem) {
-    //        elem.bind('keydown', function (event) {
-    //            scope.$broadcast('keydown', event.keyCode);
-    //        });
-    //    };
-    //});
-
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope) {
 
+
+        $scope.list1 = { title: 'AngularJS - Drag Me' };
+        $scope.list2 = {};
         //$scope.responseText = sharedata.get("example");
         //TODO vstupni data z nahraneho souboru
         $scope.inputFile =
         {
             "columns":
             [
-              ["given_name"],
-              ["surname"],
-              ["number"],
-              ["bla"]
+              {"value":"given_name"},
+                { "value": "surname" },
+               { "value": "number" },
             ],
             "results":
             [
               [
-                ["Joe"],
-                ["Schmoe"],
-                ["5"],
-                ["fjdslfjlds"]
+                 { "value": "Joe" },
+                 { "value": "Schmoe" },
+                 { "value": "5" },
 
               ],
               [
-                ["Jane"],
-                ["Doe"],
-                ["5"],
-                ["jfkldsjfl"]
+                 { "value": "Jane" },
+                 { "value": "Doe" },
+                 { "value": "5" },
               ],
               [
-                ["bla"],
-                ["blabla"],
-                ["5"],
-                ["fjdslfjlsdkljf"]
+                 { "value": "bla" },
+                 { "value":"blabla"},
+                { "value": "5" },
               ]
             ]
         };
-
-        $scope.pokus = 0;
-
-        $scope.state = 0;
+        
+        //indicate state of form
+        $scope.state = 1;
 
         $scope.subjectColumn = 0;
 
-
-
-        $scope.change = function (obj) {
+        //Function changes the values in the table according to the selected classification and disambiguation
+        //table headers have -1 table index
+        $scope.change = function (obj,kb) {
             if ($scope.selectedPosition.row == -1)
-            { $scope.inputFile.results[$scope.selectedPosition.row][$scope.selectedPosition.column]; }
+            {
+                $scope.inputFile.columns[$scope.selectedPosition.row][$scope.selectedPosition.column][kb] = obj;;
+            }
             else
             {
-
-                var value = $scope.inputFile.results[$scope.selectedPosition.row][$scope.selectedPosition.column];
-
-
-                $scope.inputFile.results[$scope.selectedPosition.row][$scope.selectedPosition.column].property = obj;
+               
+                $scope.inputFile.results[$scope.selectedPosition.row][$scope.selectedPosition.column][kb]= obj;
 
             }
 
@@ -106,47 +93,275 @@
                 row: $row
             };
         }
+        $scope.initSelectionBox = function (kb)
+        {
+            alert(bla);
+            return $scope.inputFile.results[$scope.selectedPosition.row][$scope.selectedPosition.column][kb];
+        }
+        //TODO  smazat vstupni data z nahraneho osuboru
         $scope.result =
             {
+                "subjectColumnPosition": { "index": 3 },
+                "headerAnnotations": [
+                    {
+                        "candidates": {
+                            "dbpedia": [ // Order by the likelihood in descending order.
+                                {
+                                    "entity": { "resource": "http://dbpedia.name", "label": "Ble" },
+                                    "likelihood": { "value": 0.5 }
+                                }
+                            ],
+                            "wikidata":
+                                [
+                                {
+                                    "entity": { "resource": "http://wikidata.names", label: "Ble" },
+                                    "likelihood": { "value": 0.5 }
+                                },
+                                 {
+                                     "entity": { "resource": "http://wikidata.bookes", label: "Ble" },
+                                     "likelihood": { "value": 0.2 }
+                                 },
+                                {
+                                    "entity": { "resource": "http://wikidata.films", label: "Ble" },
+                                    "likelihood": { "value": 0.1 }
+                                }
+                                ]
 
-                "SubjectColumn": 7,
-
-                "Values": {
-
-                    "Columns": [{ "Suggestions": ["http://adequate.at/concept/City", "http://adequate.at/concept/Country"] }],
-
-                    "Cells": [
+                        },
+                        "chosen": {
+                            "dbpedia": [
+                                {
+                                    "entity": { "resource": "http://dbpedia.name", label: "Ble" },
+                                    "likelihood": { "value": 0.5 }
+                                }
+                            ],
+                            "wikidata":
+                                [
+                                {
+                                    "entity": { "resource": "http://wikidata.names", label: "Ble" },
+                                    "likelihood": { "value": 0.5 }
+                                },
+                                {
+                                    "entity": { "resource": "http://wikidata.bookes", label: "Ble" },
+                                    "likelihood": { "value": 0.5 }
+                                }
+                                ]
+                        }
+                    },
+                      {
+                          "candidates": {
+                              "dbpedia": [ // Order by the likelihood in descending order.
+                                  {
+                                      "entity": { "resource": "http://dbpedia.surname", "label": "Ble" },
+                                      "likelihood": { "value": 0.5 }
+                                  }
+                              ],
+                              "wikidata":
                                   [
-                                       { "Suggestions": ["http://adequate.at/concept/Joe"] },
-
-
-                                       { "Suggestions": ["http://adequate.at/concept/Schmoe"] },
-                                       { "Suggestions": [] },
-                                       { "Suggestions": [] }
-
-                                  ],
-                                  [
-                                       { "Suggestions": ["http://adequate.at/concept/Jane", "http://adequate.at/concept/Jana"] },
-
-
-                                       { "Suggestions": ["http://adequate.at/concept/Schmoe", "http://adequate.at/concept/Srna"] },
-                                       { "Suggestions": [] },
-                                       { "Suggestions": [] }
-                                  ],
-                                  [
-                                        { "Suggestions": ["http://adequate.at/concept/bla", "http://adequate.at/concept/bla2"] },
-                                        { "Suggestions": ["http://adequate.at/concept/blabla", "http://adequate.at/concept/blabla2"] },
-                                        { "Suggestions": [] },
-                                        { "Suggestions": [] }
+                                  {
+                                      "entity": { "resource": "http://wikidata.surnames", label: "Ble" },
+                                      "likelihood": { "value": 0.5 }
+                                  },
+                                   {
+                                       "entity": { "resource": "http://wikidata.bookes", label: "Ble" },
+                                       "likelihood": { "value": 0.2 }
+                                   },
+                                  {
+                                      "entity": { "resource": "http://wikidata.films", label: "Ble" },
+                                      "likelihood": { "value": 0.1 }
+                                  }
                                   ]
-                             ],
 
+                          },
+                          "chosen": {
+                              "dbpedia": [
+                                  {
+                                      "entity": { "resource": "http://dbpedia.surname", label: "Ble" },
+                                      "likelihood": { "value": 0.5 }
+                                  }
+                              ],
+                              "wikidata":
+                                  [
+                                  {
+                                      "entity": { "resource": "http://wikidata.surnames", label: "Ble" },
+                                      "likelihood": { "value": 0.5 }
+                                  },
+                                  {
+                                      "entity": { "resource": "http://wikidata.bookes", label: "Ble" },
+                                      "likelihood": { "value": 0.5 }
+                                  }
+                                  ]
+                          }
+                      },
+                       
+                     {
+                         "candidates":{},
+                         "chosen": {},
+                     },
+                     {
+                         
+                         "candidates":{},
+                         "chosen": {},
+                     }
+                  
+                ],
+                "cellAnnotations": [
+                    [ 
+                        {
+                            "candidates": {
+                                "dbpedia": [ // Order by the likelihood in descending order.
+                                    {
+                                        "entity": { "resource": "http://dbpedia.Joe", "label": "Ble" },
+                                        "likelihood": { "value": 0.5 }
+                                    }
+                                ],
+                                "wikidata":
+                                    [
+                                    {
+                                        "entity": { "resource": "http://wikidata.Joe", label: "Ble" },
+                                        "likelihood": { "value": 0.5 }
+                                    },
+                                     {
+                                         "entity": { "resource": "http://wikidata.J", label: "Ble" },
+                                         "likelihood": { "value": 0.2 }
+                                     }
+                                    ]
 
+                            },
+                            "chosen": {
+                                "dbpedia": [
+                                    {
+                                        "entity": { "resource": "http://dbpedia.Schmoe", label: "Ble" },
+                                        "likelihood": { "value": 0.5 }
+                                    } ,
+                                    {
+                                        "entity": { "resource": "http://dbpedia.Snow", label: "Ble" },
+                                        "likelihood": { "value": 0.3 }
+                                    }
+                                ],
+                                "wikidata":
+                                    [
+                                    {
+                                        "entity": { "resource": "http://wikidata.Schmoe", label: "Ble" },
+                                        "likelihood": { "value": 0.5 }
+                                    },
+                                    {
+                                        "entity": { "resource": "http://wikidata.Snow", label: "Ble" },
+                                        "likelihood": { "value": 0.5 }
+                                    }
+                                    ]
+                            }
+                        },
+                        {
+                            "candidates":{},
+                            "chosen": {},
+                        },
+                            
+                    ],
+                     [ 
+                        {
+                            "candidates": {
+                                "dbpedia": [ // Order by the likelihood in descending order.
+                                    {
+                                        "entity": { "resource": "http://dbpedia.Jane", "label": "Ble" },
+                                        "likelihood": { "value": 0.5 }
+                                    },
+                                     {
+                                         "entity": { "resource": "http://dbpedia.Jana", "label": "Ble" },
+                                         "likelihood": { "value": 0.5 }
+                                     }
+                                ],
+                                "wikidata":
+                                    [
+                                    {
+                                        "entity": { "resource": "http://wikidata.Jane", label: "Ble" },
+                                        "likelihood": { "value": 0.5 }
+                                    },
+                                     {
+                                         "entity": { "resource": "http://wikidata.Jana", label: "Ble" },
+                                         "likelihood": { "value": 0.2 }
+                                     }
+                                    ]
 
-                  "Relations": [{ "Column1": 0, "Column2": 1, "Suggestions": ["http://adequate.at/concept/hasPopulation"] }]
+                            },
+                            "chosen": {
+                                "dbpedia": [
+                                    {
+                                        "entity": { "resource": "http://dbpedia.Doe", label: "Ble" },
+                                        "likelihood": { "value": 0.5 }
+                                    }
+                                ],
+                                "wikidata":
+                                    [
+                                    {
+                                        "entity": { "resource": "http://wikidata.Srna", label: "Ble" },
+                                        "likelihood": { "value": 0.5 }
+                                    }
+                                    ]
+                            }
+                        },
+                        {
+                            "candidates":{},
+                            "chosen": {},
+                        },
+                            
+                     ],
+                     [
+                          {
+                              "candidates": {
+                                  "dbpedia": [ // Order by the likelihood in descending order.
+                                      {
+                                          "entity": { "resource": "http://dbpedia.bla", "label": "Ble" },
+                                          "likelihood": { "value": 0.5 }
+                                      },
+                                       {
+                                           "entity": { "resource": "http://dbpedia.b", "label": "Ble" },
+                                           "likelihood": { "value": 0.5 }
+                                       }
+                                  ],
+                                  "wikidata":
+                                      [
+                                      {
+                                          "entity": { "resource": "http://wikidata.bla", label: "Ble" },
+                                          "likelihood": { "value": 0.5 }
+                                      }
+                                      ]
 
+                              },
+                              "chosen": {
+                                  "dbpedia": [
+                                      {
+                                          "entity": { "resource": "http://dbpedia.Doe", label: "Ble" },
+                                          "likelihood": { "value": 0.5 }
+                                      }
+                                  ],
+                                  "wikidata":
+                                      [
+                                      {
+                                          "entity": { "resource": "http://wikidata.Srna", label: "Ble" },
+                                          "likelihood": { "value": 0.5 }
+                                      }
+                                      ]
+                              }
+                          },
+                        {
+                            "candidates":{},
+                            "chosen": {},
+                        },
+
+                     ]
+                ],
+                "columnRelationAnnotations": {
+                    "[2,3]": { }, 
+                    "[1,2]": {}
+                    // Same format as the header annotations.
+                },
+                "cellRelationAnnotations": {
+                    "[2,3],[1]": {}, // Same format as the header annotations.
+                    "[2,3],[2]": {}    
                 }
-            }
+                            
+    }
 
     });
 
