@@ -66,7 +66,8 @@
                         <thead>
                             <tr>
                                 <td ng-repeat="cell in inputFile.columns "
-                                    ng-class="(-1== selectedPosition.row && $index==selectedPosition.column) ?'marked':''" ng-click="selectPosition($index, -1)">
+                                    ng-class="(-1== selectedPosition.row && $index==selectedPosition.column) ?'marked':''" ng-click="selectPosition($index, -1)"
+                                    data-toggle="modal" data-target="#myModal">
                                     <div ng-repeat=" (key, value) in cell">
                                         {{ value}}
                                     </div>
@@ -78,11 +79,10 @@
                                 <td ng-repeat="cell in column " data-toggle="modal" ng-class="($parent.$index== selectedPosition.row && $index==selectedPosition.column) ?'marked':''"
                                     ng-click="selectPosition($index, $parent.$index)" data-target="#myModal">
                                     <!--ng-style="myStyle= {margin: 30% auto}"-->
-
                                     <!--TODO lepsi zobrazeni-->
-                                    <div ng-repeat=" (key, val) in cell">
-                                        {{val}}
-                                      
+                                    <div ng-repeat=" (key, value) in cell">
+                                        {{value}}
+
                                     </div>
                                 </td>
                             </tr>
@@ -90,39 +90,42 @@
                     </table>
                 </div>
 
+          
+
+
                 <!-- selection of classification and disambiguation -->
                 <!-- TODO nelze odselektit prozatimni reseni pomoci prazdne volby-->
-                <!-- TODO synchronizace pri prepnuti bunky -->
+                <!-- init selection : currentItems[selectedPosition.row+selectedPosition.column] == [www.dbpedia, www.dbpedia]-->
                 <!-- TODO styling-->
                 <div id="myModal" class="modal" role="dialog">
+                    <div class="modal-dialog lg">
 
-                    <div class="modal-head">
-                        Classification and Disabiguation
-                    </div>
+                        <div class="modal-content">
+                            <div class="modal-head">
+                                <h2> Classification and Disambiguation</h2>
+                            </div>
+                            <div ng-if="(selectedPosition.row ==-1)" ng-repeat=" (knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
+                                <h3>{{knowledgeBase}}</h3>
+                                <select size=" 3" ng-model="currentItems[selectedPosition.row+selectedPosition.column]" multiple
+                                        ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
+                                        ng-change="change(currentItems[selectedPosition.row+selectedPosition.column],knowledgeBase)"
+                                        class=" modal-body">
+                                    <option value=''>------</option>
+                                </select>
+                            </div>
 
-                    <div class="modal-content">
+                            <div ng-if="(selectedPosition.row !=-1)" ng-repeat=" (knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
+                                <h3>{{knowledgeBase}}</h3>
 
+                                <select size=" 3" ng-model="currentItems[selectedPosition.row+selectedPosition.column]" multiple
+                                        ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
+                                        ng-change="change(currentItems[selectedPosition.row+selectedPosition.column],knowledgeBase)"
+                                        class=" modal-body">
+                                    <option value=''>------</option>
+                                </select>
+                            </div>
 
-                        <div ng-if="(selectedposition.row ==-1)" ng-repeat=" (knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
-                            <h3>{{knowledgeBase}}</h3>
-                            <select size=" 3" ng-model="currentItems" multiple
-                                    ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                    ng-change="change(currentItems,knowledgeBase)"
-                                    class=" modal-body">
-                                <option value=''>no selected</option>
-                            </select>
                         </div>
-
-                        <div ng-if="(selectedposition.row !=-1)" ng-repeat=" (knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
-                            <h3>{{knowledgeBase}}</h3>
-                            <select size=" 3" ng-model="currentItems" ng-init="currentItems = initSelectionBox(knowledgeBase)" multiple
-                                    ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                    ng-change="change(currentItems,knowledgeBase)"
-                                    class=" modal-body">
-                                <option value=''>no selected</option>
-                            </select>
-                        </div>
-
                     </div>
 
                 </div>
@@ -144,8 +147,20 @@
     </any>
 
 
-    <!-- button for change of state-->
-    <button class="btn btn-lg  pull-right" ng-click="getOtherPage()">Next</button>
+
+    <!-- View selection -->
+    <div class="text-center">
+        <ul class="pagination">
+            <li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
+            <li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
+                <a class="pointer" ng-click="setState($index)">
+                    {{ $index }}
+                </a>
+            </li>
+            <li><a class="pointer" ng-click="setState(state + 1)">Next</a></li>
+        </ul>
+    </div>
+
     </div>
 
 </main-cnt>

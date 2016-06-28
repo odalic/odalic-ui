@@ -68,12 +68,12 @@
 				// The task has finished and returned data => save the data and redirect to a result screen
 				function success(response) {
 					sharedata.set("example", "succes");
-					$window.location.href = "#/result";
+					$window.location.href = "#/taskresult";
 				},
 				// There was a failure => save the data concerning response and redirect to an error screen
 				function failure(response) {
 					sharedata.set("example", "failure");
-					$window.location.href = "#/result";
+					$window.location.href = "#/taskresult";
 				}
 			);
 		}

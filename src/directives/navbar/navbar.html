@@ -20,7 +20,7 @@
                     <li ng-repeat="singleMenu in leftMenu" ng-class="{ active: selectedIndex == $index }">
                         
                         <!-- With submenu -->
-                        <a ng-show="singleMenu.menu.length > 0" class="dropdown-toggle" data-toggle="dropdown" style="cursor: pointer">
+                        <a ng-show="singleMenu.menu.length > 0" class="dropdown-toggle pointer" data-toggle="dropdown">
                             {{ singleMenu.title }} <span class="caret"></span>
                         </a>
                         <ul ng-show="singleMenu.menu.length > 0" class="dropdown-menu" role="menu">
