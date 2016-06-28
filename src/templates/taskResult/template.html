@@ -1,6 +1,6 @@
 <!-- Main Content -->
 
-
+<!-- TODO: Styly treba premiestnit do css/less. Pouzi helpers.less pre "miscellaneous" styly. -->
 <style>
     .marked {
         background-color: #f2f2f2;
@@ -15,154 +15,149 @@
     }
 </style>
 
+
+
 <main-cnt>
-
     <!-- NavBar -->
-    <navbar selected="3"
-            lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
+    <navbar selected="3" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
+
     <div class="container-flow">
-        <div> stav : {{state}}</div>
-        <any ng-switch="state">
+        <div>
+            Stav: {{ state }}
+        </div>
 
-            <!-- sets subject column  -->
-            <any ng-switch-when="0">
+        <!-- VIEW -->
+        <div ng-switch="state">
+
+            <!-- VIEW: Sets subject column  -->
+            <div ng-switch-when="0">
                 <h2>Choosing of a subject column</h2>
+                <div>Pokusna promena: {{ pokus }}</div>
 
-                <div> pokusna promena : {{pokus}}</div>
-
-                <!-- table of input file -->
-                <div class="table-responsive">
-                    <table class="table table-bordered" navigatable>
-
-                        <thead>
-                            <tr>
-                                <td ng-repeat="cell in inputFile.columns " ng-class="  $index==selectedPosition.column ?'marked':''" ng-click="selectPosition($index, $parent.$index)">
-                                    {{cell.value}}
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="column in inputFile.results">
-
-                                <td ng-repeat="cell in column " ng-class="$index==selectedPosition.column ?'marked':''" ng-click="selectPosition($index, $parent.$index)">
-                                    {{cell.value}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </any>
-
-
-            <!-- sets classifications and disambiguations -->
-            <any ng-switch-when="1">
-                <h2>Choosing of classifications and disambiguations</h2>
-
-
-                <!-- table of input file -->
+                <!-- Input file table -->
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <td ng-repeat="cell in inputFile.columns "
-                                    ng-class="(-1== selectedPosition.row && $index==selectedPosition.column) ?'marked':''" ng-click="selectPosition($index, -1)"
-                                    data-toggle="modal" data-target="#myModal">
-                                    <div ng-repeat=" (key, value) in cell">
-                                        {{ value}}
-                                    </div>
+                                <td ng-repeat="cell in inputFile.columns" ng-class="$index == selectedPosition.column ? 'marked' :''" ng-click="selectPosition($index, $parent.$index)">
+                                    {{ cell }}
                                 </td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="column in inputFile.results">
-                                <td ng-repeat="cell in column " data-toggle="modal" ng-class="($parent.$index== selectedPosition.row && $index==selectedPosition.column) ?'marked':''"
-                                    ng-click="selectPosition($index, $parent.$index)" data-target="#myModal">
-                                    <!--ng-style="myStyle= {margin: 30% auto}"-->
-                                    <!--TODO lepsi zobrazeni-->
-                                    <div ng-repeat=" (key, value) in cell">
-                                        {{value}}
+                            <tr ng-repeat="row in inputFile.rows">
+                                <td ng-repeat="cell in row" ng-class="$index == selectedPosition.column ? 'marked' : ''" ng-click="selectPosition($index, $parent.$index)">
+                                    {{ cell }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                                    </div>
+            <!-- VIEW: Sets classifications and disambiguations -->
+            <div ng-switch-when="1">
+                <h2>Choosing of classifications and disambiguations</h2>
+
+                <!-- Input file table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td ng-repeat="cell in inputFile.columns" ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''" ng-click="selectPosition($index, -1)" 
+                                    data-toggle="modal" data-target="#myModal">
+                                    {{ cell }}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="row in inputFile.rows">
+                                <td ng-repeat="cell in row" ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''" ng-click="selectPosition($index, $parent.$index)"
+                                    data-toggle="modal" data-target="#myModal">
+                                    <!--
+                                        TODO: ng-style="myStyle= {margin: 30% auto}"
+                                        TODO: lepsi zobrazeni
+                                     -->
+                                    {{ cell }}
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-          
-
-
-                <!-- selection of classification and disambiguation -->
-                <!-- TODO nelze odselektit prozatimni reseni pomoci prazdne volby-->
-                <!-- init selection : currentItems[selectedPosition.row+selectedPosition.column] == [www.dbpedia, www.dbpedia]-->
-                <!-- TODO styling-->
+                <!-- Modal window for classification/disambiguation selection -->
+                <!--
+                    TODO: nelze odselektit prozatimni reseni pomoci prazdne volby
+                    TODO: init selection : currentItems[selectedPosition.row+selectedPosition.column] == [www.dbpedia, www.dbpedia]
+                    TODO: stylovanie
+                 -->
                 <div id="myModal" class="modal" role="dialog">
                     <div class="modal-dialog lg">
-
                         <div class="modal-content">
-                            <div class="modal-head">
-                                <h2> Classification and Disambiguation</h2>
-                            </div>
-                            <div ng-if="(selectedPosition.row ==-1)" ng-repeat=" (knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
-                                <h3>{{knowledgeBase}}</h3>
-                                <select size=" 3" ng-model="currentItems[selectedPosition.row+selectedPosition.column]" multiple
-                                        ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                        ng-change="change(currentItems[selectedPosition.row+selectedPosition.column],knowledgeBase)"
-                                        class=" modal-body">
-                                    <option value=''>------</option>
-                                </select>
-                            </div>
 
-                            <div ng-if="(selectedPosition.row !=-1)" ng-repeat=" (knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
-                                <h3>{{knowledgeBase}}</h3>
-
-                                <select size=" 3" ng-model="currentItems[selectedPosition.row+selectedPosition.column]" multiple
-                                        ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                        ng-change="change(currentItems[selectedPosition.row+selectedPosition.column],knowledgeBase)"
-                                        class=" modal-body">
-                                    <option value=''>------</option>
-                                </select>
+                            <!-- Column classification --> 
+                            <div ng-if="(selectedPosition.row == -1)">
+                                <div class="modal-head">
+                                    <h2>Column classification</h2>
+                                </div>
+                                <!-- Separate div for each knowledge base -->
+                                <div ng-repeat="(knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
+                                    <h3>{{ knowledgeBase }}</h3>
+                                    <!-- Selection of a candidate(s) for the current knowledge base -->
+                                    <select size="3" ng-model="currentItems[selectedPosition.row + selectedPosition.column]" multiple
+                                            ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
+                                            ng-change="change(currentItems[selectedPosition.row + selectedPosition.column], knowledgeBase)"
+                                            class="modal-body">
+                                        <!-- Always provide an empty option as well -->
+                                        <option value=''>(empty)</option>
+                                    </select>
+                                </div>
                             </div>
 
+                            <!-- Cell disambiguation --> 
+                            <div ng-if="(selectedPosition.row != -1)">
+                                <div class="modal-head">
+                                    <h2>Cell disambiguation</h2>
+                                </div>
+                                <!-- Separate div for each knowledge base -->
+                                <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
+                                    <h3>{{ knowledgeBase }}</h3>
+                                    <!-- Selection of a candidate(s) for the current knowledge base -->
+                                    <select size="3" ng-model="currentItems[selectedPosition.row + selectedPosition.column]" multiple
+                                            ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
+                                            ng-change="change(currentItems[selectedPosition.row + selectedPosition.column], knowledgeBase)"
+                                            class="modal-body">
+                                        <!-- Always provide an empty option as well -->
+                                        <option value=''>(empty)</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
                 </div>
+            </div>
+
+            <!-- VIEW: Default -->
+            <div ng-switch-default>
+                <!-- TODO: Nie je ten default zbytocny? Aj tak je v controlleri nastaveny defaultny stav ako "1" -->
+                <h2>Choosing of relationships between columns</h2>
+            </div>
+        </div>
+
+        <!-- VIEW: Pagination -->
+        <div class="text-center">
+            <ul class="pagination">
+                <li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
+                <!-- Numbers for each of the pages -->
+                <li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
+                    <a class="pointer" ng-click="setState($index)">
+                        {{ $index }}
+                    </a>
+                </li>
+                <li><a class="pointer" ng-click="setState(state + 1)">Next</a></li>
+            </ul>
+        </div>
     </div>
-    <!-- TODO vlastni volba -->
-    </any>
-
-
-
-
-
-    <!-- sets relationships between two columns/cells -->
-    <any ng-switch-default>
-        <h2>Choosing of relationships between columns</h2>
-
-    </any>
-
-
-    </any>
-
-
-
-    <!-- View selection -->
-    <div class="text-center">
-        <ul class="pagination">
-            <li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
-            <li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
-                <a class="pointer" ng-click="setState($index)">
-                    {{ $index }}
-                </a>
-            </li>
-            <li><a class="pointer" ng-click="setState(state + 1)">Next</a></li>
-        </ul>
-    </div>
-
-    </div>
-
 </main-cnt>
 
 <!-- Footer -->
