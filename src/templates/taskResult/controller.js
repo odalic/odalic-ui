@@ -44,37 +44,44 @@
 			}
 		);
 
-
+        $scope.currentItems = {};
         // Simulate loading of the result
         $.getJSONSync("src/templates/taskresult/sample_result.json", function (sample) {
             $scope.result = sample;
-            //alert("1");
-            //$scope.currentItems = "https://www.wikidata.org/wiki/Q90";
-            // for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
-            //     var row = $scope.result.cellAnnotations[i];
-            //    // alert("2");
-            //     for (var j = 0; j < row.length; j++) {
-            //         //alert("3");
-            //         var cell = row[i].candidates;
-            //         if (cell != {}) {
-            //             for (var kb in cell) {
-            //                 alert(kb);
-            //                 for (var k = 0; k < kb.length; k++) {
-            //                     alert(cell[kb][k].chosen);
-            //                     alert(cell[kb][k].entity.resource);
-            //                     if (cell[kb][k].chosen == true) {
-            //                         //alert("5");
-            //                         $scope.currentItems[i + j] = [];
-            //                         alert("6");
-            //                         //$scope.currentItems[i + j].push = cell[kb][k].entity.resource;
-            //                         // alert("7");
-            //                     }
-            //                 }
-            //             }
-            //         }
+            //TODO do funkci to trcit a upravit
+            for (var i = 0; i < $scope.result.headerAnnotations.length; i++) {
+                var cell = $scope.result.headerAnnotations[i].candidates;
+                var selectedCandidates = [];
+                for (var kb in cell) {
+                    
+                    for (var k = 0; k < cell[kb].length; k++) {
+                        if (cell[kb][k].chosen == true) {                        
+                            selectedCandidates.push(cell[kb][k].entity.resource);
+                        }
+                    }
+                    $scope.currentItems['-1,' + i + ',' + kb] = selectedCandidates;
+                }
+                
+            }
 
-            //     }
-            // }
+            for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
+                var row = $scope.result.cellAnnotations[i];
+                for (var j = 0; j < row.length; j++) {
+                    var cell = row[j].candidates;
+                    if (cell != {}) {
+                        for (var kb in cell) {
+                            var selectedCandidates = []
+                            for (var k = 0; k < cell[kb].length; k++) {
+                                if (cell[kb][k].chosen == true) {
+                                    selectedCandidates.push(cell[kb][k].entity.resource);
+                                }
+                            }
+                            $scope.currentItems[i + ',' + j + ',' + kb] = selectedCandidates;
+                        }
+                    }
+                   
+                }
+            }
 
         });
 
@@ -110,7 +117,7 @@
             }
 
         };
-        
+
         $scope.selectPosition = function (column, row) {
 
             $scope.selectedPosition.column = column;

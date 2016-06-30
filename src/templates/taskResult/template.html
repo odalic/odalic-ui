@@ -22,6 +22,7 @@
 
     <div class="container-flow">
 
+
         <!-- VIEW -->
         <div ng-switch="state">
 
@@ -53,7 +54,6 @@
             <!-- VIEW: Sets classifications and disambiguations -->
             <div ng-switch-when="1">
                 <h2>Choosing of classifications and disambiguations</h2>
-
                 <!-- Input file table -->
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -85,6 +85,7 @@
                         </tbody>
                     </table>
                 </div>
+                
 
                 <!-- Modal window for classification/disambiguation selection -->
                 <!--
@@ -105,10 +106,10 @@
                                 <div ng-repeat="(knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
                                     <h3>{{ knowledgeBase }}</h3>
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
-                                    <select size="3" ng-model="currentItems[selectedPosition.row + selectedPosition.column]"
+                                    <select size="3" ng-model="currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                            ng-change="change(currentItems[selectedPosition.row + selectedPosition.column], knowledgeBase)"
+                                            ng-change="change(currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase], knowledgeBase)"
                                             class="modal-body">
                                         <!-- Always provide an empty option as well -->
                                         <!--<option value=''>(empty)</option>-->
@@ -128,10 +129,12 @@
                                 <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
                                     <h3>{{ knowledgeBase }}</h3>
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
-                                    <select size="3" ng-model="currentItems[selectedPosition.row + selectedPosition.column]"
+                                    {{currentItems[selectedPosition.row +','+ selectedPosition.column]}}
+                                    <!--// ng-init="currentItems[selectedPosition.row ' selectedPosition.column] = [candidates[0].entity.resource]"-->
+                                    <select size="3" ng-model="currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                            ng-change="change(currentItems[selectedPosition.row + selectedPosition.column], knowledgeBase)"
+                                            ng-change="change(currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase], knowledgeBase)"
                                             class="modal-body">
                                         <!-- Always provide an empty option as well -->
                                         <!--<option value=''>(empty)</option>-->
