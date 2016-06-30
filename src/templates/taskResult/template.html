@@ -1,5 +1,4 @@
 <!-- Main Content -->
-
 <!-- TODO: Styly treba premiestnit do css/less. Pouzi helpers.less pre "miscellaneous" styly. -->
 <style>
     .marked {
@@ -22,9 +21,6 @@
     <navbar selected="3" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
     <div class="container-flow">
-        <div>
-            Stav: {{ state }}
-        </div>
 
         <!-- VIEW -->
         <div ng-switch="state">
@@ -32,21 +28,20 @@
             <!-- VIEW: Sets subject column  -->
             <div ng-switch-when="0">
                 <h2>Choosing of a subject column</h2>
-                <div>Pokusna promena: {{ pokus }}</div>
 
                 <!-- Input file table -->
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <td ng-repeat="cell in inputFile.columns" ng-class="$index == selectedPosition.column ? 'marked' :''" ng-click="selectPosition($index, $parent.$index)">
+                                <td ng-repeat="cell in inputFile.columns" ng-class="($index == subjectColumn) ? 'marked' :''" ng-click="selectSubjectColumn($index)">
                                     {{ cell }}
                                 </td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in inputFile.rows">
-                                <td ng-repeat="cell in row" ng-class="$index == selectedPosition.column ? 'marked' : ''" ng-click="selectPosition($index, $parent.$index)">
+                                <td ng-repeat="cell in row" ng-class="($index == subjectColumn) ? 'marked' : ''" ng-click="selectSubjectColumn($index)">
                                     {{ cell }}
                                 </td>
                             </tr>
@@ -64,9 +59,14 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <td ng-repeat="cell in inputFile.columns" ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''" ng-click="selectPosition($index, -1)" 
+                                <td ng-repeat="cell in inputFile.columns" ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''" ng-click="selectPosition($index, -1)"
                                     data-toggle="modal" data-target="#myModal">
-                                    {{ cell }}
+                                    <div>
+                                        {{ cell }}
+                                    </div>
+                                    <div>
+                                        {{result.headerAnnotations[$index].candidates|chosenCandidates}}
+                                    </div>
                                 </td>
                             </tr>
                         </thead>
@@ -74,11 +74,12 @@
                             <tr ng-repeat="row in inputFile.rows">
                                 <td ng-repeat="cell in row" ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''" ng-click="selectPosition($index, $parent.$index)"
                                     data-toggle="modal" data-target="#myModal">
-                                    <!--
-                                        TODO: ng-style="myStyle= {margin: 30% auto}"
-                                        TODO: lepsi zobrazeni
-                                     -->
-                                    {{ cell }}
+                                    <div>
+                                        {{ cell }}
+                                    </div>
+                                    <div>
+                                        {{result.cellAnnotations[$parent.$index][$index].candidates|chosenCandidates}}
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -87,7 +88,7 @@
 
                 <!-- Modal window for classification/disambiguation selection -->
                 <!--
-                    TODO: nelze odselektit prozatimni reseni pomoci prazdne volby
+                    TODO: odselcteni crtl - click -> dotykove pristroje vi buh
                     TODO: init selection : currentItems[selectedPosition.row+selectedPosition.column] == [www.dbpedia, www.dbpedia]
                     TODO: stylovanie
                  -->
@@ -95,7 +96,7 @@
                     <div class="modal-dialog lg">
                         <div class="modal-content">
 
-                            <!-- Column classification --> 
+                            <!-- Column classification -->
                             <div ng-if="(selectedPosition.row == -1)">
                                 <div class="modal-head">
                                     <h2>Column classification</h2>
@@ -104,17 +105,21 @@
                                 <div ng-repeat="(knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
                                     <h3>{{ knowledgeBase }}</h3>
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
-                                    <select size="3" ng-model="currentItems[selectedPosition.row + selectedPosition.column]" multiple
+                                    <select size="3" ng-model="currentItems[selectedPosition.row + selectedPosition.column]"
+                                            multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
                                             ng-change="change(currentItems[selectedPosition.row + selectedPosition.column], knowledgeBase)"
                                             class="modal-body">
                                         <!-- Always provide an empty option as well -->
-                                        <option value=''>(empty)</option>
+                                        <!--<option value=''>(empty)</option>-->
                                     </select>
+                                    <!-- TODO pridani do select boxu a do resultu -->
+                                    <!-- TODO vlastni vyber -->
+                                    <!-- TODO neklasifikovat -->
                                 </div>
                             </div>
 
-                            <!-- Cell disambiguation --> 
+                            <!-- Cell disambiguation -->
                             <div ng-if="(selectedPosition.row != -1)">
                                 <div class="modal-head">
                                     <h2>Cell disambiguation</h2>
@@ -123,13 +128,18 @@
                                 <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
                                     <h3>{{ knowledgeBase }}</h3>
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
-                                    <select size="3" ng-model="currentItems[selectedPosition.row + selectedPosition.column]" multiple
+                                    <select size="3" ng-model="currentItems[selectedPosition.row + selectedPosition.column]"
+                                            multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
                                             ng-change="change(currentItems[selectedPosition.row + selectedPosition.column], knowledgeBase)"
                                             class="modal-body">
                                         <!-- Always provide an empty option as well -->
-                                        <option value=''>(empty)</option>
+                                        <!--<option value=''>(empty)</option>-->
                                     </select>
+
+                                    <!-- TODO vlastni vyber -->
+                                    <!-- TODO neklasifikovat -->
+                                    <!--  -->
                                 </div>
                             </div>
                         </div>

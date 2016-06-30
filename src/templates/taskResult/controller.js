@@ -3,6 +3,24 @@
     // Main module
     var app = angular.module('odalic-app');
 
+
+    app.filter('chosenCandidates', function () {
+        return function (candidates) {
+            var chosen = [];
+            for (var knowledgeBase in candidates) {
+                var KBcandidates = candidates[knowledgeBase];
+                for (var i = 0; i < KBcandidates.length; i++) {
+                    if (KBcandidates[i].chosen == true) {
+                        chosen.push(KBcandidates[i].entity.resource);
+                    }
+
+                }
+            }
+
+            return chosen.join();
+        };
+    });
+
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, sharedata) {
 
@@ -30,9 +48,41 @@
         // Simulate loading of the result
         $.getJSONSync("src/templates/taskresult/sample_result.json", function (sample) {
             $scope.result = sample;
+            //alert("1");
+            //$scope.currentItems = "https://www.wikidata.org/wiki/Q90";
+            // for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
+            //     var row = $scope.result.cellAnnotations[i];
+            //    // alert("2");
+            //     for (var j = 0; j < row.length; j++) {
+            //         //alert("3");
+            //         var cell = row[i].candidates;
+            //         if (cell != {}) {
+            //             for (var kb in cell) {
+            //                 alert(kb);
+            //                 for (var k = 0; k < kb.length; k++) {
+            //                     alert(cell[kb][k].chosen);
+            //                     alert(cell[kb][k].entity.resource);
+            //                     if (cell[kb][k].chosen == true) {
+            //                         //alert("5");
+            //                         $scope.currentItems[i + j] = [];
+            //                         alert("6");
+            //                         //$scope.currentItems[i + j].push = cell[kb][k].entity.resource;
+            //                         // alert("7");
+            //                     }
+            //                 }
+            //             }
+            //         }
+
+            //     }
+            // }
+
         });
 
 
+        function initSelectionBoxes() {
+            alert("ddd");
+
+        }
         // VIEW
         $scope.state = 1;                       // Default VIEW
         $scope.states = new Array(3);			// How many of VIEWs there are; Must be an array, because the angular ng-repeat does not iterate over integers
@@ -50,34 +100,65 @@
             row: -1
         };
 
+
+        $scope.selectSubjectColumn = function (column) {
+            if ($scope.subjectColumn == column) {
+                $scope.subjectColumn = -1;
+            }
+            else {
+                $scope.subjectColumn = column;
+            }
+
+        };
+        
         $scope.selectPosition = function (column, row) {
+
             $scope.selectedPosition.column = column;
             $scope.selectedPosition.row = row;
         }
 
 
         // Providing feedback
-        $scope.subjectColumn = 0;                           // Defaultly selected subject column
-
-        $scope.change = function (obj, kb) {                // Changes the values in the table according to the selected classification and disambiguation (which is wrong; it should change the result file, see the "chosen" attribute)
+        $scope.subjectColumn = $scope.result.subjectColumnPosition.index;                           // Defaultly selected subject column
+        $scope.initSelection = function (row, column) {
+            alert("BB");
+            return 0;
+        }
+        $scope.change = function (chosenValues, kb) {                // Changes the values in the table according to the selected classification and disambiguation (which is wrong; it should change the result file, see the "chosen" attribute)
             var r = $scope.selectedPosition.row;
             var c = $scope.selectedPosition.column;
 
             // Table header selected
             if (r == -1) {
-                $scope.inputFile.columns[c][kb] = obj;
+                var chosenKnowledgeBase = $scope.result.headerAnnotations[c].candidates[kb];
+
+                for (var i = 0; i < chosenKnowledgeBase.length ; i++) {
+                    if (chosenValues.includes(chosenKnowledgeBase[i].entity.resource)) {
+                        chosenKnowledgeBase[i].chosen = true;
+                    }
+                    else {
+                        chosenKnowledgeBase[i].chosen = false;
+                    }
+                }
+
             }
-            // Non-header cell selected
+                // Non-header cell selected
             else {
-                $scope.inputFile.rows[r][c][kb] = obj;
+                var chosenKnowledgeBase = $scope.result.cellAnnotations[r][c].candidates[kb];
+
+                for (var i = 0; i < chosenKnowledgeBase.length ; i++) {
+                    if (chosenValues.includes(chosenKnowledgeBase[i].entity.resource)) {
+                        chosenKnowledgeBase[i].chosen = true;
+                    }
+                    else {
+                        chosenKnowledgeBase[i].chosen = false;
+                    }
+                }
             }
         };
 
 
-        // I don't know what this is:
-        $scope.list1 = { title: 'AngularJS - Drag Me' };
-        $scope.list2 = {};
-        $scope.pokus = 0;
+
     });
 
 })();
