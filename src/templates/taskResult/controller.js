@@ -22,74 +22,89 @@
     });
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, sharedata) {
+    app.controller('taskresult-ctrl', function ($scope, sharedata, requests) {
 
-        // Simulate loading a CSV file (the table) into the scope
-        Papa.parse("src/templates/taskresult/sample_input.csv",
-			{
-			    header: false,
-			    download: true,
-			    complete: function (inputFile) {
-			        var inputFileRows = [];
-			        for (var i = 1; i < inputFile.data.length; i++) {
-			            inputFileRows.push(inputFile.data[i]);
-			        }
-
-			        // Inject into the scope
-			        $scope.inputFile = {
-			            "columns": inputFile.data[0],
-			            "rows": inputFileRows
-			        };
-			    }
+        // Loading the input CSV file
+		var loadInput = function(input) {
+			Papa.parse(input, {
+				worker: true,
+				complete: function (inputFile) {
+					var inputFileRows = [];
+					for (var i = 1; i < inputFile.data.length; i++) {
+						inputFileRows.push(inputFile.data[i]);
+					}
+	
+					// Inject into the scope
+					$scope.$apply(function() {
+						$scope.inputFile = {
+							"columns" : inputFile.data[0],
+							"rows" : inputFileRows
+						};
+					});
+				}
+			});
+		};
+		
+		// Download the input CSV file and then load it
+		requests.reqCSV({
+			method : "GET",
+			address : sharedata.get("Input"),
+			formData : 'unspecified',
+			success : function(response) {
+				loadInput(window.atob(response.data));
+				sharedata.clear("Input");
+			},
+			failure : function(response) {
+				// Failure
 			}
-		);
+		});
 
-        $scope.currentItems = {};
-        // Simulate loading of the result
-        $.getJSONSync("src/templates/taskresult/sample_result.json", function (sample) {
-            $scope.result = sample;
-            //TODO do funkci to trcit a upravit
-            for (var i = 0; i < $scope.result.headerAnnotations.length; i++) {
-                var cell = $scope.result.headerAnnotations[i].candidates;
-                var selectedCandidates = [];
-                for (var kb in cell) {
-                    
-                    for (var k = 0; k < cell[kb].length; k++) {
-                        if (cell[kb][k].chosen == true) {                        
-                            selectedCandidates.push(cell[kb][k].entity.resource);
-                        }
-                    }
-                    $scope.currentItems['-1,' + i + ',' + kb] = selectedCandidates;
-                }
-                
-            }
+		
+		// Load the result
+		$scope.result = sharedata.get("Result");
+		sharedata.clear("Result");
+		
 
-            for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
-                var row = $scope.result.cellAnnotations[i];
-                for (var j = 0; j < row.length; j++) {
-                    var cell = row[j].candidates;
-                    if (cell != {}) {
-                        for (var kb in cell) {
-                            var selectedCandidates = []
-                            for (var k = 0; k < cell[kb].length; k++) {
-                                if (cell[kb][k].chosen == true) {
-                                    selectedCandidates.push(cell[kb][k].entity.resource);
-                                }
-                            }
-                            $scope.currentItems[i + ',' + j + ',' + kb] = selectedCandidates;
-                        }
-                    }
-                   
-                }
-            }
-
-        });
-
-
+		
+        // Bylo presunuto z $.getJSONSync (metoda byla jen temporarni)
+		// Prosim, nemenit (pokud neni zavazny duvod) nacitavani "input CSV file" a "result".
+		// Taky tam nic nepripisovat (opet: jen ze zavazneho duvodu).
+		$scope.currentItems = {};
+		for (var i = 0; i < $scope.result.headerAnnotations.length; i++) {
+			var cell = $scope.result.headerAnnotations[i].candidates;
+			var selectedCandidates = [];
+			for (var kb in cell) {
+				for (var k = 0; k < cell[kb].length; k++) {
+					if (cell[kb][k].chosen == true) {
+						selectedCandidates.push(cell[kb][k].entity.resource);
+					}
+				}
+				$scope.currentItems['-1,' + i + ',' + kb] = selectedCandidates;
+			}
+		}
+		for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
+			var row = $scope.result.cellAnnotations[i];
+			for (var j = 0; j < row.length; j++) {
+				var cell = row[j].candidates;
+				if (cell != {}) {
+					for (var kb in cell) {
+						var selectedCandidates = []
+						for (var k = 0; k < cell[kb].length; k++) {
+							if (cell[kb][k].chosen == true) {
+								selectedCandidates.push(cell[kb][k].entity.resource);
+							}
+						}
+						$scope.currentItems[i + ',' + j + ',' + kb] = selectedCandidates;
+					}
+				}
+			}
+		}
         function initSelectionBoxes() {
             alert("ddd");
-
         }
+		
+		
+		
         // VIEW
         $scope.state = 1;                       // Default VIEW
         $scope.states = new Array(3);			// How many of VIEWs there are; Must be an array, because the angular ng-repeat does not iterate over integers

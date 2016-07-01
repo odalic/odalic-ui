@@ -28,5 +28,10 @@
         "route": "/loading",
         "folder": "loading",
         "controller": "loading-ctrl"
+    },
+	{
+        "route": "/genericerror",
+        "folder": "genericerror",
+        "controller": "genericerror-ctrl"
     }
 ]

@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
-                        <input class="form-control" type="text" ng-model="taskName"
+                        <input class="form-control" type="text" ng-model="taskCreation.identifier"
                                required>
                     </div>
                 </div>
@@ -48,8 +48,8 @@
 						<div class="form-group">
 							<label class="col-md-2 control-label">Available files:</label>
 							<div class="col-md-10">
-								<select class=" form-control" ng-model="selectedFile"
-										ng-options="x for x in savedFiles"></select>
+								<select class="form-control" ng-model="files.selectedFile"
+										ng-options="file.id for file in savedFiles"></select>
 							</div>
 						</div>
 						
@@ -57,20 +57,33 @@
 						<div class="form-group">
 							<label class="col-md-2 control-label">Upload a new file:</label>
 							<div class="col-md-8">
-								<input type="file" ng-model="file" \>
+								<input type="file" id="concreteFile"/>
+							</div>
+							<div class="col-md-2"></div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Identifier:</label>
+							<div class="col-md-8">
+								<input type="text" class="form-control" ng-model="fileUpload.identifier" \>
 							</div>
 							<div class="col-md-2 text-center">
 								<!-- Button 'upload' -->
-								<button ng-hide="uploadingFile" type="button" class="form-control" ng-click="uploadFile()">Upload</button>
+								<button ng-hide="fileUpload.uploadingFile" type="button" class="form-control" ng-click="fileUpload.uploadFile()">Upload</button>
 								<!-- Icon 'loading' -->
-								<i ng-hide="!uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+								<i ng-hide="!fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
 							</div>
 						</div>
 						
 						<!--  Alert 'error while uploading' -->
-						<div ng-show="uploadFileError" class="alert alert-danger">
-							<a class="close" ng-click="uploadFileErrorClose()" aria-label="close">&times;</a>
-							An error occured while uploading the file.
+						<div ng-show="fileUpload.uploadFileError.alert" class="alert alert-danger">
+							<a class="close" ng-click="fileUpload.uploadFileError.close()" aria-label="close">&times;</a>
+							An error occured while uploading the file. Details: {{ fileUpload.uploadFileError.details }}
+						</div>
+						
+						<!--  Alert 'successfule upload' -->
+						<div ng-show="fileUpload.uploadFileSuccess.alert" class="alert alert-success">
+							<a class="close" ng-click="fileUpload.uploadFileSuccess.close()" aria-label="close">&times;</a>
+							The file has been successfully uploaded.
 						</div>
 					</div>
 					

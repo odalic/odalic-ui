@@ -2,6 +2,10 @@
     "directives/maincnt/maincnt.js",
     "directives/navbar/navbar.js",
     "directives/footer/footer.js",
+	
 	"services/sharedata/sharedata.js",
+	"services/filedata/filedata.js",
+	"services/requests/requests.js",
+	
 	"templates/templates.js"
 ]
