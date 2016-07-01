@@ -3,7 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // A service for sharing data between pages
+    // A service for reading data from files in a convenient way
     app.service('filedata', function () {
 		
 		/** Reads a local file using an <input type="file" /> element.

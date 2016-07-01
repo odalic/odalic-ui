@@ -3,7 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // A service for sharing data between pages
+    // A service for creating REST requests in a convenient way
     app.service('requests', function ($http) {
 
 		/** Format of "request_package" object parameter.
