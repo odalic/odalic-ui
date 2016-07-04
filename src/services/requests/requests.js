@@ -58,6 +58,10 @@
 						formData.append(key, new Blob([dataBase64], { type : "text/csv" }));
 						return this;
 					},
+					attachGeneric : function(key, data) {
+						formData.append(key, data);
+						return this;
+					},
 					get : function() {
 						return formData;
 					}

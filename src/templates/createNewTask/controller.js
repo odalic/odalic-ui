@@ -87,7 +87,9 @@
 								owner : "default",
 								location : fileUrl
 							})
-							.attachCSV("input", fileData)
+							// TODO: Formerly we used this way:
+							//.attachCSV("input", fileData)
+							.attachGeneric("input", document.getElementById("concreteFile").files[0])
 							.get(),
 						success : function (response) {
 							// The file has been uploaded successfully => refresh the list of available files
