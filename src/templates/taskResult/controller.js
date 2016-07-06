@@ -51,7 +51,7 @@
 			address : sharedata.get("Input"),
 			formData : 'unspecified',
 			success : function(response) {
-				loadInput(window.atob(response.data));
+				loadInput(response.data);
 				sharedata.clear("Input");
 			},
 			failure : function(response) {
@@ -61,7 +61,7 @@
 
 		
 		// Load the result
-		$scope.result = sharedata.get("Result");
+		$scope.result = JSON.parse(sharedata.get("Result"));
 		sharedata.clear("Result");
 		
 
