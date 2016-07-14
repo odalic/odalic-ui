@@ -11,6 +11,6 @@
             templateUrl: currentFolder + 'maincnt.html',
             transclude: true
         }
-    });    
+    });
 
 })();

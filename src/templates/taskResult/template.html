@@ -15,7 +15,6 @@
 </style>
 
 
-
 <main-cnt>
     <!-- NavBar -->
     <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
@@ -34,18 +33,21 @@
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
-                                <td ng-repeat="cell in inputFile.columns" ng-class="($index == subjectColumn) ? 'marked' :''" ng-click="selectSubjectColumn($index)">
-                                    {{ cell }}
-                                </td>
-                            </tr>
+                        <tr>
+                            <td ng-repeat="cell in inputFile.columns"
+                                ng-class="($index == subjectColumn) ? 'marked' :''"
+                                ng-click="selectSubjectColumn($index)">
+                                {{ cell }}
+                            </td>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in inputFile.rows">
-                                <td ng-repeat="cell in row" ng-class="($index == subjectColumn) ? 'marked' : ''" ng-click="selectSubjectColumn($index)">
-                                    {{ cell }}
-                                </td>
-                            </tr>
+                        <tr ng-repeat="row in inputFile.rows">
+                            <td ng-repeat="cell in row" ng-class="($index == subjectColumn) ? 'marked' : ''"
+                                ng-click="selectSubjectColumn($index)">
+                                {{ cell }}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -58,34 +60,38 @@
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
-                            <tr>
-                                <td ng-repeat="cell in inputFile.columns" ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''" ng-click="selectPosition($index, -1)"
-                                    data-toggle="modal" data-target="#myModal">
-                                    <div>
-                                        {{ cell }}
-                                    </div>
-                                    <div>
-                                        {{result.headerAnnotations[$index].candidates|chosenCandidates}}
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td ng-repeat="cell in inputFile.columns"
+                                ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
+                                ng-click="selectPosition($index, -1)"
+                                data-toggle="modal" data-target="#myModal">
+                                <div>
+                                    {{ cell }}
+                                </div>
+                                <div>
+                                    {{result.headerAnnotations[$index].candidates|chosenCandidates}}
+                                </div>
+                            </td>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="row in inputFile.rows">
-                                <td ng-repeat="cell in row" ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''" ng-click="selectPosition($index, $parent.$index)"
-                                    data-toggle="modal" data-target="#myModal">
-                                    <div>
-                                        {{ cell }}
-                                    </div>
-                                    <div>
-                                        {{result.cellAnnotations[$parent.$index][$index].candidates|chosenCandidates}}
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr ng-repeat="row in inputFile.rows">
+                            <td ng-repeat="cell in row"
+                                ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
+                                ng-click="selectPosition($index, $parent.$index)"
+                                data-toggle="modal" data-target="#myModal">
+                                <div>
+                                    {{ cell }}
+                                </div>
+                                <div>
+                                    {{result.cellAnnotations[$parent.$index][$index].candidates|chosenCandidates}}
+                                </div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                
+
 
                 <!-- Modal window for classification/disambiguation selection -->
                 <!--
@@ -106,7 +112,8 @@
                                 <div ng-repeat="(knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
                                     <h3>{{ knowledgeBase }}</h3>
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
-                                    <select size="3" ng-model="currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase]"
+                                    <select size="3"
+                                            ng-model="currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
                                             ng-change="change(currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase], knowledgeBase)"
@@ -131,7 +138,8 @@
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
                                     {{currentItems[selectedPosition.row +','+ selectedPosition.column]}}
                                     <!--// ng-init="currentItems[selectedPosition.row ' selectedPosition.column] = [candidates[0].entity.resource]"-->
-                                    <select size="3" ng-model="currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase]"
+                                    <select size="3"
+                                            ng-model="currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
                                             ng-change="change(currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase], knowledgeBase)"

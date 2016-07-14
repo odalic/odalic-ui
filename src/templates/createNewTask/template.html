@@ -1,7 +1,8 @@
 <!-- Main Content -->
 <main-cnt>
-    <!-- NavBar --> <navbar selected="1"
-                            lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
+    <!-- NavBar -->
+    <navbar selected="1"
+            lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
     <div class="container-fluid" ng-controller="createnewtask-ctrl">
         <h2>Creation of new task</h2>
@@ -9,7 +10,7 @@
 
             <!-- Name of new task -->
             <fieldset>
-                <legend>New task </legend>
+                <legend>New task</legend>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
@@ -22,86 +23,90 @@
             <!--Uploading input file -->
             <fieldset>
                 <legend>Input file</legend>
-				<!-- Specifying a source -->
-				<div class="form-group">
-					<label class="control-label col-md-2">
-							Source:
-					</label>
-					<div class="col-md-5">
-						<label class="radio-inline">
-							<input type="radio" ng-model="fileProvision" value="local" /> 
-							Uploaded or local file
-						</label>
-					</div>
-					<div class="col-md-5">
-						<label class="radio-inline">
-							<input type="radio" ng-model="fileProvision" value="remote" /> 
-							Remote file
-						</label>
-					</div>
-				</div>
-				
-				<div ng-switch="fileProvision">
-					<!-- When a file that was already uploaded is to be selected -->
-					<div ng-switch-when="local">
-						<!-- Select from the already uploaded ones -->
-						<div class="form-group">
-							<label class="col-md-2 control-label">Available files:</label>
-							<div class="col-md-10">
-								<select class="form-control" ng-model="files.selectedFile"
-										ng-options="file.id for file in savedFiles"></select>
-							</div>
-						</div>
-						
-						<!-- Upload a new local file -->
-						<div class="form-group">
-							<label class="col-md-2 control-label">Upload a new file:</label>
-							<div class="col-md-8">
-								<input type="file" id="concreteFile"/>
-							</div>
-							<div class="col-md-2"></div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-2 control-label">Identifier:</label>
-							<div class="col-md-8">
-								<input type="text" class="form-control" ng-model="fileUpload.identifier" \>
-							</div>
-							<div class="col-md-2 text-center">
-								<!-- Button 'upload' -->
-								<button ng-hide="fileUpload.uploadingFile" type="button" class="form-control" ng-click="fileUpload.uploadFile()">Upload</button>
-								<!-- Icon 'loading' -->
-								<i ng-hide="!fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-							</div>
-						</div>
-						
-						<!--  Alert 'error while uploading' -->
-						<div ng-show="fileUpload.uploadFileError.alert" class="alert alert-danger">
-							<a class="close" ng-click="fileUpload.uploadFileError.close()" aria-label="close">&times;</a>
-							An error occured while uploading the file. Details: {{ fileUpload.uploadFileError.details }}
-						</div>
-						
-						<!--  Alert 'successfule upload' -->
-						<div ng-show="fileUpload.uploadFileSuccess.alert" class="alert alert-success">
-							<a class="close" ng-click="fileUpload.uploadFileSuccess.close()" aria-label="close">&times;</a>
-							The file has been successfully uploaded.
-						</div>
-					</div>
-					
-					<!-- When a remote file is to be specified -->
-					<div ng-switch-when="remote">
-						<div class="form-group">
-							<label class="col-md-2 control-label">specify a location:</label>
-							<div class="col-md-10">
-								<input class="form-control" type="text" ng-model="location" \>
-							</div>
-						</div>
-					</div>
-				</div>
+                <!-- Specifying a source -->
+                <div class="form-group">
+                    <label class="control-label col-md-2">
+                        Source:
+                    </label>
+                    <div class="col-md-5">
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="fileProvision" value="local"/>
+                            Uploaded or local file
+                        </label>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="fileProvision" value="remote"/>
+                            Remote file
+                        </label>
+                    </div>
+                </div>
+
+                <div ng-switch="fileProvision">
+                    <!-- When a file that was already uploaded is to be selected -->
+                    <div ng-switch-when="local">
+                        <!-- Select from the already uploaded ones -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Available files:</label>
+                            <div class="col-md-10">
+                                <select class="form-control" ng-model="files.selectedFile"
+                                        ng-options="file.id for file in savedFiles"></select>
+                            </div>
+                        </div>
+
+                        <!-- Upload a new local file -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Upload a new file:</label>
+                            <div class="col-md-8">
+                                <input type="file" id="concreteFile"/>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Identifier:</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" ng-model="fileUpload.identifier" \>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <!-- Button 'upload' -->
+                                <button ng-hide="fileUpload.uploadingFile" type="button" class="form-control"
+                                        ng-click="fileUpload.uploadFile()">Upload
+                                </button>
+                                <!-- Icon 'loading' -->
+                                <i ng-hide="!fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                            </div>
+                        </div>
+
+                        <!--  Alert 'error while uploading' -->
+                        <div ng-show="fileUpload.uploadFileError.alert" class="alert alert-danger">
+                            <a class="close" ng-click="fileUpload.uploadFileError.close()"
+                               aria-label="close">&times;</a>
+                            An error occured while uploading the file. Details: {{ fileUpload.uploadFileError.details }}
+                        </div>
+
+                        <!--  Alert 'successfule upload' -->
+                        <div ng-show="fileUpload.uploadFileSuccess.alert" class="alert alert-success">
+                            <a class="close" ng-click="fileUpload.uploadFileSuccess.close()"
+                               aria-label="close">&times;</a>
+                            The file has been successfully uploaded.
+                        </div>
+                    </div>
+
+                    <!-- When a remote file is to be specified -->
+                    <div ng-switch-when="remote">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">specify a location:</label>
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" ng-model="location" \>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </fieldset>
 
             <!-- File settings -->
             <fieldset>
-                <legend>File settings </legend>
+                <legend>File settings</legend>
                 <!-- File settings -->
                 <div class="form-group">
                     <label class="col-md-2 control-label">Choose encoding:</label>
@@ -136,20 +141,20 @@
                             <input type="radio"
                                    ng-model="delimiter" value="semicolon">;
                         </label> <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="colon">:
-                        </label> <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="tab">tab
-                        </label> <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="other"> other:
-                        </label> <input type="text" ng-model="otherDelimiter">
+                        <input type="radio"
+                               ng-model="delimiter" value="colon">:
+                    </label> <label class="radio-inline">
+                        <input type="radio"
+                               ng-model="delimiter" value="tab">tab
+                    </label> <label class="radio-inline">
+                        <input type="radio"
+                               ng-model="delimiter" value="other"> other:
+                    </label> <input type="text" ng-model="otherDelimiter">
 
                     </div>
                 </div>
 
-                <!--setting of "" wrapper-->
+                <!-- setting of "" wrapper -->
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
                         <label class="checkbox-inline">

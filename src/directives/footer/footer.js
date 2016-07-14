@@ -11,6 +11,6 @@
             templateUrl: currentFolder + 'footer.html',
             transclude: true
         }
-    });    
+    });
 
 })();

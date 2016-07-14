@@ -2,15 +2,15 @@
  * General button declarations
  */
 .odalic-button-skeleton {
-	cursor: pointer;
-	min-width: 85px;
-	padding: 4px 20px 4px 20px;
-	.odalic-gfont-general;
+    cursor: pointer;
+    min-width: 85px;
+    padding: 4px 20px 4px 20px;
+    .odalic-gfont-general;
 }
 
 .odalic-button-border {
     border-width: 2px;
-	border-style: solid;
+    border-style: solid;
 }
 
 .odalic-button-shadow {
@@ -20,16 +20,16 @@
 .odalic-button-clickable {
      &:active span {
         position: relative;
-	    left: +1px;
-	    top: +1px;
+        left: +1px;
+        top: +1px;
     }
 }
 
 .odalic-button-shadowclick {
     &:active {
         position: relative;
-	    top: +2px;
-	    box-shadow: 0 3px @odalic-color-darkgrey;
+        top: +2px;
+        box-shadow: 0 3px @odalic-color-darkgrey;
     }
 }
 
@@ -39,14 +39,14 @@
  */
 button.style1 {
     .odalic-button-skeleton;
-	.odalic-bstyle-orange;
+    .odalic-bstyle-orange;
     padding: 6px 20px 6px 20px;
-	border-width: 0px;
-	border-radius: 4px;
-	transition: @odalic-animation-quick;
+    border-width: 0px;
+    border-radius: 4px;
+    transition: @odalic-animation-quick;
     span {
-	    position: relative;
-	    transition: @odalic-animation-quick;
+        position: relative;
+        transition: @odalic-animation-quick;
         &:before {
             content: '»';
             opacity: 0;
@@ -58,10 +58,10 @@ button.style1 {
     }
     &:hover {
         border-color: @odalic-color-yellow;
-	    background-color: @odalic-color-yellow;
+        background-color: @odalic-color-yellow;
         span {
-    	    color: @odalic-color-orange;
-	        padding-left: 10px;
+            color: @odalic-color-orange;
+            padding-left: 10px;
             &:before {
                 opacity: 1;
                 left: 0px;
@@ -70,32 +70,32 @@ button.style1 {
     }
     &:active {
         box-shadow: 0 3px @odalic-color-grey;
-	    transition: 0s;
+        transition: 0s;
     }
 }
 
 button.style2 {
-	.odalic-button-skeleton;
-	.odalic-button-border;
+    .odalic-button-skeleton;
+    .odalic-button-border;
     .odalic-button-clickable;
     .odalic-bstyle-iorange;
-	border-radius: 4px;
-	transition: @odalic-animation-fast;
+    border-radius: 4px;
+    transition: @odalic-animation-fast;
     &:hover {
-    	color: @odalic-color-white;
-    	background-color: @odalic-color-orange;
+        color: @odalic-color-white;
+        background-color: @odalic-color-orange;
     }
 }
 
 button.style3 {
-	.odalic-button-skeleton;
-	.odalic-button-border;
+    .odalic-button-skeleton;
+    .odalic-button-border;
     .odalic-button-clickable;
     .odalic-bstyle-iorange;
-	transition: @odalic-animation-fast;
+    transition: @odalic-animation-fast;
     &:hover {
         color: @odalic-color-white;
-	    background-color: @odalic-color-orange;
+        background-color: @odalic-color-orange;
     }
 }
 
@@ -111,28 +111,28 @@ button.style4 {
 }
 
 button.style5 {
-	.odalic-button-skeleton;
+    .odalic-button-skeleton;
     .odalic-button-border;
     .odalic-button-clickable;
-	.odalic-bstyle-blue;
-	transition: @odalic-animation-fast;
+    .odalic-bstyle-blue;
+    transition: @odalic-animation-fast;
     &:hover {
         color: @odalic-color-blue;
-	    background-color: @odalic-color-white;
+        background-color: @odalic-color-white;
     }
 }
 
 button.style6 {
-	.odalic-button-skeleton;
-	.odalic-button-border;
+    .odalic-button-skeleton;
+    .odalic-button-border;
     .odalic-button-shadowclick;
     .odalic-bstyle-blue;
-	.odalic-button-shadow;
+    .odalic-button-shadow;
     border-radius: 6px;
-	transition: background-color @odalic-animation-fast;
+    transition: background-color @odalic-animation-fast;
     &:hover {
-    	border-color: @odalic-color-darkblue;
-    	background-color: @odalic-color-darkblue;
+        border-color: @odalic-color-darkblue;
+        background-color: @odalic-color-darkblue;
     }
 }
 
@@ -144,18 +144,18 @@ button.style7 {
     .odalic-button-shadow;
     transition: background-color @odalic-animation-fast;
     &:hover {
-    	border-color: @odalic-color-darkblue;
-    	background-color: @odalic-color-darkblue;
+        border-color: @odalic-color-darkblue;
+        background-color: @odalic-color-darkblue;
     }
 }
 
 button.style8 {
-	.odalic-button-skeleton;
-	.odalic-button-border;
+    .odalic-button-skeleton;
+    .odalic-button-border;
     .odalic-button-clickable;
     .odalic-bstyle-lightgrey;
-	transition: border-color @odalic-animation-fast;
+    transition: border-color @odalic-animation-fast;
     &:hover {
-    	border-color: @odalic-color-almostblack;
+        border-color: @odalic-color-almostblack;
     }
 }
