@@ -68,8 +68,8 @@
                                 <div>
                                     {{ cell }}
                                 </div>
-                                <div>
-                                    {{result.headerAnnotations[$index].candidates|chosenCandidates}}
+                                <div ng-repeat="cl in currentItems[-1][$index]">
+                                    {{cl}}
                                 </div>
                             </td>
                         </tr>
@@ -83,8 +83,8 @@
                                 <div>
                                     {{ cell }}
                                 </div>
-                                <div>
-                                    {{result.cellAnnotations[$parent.$index][$index].candidates|chosenCandidates}}
+                                <div ng-repeat="cl in currentItems[$parent.$index][$index]">
+                                    {{cl}}
                                 </div>
                             </td>
                         </tr>
@@ -92,6 +92,16 @@
                     </table>
                 </div>
 
+                <!--<div>feedback :{{feedback}}</div>
+                <div>bla :{{currentItems}}</div>
+                <div>ignoredColumn :{{ignoredColumn}}</div>
+                <div>noDisambiguationColumn :{{noDisambiguationColumn}}</div>
+                <div>noDisambiguationCell :{{noDisambiguationCell}}</div>-->
+
+
+                <button ng-click="setFeedback()">
+                    send
+                </button>
 
                 <!-- Modal window for classification/disambiguation selection -->
                 <!--
@@ -113,18 +123,17 @@
                                     <h3>{{ knowledgeBase }}</h3>
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
                                     <select size="3"
-                                            ng-model="currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase]"
+                                            ng-model="currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                            ng-change="change(currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase], knowledgeBase)"
-                                            class="modal-body">
-                                        <!-- Always provide an empty option as well -->
-                                        <!--<option value=''>(empty)</option>-->
-                                    </select>
-                                    <!-- TODO pridani do select boxu a do resultu -->
-                                    <!-- TODO vlastni vyber -->
-                                    <!-- TODO neklasifikovat -->
+                                          
+                                            class="modal-body"></select>
+                                   
                                 </div>
+                                <br>
+                                <input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]"> Ignore Column <br>
+                                <input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]"> Skip disambiguation in all cell of this collumn <br>
+                                Own classification: <input type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other">
                             </div>
 
                             <!-- Cell disambiguation -->
@@ -136,22 +145,19 @@
                                 <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
                                     <h3>{{ knowledgeBase }}</h3>
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
-                                    {{currentItems[selectedPosition.row +','+ selectedPosition.column]}}
-                                    <!--// ng-init="currentItems[selectedPosition.row ' selectedPosition.column] = [candidates[0].entity.resource]"-->
+
+                                   
                                     <select size="3"
-                                            ng-model="currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase]"
+                                            ng-model=" currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                            ng-change="change(currentItems[selectedPosition.row +','+ selectedPosition.column +','+ knowledgeBase], knowledgeBase)"
-                                            class="modal-body">
-                                        <!-- Always provide an empty option as well -->
-                                        <!--<option value=''>(empty)</option>-->
-                                    </select>
+                                            
+                                            class="modal-body"></select>
 
-                                    <!-- TODO vlastni vyber -->
-                                    <!-- TODO neklasifikovat -->
-                                    <!--  -->
                                 </div>
+
+                                <input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"> Skip disambiguation in the cell<br>
+                                Own disambiguation: <input type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other">
                             </div>
                         </div>
                     </div>

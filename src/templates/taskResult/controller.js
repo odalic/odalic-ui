@@ -22,7 +22,7 @@
     });
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, sharedata, requests) {
+    app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests) {
 
         // Loading the input CSV file
         var loadInput = function (input) {
@@ -68,22 +68,40 @@
         // Bylo presunuto z $.getJSONSync (metoda byla jen temporarni)
         // Prosim, nemenit (pokud neni zavazny duvod) nacitavani "input CSV file" a "result".
         // Taky tam nic nepripisovat (opet: jen ze zavazneho duvodu).
+
+
+        //objects which saves users setting 
+        $scope.feedback = {};
+        $scope.ignoredColumn = {};
+        $scope.noDisambiguationColumn = {};
+        $scope.noDisambiguationCell = {};
         $scope.currentItems = {};
+
+        // Providing feedback
+        $scope.subjectColumn = $scope.result.subjectColumnPosition.index;    // Defaultly selected subject column
+
+        //sets selection boxes from  classification and disambiguation of algorithm
+        //sets header of table       
+        $scope.currentItems['-1'] = {};
         for (var i = 0; i < $scope.result.headerAnnotations.length; i++) {
             var cell = $scope.result.headerAnnotations[i].candidates;
             var selectedCandidates = [];
+            $scope.currentItems['-1'][i] = {};
             for (var kb in cell) {
                 for (var k = 0; k < cell[kb].length; k++) {
                     if (cell[kb][k].chosen == true) {
                         selectedCandidates.push(cell[kb][k].entity.resource);
                     }
                 }
-                $scope.currentItems['-1,' + i + ',' + kb] = selectedCandidates;
+                $scope.currentItems['-1'][i][kb] = selectedCandidates;
             }
         }
+        //set cells of table
         for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
+            $scope.currentItems[i] = {};
             var row = $scope.result.cellAnnotations[i];
             for (var j = 0; j < row.length; j++) {
+                $scope.currentItems[i][j] = {};
                 var cell = row[j].candidates;
                 if (cell != {}) {
                     for (var kb in cell) {
@@ -93,15 +111,221 @@
                                 selectedCandidates.push(cell[kb][k].entity.resource);
                             }
                         }
-                        $scope.currentItems[i + ',' + j + ',' + kb] = selectedCandidates;
+                        $scope.currentItems[i][j][kb] = selectedCandidates;
                     }
                 }
             }
         }
-        function initSelectionBoxes() {
-            alert("ddd");
+
+        $scope.setFeedback = function () {
+            //sets subjectColumn
+            //"subjectColumnPosition": { "index": 3 }
+            //TODO mozna pouzit nejakou funkci na tvoreni vic levlu objektu, nebo mozna zbytecne slozita struktura
+            $scope.feedback.subjectColumnPosition = {};
+            $scope.feedback.subjectColumnPosition.index = $scope.subjectColumn;
+
+            //sets ignored columns
+            //"columnIgnores": [ { position: { index: 6 } },...]
+            $scope.feedback.columnIgnores = [];
+            for (var columnNumber in $scope.ignoredColumn) {
+                if ($scope.ignoredColumn[columnNumber] == true) {
+                    $scope.feedback.columnIgnores.push({ position: { index: columnNumber } });
+                }
+
+            }
+
+
+            //sets changed classification
+            //"classifications": [{
+            //    position: { index: 5 },
+            //    annotation: {"candidates": {"dbpedia": [{"entity": { "resource": "http://bleble.com", "label": "Ble" }, "likelihood": { "value": 0.5 },"chosen":true;}, ...],    "wikidata": ...,},
+
+            $scope.feedback.classifications = [];
+
+            for (var columnNumber in $scope.currentItems[-1]) {
+                changed = false;
+                for (var KB in $scope.currentItems[-1][columnNumber]) {
+                    userChanges = $scope.currentItems[-1][columnNumber][KB];
+                    inputSetting = $scope.result.headerAnnotations[columnNumber].candidates[KB];
+
+                    changed = findUserChanges(userChanges, inputSetting, -1, columnNumber, changed, KB);
+                }
+                // sets feedback, if user changed some clasification in headers of table
+                if (changed) {
+                    var changedClassification = {};
+
+                    changedClassification.position = {};
+                    changedClassification.position.index = columnNumber;
+
+                    changedClassification.annotation = {};
+                    changedClassification.annotation.candidates = {};
+
+                    cell = $scope.result.headerAnnotations[columnNumber].candidates;
+                    setFeedbackChanges(changedClassification, -1, columnNumber, cell);
+
+                    $scope.feedback.classifications.push(changedClassification);
+
+                }
+
+            }
+
+            //sets the skipped column -disambiguations
+            //"columnAmbiguities": [{ position: { index: 6 } },...],
+            $scope.feedback.columnAmbiguities = [];
+            for (var columnNumber in $scope.noDisambiguationColumn) {
+                if ($scope.noDisambiguationColumn[columnNumber] == true) {
+                    $scope.feedback.columnAmbiguities.push({ position: { index: columnNumber } });
+                }
+
+            }
+
+            //sets the skipped cell disambiguations
+            //"ambiguities": [{ position: { rowPosition: { index: 6 }, columnPosition: { index: 6 } } }, ...],
+            $scope.feedback.ambiguities = [];
+            for (var rowNumber in $scope.noDisambiguationCell) {
+                for (var columnNumber in $scope.noDisambiguationCell[rowNumber]) {
+                    if ($scope.noDisambiguationCell[rowNumber][columnNumber] == true) {
+                        $scope.feedback.ambiguities.push({ position: { rowPosition: { index: rowNumber }, columnPosition: { index: columnNumber } } });
+
+                    }
+
+                }
+            }
+
+            //sets changed disambiguations
+            //"disambiguations": [{
+            //    position: { positionRow:{ index: 5 }, positionColumn{index :6}},
+            //    annotation: {"candidates": {"dbpedia": [{"entity": { "resource": "http://bleble.com", "label": "Ble" }, "likelihood": { "value": 0.5 },"chosen":true;}, ...],    "wikidata": ...,},
+
+            $scope.feedback.disambiguations = [];
+            for (var rowNumber in $scope.currentItems) {
+
+                if (rowNumber == -1)
+                    continue;
+
+                for (var columnNumber in $scope.currentItems[rowNumber]) {
+                    changed = false;
+                    for (var KB in $scope.currentItems[rowNumber][columnNumber]) {
+                        userChanges = $scope.currentItems[rowNumber][columnNumber][KB];
+                        inputSetting = $scope.result.cellAnnotations[rowNumber][columnNumber].candidates[KB];
+                        changed = findUserChanges(userChanges, inputSetting, rowNumber, columnNumber, changed, KB);
+                    }
+                    // sets feedback, if user changed some disambiguation in cell of table
+                    if (changed) {
+                        var changedDisambiguation = {};
+
+                        changedDisambiguation.position = {};
+                        changedDisambiguation.position.rowPosition = {};
+                        changedDisambiguation.position.rowPosition.index = rowNumber;
+
+                        changedDisambiguation.position.columnPosition = {};
+                        changedDisambiguation.position.columnPosition.index = columnNumber;
+
+                        cell = $scope.result.cellAnnotations[rowNumber][columnNumber].candidates;
+                        setFeedbackChanges(changedDisambiguation, rowNumber, columnNumber, cell);
+
+                        $scope.feedback.disambiguations.push(changedDisambiguation);
+
+                    }
+
+                }
+
+
+            }
+            $scope.feedback.cellRelations = [];
+
+            $scope.feedback.columnRelations = [];
+
+            //sends feedback to server
+            //TODO udelat jako globalni konfiguracni promennou
+            var feedbackUrl = "http://localhost:8080/odalic/tasks/" + sharedata.get("TaskID") + "/configuration/feedback"
+
+            requests.reqJSON({
+                method: "PUT",
+                address: feedbackUrl,
+                formData: $scope.feedback,
+                success: function (response) {
+                    alert("Feedback was saved.");
+                    $window.location.href = "#/createnewtask";
+                },
+                failure: function (response) {
+                    alert("Fail.");
+                }
+            });
+
         }
 
+
+
+        //TODO mozna predpocitat pri kazde zmene - rozmyslet
+        function findUserChanges(userChanges, inputSetting, rowNumber, columnNumber, changed, KB) {
+
+            if (KB != "other") {
+                for (var i = 0; i < inputSetting.length; i++) {
+
+                    //TODO mozna rychleji
+                    //detectes user's changed classification
+                    if (userChanges.includes(inputSetting[i].entity.resource)) {
+                        // changedIndexes[KB].push(i);
+                        if (inputSetting[i].chosen == false) {
+                            changed = true;
+                            inputSetting[i].chosen = true;
+                        }
+                    }
+                    else {
+                        if (inputSetting[i].chosen == true) {
+                            changed = true;
+                            inputSetting[i].chosen = false;
+                        }
+                    }
+                }
+            }
+            else {
+                //TODO asi jinak protoze je mozna potreba sjednotit currentItems.other z ""  na  [""]
+                if (!($scope.currentItems[rowNumber][columnNumber]["other"] == "")) {
+                    changed = true;
+                }
+            }
+            return changed;
+        }
+
+        //
+        function setFeedbackChanges(changedSelection, rowNumber, columnNumber, cell) {
+            changedSelection.annotation = {};
+            changedSelection.annotation.candidates = {};
+
+            feedbackCandidates = changedSelection.annotation.candidates;
+
+            for (var KB in $scope.currentItems[rowNumber][columnNumber]) {
+                feedbackCandidates[KB] = [];
+
+                if (KB == "other") {
+                    feedbackCandidates["other"].push(
+                       {
+                           "entity": { "resource": $scope.currentItems[rowNumber][columnNumber][KB], "label": "" },
+                           "likelihood": { "value": 0 },
+                           "chosen": true
+                       }
+                   );
+
+                }
+                else {
+                    //TODO mozna jinak
+                    for (var i = 0; i < cell[KB].length; i++) {
+                        feedbackCandidates[KB].push(
+                                cell[KB][i]
+                        );
+
+
+                    }
+                }
+            }
+
+
+
+
+
+        }
 
         // VIEW
         $scope.state = 1;                       // Default VIEW
@@ -138,43 +362,44 @@
         }
 
 
-        // Providing feedback
-        $scope.subjectColumn = $scope.result.subjectColumnPosition.index;    // Defaultly selected subject column
-        $scope.initSelection = function (row, column) {
-            alert("BB");
-            return 0;
-        }
+        //TODO mozna online detekce zmeny jinak je to k nicemu
         $scope.change = function (chosenValues, kb) {                       // Changes the values in the table according to the selected classification and disambiguation (which is wrong; it should change the result file, see the "chosen" attribute)
-            var r = $scope.selectedPosition.row;
-            var c = $scope.selectedPosition.column;
+            //var r = $scope.selectedPosition.row;
+            //var c = $scope.selectedPosition.column;
 
-            // Table header selected
-            if (r == -1) {
-                var chosenKnowledgeBase = $scope.result.headerAnnotations[c].candidates[kb];
 
-                for (var i = 0; i < chosenKnowledgeBase.length; i++) {
-                    if (chosenValues.includes(chosenKnowledgeBase[i].entity.resource)) {
-                        chosenKnowledgeBase[i].chosen = true;
-                    }
-                    else {
-                        chosenKnowledgeBase[i].chosen = false;
-                    }
-                }
 
-            }
-            // Non-header cell selected
-            else {
-                var chosenKnowledgeBase = $scope.result.cellAnnotations[r][c].candidates[kb];
 
-                for (var i = 0; i < chosenKnowledgeBase.length; i++) {
-                    if (chosenValues.includes(chosenKnowledgeBase[i].entity.resource)) {
-                        chosenKnowledgeBase[i].chosen = true;
-                    }
-                    else {
-                        chosenKnowledgeBase[i].chosen = false;
-                    }
-                }
-            }
+
+            ////saves changed indexes of selection
+            //// Table header selected
+            //if (r == -1) {
+            //    var chosenKnowledgeBase = $scope.result.headerAnnotations[c].candidates[kb];
+            //    changedIndexes[r][c][chosenKnowledgeBase] = [];
+            //    for (var i = 0; i < chosenKnowledgeBase.length; i++) {
+            //        //TODO mozna to jde rychleji protoze je to stejne serazene??
+            //        if (chosenValues.includes(chosenKnowledgeBase[i].entity.resource)) {
+            //            if (chosenKnowledgeBase[i].chosen == false){
+            //                changedIndexes[chosenKnowledgeBase].push = i;
+            //            }
+            //        }
+            //    }
+
+            //}
+            //// Non-header cell selected
+            //else {
+            //    var chosenKnowledgeBase = $scope.result.cellAnnotations[r][c].candidates[kb];
+            //    changedIndexes[r][c][chosenKnowledgeBase] = [];
+            //    for (var i = 0; i < chosenKnowledgeBase.length; i++) {
+            //        //TODO mozna to jde rychleji protoze je to stejne serazene??
+            //        if (chosenValues.includes(chosenKnowledgeBase[i].entity.resource)) {
+            //            if (chosenKnowledgeBase[i].chosen == false) {
+            //                changedIndexes[chosenKnowledgeBase].push = i;
+            //            }
+            //        }
+
+            //    }
+            //}
         };
 
 
