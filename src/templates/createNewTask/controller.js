@@ -158,8 +158,11 @@
                     address: taskResultUrl,
                     formData: undefined,
                     success: function (response) {
+                        //TODO predelat pro vice tasku bezicich zaroven??
                         // Save the result and redirect
                         sharedata.set("Result", response.data);
+                        // Save the task ID
+                        sharedata.set("TaskID", $scope.taskCreation.identifier);
                         $window.location.href = "#/taskresult";
                     },
                     // TODO: Uncomment this
