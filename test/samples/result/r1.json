@@ -1,0 +1,799 @@
+{
+	"subjectColumnPosition": {
+		"index": 0
+	},
+	"headerAnnotations": [{
+		"candidates": {
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/ontology#Item",
+					"label": "Item"
+				},
+				"likelihood": {
+					"value": 0.0
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Book_CW",
+					"label": "Book CW"
+				},
+				"likelihood": {
+					"value": 2.0545156945171104
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Artifact100021939",
+					"label": "Artifact"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Creation103129123",
+					"label": "Creation"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Object100002684",
+					"label": "Object"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/PhysicalEntity100001930",
+					"label": "Physical Entity"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Product104007894",
+					"label": "Product"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Publication106589574",
+					"label": "Publication"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Whole100003553",
+					"label": "Whole"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Work104599396",
+					"label": "Work"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Work",
+					"label": "work"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/WrittenWork",
+					"label": "written work"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/CreativeWork",
+					"label": "Creative Work"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q386724",
+					"label": "work"
+				},
+				"likelihood": {
+					"value": 2.5088834764831844
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Book106410904",
+					"label": "Book"
+				},
+				"likelihood": {
+					"value": 3.570209996468391
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://purl.org/ontology/bibo/Book",
+					"label": "Book"
+				},
+				"likelihood": {
+					"value": 3.570209996468391
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/Book",
+					"label": "Book"
+				},
+				"likelihood": {
+					"value": 3.6679161070671817
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Book",
+					"label": "book"
+				},
+				"likelihood": {
+					"value": 3.6679161070671817
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q571",
+					"label": "book"
+				},
+				"likelihood": {
+					"value": 3.6679161070671817
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/Book",
+					"label": "Book"
+				},
+				"likelihood": {
+					"value": 3.803755135788578
+				},
+				"chosen": true
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/ontology#Item",
+					"label": "Item"
+				},
+				"likelihood": {
+					"value": 0.0
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Alumnus109786338",
+					"label": "Alumnus"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/CausalAgent100007347",
+					"label": "Causal Agent"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Communicator109610660",
+					"label": "Communicator"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Intellectual109621545",
+					"label": "Intellectual"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/IowaWriters'WorkshopAlumni",
+					"label": "Iowa Writers Workshop Alumni"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/LivingPeople",
+					"label": "Living People"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/LivingThing100004258",
+					"label": "Living Thing"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Object100002684",
+					"label": "Object"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Organism100004475",
+					"label": "Organism"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Person100007846",
+					"label": "Person"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/PhysicalEntity100001930",
+					"label": "Physical Entity"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/PseudonymousWriters",
+					"label": "Pseudonymous Writers"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Scholar110557854",
+					"label": "Scholar"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Whole100003553",
+					"label": "Whole"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Writer110794014",
+					"label": "Writer"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/YagoLegalActor",
+					"label": "Yago Legal Actor"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/YagoLegalActorGeo",
+					"label": "Yago Legal Actor Geo"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Agent",
+					"label": "agent"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Person",
+					"label": "person"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Writer",
+					"label": "writer"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/Person",
+					"label": "Person"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Writer",
+					"label": "Writer"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#NaturalPerson",
+					"label": "Natural Person"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q215627",
+					"label": "person"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q36180",
+					"label": "writer"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q5",
+					"label": "human"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://xmlns.com/foaf/0.1/Person",
+					"label": "Person"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/CanadianFantasyWriters",
+					"label": "Canadian Fantasy Writers"
+				},
+				"likelihood": {
+					"value": 2.8980423973947538
+				},
+				"chosen": true
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/ontology#Item",
+					"label": "Item"
+				},
+				"likelihood": {
+					"value": 1.8944271909999157
+				},
+				"chosen": false
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q277759",
+					"label": "book series"
+				},
+				"likelihood": {
+					"value": 3.598311294462163
+				},
+				"chosen": true
+			}]
+		}
+	}],
+	"cellAnnotations": [[{
+		"candidates": {
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Gardens_of_the_Moon",
+					"label": "Gardens of the Moon"
+				},
+				"likelihood": {
+					"value": 2.25
+				},
+				"chosen": true
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Steven_Erikson",
+					"label": "Steven Erikson"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": true
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q458982",
+					"label": "Malazan Book of the Fallen"
+				},
+				"likelihood": {
+					"value": 1.8944271909999157
+				},
+				"chosen": true
+			}]
+		}
+	}],
+	[{
+		"candidates": {
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Deadhouse_Gates",
+					"label": "Deadhouse Gates"
+				},
+				"likelihood": {
+					"value": 2.767766952966369
+				},
+				"chosen": true
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Steven_Erikson",
+					"label": "Steven Erikson"
+				},
+				"likelihood": {
+					"value": 2.1570838237598053
+				},
+				"chosen": true
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q458982",
+					"label": "Malazan Book of the Fallen"
+				},
+				"likelihood": {
+					"value": 1.8944271909999157
+				},
+				"chosen": true
+			}]
+		}
+	}]],
+	"columnRelationAnnotations": {
+		"0": {
+			"1": {
+				"candidates": {
+					"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/author",
+							"label": ""
+						},
+						"likelihood": {
+							"value": 2.5374574785652646
+						},
+						"chosen": false
+					},
+					{
+						"entity": {
+							"resource": "http://dbpedia.org/property/author",
+							"label": ""
+						},
+						"likelihood": {
+							"value": 2.5374574785652646
+						},
+						"chosen": true
+					}]
+				}
+			},
+			"2": {
+				"candidates": {
+					"DBpedia": [{
+						"entity": {
+							"resource": "http://purl.org/dc/terms/subject",
+							"label": ""
+						},
+						"likelihood": {
+							"value": 1.0
+						},
+						"chosen": false
+					},
+					{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/series",
+							"label": ""
+						},
+						"likelihood": {
+							"value": 2.5374574785652646
+						},
+						"chosen": false
+					},
+					{
+						"entity": {
+							"resource": "http://dbpedia.org/property/series",
+							"label": ""
+						},
+						"likelihood": {
+							"value": 2.5374574785652646
+						},
+						"chosen": true
+					}]
+				}
+			}
+		}
+	},
+	"cellRelationAnnotations": {
+		"1": {
+			"0": {
+				"1": {
+					"candidates": {
+						"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/author",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": false
+						},
+						{
+							"entity": {
+								"resource": "http://dbpedia.org/property/author",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": true
+						}]
+					}
+				},
+				"2": {
+					"candidates": {
+						"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/series",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": false
+						},
+						{
+							"entity": {
+								"resource": "http://dbpedia.org/property/series",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": false
+						},
+						{
+							"entity": {
+								"resource": "http://purl.org/dc/terms/subject",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": true
+						}]
+					}
+				}
+			}
+		},
+		"0": {
+			"0": {
+				"1": {
+					"candidates": {
+						"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/author",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": false
+						},
+						{
+							"entity": {
+								"resource": "http://dbpedia.org/property/author",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": true
+						}]
+					}
+				},
+				"2": {
+					"candidates": {
+						"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/series",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": false
+						},
+						{
+							"entity": {
+								"resource": "http://dbpedia.org/property/series",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": false
+						},
+						{
+							"entity": {
+								"resource": "http://purl.org/dc/terms/subject",
+								"label": ""
+							},
+							"likelihood": {
+								"value": 1.0
+							},
+							"chosen": true
+						}]
+					}
+				}
+			}
+		}
+	}
+}

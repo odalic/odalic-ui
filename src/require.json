@@ -2,6 +2,7 @@
   "directives/maincnt/maincnt.js",
   "directives/navbar/navbar.js",
   "directives/footer/footer.js",
+  "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",
   "services/requests/requests.js",

@@ -22,7 +22,7 @@
     });
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests) {
+    app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests, ioc) {
 
         // Loading the input CSV file
         var loadInput = function (input) {
@@ -45,25 +45,16 @@
             });
         };
 
-        // Download the input CSV file and then load it
-        requests.reqCSV({
-            method: "GET",
-            address: sharedata.get("Input"),
-            formData: 'unspecified',
-            success: function (response) {
-                loadInput(response.data);
-                sharedata.clear("Input");
-            },
-            failure: function (response) {
-                // Failure
-            }
+        // Load the input CSV file and the result
+        var loader = ioc['taskresult/loader'];
+        loader.sharedata = sharedata;
+        loader.requests = requests;
+        loader.getCSV(function(data) {
+            loadInput(data);
         });
-
-
-        // Load the result
-        $scope.result = JSON.parse(sharedata.get("Result"));
-        sharedata.clear("Result");
-
+        loader.getJSON(function(data) {
+            $scope.result = data;
+        });
 
         // Bylo presunuto z $.getJSONSync (metoda byla jen temporarni)
         // Prosim, nemenit (pokud neni zavazny duvod) nacitavani "input CSV file" a "result".
