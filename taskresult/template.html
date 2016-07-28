@@ -1,0 +1,194 @@
+<!-- Main Content -->
+<!-- TODO: Styly treba premiestnit do css/less. Pouzi helpers.less pre "miscellaneous" styly. -->
+<style>
+    .marked {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<style>
+    /* Modal Content/Box */
+    .modal-content {
+        margin: 0% auto; /* 15% from the top and centered */
+        padding: 20px;
+    }
+</style>
+
+
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
+
+    <div class="container-flow">
+
+
+        <!-- VIEW -->
+        <div ng-switch="state">
+
+            <!-- VIEW: Sets subject column  -->
+            <div ng-switch-when="0">
+                <h2>Choosing of a subject column</h2>
+
+                <!-- Input file table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td ng-repeat="cell in inputFile.columns"
+                                ng-class="($index == subjectColumn) ? 'marked' :''"
+                                ng-click="selectSubjectColumn($index)">
+                                {{ cell }}
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in inputFile.rows">
+                            <td ng-repeat="cell in row" ng-class="($index == subjectColumn) ? 'marked' : ''"
+                                ng-click="selectSubjectColumn($index)">
+                                {{ cell }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VIEW: Sets classifications and disambiguations -->
+            <div ng-switch-when="1">
+                <h2>Choosing of classifications and disambiguations</h2>
+                <!-- Input file table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td ng-repeat="cell in inputFile.columns"
+                                ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
+                                ng-click="selectPosition($index, -1)"
+                                data-toggle="modal" data-target="#myModal">
+                                <div>
+                                    {{ cell }}
+                                </div>
+                                <div ng-repeat="cl in currentItems[-1][$index]">
+                                    {{cl}}
+                                </div>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="row in inputFile.rows">
+                            <td ng-repeat="cell in row"
+                                ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
+                                ng-click="selectPosition($index, $parent.$index)"
+                                data-toggle="modal" data-target="#myModal">
+                                <div>
+                                    {{ cell }}
+                                </div>
+                                <div ng-repeat="cl in currentItems[$parent.$index][$index]">
+                                    {{cl}}
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--<div>feedback :{{feedback}}</div>
+                <div>bla :{{currentItems}}</div>
+                <div>ignoredColumn :{{ignoredColumn}}</div>
+                <div>noDisambiguationColumn :{{noDisambiguationColumn}}</div>
+                <div>noDisambiguationCell :{{noDisambiguationCell}}</div>-->
+
+
+                <button ng-click="setFeedback()">
+                    send
+                </button>
+
+                <!-- Modal window for classification/disambiguation selection -->
+                <!--
+                    TODO: odselcteni crtl - click -> dotykove pristroje vi buh
+                    TODO: init selection : currentItems[selectedPosition.row+selectedPosition.column] == [www.dbpedia, www.dbpedia]
+                    TODO: stylovanie
+                 -->
+                <div id="myModal" class="modal" role="dialog">
+                    <div class="modal-dialog lg">
+                        <div class="modal-content">
+
+                            <!-- Column classification -->
+                            <div ng-if="(selectedPosition.row == -1)">
+                                <div class="modal-head">
+                                    <h2>Column classification</h2>
+                                </div>
+                                <!-- Separate div for each knowledge base -->
+                                <div ng-repeat="(knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
+                                    <h3>{{ knowledgeBase }}</h3>
+                                    <!-- Selection of a candidate(s) for the current knowledge base -->
+                                    <select size="3"
+                                            ng-model="currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]"
+                                            multiple
+                                            ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
+                                          
+                                            class="modal-body"></select>
+                                   
+                                </div>
+                                <br>
+                                <input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]"> Ignore Column <br>
+                                <input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]"> Skip disambiguation in all cell of this collumn <br>
+                                Own classification: <input type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other">
+                            </div>
+
+                            <!-- Cell disambiguation -->
+                            <div ng-if="(selectedPosition.row != -1)">
+                                <div class="modal-head">
+                                    <h2>Cell disambiguation</h2>
+                                </div>
+                                <!-- Separate div for each knowledge base -->
+                                <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
+                                    <h3>{{ knowledgeBase }}</h3>
+                                    <!-- Selection of a candidate(s) for the current knowledge base -->
+
+                                   
+                                    <select size="3"
+                                            ng-model=" currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]"
+                                            multiple
+                                            ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
+                                            
+                                            class="modal-body"></select>
+
+                                </div>
+
+                                <input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"> Skip disambiguation in the cell<br>
+                                Own disambiguation: <input type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: Default -->
+            <div ng-switch-default>
+                <!-- TODO: Nie je ten default zbytocny? Aj tak je v controlleri nastaveny defaultny stav ako "1" -->
+                <h2>Choosing of relationships between columns</h2>
+            </div>
+        </div>
+
+        <!-- VIEW: Pagination -->
+        <div class="text-center">
+            <ul class="pagination">
+                <li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
+                <!-- Numbers for each of the pages -->
+                <li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
+                    <a class="pointer" ng-click="setState($index)">
+                        {{ $index }}
+                    </a>
+                </li>
+                <li><a class="pointer" ng-click="setState(state + 1)">Next</a></li>
+            </ul>
+        </div>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer>
+    <p>A brand new footer.</p>
+</footer>
+
