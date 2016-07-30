@@ -29,12 +29,25 @@ var unorderedarr = function () {
         return (arrmap[id] !== undefined);
     };
 
+    /** Returns an index to the array of the given item id.
+     *
+     * @param id            id of the item
+     * @returns {number}    index of the item in the array
+     */
+    this.indexOf = function(id) {
+        if (!this.isPresent(id)) {
+            return -1;
+        }
+
+        return arrmap[id];
+    }
+
     /** Adds an item to the array
      *
      * @param item          An item to add; must implement id getter
      */
     this.addItem = function (item) {
-        if (item['id'] === undefined) {
+        if (item.id === undefined) {
             throw new Error('Item does not implement id getter');
         }
 

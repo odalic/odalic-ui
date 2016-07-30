@@ -25,31 +25,6 @@ var graph = function(svgSelection) {
      */
     this.edges = new unorderedarr();
 
-    // Override pushing vertices
-    var _ref = this;
-    this.vertices.addItem = (function (f) {
-        return function (item) {
-            f.call(_ref.vertices, item);
-            simulation
-                .nodes(_ref.vertices.arr);
-        };
-    })(_ref.vertices.addItem);
-
-    // Override pushing edges
-    this.edges.addItem = (function (f) {
-        return function (item) {
-            f.call(_ref.edges, item);
-
-            console.log(_ref.edges.arr[0].source);
-
-            simulation
-                .force('link')
-                .links(_ref.edges.arr);
-
-            console.log(_ref.edges.arr[0].source);
-        };
-    })(_ref.edges.addItem);
-
 
 
     /* Private members */
@@ -113,13 +88,53 @@ var graph = function(svgSelection) {
     /* Construction */
     /* ************ */
     simulation
-        .force('link', d3.forceLink().id(function(d) { return d.id; }))
+        .force('link', d3.forceLink(this.edges.arr))
         .force('charge', d3.forceManyBody())
         .force('center', d3.forceCenter(properties.width / 2, properties.height / 2))
         .nodes(this.vertices.arr)
         .on('tick', tickFunction);
 
-    simulation
-        .force('link')
-        .links(this.edges.arr);
+    // Override pushing vertices
+    var _ref = this;
+    this.vertices.addItem = (function (f) {
+        return function (item) {
+            f.call(_ref.vertices, item);
+            simulation
+                .nodes(_ref.vertices.arr);
+        };
+    })(_ref.vertices.addItem);
+
+    // Override removing vertices
+    this.vertices.removeItem = (function (f) {
+        return function (item) {
+            f.call(_ref.vertices, item);
+            simulation
+                .nodes(_ref.vertices.arr);
+        };
+    })(_ref.vertices.removeItem);
+
+    // Override pushing edges
+    this.edges.addItem = (function (f) {
+        return function (item) {
+            if (typeof(item.source) === 'string') {
+                item.source = _ref.vertices.indexOf(item.source);
+            }
+            if (typeof(item.target) === 'string') {
+                item.target = _ref.vertices.indexOf(item.target);
+            }
+
+            f.call(_ref.edges, item);
+            simulation
+                .force('link', d3.forceLink(_ref.edges.arr));
+        };
+    })(_ref.edges.addItem);
+
+    // Override removing edges
+    this.edges.removeItem = (function (f) {
+        return function (item) {
+            f.call(_ref.edges, item);
+            simulation
+                .force('link', d3.forceLink(_ref.edges.arr));
+        };
+    })(_ref.edges.removeItem);
 }
