@@ -23,7 +23,8 @@
 
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests, ioc) {
-
+        $scope.primaryKB = sharedata.get("PrimaryKB");
+        $scope.chosenKBs = sharedata.get("ChosenKBs");
         // Loading the input CSV file
         var loadInput = function (input) {
             Papa.parse(input, {
@@ -70,6 +71,8 @@
 
         // Providing feedback
         $scope.subjectColumn = $scope.result.subjectColumnPosition.index;    // Defaultly selected subject column
+
+
 
         //sets selection boxes from  classification and disambiguation of algorithm
         //sets header of table       
@@ -350,6 +353,14 @@
 
             $scope.selectedPosition.column = column;
             $scope.selectedPosition.row = row;
+        }
+
+        $scope.backgroundColor = function (KB) {
+            angle = 360 / $scope.chosenKBs.length;
+            index = $scope.chosenKBs.indexOf(KB);
+            color = "hsla(" + angle * index + ", 100%, 75%,0.5)";
+             return { "background-color": color };
+  
         }
 
 

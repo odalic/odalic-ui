@@ -10,7 +10,7 @@ $.defineModule(function () {
                 formData: 'unspecified',
                 success: function (response) {
                     callback(response.data);
-                    this.sharedata.clear("Input");
+                    //this.sharedata.clear("Input");
                 },
                 failure: function (response) {
                     // Failure
@@ -19,7 +19,7 @@ $.defineModule(function () {
         },
         getJSON : function(callback) {
             callback(JSON.parse(this.sharedata.get("Result")));
-            this.sharedata.clear("Result");
+            //this.sharedata.clear("Result");
         }
     };
 });

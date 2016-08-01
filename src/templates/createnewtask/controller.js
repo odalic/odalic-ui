@@ -14,7 +14,11 @@
         // Files
         $scope.fileProvision = settings.fileProvisionTypes[0];
         $scope.files = {};
-
+        //Supported knowledge bases
+        $scope.availableKBs = ["DBpedia"];
+        //TODO smazat
+        $scope.chosenKBs = ["DBpedia"];
+        $scope.primaryKB = "DBpedia";
 
         // List of uploaded files
         $scope.savedFiles = settings.savedFiles;
@@ -209,13 +213,18 @@
                             disambiguations: [],
                             cellRelations: [],
                             columnRelations: []
+                        },
+                        primary_base: { 
+                            name: $scope.primaryKB
                         }
                     }
                 },
                 success: function (response) {
+                    //TODO predelat pro vice tasku bezicich zaroven??
                     // Save the chosen input file identifier
                     sharedata.set("Input", fileLocation);
-
+                    sharedata.set("PrimaryKB", $scope.primaryKB);
+                    sharedata.set("ChosenKBs", $scope.chosenKBs);
                     reqStartTask();
                 },
                 failure: requestError

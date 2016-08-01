@@ -30,13 +30,13 @@
                     </label>
                     <div class="col-md-5">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="fileProvision" value="local"/>
+                            <input type="radio" ng-model="fileProvision" value="local" />
                             Uploaded or local file
                         </label>
                     </div>
                     <div class="col-md-5">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="fileProvision" value="remote"/>
+                            <input type="radio" ng-model="fileProvision" value="remote" />
                             Remote file
                         </label>
                     </div>
@@ -58,7 +58,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Upload a new file:</label>
                             <div class="col-md-8">
-                                <input type="file" id="concreteFile"/>
+                                <input type="file" id="concreteFile" />
                             </div>
                             <div class="col-md-2"></div>
                         </div>
@@ -70,7 +70,8 @@
                             <div class="col-md-2 text-center">
                                 <!-- Button 'upload' -->
                                 <button ng-hide="fileUpload.uploadingFile" type="button" class="form-control"
-                                        ng-click="fileUpload.uploadFile()">Upload
+                                        ng-click="fileUpload.uploadFile()">
+                                    Upload
                                 </button>
                                 <!-- Icon 'loading' -->
                                 <i ng-hide="!fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
@@ -141,15 +142,15 @@
                             <input type="radio"
                                    ng-model="delimiter" value="semicolon">;
                         </label> <label class="radio-inline">
-                        <input type="radio"
-                               ng-model="delimiter" value="colon">:
-                    </label> <label class="radio-inline">
-                        <input type="radio"
-                               ng-model="delimiter" value="tab">tab
-                    </label> <label class="radio-inline">
-                        <input type="radio"
-                               ng-model="delimiter" value="other"> other:
-                    </label> <input type="text" ng-model="otherDelimiter">
+                            <input type="radio"
+                                   ng-model="delimiter" value="colon">:
+                        </label> <label class="radio-inline">
+                            <input type="radio"
+                                   ng-model="delimiter" value="tab">tab
+                        </label> <label class="radio-inline">
+                            <input type="radio"
+                                   ng-model="delimiter" value="other"> other:
+                        </label> <input type="text" ng-model="otherDelimiter">
 
                     </div>
                 </div>
@@ -169,6 +170,31 @@
                     <label class="col-md-2 control-label">Description:</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" ng-model="description">
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Knowledge base settings -->
+            <fieldset>
+                <legend> Knowledge base settings</legend>
+                <!-- setting of knowledge bases -->
+                <!-- TODO mozna jinak -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Knowledge bases :</label>
+                    <div class="col-md-10">
+                        <select size={{availableKBs.length}}
+                                class="form-control"
+                                ng-model="chosenKBs"
+                                multiple
+                                ng-options="opt for opt in availableKBs"></select>
+                    </div>
+                    <!-- setting of primary knowledge base -->
+                    <label class="col-md-2 control-label">Primary knowledge base:</label>
+                    <div class="col-md-10">
+                        <select class="form-control"
+                                ng-model="primaryKB"
+                                ng-options="opt for opt in chosenKBs"></select>
+
                     </div>
                 </div>
             </fieldset>

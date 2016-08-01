@@ -2,7 +2,17 @@
 <!-- TODO: Styly treba premiestnit do css/less. Pouzi helpers.less pre "miscellaneous" styly. -->
 <style>
     .marked {
-        background-color: #f2f2f2;
+        background-color:  WhiteSmoke ;
+    }
+
+    .boldPrimaryKB {
+        font-weight: bold;
+    }
+    .evenRow {
+        background-color: WhiteSmoke ;
+    }
+    .headerRow {
+        background-color: Gainsboro  ;
     }
 </style>
 
@@ -33,21 +43,21 @@
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
-                        <tr>
-                            <td ng-repeat="cell in inputFile.columns"
-                                ng-class="($index == subjectColumn) ? 'marked' :''"
-                                ng-click="selectSubjectColumn($index)">
-                                {{ cell }}
-                            </td>
-                        </tr>
+                            <tr>
+                                <td ng-repeat="cell in inputFile.columns"
+                                    ng-class="($index == subjectColumn) ? 'marked' :''"
+                                    ng-click="selectSubjectColumn($index)">
+                                    {{ cell }}
+                                </td>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="row in inputFile.rows">
-                            <td ng-repeat="cell in row" ng-class="($index == subjectColumn) ? 'marked' : ''"
-                                ng-click="selectSubjectColumn($index)">
-                                {{ cell }}
-                            </td>
-                        </tr>
+                            <tr ng-repeat="row in inputFile.rows">
+                                <td ng-repeat="cell in row" ng-class="($index == subjectColumn) ? 'marked' : ''"
+                                    ng-click="selectSubjectColumn($index)">
+                                    {{ cell }}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -60,39 +70,56 @@
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
-                        <tr>
-                            <td ng-repeat="cell in inputFile.columns"
-                                ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
-                                ng-click="selectPosition($index, -1)"
-                                data-toggle="modal" data-target="#myModal">
-                                <div>
-                                    {{ cell }}
-                                </div>
-                                <div ng-repeat="cl in currentItems[-1][$index]">
-                                    {{cl}}
-                                </div>
-                            </td>
-                        </tr>
+                            <tr ng-class="'headerRow'">
+                                <td ng-repeat="cell in inputFile.columns"
+                                    ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
+                                    ng-click="selectPosition($index, -1)"
+                                    data-toggle="modal" data-target="#myModal">
+                                    <div>
+                                        {{ cell }}
+                                    </div>
+                                    <div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-repeat="class in currentItems[-1][$index][primaryKB]">
+                                        {{class}}
+                                    </div>
+                                    <!--<div ng-repeat="(KB,data) in currentItems[-1][$index]">
+                <div ng-if="KB != primaryKB)">
+                    <div ng-style="backgroundColor(KB)" ng-repeat="class in data">
+                        {{class}}
+                    </div>
+                </div>
+            </div>-->
+                                </td>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="row in inputFile.rows">
-                            <td ng-repeat="cell in row"
-                                ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
-                                ng-click="selectPosition($index, $parent.$index)"
-                                data-toggle="modal" data-target="#myModal">
-                                <div>
-                                    {{ cell }}
-                                </div>
-                                <div ng-repeat="cl in currentItems[$parent.$index][$index]">
-                                    {{cl}}
-                                </div>
-                            </td>
-                        </tr>
+                            <tr ng-class-even="'evenRow'" ng-repeat="row in inputFile.rows">
+                                <td ng-repeat="cell in row"
+                                    ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
+                                    ng-click="selectPosition($index, $parent.$index)"
+                                    data-toggle="modal" data-target="#myModal">
+                                    <div>
+                                        {{ cell }}
+                                    </div>
+                                    <!-- 'boldPrimaryKB'  -->
+                                    <div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-repeat="disam in currentItems[$parent.$index][$index][primaryKB]">
+                                        {{disam}}
+                                    </div>
+
+                                    <!--<div ng-repeat="(KB,data) in currentItems[$parent.$index][$index]">
+                                        <div ng-if="KB != primaryKB)">
+                                            <div ng-style ="backgroundColor(KB)" ng-repeat="disam in data">
+                                                {{disam}}}
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
-
-                <!--<div>feedback :{{feedback}}</div>
+                <!--{{primaryKB}}
+                {{chosenKBs}}
+                <div>feedback :{{feedback}}</div>
                 <div>bla :{{currentItems}}</div>
                 <div>ignoredColumn :{{ignoredColumn}}</div>
                 <div>noDisambiguationColumn :{{noDisambiguationColumn}}</div>
@@ -126,9 +153,8 @@
                                             ng-model="currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                          
                                             class="modal-body"></select>
-                                   
+
                                 </div>
                                 <br>
                                 <input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]"> Ignore Column <br>
@@ -146,12 +172,11 @@
                                     <h3>{{ knowledgeBase }}</h3>
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
 
-                                   
+
                                     <select size="3"
                                             ng-model=" currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                            
                                             class="modal-body"></select>
 
                                 </div>
