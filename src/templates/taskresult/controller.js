@@ -23,8 +23,12 @@
 
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests, ioc) {
-        $scope.primaryKB = sharedata.get("PrimaryKB");
-        $scope.chosenKBs = sharedata.get("ChosenKBs");
+
+
+        //$scope.primaryKB = sharedata.get("PrimaryKB");
+        //$scope.chosenKBs = sharedata.get("ChosenKBs");
+        $scope.primaryKB = "DBpedia";
+        $scope.chosenKBs = ["DBpedia"];
         // Loading the input CSV file
         var loadInput = function (input) {
             Papa.parse(input, {
