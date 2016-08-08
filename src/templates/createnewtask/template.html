@@ -45,14 +45,7 @@
                 <div ng-switch="fileProvision">
                     <!-- When a file that was already uploaded is to be selected -->
                     <div ng-switch-when="local">
-                        <!-- Select from the already uploaded ones -->
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Available files:</label>
-                            <div class="col-md-10">
-                                <select class="form-control" ng-model="files.selectedFile"
-                                        ng-options="file.id for file in savedFiles"></select>
-                            </div>
-                        </div>
+
 
                         <!-- Upload a new local file -->
                         <div class="form-group">
@@ -62,6 +55,7 @@
                             </div>
                             <div class="col-md-2"></div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-md-2 control-label">Identifier:</label>
                             <div class="col-md-8">
@@ -90,6 +84,23 @@
                             <a class="close" ng-click="fileUpload.uploadFileSuccess.close()"
                                aria-label="close">&times;</a>
                             The file has been successfully uploaded.
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-10 col-md-offset-2">
+                                <label>
+                                    or
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Select from the already uploaded ones -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Available files:</label>
+                            <div class="col-md-10">
+                                <select class="form-control" ng-model="files.selectedFile"
+                                        ng-options="file.id for file in savedFiles"></select>
+                            </div>
                         </div>
                     </div>
 
@@ -180,7 +191,7 @@
                 <!-- setting of knowledge bases -->
                 <!-- TODO mozna jinak -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Knowledge bases :</label>
+                    <label class="col-md-2 control-label">Knowledge bases:</label>
                     <div class="col-md-10">
                         <select size={{availableKBs.length}}
                                 class="form-control"
@@ -188,6 +199,8 @@
                                 multiple
                                 ng-options="opt for opt in availableKBs"></select>
                     </div>
+                </div>
+                <div class="form-group">
                     <!-- setting of primary knowledge base -->
                     <label class="col-md-2 control-label">Primary knowledge base:</label>
                     <div class="col-md-10">

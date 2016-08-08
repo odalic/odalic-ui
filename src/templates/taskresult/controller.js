@@ -88,7 +88,7 @@
             for (var kb in cell) {
                 for (var k = 0; k < cell[kb].length; k++) {
                     if (cell[kb][k].chosen == true) {
-                        selectedCandidates.push(cell[kb][k].entity.resource);
+                        selectedCandidates.push(cell[kb][k].entity);
                     }
                 }
                 $scope.currentItems['-1'][i][kb] = selectedCandidates;
@@ -106,7 +106,7 @@
                         var selectedCandidates = []
                         for (var k = 0; k < cell[kb].length; k++) {
                             if (cell[kb][k].chosen == true) {
-                                selectedCandidates.push(cell[kb][k].entity.resource);
+                                selectedCandidates.push(cell[kb][k].entity);
                             }
                         }
                         $scope.currentItems[i][j][kb] = selectedCandidates;
@@ -263,7 +263,7 @@
 
                     //TODO mozna rychleji
                     //detectes user's changed classification
-                    if (userChanges.includes(inputSetting[i].entity.resource)) {
+                    if (userChanges.map(function(c) { return c.resource; }).includes(inputSetting[i].entity.resource)) {
                         // changedIndexes[KB].push(i);
                         if (inputSetting[i].chosen == false) {
                             changed = true;
@@ -280,7 +280,7 @@
             }
             else {
                 //TODO asi jinak protoze je mozna potreba sjednotit currentItems.other z ""  na  [""]
-                if (!($scope.currentItems[rowNumber][columnNumber]["other"] == "")) {
+                if (!($scope.currentItems[rowNumber][columnNumber]["other"][0].resource == "")) {
                     changed = true;
                 }
             }
@@ -300,7 +300,7 @@
                 if (KB == "other") {
                     feedbackCandidates["other"].push(
                        {
-                           "entity": { "resource": $scope.currentItems[rowNumber][columnNumber][KB], "label": "" },
+                           "entity": { "resource": $scope.currentItems[rowNumber][columnNumber][KB][0].resource, "label": "" },
                            "likelihood": { "value": 0 },
                            "chosen": true
                        }

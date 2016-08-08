@@ -14,6 +14,7 @@
         // Files
         $scope.fileProvision = settings.fileProvisionTypes[0];
         $scope.files = {};
+
         //Supported knowledge bases
         $scope.availableKBs = ["DBpedia"];
         //TODO smazat
@@ -104,12 +105,17 @@
                                 // Display a success message
                                 $scope.fileUpload.uploadFileSuccess.alert = true;
 
+                                // Sets new uploaded file as chosen
+                                var uploadedFileIndex = $scope.savedFiles.map(function(file) { return file.id; }).indexOf($scope.fileUpload.identifier);
+                                $scope.files.selectedFile =$scope.savedFiles[uploadedFileIndex] ;
+
                                 // Clear the fields
                                 $scope.fileUpload.identifier = String();
                                 filedata.clearInputFile("concreteFile");
 
                                 // Another file may be uploaded again
                                 $scope.fileUpload.uploadingFile = false;
+                                
                             });
                         },
                         failure: function failure(response) {
