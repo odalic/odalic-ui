@@ -327,13 +327,16 @@
 
         // VIEW
         $scope.state = 1;                       // Default VIEW
-        $scope.states = new Array(3);			// How many of VIEWs there are; Must be an array, because the angular ng-repeat does not iterate over integers
-        $scope.setState = function (index) {    // Change the VIEW
-            // Check ranges
-            if ((index >= 0) && (index < $scope.states.length)) {
-                $scope.state = index;
-            }
-        };
+   
+
+        $scope.previousState = function () {
+            $scope.state--;
+        }
+
+        $scope.nextState = function ()
+        {
+            $scope.state++;
+        }
 
 
         // Table cell selection

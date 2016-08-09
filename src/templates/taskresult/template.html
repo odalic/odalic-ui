@@ -1,9 +1,14 @@
 <!-- Main Content -->
 <!-- TODO: Styly treba premiestnit do css/less. Pouzi helpers.less pre "miscellaneous" styly. -->
 <style>
-    .marked {
+    .markedColumn {
         background-color: WhiteSmoke;
     }
+     /*TODO mozna jiny typ oznaceni*/
+     .markedCell{ 
+     outline: 1px solid black !important;
+    }
+   
 
     .boldPrimaryKB {
         font-weight: bold;
@@ -47,7 +52,7 @@
                         <thead>
                             <tr>
                                 <td ng-repeat="cell in inputFile.columns"
-                                    ng-class="($index == subjectColumn) ? 'marked' :''"
+                                    ng-class="($index == subjectColumn) ? 'markedColumn' :''"
                                     ng-click="selectSubjectColumn($index)">
                                     {{ cell }}
                                 </td>
@@ -55,7 +60,7 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="row in inputFile.rows">
-                                <td ng-repeat="cell in row" ng-class="($index == subjectColumn) ? 'marked' : ''"
+                                <td ng-repeat="cell in row" ng-class="($index == subjectColumn) ? 'markedColumn' : ''"
                                     ng-click="selectSubjectColumn($index)">
                                     {{ cell }}
                                 </td>
@@ -69,12 +74,12 @@
             <div ng-switch-when="1">
                 <h2>Choosing of classifications and disambiguations</h2>
                 <!-- Input file table -->
-                <div class="table-responsive">
+                <div class="table-responsive" >
                     <table class="table table-bordered">
                         <thead>
                             <tr ng-class="'headerRow'">
                                 <td ng-repeat="cell in inputFile.columns"
-                                    ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
+                                    ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
                                     ng-click="selectPosition($index, -1)"
                                     data-toggle="modal" data-target="#myModal">
                                     <!-- origin header from the input table -->
@@ -100,7 +105,7 @@
                         <tbody>
                             <tr ng-class-even="'evenRow'" ng-repeat="row in inputFile.rows">
                                 <td ng-repeat="cell in row"
-                                    ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'marked' : ''"
+                                    ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
                                     ng-click="selectPosition($index, $parent.$index)"
                                     data-toggle="modal" data-target="#myModal">
                                     <!-- origin cell value from the input table -->
@@ -132,16 +137,6 @@
                 <div>ignoredColumn :{{ignoredColumn}}</div>
                 <div>noDisambiguationColumn :{{noDisambiguationColumn}}</div>
                 <div>noDisambiguationCell :{{noDisambiguationCell}}</div>-->
-
-
-
-
-
-
-                <button ng-click="setFeedback()">
-                    send
-                </button>
-
                 <!-- Modal window for classification/disambiguation selection -->
                 <!--
                    TODO: odselcteni crtl - click -> dotykove pristroje vi buh
@@ -260,8 +255,8 @@
                                             <label><input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"> Skip disambiguation in the cell</label>
                                         </div>
 
-                                        
-                                        
+
+
                                     </div>
                                 </div>
                             </div>
@@ -278,19 +273,50 @@
             </div>
         </div>
 
-        <!-- VIEW: Pagination -->
-        <div class="text-center">
-            <ul class="pagination">
-                <li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
-                <!-- Numbers for each of the pages -->
-                <li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
-                    <a class="pointer" ng-click="setState($index)">
-                        {{ $index }}
-                    </a>
-                </li>
-                <li><a class="pointer" ng-click="setState(state + 1)">Next</a></li>
-            </ul>
+        <div class="form-group">
+            <div class="col-md-2">
+                <!--TODO spustit to znova-->
+                <button class="btn btn-lg" ng-click="">
+                    Start from the beginning
+                </button>
+            </div>
+            <div class="col-md-2 col-md-offset-4">
+                <!--TODO prepsat na  Re-run the algorithm az se to bude umet na serveru-->
+                <button class="btn btn-lg" ng-click="setFeedback()">
+                    Send feedback
+                </button>
+
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-lg" ng-click="previousState()" ng-disabled="state <= 0">
+                    Previous step
+                </button>
+            </div>
+            <div class="col-md-2">
+
+                <button class="btn btn-lg" ng-click="nextState()" ng-disabled="state >= 2">
+                    Next step
+                </button>
+            </div>
         </div>
+
+        <br><br>
+        <!-- VIEW: Pagination -->
+        <!--
+        <div class="tex
+            t-center">
+            <div class="text-center">
+                <ul class="pagination">
+                    <li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
+                
+                    <li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
+                        <a class="pointer" ng-click="setState($index)">
+                            {{ $index }}
+                        </a>
+                    </li>
+                    <li><a class="pointer" ng-click="setState(state + 1)">Next</a></li>
+                </ul>
+            </div>-->
     </div>
 </main-cnt>
 
