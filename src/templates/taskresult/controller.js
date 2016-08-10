@@ -24,6 +24,11 @@
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests, ioc) {
 
+
+        //$scope.primaryKB = sharedata.get("PrimaryKB");
+        //$scope.chosenKBs = sharedata.get("ChosenKBs");
+        $scope.primaryKB = "DBpedia";
+        $scope.chosenKBs = ["DBpedia"];
         // Loading the input CSV file
         var loadInput = function (input) {
             Papa.parse(input, {
@@ -71,6 +76,8 @@
         // Providing feedback
         $scope.subjectColumn = $scope.result.subjectColumnPosition.index;    // Defaultly selected subject column
 
+
+
         //sets selection boxes from  classification and disambiguation of algorithm
         //sets header of table       
         $scope.currentItems['-1'] = {};
@@ -81,7 +88,7 @@
             for (var kb in cell) {
                 for (var k = 0; k < cell[kb].length; k++) {
                     if (cell[kb][k].chosen == true) {
-                        selectedCandidates.push(cell[kb][k].entity.resource);
+                        selectedCandidates.push(cell[kb][k].entity);
                     }
                 }
                 $scope.currentItems['-1'][i][kb] = selectedCandidates;
@@ -99,7 +106,7 @@
                         var selectedCandidates = []
                         for (var k = 0; k < cell[kb].length; k++) {
                             if (cell[kb][k].chosen == true) {
-                                selectedCandidates.push(cell[kb][k].entity.resource);
+                                selectedCandidates.push(cell[kb][k].entity);
                             }
                         }
                         $scope.currentItems[i][j][kb] = selectedCandidates;
@@ -256,7 +263,7 @@
 
                     //TODO mozna rychleji
                     //detectes user's changed classification
-                    if (userChanges.includes(inputSetting[i].entity.resource)) {
+                    if (userChanges.map(function(c) { return c.resource; }).includes(inputSetting[i].entity.resource)) {
                         // changedIndexes[KB].push(i);
                         if (inputSetting[i].chosen == false) {
                             changed = true;
@@ -273,7 +280,7 @@
             }
             else {
                 //TODO asi jinak protoze je mozna potreba sjednotit currentItems.other z ""  na  [""]
-                if (!($scope.currentItems[rowNumber][columnNumber]["other"] == "")) {
+                if (!($scope.currentItems[rowNumber][columnNumber]["other"][0].resource == "")) {
                     changed = true;
                 }
             }
@@ -293,7 +300,7 @@
                 if (KB == "other") {
                     feedbackCandidates["other"].push(
                        {
-                           "entity": { "resource": $scope.currentItems[rowNumber][columnNumber][KB], "label": "" },
+                           "entity": { "resource": $scope.currentItems[rowNumber][columnNumber][KB][0].resource, "label": "" },
                            "likelihood": { "value": 0 },
                            "chosen": true
                        }
@@ -320,13 +327,16 @@
 
         // VIEW
         $scope.state = 1;                       // Default VIEW
-        $scope.states = new Array(3);			// How many of VIEWs there are; Must be an array, because the angular ng-repeat does not iterate over integers
-        $scope.setState = function (index) {    // Change the VIEW
-            // Check ranges
-            if ((index >= 0) && (index < $scope.states.length)) {
-                $scope.state = index;
-            }
-        };
+   
+
+        $scope.previousState = function () {
+            $scope.state--;
+        }
+
+        $scope.nextState = function ()
+        {
+            $scope.state++;
+        }
 
 
         // Table cell selection
@@ -350,6 +360,14 @@
 
             $scope.selectedPosition.column = column;
             $scope.selectedPosition.row = row;
+        }
+
+        $scope.backgroundColor = function (KB) {
+            angle = 360 / $scope.chosenKBs.length;
+            index = $scope.chosenKBs.indexOf(KB);
+            color = "hsla(" + angle * index + ", 100%, 75%,0.5)";
+             return { "background-color": color };
+  
         }
 
 
