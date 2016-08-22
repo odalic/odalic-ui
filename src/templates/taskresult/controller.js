@@ -366,10 +366,85 @@
             angle = 360 / $scope.chosenKBs.length;
             index = $scope.chosenKBs.indexOf(KB);
             color = "hsla(" + angle * index + ", 100%, 75%,0.5)";
-             return { "background-color": color };
+            return { "background-color": color };
   
         }
 
+
+
+
+
+        //$scope.okno;
+        //$scope.pok = function () {
+        //    // $scope.okno = window.open("http://localhost:8080/lodview", 'bla');
+        //    $scope.okno = window.open("file:///C:/Users/Kata/Desktop/odalicLod/LodLive/app_en.html?http://dbpedia.org/resource/Steven_Erikson", 'bla');
+
+        //}
+
+        $scope.zprava = function () {
+
+        
+            //var win = $scope.okno;
+            var win = document.getElementById("iframe").contentWindow
+
+            a = {}
+            a.pozdrav = "Zdravim";
+
+            win.postMessage(
+              a,
+              "*"
+            )
+
+
+        }
+      //  $scope.adr = window.location.hostname
+
+
+      
+
+       // $scope.pozdrav = "ddsfsd";
+
+        function listener(event) {
+            //alert(event.origin);
+            // if ( event.origin !== "http://localhost:8080" )
+            //   return
+
+            $scope.pozdrav = event.data;
+
+            alert("v odalicu: " + $scope.pozdrav)
+       
+            //alert("jetotu");
+            //alert(event.data);
+
+        }
+        if (window.addEventListener) {
+            addEventListener("message", listener, false)
+        } else {
+            attachEvent("onmessage", listener)
+        }
+
+
+
+        getAllUrl = function () {
+            alert("LodLive/app_en.html?" + currentItems[selectedPosition.row][selectedPosition.column][primaryKB][0])
+            return "LodLive/app_en.html?" + currentItems[selectedPosition.row][selectedPosition.column][primaryKB][0]
+        }
+
+
+       
+        $scope.createIframe = function (endUrl)
+        {
+           // alert(JSON.stringify(endUrl));
+            var x = document.createElement("IFRAME");
+            var allUrl = "LodLive/app_en.html?" + endUrl.resource;
+            alert(allUrl);
+            x.setAttribute("src", allUrl);
+            document.body.appendChild(x);
+        }
+
+
+
+       
 
         //TODO mozna online detekce zmeny jinak je to k nicemu
         $scope.change = function (chosenValues, kb) {                       // Changes the values in the table according to the selected classification and disambiguation (which is wrong; it should change the result file, see the "chosen" attribute)

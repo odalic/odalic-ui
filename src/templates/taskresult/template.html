@@ -129,6 +129,21 @@
                         </tbody>
                     </table>
                 </div>
+
+             
+                <iframe src="LodLive/app_en.html?http://dbpedia.org/resource/Steven_Erikson" id="iframe" width="1000" height="800"></iframe>
+
+
+    <button ng-click="zprava()">
+        zprava
+    </button>
+
+
+                <!--<button  ng-click="pok()">
+                    okno
+                </button>-->
+
+         
                 <!--{{primaryKB}}
 
                 {{chosenKBs}}
@@ -165,7 +180,7 @@
                                                     ng-options="opt.entity as opt.entity.label + ' ' + '(' + opt.entity.resource + ')' for opt in result.headerAnnotations[selectedPosition.column].candidates[primaryKB ]"
                                                     class="form-control"></select>
                                         </div>
-
+                                        
 
                                         <!-- Separate div for each knowledge base -->
                                         <div ng-repeat="(knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
@@ -225,7 +240,12 @@
                                                     ng-model=" currentItems[selectedPosition.row][selectedPosition.column][primaryKB][0]"
                                                     ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates[primaryKB]"
                                                     class="form-control"></select>
-                                        </div>
+
+                                            
+                                            <!--<button ng-click="createIframe(currentItems[selectedPosition.row][selectedPosition.column][primaryKB][0])">
+                                                browse
+                                            </button>-->
+
                                         <!-- Separate div for each knowledge base -->
                                         <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
 
@@ -254,12 +274,14 @@
                                         <div class="checkbox">
                                             <label><input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"> Skip disambiguation in the cell</label>
                                         </div>
-
-
-
+                                        <div>{{currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase][0]}}</div>
+                                      
+                                       
                                     </div>
                                 </div>
                             </div>
+                            
+                            
                         </div>
                     </div>
                 </div>
@@ -272,6 +294,10 @@
                 <h2>Choosing of relationships between columns</h2>
             </div>
         </div>
+
+        <!--<button class="btn btn-lg" ng-click="getInfo()">
+            hokusy pokusy
+        </button>-->
 
         <div class="form-group">
             <div class="col-md-2">
