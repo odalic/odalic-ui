@@ -108,6 +108,23 @@
             }
         }
 
+        // set relations
+        $scope.currentRelations = {};
+        objForEach($scope.result.columnRelationAnnotations, function (column1, collect1) {
+            objForEach(collect1, function (column2, collect2) {
+                var selectedCandidates = [];
+                objForEach(collect2['candidates'], function (kb, collect3) {
+                    collect3.forEach(function (item) {
+                        if (item.chosen == true) {
+                            selectedCandidates.push(item['entity']['resource']);
+                        }
+                    });
+                    objRecurAccess($scope.currentRelations, column1, column2)[kb] = selectedCandidates;
+                });
+            });
+        });
+
+
         $scope.setFeedback = function () {
             //sets subjectColumn
             //"subjectColumnPosition": { "index": 3 }
@@ -226,6 +243,35 @@
             $scope.feedback.cellRelations = [];
 
             $scope.feedback.columnRelations = [];
+            objForEach($scope.currentRelations, function (column1, collect1) {
+                objForEach(collect1, function (column2, collect2) {
+                    changed = false;
+                    objForEach(collect2, function (kb, item) {
+                        userChanges = item;
+                        inputSetting = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'][kb];
+                        changed = findUserChanges(userChanges, inputSetting, column1, column2, changed, kb, 'forRelations');
+                    });
+
+                    // TODO: Kata, prosim, checkni, ci toto vyhovuje.
+                    if (changed) {
+                        var changedRelation = {
+                            position: {
+                                column1position: {
+                                    index: column1
+                                },
+                                column2position: {
+                                    index: column2
+                                }
+                            }
+                        };
+
+                        var rel = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'];
+                        setFeedbackChanges(changedRelation, column1, column2, rel, 'forRelations');
+                        $scope.feedback.columnRelations.push(changedRelation);
+                    }
+                });
+            });
+
 
             //sends feedback to server
             //TODO udelat jako globalni konfiguracni promennou
@@ -249,7 +295,7 @@
 
 
         //TODO mozna predpocitat pri kazde zmene - rozmyslet
-        function findUserChanges(userChanges, inputSetting, rowNumber, columnNumber, changed, KB) {
+        function findUserChanges(userChanges, inputSetting, rowNumber, columnNumber, changed, KB, forRelations) {
 
             if (KB != "other") {
                 for (var i = 0; i < inputSetting.length; i++) {
@@ -272,28 +318,49 @@
                 }
             }
             else {
-                //TODO asi jinak protoze je mozna potreba sjednotit currentItems.other z ""  na  [""]
-                if (!($scope.currentItems[rowNumber][columnNumber]["other"] == "")) {
-                    changed = true;
+                // TODO: Aby nebol zbytocny chaos, len som dopisal 1 argument, aby sa nic nemuselo menit v tvojom kode (funkcie su variadicke v JS)
+                if (typeof(forRelations) === 'undefined') {
+                    // If "forRelations" argument is not passed in the function call, handle the situation the old way
+                    // TODO asi jinak protoze je mozna potreba sjednotit currentItems.other z ""  na  [""]
+                    if (!($scope.currentItems[rowNumber][columnNumber]["other"] == "")) {
+                        changed = true;
+                    }
+                } else {
+                    // Otherwise handle it specifically for relations
+                    // TODO: Kata, checkni, ci takto si to predstavujes.
+                    if (!($scope.currentRelations[rowNumber][columnNumber]["other"] == "")) {       // This will work, though "rowNumber" in this case is "column1" and "columnNumber" is "column2"
+                        changed = true;
+                    }
                 }
+
+
             }
             return changed;
         }
 
-        //
-        function setFeedbackChanges(changedSelection, rowNumber, columnNumber, cell) {
+        function setFeedbackChanges(changedSelection, rowNumber, columnNumber, cell, forRelations) {
             changedSelection.annotation = {};
             changedSelection.annotation.candidates = {};
 
             feedbackCandidates = changedSelection.annotation.candidates;
 
-            for (var KB in $scope.currentItems[rowNumber][columnNumber]) {
+            // TODO: Rovnaky princip, ako vyssie pri findUserChanges; forRelations je nepovinny argument. (to len pre informaciu; tento komentarmozes potom zmazat)
+            var collection = null;
+            if (typeof(forRelations) === 'undefined') {
+                // Handle basic case
+                collection = $scope.currentItems[rowNumber][columnNumber];
+            } else {
+                // Specifically when relations are to be handled
+                collection = $scope.currentRelations[rowNumber][columnNumber];      // 'rowNumber' as a 'column1' and 'columnNumber' as a 'column2'
+            }
+
+            for (var KB in collection) {
                 feedbackCandidates[KB] = [];
 
                 if (KB == "other") {
                     feedbackCandidates["other"].push(
                        {
-                           "entity": { "resource": $scope.currentItems[rowNumber][columnNumber][KB], "label": "" },
+                           "entity": { "resource": collection[KB], "label": "" },
                            "likelihood": { "value": 0 },
                            "chosen": true
                        }
@@ -333,6 +400,12 @@
         $scope.selectedPosition = {
             column: -1,
             row: -1
+        };
+
+        // Relation selection
+        $scope.selectedRelation = {
+            column1: -1,
+            column2: -1
         };
 
 
@@ -394,6 +467,42 @@
         };
 
 
+
+        // Sharing data between graphvis directive and this controller
+        // **************************************
+        // Store date to sharedata service
+        $scope.gvscope = 'gv_scope';
+        sharedata.set($scope.gvscope, $scope);
+
+        // Functionalities connected to the modal window for graphvis directive
+        $scope.gvmodal = {
+            /** A function to be injected from the graphvis directive */
+            modelChanged: null,
+
+            /** Opens a modal window.
+             *
+             * @param c1    Index of the firt column.
+             * @param c2    Index of the second column.
+             */
+            open: function (c1, c2) {
+                with ($scope.selectedRelation) {
+                    column1 = c1;
+                    column2 = c2;
+                };
+                if(!$scope.$$phase) {
+                    $scope.$apply();
+                }
+                $("#modalPredicates").modal();
+            },
+
+            /** Called from taskresult template when a change in model occurs. */
+            modalPredicatesChange: function () {
+                this.modelChanged(
+                    $scope.selectedRelation.column1,
+                    $scope.selectedRelation.column2
+                )
+            }
+        };
     });
 
 })();

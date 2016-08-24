@@ -72,7 +72,7 @@ var unorderedarr = function () {
             arrmap[id_new] = i;
             this.arr[i] = this.arr[j];
         }
-        arrmap[id] = undefined;
+        delete arrmap[id];
         this.arr.pop();
     };
 }

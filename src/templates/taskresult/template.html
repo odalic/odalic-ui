@@ -126,14 +126,17 @@
                                             ng-model="currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                          
+
                                             class="modal-body"></select>
-                                   
+
                                 </div>
                                 <br>
-                                <input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]"> Ignore Column <br>
-                                <input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]"> Skip disambiguation in all cell of this collumn <br>
-                                Own classification: <input type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other">
+                                <input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]"> Ignore Column
+                                <br>
+                                <input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]"> Skip
+                                disambiguation in all cell of this collumn <br>
+                                Own classification: <input type="text"
+                                                           ng-model="currentItems[selectedPosition.row][selectedPosition.column].other">
                             </div>
 
                             <!-- Cell disambiguation -->
@@ -146,18 +149,21 @@
                                     <h3>{{ knowledgeBase }}</h3>
                                     <!-- Selection of a candidate(s) for the current knowledge base -->
 
-                                   
+
                                     <select size="3"
                                             ng-model=" currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]"
                                             multiple
                                             ng-options="opt.entity.resource as opt.entity.resource for opt in candidates"
-                                            
+
                                             class="modal-body"></select>
 
                                 </div>
 
-                                <input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"> Skip disambiguation in the cell<br>
-                                Own disambiguation: <input type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other">
+                                <input type="checkbox"
+                                       ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]">
+                                Skip disambiguation in the cell<br>
+                                Own disambiguation: <input type="text"
+                                                           ng-model="currentItems[selectedPosition.row][selectedPosition.column].other">
                             </div>
                         </div>
                     </div>
@@ -168,8 +174,35 @@
             <div ng-switch-when="2">
                 <h2>Choosing of predicates</h2>
 
-                <!-- Graph visualizator -->
-                <graphvis></graphvis>
+                <!-- Modal -->
+                <div id="modalPredicates" class="modal" role="dialog">
+                    <div class="modal-dialog lg">
+                        <div class="modal-content">
+                            <!-- Headline -->
+                            <div class="modal-head">
+                                <h2>Predicates</h2>
+                            </div>
+
+                            <!-- Separate section for each knowledge base -->
+                            <div ng-repeat="(knowledgeBase, candidates) in result['columnRelationAnnotations'][selectedRelation.column1][selectedRelation.column2]['candidates']">
+                                <h3>{{ knowledgeBase }}</h3>
+                                <!-- Selection of a candidate(s) for the current knowledge base -->
+                                <select size="3"
+                                        ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][knowledgeBase]"
+                                        multiple
+                                        ng-options="opt['entity']['resource'] as opt['entity']['resource'] for opt in candidates"
+                                        ng-change="gvmodal.modalPredicatesChange()"
+                                        class="modal-body"></select>
+                            </div>
+                            Own predicate: <input type="text"
+                                                  ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2]['other']"
+                                                  ng-change="gvmodal.modalPredicatesChange()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graph visualiser -->
+                <graphvis scope="{{ gvscope }}"></graphvis>
             </div>
 
             <!-- VIEW: Default -->
