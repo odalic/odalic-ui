@@ -1,7 +1,13 @@
 [
+  "util/constants/constants.js",
+  "util/unorderedarr/unorderedarr.js",
+  "util/eucgeom/eucgeom.js",
+  "util/objforeach/objforeach.js",
+  "util/text/text.js",
   "directives/maincnt/maincnt.js",
   "directives/navbar/navbar.js",
   "directives/footer/footer.js",
+  "directives/graphvis/graphvis.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",
