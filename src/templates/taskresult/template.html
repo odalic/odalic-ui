@@ -166,7 +166,6 @@
                                                     class="form-control"></select>
                                         </div>
 
-
                                         <!-- Separate div for each knowledge base -->
                                         <div ng-repeat="(knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
                                             <div ng-if="knowledgeBase != primaryKB">
@@ -196,16 +195,9 @@
                                         <div class="checkbox">
                                             <label><input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]"> Skip disambiguation in all cell of this collumn </label>
                                         </div>
-
-
-
                                     </div>
                                 </div>
-
-
                             </div>
-
-
 
 
                             <!-- Cell disambiguation -->
@@ -213,6 +205,7 @@
                                 <div class="modal-head">
                                     <h2>Cell disambiguation</h2>
                                 </div>
+
                                 <div class="modal-body">
                                     <div class="container-fluid">
                                         <div class="form-group">
@@ -220,9 +213,8 @@
                                             <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
 
-
                                             <select size="3"
-                                                    ng-model=" currentItems[selectedPosition.row][selectedPosition.column][primaryKB][0]"
+                                                    ng-model="currentItems[selectedPosition.row][selectedPosition.column][primaryKB][0]"
                                                     ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates[primaryKB]"
                                                     class="form-control"></select>
                                         </div>
@@ -254,9 +246,6 @@
                                         <div class="checkbox">
                                             <label><input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"> Skip disambiguation in the cell</label>
                                         </div>
-
-
-
                                     </div>
                                 </div>
                             </div>
@@ -265,6 +254,59 @@
                 </div>
             </div>
 
+            <!-- VIEW: Relations -->
+            <div ng-switch-when="2">
+                <h2>Choosing of predicates</h2>
+
+                <!-- Modal -->
+                <div id="modalPredicates" class="modal" role="dialog">
+                    <div class="modal-dialog lg">
+                        <div class="modal-content">
+                            <!-- Headline -->
+                            <div class="modal-head">
+                                <h2>Predicates</h2>
+                            </div>
+                            <!-- Body -->
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="form-group">
+                                        <!-- Separate div for each knowledge base -->
+                                        <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
+                                        <!-- Selection of a candidate(s) for the current knowledge base -->
+                                        <select size="3"
+                                                ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][primaryKB][0]"
+                                                ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates[primaryKB]"
+                                                ng-change="gvmodal.modalPredicatesChange()"
+                                                class="form-control"></select>
+                                    </div>
+                                    <!-- Separate div for each knowledge base -->
+                                    <div ng-repeat="(knowledgeBase, candidates) in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates">
+                                        <div ng-if="knowledgeBase != primaryKB">
+                                            <div class="form-group">
+                                                <h3>{{ knowledgeBase }}</h3>
+                                                <!-- Selection of a candidate(s) for the current knowledge base -->
+                                                <select size="3"
+                                                        ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][knowledgeBase][0]"
+                                                        ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in candidates"
+                                                        ng-change="gvmodal.modalPredicatesChange()"
+                                                        class="form-control"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- user can write own relation -->
+                                    <div class="form-group">
+                                        <label class="control-label">Own relation:</label>
+                                        <input class="form-control" type="text" ng-change="gvmodal.modalPredicatesChange()" ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2].other[0].resource">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graph visualiser -->
+                <graphvis scope="{{ gvscope }}"></graphvis>
+            </div>
 
             <!-- VIEW: Default -->
             <div ng-switch-default>
@@ -324,4 +366,3 @@
 <footer>
     <p>A brand new footer.</p>
 </footer>
-
