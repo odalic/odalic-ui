@@ -17,7 +17,8 @@
 
         //Supported knowledge bases
         $scope.availableKBs = ["DBpedia"];
-        //TODO smazat
+
+        //TODO smazat az bude na vyber
         $scope.chosenKBs = ["DBpedia"];
         $scope.primaryKB = "DBpedia";
 
@@ -31,6 +32,17 @@
          *                    It is assigned 'true' for a successful list retrieval; false for an unsuccessful list retrieval.
          *
          */
+
+        // sets  file identifier by the chosen file name
+        $scope.setFile = function (element) {
+            $scope.$apply(function ($scope) {
+                //TODO bez pripony ???
+                //TODO kontrola jeli to csv tu???
+                $scope.fileUpload.identifier = element.files[0].name;
+                $scope.isUploadDisabled = false;
+            });
+        };
+
         function refreshUploadedFiles(callback) {
             $http({
                 method: "GET",
@@ -53,6 +65,8 @@
         }
 
         refreshUploadedFiles();
+
+       
 
 
         // File uploading
@@ -101,6 +115,9 @@
                             // The file has been uploaded successfully => refresh the list of available files
                             refreshUploadedFiles(function (succes) {
                                 // Succes parameter ignored.
+
+                                //button Upload is active 
+                                $scope.isUploadDisabled = true;
 
                                 // Display a success message
                                 $scope.fileUpload.uploadFileSuccess.alert = true;
