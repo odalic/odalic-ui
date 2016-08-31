@@ -25,10 +25,10 @@
     app.controller('taskresult-ctrl', function ($scope,$location, $window, sharedata, requests, ioc) {
 
 
-        //$scope.primaryKB = sharedata.get("PrimaryKB");
-        //$scope.chosenKBs = sharedata.get("ChosenKBs");
-        $scope.primaryKB = "DBpedia";
-        $scope.chosenKBs = ["DBpedia"];
+        $scope.primaryKB = sharedata.get("PrimaryKB");
+        $scope.chosenKBs = sharedata.get("ChosenKBs");
+        //$scope.primaryKB = "DBpedia";
+        //$scope.chosenKBs = ["DBpedia"];
         // Loading the input CSV file
         var loadInput = function (input) {
             Papa.parse(input, {
