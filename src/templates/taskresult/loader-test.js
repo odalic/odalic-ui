@@ -1,8 +1,8 @@
 $.defineModule(function () {
     return {
-        requests : null,
-        sharedata : null,
-        getCSV : function(callback) {
+        requests: null,
+        sharedata: null,
+        getCSV: function (callback) {
             $.ajax({
                 async: false,
                 type: 'GET',
@@ -14,10 +14,14 @@ $.defineModule(function () {
                 dataType: "text"
             });
         },
-        getJSON : function(callback) {
-            $.getJSONSync('./test/samples/result/r1.json', function(res) {
+        getJSON: function (callback) {
+            $.getJSONSync('./test/samples/result/r1.json', function (res) {
                 callback(res);
             });
+        },
+        setKB: function () {
+            this.sharedata.set('PrimaryKB', 'DBpedia');
+            this.sharedata.set('ChosenKBs', ["DBpedia"]);
         }
     };
 });

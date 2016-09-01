@@ -25,10 +25,9 @@
     app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests, ioc) {
 
 
-        //$scope.primaryKB = sharedata.get("PrimaryKB");
-        //$scope.chosenKBs = sharedata.get("ChosenKBs");
-        $scope.primaryKB = "DBpedia";
-        $scope.chosenKBs = ["DBpedia"];
+       
+        //$scope.primaryKB = "DBpedia";
+        //$scope.chosenKBs = ["DBpedia"];
         // Loading the input CSV file
         var loadInput = function (input) {
             Papa.parse(input, {
@@ -60,6 +59,12 @@
         loader.getJSON(function(data) {
             $scope.result = data;
         });
+
+        loader.setKB();
+
+
+        $scope.primaryKB = sharedata.get("PrimaryKB");
+        $scope.chosenKBs = sharedata.get("ChosenKBs");
 
         // Bylo presunuto z $.getJSONSync (metoda byla jen temporarni)
         // Prosim, nemenit (pokud neni zavazny duvod) nacitavani "input CSV file" a "result".
