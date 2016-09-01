@@ -1,4 +1,11 @@
 var constants = {
+    get addresses() {
+        return {
+            get odalicroot() {
+                return 'http://localhost:8080/odalic/';
+            }
+        }
+    },
     get colors() {
         return {
             get white() {

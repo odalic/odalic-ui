@@ -85,8 +85,12 @@ var nodeWrapper = function (gprops) {
                     l: constants.colors.black
                 },
                 fixed: {
-                    r: constants.colors.darkorange,
+                    r: constants.colors.orange,
                     l: constants.colors.white
+                },
+                linkcreation: {
+                    r: constants.colors.yellow,
+                    l: constants.colors.black
                 },
                 hover: {
                     r: constants.colors.lightorange,
@@ -231,6 +235,8 @@ var nodeWrapper = function (gprops) {
             }
         });
 
+        var beforeLinkColor = null;
+
         /* Node dragging */
         /* ************** */
         var nodeDragging = {
@@ -244,6 +250,10 @@ var nodeWrapper = function (gprops) {
                 _ref.innerState = innerStates.NodeFree;
             },
             stateEnter: function () {
+                if (beforeLinkColor) {
+                    gsettings.setC(beforeLinkColor);
+                    beforeLinkColor = null;
+                }
                 if (_ref.innerState === innerStates.NodeLinksCreation) {
                     _ref.innerState = innerStates.NodeFree;
                 }
@@ -289,6 +299,8 @@ var nodeWrapper = function (gprops) {
                 if (_ref.innerState === innerStates.NodeFree) {
                     _ref.innerState = innerStates.NodeLinksCreation;
                 }
+                beforeLinkColor = gsettings.last;
+                gsettings.setC(gsettings.stable.linkcreation);
             }
         };
 

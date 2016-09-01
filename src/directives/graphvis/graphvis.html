@@ -1,6 +1,7 @@
 <div class="container" style="text-align: center">
-    <button class="style4" ng-click="toggleState()">{{ toggleStateText }}</button>
-    <button class="style4" ng-click="resetLayout()" ng-disabled="resetLayoutDis()">Reset layout</button>
+    <button class="btn" ng-click="setDragging()" ng-disabled="setDraggingDis()">Node dragging</button>
+    <button class="btn" ng-click="setLinkCreation()" ng-disabled="setLinkCreationDis()">Link creation</button>
+    <button class="btn" ng-click="resetLayout()" ng-disabled="resetLayoutDis()">Reset layout</button>
 </div>
 
 <div class="container" style="text-align: center">

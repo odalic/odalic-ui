@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-md-5">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="fileProvision" value="remote" />
+                            <input type="radio" ng-model="fileProvision" value="remote" disabled="true"/>
                             Remote file
                         </label>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Upload a new file:</label>
                             <div class="col-md-8">
-                                <input type="file" id="concreteFile" />
+                                <input type="file" id="concreteFile" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
                             </div>
                             <div class="col-md-2"></div>
                         </div>
@@ -72,34 +72,19 @@
                             </div>
                         </div>
 
-                        <!--  Alert 'error while uploading' -->
-                        <div ng-show="fileUpload.uploadFileError.alert" class="alert alert-danger">
-                            <a class="close" ng-click="fileUpload.uploadFileError.close()"
-                               aria-label="close">&times;</a>
-                            An error occured while uploading the file. Details: {{ fileUpload.uploadFileError.details }}
-                        </div>
-
-                        <!--  Alert 'successfule upload' -->
-                        <div ng-show="fileUpload.uploadFileSuccess.alert" class="alert alert-success">
-                            <a class="close" ng-click="fileUpload.uploadFileSuccess.close()"
-                               aria-label="close">&times;</a>
-                            The file has been successfully uploaded.
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-10 col-md-offset-2">
-                                <label>
-                                    or
-                                </label>
-                            </div>
+                        <!--  Alerts displaying notifications for a user -->
+                        <div ng-repeat="obj in fileUpload.alerts">
+                            <alert bind="obj">
+                                {{ obj.text }}
+                            </alert>
                         </div>
 
                         <!-- Select from the already uploaded ones -->
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Available files:</label>
+                            <label class="col-md-2 control-label">Selected file:</label>
                             <div class="col-md-10">
                                 <select class="form-control" ng-model="files.selectedFile"
-                                        ng-options="file.id for file in savedFiles"></select>
+                                        ng-options="file.id for file in fileUpload.uploaded"></select>
                             </div>
                         </div>
                     </div>
@@ -109,7 +94,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">specify a location:</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="location" \>
+                                <input class="form-control" type="text" ng-model="remoteFile.location" \>
                             </div>
                         </div>
                     </div>
@@ -117,7 +102,7 @@
             </fieldset>
 
             <!-- File settings -->
-            <fieldset>
+            <fieldset disabled="true">
                 <legend>File settings</legend>
                 <!-- File settings -->
                 <div class="form-group">
@@ -211,6 +196,13 @@
                     </div>
                 </div>
             </fieldset>
+
+            <!--  Alerts displaying notifications for a user regarding the whole form -->
+            <div ng-repeat="obj in wholeForm.alerts">
+                <alert bind="obj">
+                    {{ obj.text }}
+                </alert>
+            </div>
 
             <!-- submit button -->
             <button type="button" class="btn btn-lg pull-right" ng-click="createTask()">Create</button>

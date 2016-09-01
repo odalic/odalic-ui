@@ -5,15 +5,15 @@
 
     // Settings
     var settings = {
-        fileProvisionTypes: ['local', 'remote'],
-        savedFiles: []
+        fileProvisionTypes: ['local', 'remote']
     };
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $http, $window, sharedata, filedata, requests) {
+    app.controller('createnewtask-ctrl', function ($scope, $http, $window, sharedata, filedata, requests, rest) {
         // Files
         $scope.fileProvision = settings.fileProvisionTypes[0];
         $scope.files = {};
+        $scope.remoteFile = {};
 
         //Supported knowledge bases
         $scope.availableKBs = ["DBpedia"];
@@ -21,118 +21,193 @@
         $scope.chosenKBs = ["DBpedia"];
         $scope.primaryKB = "DBpedia";
 
-        // List of uploaded files
-        $scope.savedFiles = settings.savedFiles;
-
-        /** Refreshes the list of uploaded files
-         *
-         * @param callback    A function to call once the reponse from server returns.
-         *                    The function must consume 1 parameter.
-         *                    It is assigned 'true' for a successful list retrieval; false for an unsuccessful list retrieval.
-         *
-         */
-        function refreshUploadedFiles(callback) {
-            $http({
-                method: "GET",
-                url: "http://localhost:8080/odalic/files/"
-            }).then(
-                // The list of uploaded files was retrieved successfully
-                function success(response) {
-                    $scope.savedFiles = response.data;
-                    if (callback) {
-                        callback(true);
-                    }
-                },
-                // An error occured while retrieving the list of uploaded files
-                function failure(response) {
-                    if (callback) {
-                        callback(false);
-                    }
-                }
-            );
-        }
-
-        refreshUploadedFiles();
-
-
         // File uploading
         $scope.fileUpload = {
+            // Id of the input-file element
+            inputFileId: 'concreteFile',
+
+            // Are we uploading a file at the moment?
             uploadingFile: false,
 
-            uploadFileError: {
-                alert: false,
-                close: function () {
-                    $scope.fileUpload.uploadFileError.alert = false;
-                },
-                details: String()
+            // Identifier of the file to be uploaded
+            identifier: String(),
+
+            // Messages for a user
+            alerts: [],
+
+            // List of uploaded files
+            uploaded: [],
+
+            // Pushing an alert message for 'file upload'
+            pushAlert: function (type, text) {
+                var _ref = this;
+                _ref.alerts.push({
+                    type: type,
+                    visible: true,
+                    text: text,
+                    close: function () {
+                        _ref.alerts.splice(_ref.alerts.indexOf(this), 1);
+                    }
+                });
             },
 
-            uploadFileSuccess: {
-                alert: false,
-                close: function () {
-                    $scope.fileUpload.uploadFileSuccess.alert = false;
+            // Automatically fill the 'identifier' when a file is selected
+            fillIdentifier: function () {
+                var name = filedata.fileName(this.inputFileId);
+                if (!name) {
+                    name = text.randomId();
                 }
+
+                this.identifier = name;
+                $scope.$apply();
             },
 
-            uploadFile: function () {
-                // The file is now uploading. Hide the 'upload' button to prevent multiple uploads.
-                $scope.fileUpload.uploadingFile = true;
+            // Refresh the list of uploaded files
+            refreshUploaded: function (callback) {
+                var _ref = this;
+                rest.files.list.exec(
+                    // Success
+                    function (response) {
+                        _ref.uploaded = response.data;
+                        if (callback) {
+                            callback(true);
+                        }
+                    },
+                    // Failure
+                    function failure(response) {
+                        if (callback) {
+                            callback(false);
+                        }
+                    }
+                );
+            },
 
-                // Generic preparations
-                var fileUrl = "http://localhost:8080/odalic/files/" + $scope.fileUpload.identifier;
+            // Validates the file uploading part of the form; returns true, if it is safe to proceed with the file upload
+            validate: function () {
+                // Clear previous alerts
+                this.alerts = [];
+                var valid = true;
+
+                // Local file selected?
+                if (!filedata.filePresent(this.inputFileId)) {
+                    this.pushAlert('error', 'No local file selected for the upload.');
+                    valid = false;
+                }
+
+                // Identifier set?
+                if (!this.identifier) {
+                    this.pushAlert('error', 'Identifier must not be empty.');
+                    valid = false;
+                }
+
+                return valid;
+            },
+
+            // Upload the selected file
+            uploadFile: function () {
+                // Validate
+                if (!this.validate()) {
+                    return;
+                }
+
+                // Reference to self
+                var _ref = this;
+
+                // The file is now uploading. Hide the 'upload' button to prevent multiple uploads.
+                _ref.uploadingFile = true;
 
                 // Uploading the file asynchronously
                 sendData = function (fileData) {
-                    requests.reqMFD({
-                        method: "PUT",
-                        address: fileUrl,
-                        formData: requests.prepareMFD()
-                            .attachJSON("file", {
-                                id: String($scope.fileUpload.identifier),
-                                uploaded: "2000-01-01 00:00",
-                                owner: "default",
-                                location: fileUrl
-                            })
-                            // TODO: Formerly we used this way:
-                            //.attachCSV("input", fileData)
-                            .attachGeneric("input", document.getElementById("concreteFile").files[0])
-                            .get(),
-                        success: function (response) {
+                    rest.files.name(_ref.identifier).create(filedata.fileObject(_ref.inputFileId)).exec(
+                        // Success
+                        function (response) {
                             // The file has been uploaded successfully => refresh the list of available files
-                            refreshUploadedFiles(function (succes) {
+                            _ref.refreshUploaded(function (succes) {
                                 // Succes parameter ignored.
 
                                 // Display a success message
-                                $scope.fileUpload.uploadFileSuccess.alert = true;
+                                _ref.pushAlert('success', 'The file has been successfully uploaded.');
 
-                                // Sets new uploaded file as chosen
-                                var uploadedFileIndex = $scope.savedFiles.map(function(file) { return file.id; }).indexOf($scope.fileUpload.identifier);
-                                $scope.files.selectedFile =$scope.savedFiles[uploadedFileIndex] ;
+                                // Sets the newly uploaded file as the selected one
+                                var uploadedFileIndex = _ref.uploaded.map(function (file) {
+                                    return file.id;
+                                }).indexOf(_ref.identifier);
+                                $scope.files.selectedFile = _ref.uploaded[uploadedFileIndex];
 
                                 // Clear the fields
-                                $scope.fileUpload.identifier = String();
+                                _ref.identifier = String();
                                 filedata.clearInputFile("concreteFile");
 
                                 // Another file may be uploaded again
-                                $scope.fileUpload.uploadingFile = false;
-                                
+                                _ref.uploadingFile = false;
+
                             });
                         },
-                        failure: function failure(response) {
+                        // Failure
+                        function (response) {
                             // The file has not been uploaded => display an error message
-                            $scope.fileUpload.uploadFileError.alert = true;
-                            $scope.fileUpload.uploadFileError.details = response.substring(0, 50);
+                            _ref.pushAlert('error', 'An error occured while uploading the file. Details: ' + text.dotted(response, 50));
 
                             // A file may be uploaded again
-                            $scope.fileUpload.uploadingFile = false;
+                            _ref.uploadingFile = false;
                         }
-                    });
+                    );
                 };
 
                 // Read the file and send the data to server
-                filedata.readBase64("concreteFile", function (fileData) {
+                filedata.readBase64(_ref.inputFileId, function (fileData) {
                     sendData(fileData);
                 });
+            }
+        };
+        $scope.fileUpload.refreshUploaded();
+
+        $scope.wholeForm = {
+            // Messages for a user
+            alerts: [],
+
+            // Pushing an alert message for 'the whole form'
+            pushAlert: function (type, text) {
+                var _ref = this;
+                _ref.alerts.push({
+                    type: type,
+                    visible: true,
+                    text: text,
+                    close: function () {
+                        _ref.alerts.splice(_ref.alerts.indexOf(this), 1);
+                    }
+                });
+            },
+
+            // Validation of the form, whether everything is correctly filled; returns true, if it is safe to proceed
+            validate: function () {
+                // Clear previous alerts
+                this.alerts = [];
+                var valid = true;
+
+                // Task name set?
+                if (!objRecurAccess($scope, 'taskCreation')['identifier']) {
+                    valid = false;
+                    this.pushAlert('error', 'Task name not set.');
+                }
+
+                // File selected?
+                switch ($scope.fileProvision) {
+                    case 'local':
+                        if (!objRecurAccess($scope, 'files', 'selectedFile')['id']) {
+                            valid = false;
+                            this.pushAlert('error', 'No file selected.');
+                        }
+                        break;
+                    case 'remote':
+                        if (!objRecurAccess($scope, 'remoteFile')['location']) {
+                            valid = false;
+                            this.pushAlert('error', 'No remote file specified.');
+                        }
+                        break;
+                }
+
+                return valid;
             }
         };
 
@@ -140,17 +215,12 @@
         // Task creation
         $scope.createTask = function () {
             // Validate the form
-            if (!$scope.taskCreationForm.$valid) {
-                alert("Form validation failed.");
+            if (!$scope.wholeForm.validate()) {
                 return;
             }
 
             // Generic preparations
-            var taskUrl = "http://localhost:8080/odalic/tasks/" + $scope.taskCreation.identifier;
-            var taskExecUrl = taskUrl + "/execution";
-            var taskResultUrl = taskUrl + "/result";
             var fileId = $scope.files.selectedFile.id;
-            var fileLocation = $scope.files.selectedFile.location;
 
             // Immediately redirect to a loading screen
             $window.location.href = "#/loading";
@@ -159,15 +229,13 @@
             var requestError = function (response) {
                 sharedata.set("Failure", response.data);
                 $window.location.href = "#/genericerror";
-            }
+            };
 
             // A request for retrieval of an executed task's result
             var reqGetResult = function () {
-                requests.reqJSON({
-                    method: "GET",
-                    address: taskResultUrl,
-                    formData: undefined,
-                    success: function (response) {
+                rest.tasks.name($scope.taskCreation.identifier).result.retrieve.exec(
+                    // Success
+                    function (response) {
                         //TODO predelat pro vice tasku bezicich zaroven??
                         // Save the result and redirect
                         sharedata.set("Result", response.data);
@@ -175,67 +243,63 @@
                         sharedata.set("TaskID", $scope.taskCreation.identifier);
                         $window.location.href = "#/taskresult";
                     },
+                    // Failure
                     // TODO: Uncomment this
                     //failure : requestError
-                    failure: function () {
+                    function () {
                         // TODO: This is just a temporary solution until a problem with REST file upload is resolved
                         $.getJSONSync("src/templates/taskresult/sample_result.json", function (sample) {
                             sharedata.set("Result", sample);
                         });
                         $window.location.href = "#/taskresult";
                     }
-                });
+                );
             };
 
             // A request for executing the prepared task
             var reqStartTask = function () {
-                requests.reqJSON({
-                    method: "PUT",
-                    address: taskExecUrl,
-                    formData: {
-                        draft: false
-                    },
-                    success: function (response) {
+                rest.tasks.name($scope.taskCreation.identifier).execute.exec(
+                    // Success
+                    function (response) {
                         reqGetResult();
                     },
-                    failure: requestError
-                });
+                    // Failure
+                    requestError
+                );
             };
 
             // Start with a request for inserting a task
-            requests.reqJSON({
-                method: "PUT",
-                address: taskUrl,
-                formData: {
-                    id: String($scope.taskCreation.identifier),
-                    created: "2000-01-01 00:00",
-                    configuration: {
-                        input: fileId,
-                        feedback: {
-                            columnIgnores: [],
-                            classifications: [],
-                            columnAmbiguities: [],
-                            ambiguities: [],
-                            disambiguations: [],
-                            cellRelations: [],
-                            columnRelations: []
-                        },
-                        primary_base: { 
-                            name: $scope.primaryKB
-                        }
+            rest.tasks.name($scope.taskCreation.identifier).create({
+                id: String($scope.taskCreation.identifier),
+                created: "2000-01-01 00:00",
+                configuration: {
+                    input: fileId,
+                    feedback: {
+                        columnIgnores: [],
+                        classifications: [],
+                        columnAmbiguities: [],
+                        ambiguities: [],
+                        disambiguations: [],
+                        cellRelations: [],
+                        columnRelations: []
+                    },
+                    primary_base: {
+                        name: $scope.primaryKB
                     }
-                },
-                success: function (response) {
+                }
+            }).exec(
+                // Success
+                function () {
                     //TODO predelat pro vice tasku bezicich zaroven??
                     // Save the chosen input file identifier
-                    sharedata.set("Input", fileLocation);
+                    sharedata.set("Input", $scope.files.selectedFile.id);
                     sharedata.set("PrimaryKB", $scope.primaryKB);
                     sharedata.set("ChosenKBs", $scope.chosenKBs);
                     reqStartTask();
                 },
-                failure: requestError
-            });
-
+                // Failure
+                requestError
+            );
         }
     });
 

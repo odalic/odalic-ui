@@ -2,23 +2,23 @@ $.defineModule(function () {
     return {
         requests : null,
         sharedata : null,
+        rest: null,
         getCSV : function(callback) {
             // Download the input CSV file and then load it
-            this.requests.reqCSV({
-                method: "GET",
-                address: this.sharedata.get("Input"),
-                formData: 'unspecified',
-                success: function (response) {
+            this.rest.files.name(this.sharedata.get('Input')).retrieve.exec(
+                // Success
+                function (response) {
                     callback(response.data);
                     //this.sharedata.clear("Input");
                 },
-                failure: function (response) {
-                    // Failure
+                // Failure
+                function (response) {
+                    // Empty
                 }
-            });
+            );
         },
         getJSON : function(callback) {
-            callback(JSON.parse(this.sharedata.get("Result")));
+            callback(JSON.parse(this.sharedata.get('Result')));
             //this.sharedata.clear("Result");
         }
     };

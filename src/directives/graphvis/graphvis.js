@@ -79,7 +79,7 @@
                     centering: {
                         strength: 0.1
                     },
-                    linksDistance: 100,
+                    linksDistance: 250,
                     manyBody: {
                         strength: 0
                     }
@@ -143,28 +143,20 @@
                     };
                 })();
 
-                // Toggle between states; reset layout button
+                // Set state; reset layout button
                 (function () {
-                    // Toggle between states
-                    var toToggle = [
-                        {
-                            state: gprops.states.NodeDragging,
-                            text: 'Node dragging',
-                        },
-                        {
-                            state: gprops.states.LinkCreation,
-                            text: 'Link creation',
-                        }
-                    ];
-                    var ttNow = gprops.state;
-
-                    scope.toggleStateText = toToggle[1-ttNow].text;
-                    scope.toggleState = function () {
-                        if (++ttNow >= toToggle.length) {
-                            ttNow = 0;
-                        }
-                        gprops.state = toToggle[ttNow].state;
-                        scope.toggleStateText = toToggle[1-ttNow].text;
+                    // Set state
+                    scope.setDraggingDis = function () {
+                        return (gprops.state === gprops.states.NodeDragging)
+                    };
+                    scope.setDragging = function () {
+                        gprops.state = gprops.states.NodeDragging;
+                    };
+                    scope.setLinkCreationDis = function () {
+                        return (gprops.state === gprops.states.LinkCreation)
+                    };
+                    scope.setLinkCreation = function () {
+                        gprops.state = gprops.states.LinkCreation;
                     };
 
                     // Reset layout button

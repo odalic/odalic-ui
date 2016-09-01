@@ -2,6 +2,7 @@ $.defineModule(function () {
     return {
         requests : null,
         sharedata : null,
+        rest: null,
         getCSV : function(callback) {
             $.ajax({
                 async: false,

@@ -7,10 +7,12 @@
   "directives/maincnt/maincnt.js",
   "directives/navbar/navbar.js",
   "directives/footer/footer.js",
+  "directives/alert/alert.js",
   "directives/graphvis/graphvis.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",
   "services/requests/requests.js",
+  "services/rest/rest.js",
   "templates/templates.js"
 ]

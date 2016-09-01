@@ -21,6 +21,24 @@
     .headerRow {
         background-color: Gainsboro;
     }
+
+    /* Graphical separation of buttons */
+    /* TODO: Generalize and put to *.LESS */
+    .odalic-hr-separator {
+        width: 100%;
+        border-bottom: 1px solid lightgrey;
+        margin-top: 5px;
+        margin-bottom: 5px;
+
+        text-align: center;
+    }
+    .odalic-hr-pushtop {
+        margin-top: 75px;
+    }
+    .odalic-hr-pushbtm {
+        margin-bottom: 15px;
+    }
+
 </style>
 
 <style>
@@ -315,16 +333,17 @@
             </div>
         </div>
 
-        <div class="form-group">
+
+        <div class="form-group odalic-hr-pushbtm">
             <div class="col-md-2">
                 <!--TODO spustit to znova-->
-                <button class="btn btn-lg" ng-click="">
+                <button class="btn btn-lg" ng-click="" disabled="true">
                     Start from the beginning
                 </button>
             </div>
             <div class="col-md-2 col-md-offset-4">
                 <!--TODO prepsat na  Re-run the algorithm az se to bude umet na serveru-->
-                <button class="btn btn-lg" ng-click="setFeedback()">
+                <button class="btn btn-lg" ng-click="setFeedback()" disabled="true">
                     Send feedback
                 </button>
 
@@ -335,14 +354,31 @@
                 </button>
             </div>
             <div class="col-md-2">
-
                 <button class="btn btn-lg" ng-click="nextState()" ng-disabled="state >= 2">
                     Next step
                 </button>
             </div>
         </div>
 
+        <!-- Export -->
+        <div class="odalic-hr-pushtop">
+            <div class="col-md-12">
+                <div class="odalic-hr-separator">Export</div>
+            </div>
+
+            <div class="col-md-12">
+                <button class="btn" ng-click="exporting.json()">JSON</button>
+                <button class="btn" ng-click="exporting.csv()">CSV</button>
+                <button class="btn" ng-click="exporting.rdf()">RDF</button>
+            </div>
+
+            <div class="col-md-12">
+                <div class="odalic-hr-pushbtm"></div>
+            </div>
+        </div>
+
         <br><br>
+
         <!-- VIEW: Pagination -->
         <!--
         <div class="tex

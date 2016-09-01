@@ -22,7 +22,7 @@
     });
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests, ioc) {
+    app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests, rest, ioc) {
 
 
         //$scope.primaryKB = sharedata.get("PrimaryKB");
@@ -54,6 +54,7 @@
         var loader = ioc['taskresult/loader'];
         loader.sharedata = sharedata;
         loader.requests = requests;
+        loader.rest = rest;
         loader.getCSV(function(data) {
             loadInput(data);
         });
@@ -281,21 +282,33 @@
 
 
             //sends feedback to server
-            //TODO udelat jako globalni konfiguracni promennou
-            var feedbackUrl = "http://localhost:8080/odalic/tasks/" + sharedata.get("TaskID") + "/configuration/feedback"
-
-            requests.reqJSON({
-                method: "PUT",
-                address: feedbackUrl,
-                formData: $scope.feedback,
-                success: function (response) {
+            rest.tasks.name(sharedata.get('TaskID')).feedback.store($scope.feedback).exec(
+                // Success
+                function (response) {
                     alert("Feedback was saved.");
                     $window.location.href = "#/createnewtask";
                 },
-                failure: function (response) {
+                // Failure
+                function (response) {
                     alert("Fail.");
                 }
-            });
+            );
+
+            // TODO: Deprecated - tento sposob pouzivania restovskych sluzieb; odteraz pouzivame servisu "rest"; vid src/services/rest/rest.js
+            //TODO udelat jako globalni konfiguracni promennou -- netreba, uz je vyriesene; vid vyssie
+            //var feedbackUrl = constants.addresses.odalicroot + "tasks/" + sharedata.get('TaskID') + "/configuration/feedback"
+            //requests.reqJSON({
+            //    method: "PUT",
+            //    address: feedbackUrl,
+            //    formData: $scope.feedback,
+            //    success: function (response) {
+            //        alert("Feedback was saved.");
+            //        $window.location.href = "#/createnewtask";
+            //    },
+            //    failure: function (response) {
+            //        alert("Fail.");
+            //    }
+            //});
 
         }
 
@@ -394,17 +407,17 @@
         }
 
         // VIEW
-        $scope.state = 1;                       // Default VIEW
+        $scope.state = 0;                       // Default VIEW
    
 
         $scope.previousState = function () {
             $scope.state--;
-        }
+        };
 
         $scope.nextState = function ()
         {
             $scope.state++;
-        }
+        };
 
 
         // Table cell selection
@@ -442,7 +455,7 @@
             color = "hsla(" + angle * index + ", 100%, 75%,0.5)";
              return { "background-color": color };
   
-        }
+        };
 
 
         //TODO mozna online detekce zmeny jinak je to k nicemu
@@ -522,6 +535,25 @@
                 )
             }
         };
+
+
+        // Exporting to JSON / CSV / RDF
+        // **************************************
+        (function () {
+            var taskid = sharedata.get('TaskID');
+
+            $scope.exporting = {
+				json: function () {
+                    window.open(rest.tasks.name(taskid).result.export.json.address());
+                },
+                csv: function () {
+                    window.open(rest.tasks.name(taskid).result.export.csv.address());
+                },
+                rdf: function () {
+                    window.open(rest.tasks.name(taskid).result.export.rdf.address());
+                }
+            };
+        })();
     });
 
 })();
