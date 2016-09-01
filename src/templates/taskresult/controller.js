@@ -83,9 +83,9 @@
         $scope.currentItems['-1'] = {};
         for (var i = 0; i < $scope.result.headerAnnotations.length; i++) {
             var cell = $scope.result.headerAnnotations[i].candidates;
-            var selectedCandidates = [];
             $scope.currentItems['-1'][i] = {};
             for (var kb in cell) {
+                var selectedCandidates = [];
                 for (var k = 0; k < cell[kb].length; k++) {
                     if (cell[kb][k].chosen == true) {
                         selectedCandidates.push(cell[kb][k].entity);
