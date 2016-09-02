@@ -411,7 +411,7 @@
         }
 
         // VIEW
-        $scope.state = 1;                       // Default VIEW
+        $scope.state = 0;                       // Default VIEW
 
 
         $scope.previousState = function () {
