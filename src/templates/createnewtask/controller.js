@@ -21,6 +21,8 @@
         $scope.chosenKBs = ["DBpedia"];
         $scope.primaryKB = "DBpedia";
 
+        $scope.isUploadDisabled = true;
+
         // List of uploaded files
         $scope.savedFiles = settings.savedFiles;
 
@@ -129,6 +131,9 @@
 
                                 // Another file may be uploaded again
                                 $scope.fileUpload.uploadingFile = false;
+
+                                //clear chosen file
+                                angular.element("input[type='file']").val(null);
                                 
                             });
                         },
