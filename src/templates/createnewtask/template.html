@@ -64,7 +64,7 @@
                             <div class="col-md-2 text-center">
                                 <!-- Button 'upload' -->
                                 <button ng-hide="fileUpload.uploadingFile" type="button" class="form-control"
-                                        ng-click="fileUpload.uploadFile()">
+                                        ng-click="fileUpload.uploadFile()" ng-disabled="fileUpload.isUploadDisabled">
                                     Upload
                                 </button>
                                 <!-- Icon 'loading' -->

@@ -4,11 +4,11 @@
     .markedColumn {
         background-color: WhiteSmoke;
     }
-     /*TODO mozna jiny typ oznaceni*/
-     .markedCell{ 
-     outline: 1px solid black !important;
+    /*TODO mozna jiny typ oznaceni*/
+    .markedCell {
+        outline: 1px solid black !important;
     }
-   
+
 
     .boldPrimaryKB {
         font-weight: bold;
@@ -39,6 +39,16 @@
         margin-bottom: 15px;
     }
 
+    /* lod iframe */
+    iframe {
+        position: fixed;
+        top: 0px;
+        right: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 2000;
+        background-color: #FFF;
+    }
 </style>
 
 <style>
@@ -55,7 +65,6 @@
     <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
     <div class="container-fluid">
-
 
         <!-- VIEW -->
         <div ng-switch="state">
@@ -92,7 +101,7 @@
             <div ng-switch-when="1">
                 <h2>Choosing of classifications and disambiguations</h2>
                 <!-- Input file table -->
-                <div class="table-responsive" >
+                <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                             <tr ng-class="'headerRow'">
@@ -147,6 +156,7 @@
                         </tbody>
                     </table>
                 </div>
+                <!--<iframe src="LodLive/app_en.html?http://dbpedia.org/resource/Steven_Erikson" id="iframe"></iframe>-->
                 <!--{{primaryKB}}
 
                 {{chosenKBs}}
@@ -182,6 +192,11 @@
                                                     multiple
                                                     ng-options="opt.entity as opt.entity.label + ' ' + '(' + opt.entity.resource + ')' for opt in result.headerAnnotations[selectedPosition.column].candidates[primaryKB ]"
                                                     class="form-control"></select>
+                                            <div class="col-md-2 col-md-offset-10">
+                                                <button class="btn btn-sm" ng-click="createIframe(currentItems[selectedPosition.row][selectedPosition.column][primaryKB],primaryKB,currentItems[selectedPosition.row][selectedPosition.column][primaryKB].length)">
+                                                    browse
+                                                </button>
+                                            </div>
                                         </div>
 
                                         <!-- Separate div for each knowledge base -->
@@ -197,9 +212,19 @@
                                                             class="form-control"></select>
 
                                                 </div>
+
+                                                <div class="col-md-2 col-md-offset-10">
+                                                    <button class="btn btn-sm" ng-click="createIframe(currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase],knowledgeBase,currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase].length)">
+                                                        browse
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
 
+
+                                        <!--<button ng-click="createIframe()">
+                                            zprava
+                                        </button>-->
                                         <!-- user can write own classification -->
                                         <div class="form-group">
                                             <label class="control-label"> Own classification:</label>
@@ -230,35 +255,45 @@
                                             <!-- Separate div for each knowledge base -->
                                             <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
-
                                             <select size="3"
                                                     ng-model="currentItems[selectedPosition.row][selectedPosition.column][primaryKB][0]"
                                                     ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates[primaryKB]"
                                                     class="form-control"></select>
-                                        </div>
-                                        <!-- Separate div for each knowledge base -->
-                                        <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
 
-                                            <div ng-if="knowledgeBase != primaryKB">
-                                                <div class="form-group">
-                                                    <h3>{{ knowledgeBase }}</h3>
-                                                    <!-- Selection of a candidate(s) for the current knowledge base -->
-                                                    <select size="3"
-                                                            ng-model=" currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase][0]"
-                                                            ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in candidates"
-                                                            class="form-control"></select>
+                                            <div class="col-md-2 col-md-offset-10">
+                                                <button class="btn btn-sm" ng-click="createIframe(currentItems[selectedPosition.row][selectedPosition.column][primaryKB],primaryKB,currentItems[selectedPosition.row][selectedPosition.column][primaryKB].length)">
+                                                    browse
+                                                </button>
+                                            </div>
 
+
+                                            <!-- Separate div for each knowledge base -->
+                                            <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
+
+                                                <div ng-if="knowledgeBase != primaryKB">
+                                                    <div class="form-group">
+                                                        <h3>{{ knowledgeBase }}</h3>
+                                                        <!-- Selection of a candidate(s) for the current knowledge base -->
+                                                        <select size="3"
+                                                                ng-model=" currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase][0]"
+                                                                ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in candidates"
+                                                                class="form-control"></select>
+
+                                                        <div class="col-md-2 col-md-offset-10">
+                                                            <button class="btn btn-sm" ng-click="createIframe(currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase],knowledgeBase,currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase].length)">
+                                                                browse
+                                                            </button>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- user can write own classification -->
-                                        <div class="form-group">
-                                            <label class="control-label "> Own disambiguation:</label>
+                                            <!-- user can write own classification -->
+                                            <div class="form-group">
+                                                <label class="control-label "> Own disambiguation:</label>
 
-                                            <input class="form-control" type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource">
-
-                                        </div>
+                                                <input class="form-control" type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource">
 
                                         <!-- -->
                                         <div class="checkbox">
@@ -266,10 +301,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                        </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
 
             <!-- VIEW: Relations -->
@@ -317,6 +354,8 @@
                                         <input class="form-control" type="text" ng-change="gvmodal.modalPredicatesChange()" ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2].other[0].resource">
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -331,8 +370,8 @@
                 <!-- TODO: Nie je ten default zbytocny? Aj tak je v controlleri nastaveny defaultny stav ako "1" -->
                 <h2>Choosing of relationships between columns</h2>
             </div>
-        </div>
 
+        </div>
 
         <div class="form-group odalic-hr-pushbtm">
             <div class="col-md-2">

@@ -4,31 +4,29 @@
     var app = angular.module('odalic-app');
 
 
-    app.filter('chosenCandidates', function () {
-        return function (candidates) {
-            var chosen = [];
-            for (var knowledgeBase in candidates) {
-                var KBcandidates = candidates[knowledgeBase];
-                for (var i = 0; i < KBcandidates.length; i++) {
-                    if (KBcandidates[i].chosen == true) {
-                        chosen.push(KBcandidates[i].entity.resource);
-                    }
+    //app.filter('chosenCandidates', function () {
+    //    return function (candidates) {
+    //        var chosen = [];
+    //        for (var knowledgeBase in candidates) {
+    //            var KBcandidates = candidates[knowledgeBase];
+    //            for (var i = 0; i < KBcandidates.length; i++) {
+    //                if (KBcandidates[i].chosen == true) {
+    //                    chosen.push(KBcandidates[i].entity.resource);
+    //                }
 
-                }
-            }
+    //            }
+    //        }
 
-            return chosen.join();
-        };
-    });
+    //        return chosen.join();
+    //    };
+    //});
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, $window, sharedata, requests, rest, ioc) {
-
-
-        //$scope.primaryKB = sharedata.get("PrimaryKB");
-        //$scope.chosenKBs = sharedata.get("ChosenKBs");
-        $scope.primaryKB = "DBpedia";
-        $scope.chosenKBs = ["DBpedia"];
+    app.controller('taskresult-ctrl', function ($scope, $location, $window, sharedata, requests, rest, ioc) {
+        $scope.primaryKB = sharedata.get("PrimaryKB");
+        $scope.chosenKBs = sharedata.get("ChosenKBs");
+        //$scope.primaryKB = "DBpedia";
+        //$scope.chosenKBs = ["DBpedia"];
         // Loading the input CSV file
         var loadInput = function (input) {
             Papa.parse(input, {
@@ -55,10 +53,10 @@
         loader.sharedata = sharedata;
         loader.requests = requests;
         loader.rest = rest;
-        loader.getCSV(function(data) {
+        loader.getCSV(function (data) {
             loadInput(data);
         });
-        loader.getJSON(function(data) {
+        loader.getJSON(function (data) {
             $scope.result = data;
         });
 
@@ -322,7 +320,7 @@
 
                     //TODO mozna rychleji
                     //detectes user's changed classification
-                    if (userChanges.map(function(c) { return c.resource; }).includes(inputSetting[i].entity.resource)) {
+                    if (userChanges.map(function (c) { return c.resource; }).includes(inputSetting[i].entity.resource)) {
                         // changedIndexes[KB].push(i);
                         if (inputSetting[i].chosen == false) {
                             changed = true;
@@ -408,14 +406,12 @@
 
         // VIEW
         $scope.state = 0;                       // Default VIEW
-   
 
         $scope.previousState = function () {
             $scope.state--;
         };
 
-        $scope.nextState = function ()
-        {
+        $scope.nextState = function () {
             $scope.state++;
         };
 
@@ -447,15 +443,137 @@
 
             $scope.selectedPosition.column = column;
             $scope.selectedPosition.row = row;
-        }
+        };
 
         $scope.backgroundColor = function (KB) {
             angle = 360 / $scope.chosenKBs.length;
             index = $scope.chosenKBs.indexOf(KB);
             color = "hsla(" + angle * index + ", 100%, 75%,0.5)";
-             return { "background-color": color };
-  
+            return { "background-color": color };
         };
+
+
+
+        // LOD
+        // **************************************************
+        //$scope.okno;
+        //$scope.pok = function () {
+        //    // $scope.okno = window.open("http://localhost:8080/lodview", 'bla');
+        //    $scope.okno = window.open("file:///C:/Users/Kata/Desktop/odalicLod/LodLive/app_en.html?http://dbpedia.org/resource/Steven_Erikson", 'bla');
+
+        //}
+
+        //$scope.zprava = function () {
+
+
+        //    //var win = $scope.okno;
+        //    var win = document.getElementById("iframe").contentWindow
+
+        //    a = {}
+        //    a.pozdrav = "Zdravim";
+
+        //    win.postMessage(
+        //      a,
+        //      "*"
+        //    )
+
+
+        //}
+
+
+
+
+        //LODLIVE communication
+
+        //sets listener
+        if (window.addEventListener) {
+            addEventListener("message", listener, false)
+        } else {
+            attachEvent("onmessage", listener)
+        }
+
+        // saves context of odalic for communication
+        var lodLiveIframe;
+        var selectedKB;
+        var selectedUrls;
+        var iterator = 0;
+
+        //creates iframe with lodLive application
+        $scope.createIframe = function (endUrls, currentKB, iteration) {
+
+            //alert($location.host())
+            //saves context 
+            iterator = iteration;
+            selectedUrls = endUrls;
+            selectedKB = currentKB;
+
+            //multi choices
+            var n = endUrls.length - iterator;
+            if (n >= endUrls.length) {
+                return;
+            }
+
+
+            //LodLive iframe
+            var allUrl = "../LodLive/app_en.html?" + endUrls[n].resource;
+            lodLiveIframe = document.createElement("IFRAME");
+            lodLiveIframe.setAttribute("src", allUrl);
+            document.body.appendChild(lodLiveIframe);
+
+        }
+
+        function listener(event) {
+            //TODO kontrola nefunguje event.origin ==null
+            // if ( event.origin !== "http://localhost:8080" )
+            //   return
+
+            // json result sends from lodlive: {action: close/returnUrl, data: "www.dbpedia..."}
+            if (event.data.action != 'close') {
+                var candidates;
+                //gets the current header or cell candidates by position
+                if ($scope.selectedPosition.row == -1) {
+                    candidates = $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[selectedKB]
+                }
+                else {
+                    candidates = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[selectedKB]
+                }
+
+                var urlList = candidates.map(function (candidate) { return candidate.entity.resource; })
+                //adds new concept
+                if (!urlList.includes(event.data.data)) {
+                    var newObj = {
+                        "entity": { "resource": event.data.data, "label": "" },
+                        "likelihood": { "value": 0 },
+                        "chosen": true
+                    }
+                    candidates.push(newObj)
+
+
+                    //sets selected urls in select boxes
+                    if ($scope.selectedPosition.row == -1) {
+                        //classification - multi choice is possible
+                        $scope.currentItems[$scope.selectedPosition.row][$scope.selectedPosition.column][selectedKB].push(newObj.entity)
+                    }
+                    else {
+                        //disambiguation - only one choice is possible
+                        $scope.currentItems[$scope.selectedPosition.row][$scope.selectedPosition.column][selectedKB] = [newObj.entity]
+                    }
+                    //TODO hlaska o pridani vlevy dolni rohu viz cvut angular
+                }
+                    //TODO  hezci hlaska - o existenci vlevy dolni rohu viz cvut angular
+                else { alert("This url is already in the selection. ") }
+
+                $scope.$apply();
+
+            }
+
+            document.body.removeChild(lodLiveIframe);
+            //classification has more choices, one choice =  one iframe lodLive
+            $scope.createIframe(selectedUrls, selectedKB, iterator - 1);
+        }
+
+
+
 
 
         //TODO mozna online detekce zmeny jinak je to k nicemu

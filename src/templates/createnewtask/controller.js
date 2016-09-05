@@ -10,6 +10,7 @@
 
     // Create a controller for task-creation screen
     app.controller('createnewtask-ctrl', function ($scope, $http, $window, sharedata, filedata, requests, rest) {
+
         // Files
         $scope.fileProvision = settings.fileProvisionTypes[0];
         $scope.files = {};
@@ -17,7 +18,8 @@
 
         //Supported knowledge bases
         $scope.availableKBs = ["DBpedia"];
-        //TODO smazat
+
+        //TODO smazat az bude na vyber
         $scope.chosenKBs = ["DBpedia"];
         $scope.primaryKB = "DBpedia";
 
@@ -28,6 +30,9 @@
 
             // Are we uploading a file at the moment?
             uploadingFile: false,
+
+            // Button for file uploading disabled?
+            isUploadDisabled: true,
 
             // Identifier of the file to be uploaded
             identifier: String(),
@@ -54,6 +59,7 @@
             // Automatically fill the 'identifier' when a file is selected
             fillIdentifier: function () {
                 var name = filedata.fileName(this.inputFileId);
+                this.isUploadDisabled = !name;
                 if (!name) {
                     name = text.randomId();
                 }
@@ -124,6 +130,9 @@
                             // The file has been uploaded successfully => refresh the list of available files
                             _ref.refreshUploaded(function (succes) {
                                 // Succes parameter ignored.
+
+                                //button Upload is active 
+                                $scope.isUploadDisabled = true;
 
                                 // Display a success message
                                 _ref.pushAlert('success', 'The file has been successfully uploaded.');
