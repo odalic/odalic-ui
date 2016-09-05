@@ -3,7 +3,7 @@ $.defineModule(function () {
         requests : null,
         sharedata : null,
         rest: null,
-        getCSV : function(callback) {
+        getCSV : function (callback) {
             $.ajax({
                 async: false,
                 type: 'GET',
@@ -15,10 +15,14 @@ $.defineModule(function () {
                 dataType: "text"
             });
         },
-        getJSON : function(callback) {
-            $.getJSONSync('./test/samples/result/r1.json', function(res) {
+        getJSON: function (callback) {
+            $.getJSONSync('./test/samples/result/r1.json', function (res) {
                 callback(res);
             });
+        },
+        setKB: function () {
+            this.sharedata.set('PrimaryKB', 'DBpedia');
+            this.sharedata.set('ChosenKBs', ["DBpedia"]);
         }
     };
 });

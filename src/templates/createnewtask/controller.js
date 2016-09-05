@@ -149,7 +149,10 @@
 
                                 // Another file may be uploaded again
                                 _ref.uploadingFile = false;
+								_ref.isUploadDisabled = true;
 
+                                // Clear chosen file
+                                angular.element("input[type='file']").val(null);
                             });
                         },
                         // Failure

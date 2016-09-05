@@ -56,3 +56,10 @@ var constants = {
         };
     }
 };
+
+var KBconstants = {
+    get colorsArray() {
+        //color palette has 10 colors ( max. 10 knowledgebases)
+        return ['#ff6a00', '#ffac00', 'DarkSalmon  ', 'SandyBrown ', 'Peru', 'Sienna', 'GoldenRod ', 'Tan', 'SkyBlue ', 'SteelBlue'];
+    }
+};

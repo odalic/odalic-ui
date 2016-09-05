@@ -20,6 +20,8 @@ $.defineModule(function () {
         getJSON : function(callback) {
             callback(JSON.parse(this.sharedata.get('Result')));
             //this.sharedata.clear("Result");
+        },
+        setKB: function () {
         }
-    };
+};
 });

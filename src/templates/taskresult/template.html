@@ -115,9 +115,10 @@
                                     </div>
                                     <!-- primary knowledge base classifications-->
                                     <div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-repeat="class in currentItems[-1][$index][primaryKB]">
-                                        {{ class.label  + ' ' + '(' + class.resource + ')' }}
+                                        {{x+ class.label  + ' ' + '(' + class.resource + ')' }}
 
                                     </div>
+
                                     <!-- other knowledge base classifications-->
                                     <div ng-repeat="(KB,data) in currentItems[-1][$index]">
                                         <div ng-if="KB != primaryKB">
@@ -157,6 +158,13 @@
                     </table>
                 </div>
                 <!--<iframe src="LodLive/app_en.html?http://dbpedia.org/resource/Steven_Erikson" id="iframe"></iframe>-->
+
+              
+                <!--<button class="btn btn-lg" ng-click=pokus()>
+                    Start from the beginning
+                </button>
+                <div><dfeedback :{{bla}}</div>-->
+
                 <!--{{primaryKB}}
 
                 {{chosenKBs}}
@@ -374,20 +382,20 @@
         </div>
 
         <div class="form-group odalic-hr-pushbtm">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <!--TODO spustit to znova-->
                 <button class="btn btn-lg" ng-click="" disabled="true">
                     Start from the beginning
                 </button>
             </div>
-            <div class="col-md-2 col-md-offset-4">
+            <div class="col-md-2">
                 <!--TODO prepsat na  Re-run the algorithm az se to bude umet na serveru-->
                 <button class="btn btn-lg" ng-click="setFeedback()" disabled="true">
                     Send feedback
                 </button>
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-md-offset-3">
                 <button class="btn btn-lg" ng-click="previousState()" ng-disabled="state <= 0">
                     Previous step
                 </button>
@@ -425,7 +433,7 @@
             <div class="text-center">
                 <ul class="pagination">
                     <li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
-                
+
                     <li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
                         <a class="pointer" ng-click="setState($index)">
                             {{ $index }}

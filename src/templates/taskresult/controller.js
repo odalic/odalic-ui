@@ -60,6 +60,13 @@
             $scope.result = data;
         });
 
+        loader.setKB();
+
+
+
+        $scope.primaryKB = sharedata.get("PrimaryKB");
+        $scope.chosenKBs = sharedata.get("ChosenKBs");
+
         // Bylo presunuto z $.getJSONSync (metoda byla jen temporarni)
         // Prosim, nemenit (pokud neni zavazny duvod) nacitavani "input CSV file" a "result".
         // Taky tam nic nepripisovat (opet: jen ze zavazneho duvodu).
@@ -82,9 +89,9 @@
         $scope.currentItems['-1'] = {};
         for (var i = 0; i < $scope.result.headerAnnotations.length; i++) {
             var cell = $scope.result.headerAnnotations[i].candidates;
-            var selectedCandidates = [];
             $scope.currentItems['-1'][i] = {};
             for (var kb in cell) {
+                var selectedCandidates = [];
                 for (var k = 0; k < cell[kb].length; k++) {
                     if (cell[kb][k].chosen == true) {
                         selectedCandidates.push(cell[kb][k].entity);
@@ -93,6 +100,17 @@
                 $scope.currentItems['-1'][i][kb] = selectedCandidates;
             }
         }
+
+        //test pro barevnou paletu - smazat
+        //for (var i = 0; i < 10; i++)
+        //    $scope.currentItems[-1][0][i] =
+        //    {
+        //        "entity":
+        //           {
+        //               "resource": "bla",
+        //               "label": ""
+        //           }
+        //    }
         //set cells of table
         for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
             $scope.currentItems[i] = {};
@@ -308,7 +326,7 @@
             //    }
             //});
 
-        }
+        };
 
 
 
@@ -337,7 +355,7 @@
             }
             else {
                 // TODO: Aby nebol zbytocny chaos, len som dopisal 1 argument, aby sa nic nemuselo menit v tvojom kode (funkcie su variadicke v JS)
-                if (typeof(forRelations) === 'undefined') {
+                if (typeof (forRelations) === 'undefined') {
                     // If "forRelations" argument is not passed in the function call, handle the situation the old way
                     // TODO asi jinak protoze je mozna potreba sjednotit currentItems.other z ""  na  [""]
                     if (!($scope.currentItems[rowNumber][columnNumber]["other"][0].resource == "")) {
@@ -362,7 +380,7 @@
 
             // TODO: Rovnaky princip, ako vyssie pri findUserChanges; forRelations je nepovinny argument. (to len pre informaciu; tento komentarmozes potom zmazat)
             var collection = null;
-            if (typeof(forRelations) === 'undefined') {
+            if (typeof (forRelations) === 'undefined') {
                 // Handle basic case
                 collection = $scope.currentItems[rowNumber][columnNumber];
             } else {
@@ -377,9 +395,9 @@
                     feedbackCandidates["other"].push(
                        {
                            "entity": {
-                                "resource": collection[KB][0].resource,
-                                "label": ""
-                            },
+                               "resource": collection[KB][0].resource,
+                               "label": ""
+                           },
                            "likelihood": { "value": 0 },
                            "chosen": true
                        }
@@ -406,11 +424,9 @@
 
         // VIEW
         $scope.state = 0;                       // Default VIEW
-
         $scope.previousState = function () {
             $scope.state--;
         };
-
         $scope.nextState = function () {
             $scope.state++;
         };
@@ -445,11 +461,11 @@
             $scope.selectedPosition.row = row;
         };
 
+        //sets backgroung color of chosen classification/disambiguation in table by knowledge base
         $scope.backgroundColor = function (KB) {
-            angle = 360 / $scope.chosenKBs.length;
-            index = $scope.chosenKBs.indexOf(KB);
-            color = "hsla(" + angle * index + ", 100%, 75%,0.5)";
-            return { "background-color": color };
+            var index = $scope.chosenKBs.indexOf(KB);
+            var color = KBconstants.colorsArray[index % 10];
+            return { "background-color": color, "border-radius": "5px", "opacity": "1" };
         };
 
 
@@ -520,7 +536,7 @@
             lodLiveIframe.setAttribute("src", allUrl);
             document.body.appendChild(lodLiveIframe);
 
-        }
+        };
 
         function listener(event) {
             //TODO kontrola nefunguje event.origin ==null
@@ -639,7 +655,7 @@
                     column1 = c1;
                     column2 = c2;
                 };
-                if(!$scope.$$phase) {
+                if (!$scope.$$phase) {
                     $scope.$apply();
                 }
                 $("#modalPredicates").modal();
