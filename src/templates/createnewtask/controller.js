@@ -131,9 +131,6 @@
                             _ref.refreshUploaded(function (succes) {
                                 // Succes parameter ignored.
 
-                                //button Upload is active 
-                                $scope.isUploadDisabled = true;
-
                                 // Display a success message
                                 _ref.pushAlert('success', 'The file has been successfully uploaded.');
 
