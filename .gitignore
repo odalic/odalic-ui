@@ -46,9 +46,7 @@ Temporary Items
 *.log
 *.lck
 graph.txt
-*.csv
 core/lodie.log.1
-*.csv
 *.1
 failed.txt
 output/*

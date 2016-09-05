@@ -1,7 +1,7 @@
 (function () {    
 
     // Synchronous script loading
-    $.getScriptSync = function (filepath, callback) {
+    $.getScriptSync = function (filepath, callback, failure) {
         // Set the current filepath
         var oldURL = $.getCurrentPath;
         $.getCurrentPath = function () {
@@ -15,6 +15,11 @@
             url: filepath,
             data: null,
             success: callback,
+            error: function(a, b, c) {
+                if (failure) {
+                    failure(a, b, c);
+                }
+            },
             dataType: 'script'
         });
 
@@ -23,13 +28,18 @@
     };
 
     // Synchronous JSON loading
-    $.getJSONSync = function (filepath, callback) {
+    $.getJSONSync = function (filepath, callback, failure) {
         $.ajax({
             async: false,
             type: 'GET',
             url: filepath,
             data: null,
             success: callback,
+            error: function(a, b, c) {
+                if (failure) {
+                    failure(a, b, c);
+                }
+            },
             dataType: 'json'
         });
     };
@@ -45,7 +55,7 @@
         var current = $.getCurrentPath();
         return current.substring(0, current.lastIndexOf('/')) + '/' + filePath;
     }
-    
+
     // Define the angular module dependencies
     angular.module('odalic-app', ['ngRoute']);
     

@@ -15,6 +15,13 @@
         $scope.fileProvision = settings.fileProvisionTypes[0];
         $scope.files = {};
 
+        //Supported knowledge bases
+        $scope.availableKBs = ["DBpedia"];
+        //TODO smazat
+        $scope.chosenKBs = ["DBpedia"];
+        $scope.primaryKB = "DBpedia";
+
+        $scope.isUploadDisabled = true;
 
         // List of uploaded files
         $scope.savedFiles = settings.savedFiles;
@@ -26,6 +33,17 @@
          *                    It is assigned 'true' for a successful list retrieval; false for an unsuccessful list retrieval.
          *
          */
+
+        // sets  file identifier by the chosen file name
+        $scope.setFile = function (element) {
+            $scope.$apply(function ($scope) {
+                //TODO bez pripony ???
+                //TODO kontrola jeli to csv tu???
+                $scope.fileUpload.identifier = element.files[0].name;
+                $scope.isUploadDisabled = false;
+            });
+        };
+
         function refreshUploadedFiles(callback) {
             $http({
                 method: "GET",
@@ -97,8 +115,15 @@
                             refreshUploadedFiles(function (succes) {
                                 // Succes parameter ignored.
 
+                                //button Upload is active 
+                                $scope.isUploadDisabled = true;
+
                                 // Display a success message
                                 $scope.fileUpload.uploadFileSuccess.alert = true;
+
+                                // Sets new uploaded file as chosen
+                                var uploadedFileIndex = $scope.savedFiles.map(function(file) { return file.id; }).indexOf($scope.fileUpload.identifier);
+                                $scope.files.selectedFile =$scope.savedFiles[uploadedFileIndex] ;
 
                                 // Clear the fields
                                 $scope.fileUpload.identifier = String();
@@ -106,6 +131,10 @@
 
                                 // Another file may be uploaded again
                                 $scope.fileUpload.uploadingFile = false;
+
+                                //clear chosen file
+                                angular.element("input[type='file']").val(null);
+                                
                             });
                         },
                         failure: function failure(response) {
@@ -209,13 +238,18 @@
                             disambiguations: [],
                             cellRelations: [],
                             columnRelations: []
+                        },
+                        primary_base: { 
+                            name: $scope.primaryKB
                         }
                     }
                 },
                 success: function (response) {
+                    //TODO predelat pro vice tasku bezicich zaroven??
                     // Save the chosen input file identifier
                     sharedata.set("Input", fileLocation);
-
+                    sharedata.set("PrimaryKB", $scope.primaryKB);
+                    sharedata.set("ChosenKBs", $scope.chosenKBs);
                     reqStartTask();
                 },
                 failure: requestError
