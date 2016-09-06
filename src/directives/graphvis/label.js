@@ -250,13 +250,13 @@ var edgelabel = function (d3sel) {
         var dist = eucgeom.dist2p(x1, y1, x2, y2);
         if (0.65*dist < _bwidth) {
             // is it even worth trimming?
-            if (dist < 9*15) {
+            if (dist < 18*15) {
                 if (this.text !== '') {
                     changeTextNS('');
                 }
             } else {
                 if ((this.text === _btext) || (this.text === '')) {
-                    changeTextNS(text.dotted(_btext, 10));
+                    changeTextNS(text.dotted(_btext, 20));
                 }
             }
         } else {
