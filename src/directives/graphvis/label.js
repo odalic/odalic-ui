@@ -248,16 +248,15 @@ var edgelabel = function (d3sel) {
 
         // does our label text fit on the edge?
         var dist = eucgeom.dist2p(x1, y1, x2, y2);
-        if (0.65*dist < _bwidth) {
+        var realDist = dist - 32*2 - 10;
+        if (realDist < _bwidth) {
             // is it even worth trimming?
-            if (dist < 18*15) {
+            if (realDist < 50) {
                 if (this.text !== '') {
                     changeTextNS('');
                 }
             } else {
-                if ((this.text === _btext) || (this.text === '')) {
-                    changeTextNS(text.dotted(_btext, 20));
-                }
+                changeTextNS(text.dotted(_btext, Math.floor(realDist / 7)));
             }
         } else {
             if (_btext !== this.text) {

@@ -198,7 +198,7 @@
                                 try {
                                     concept = text.uri(resource).page;
                                 } catch (e) {
-                                    concept = text.dotted(resource, 26);
+                                    concept = text.dotted(resource, 20);
                                 }
                             }
                             labels.push(kb + ':' + concept);
