@@ -136,8 +136,8 @@
         $scope.currentRelations = {};
         objForEach($scope.result.columnRelationAnnotations, function (column1, collect1) {
             objForEach(collect1, function (column2, collect2) {
-                var selectedCandidates = [];
                 objForEach(collect2['candidates'], function (kb, collect3) {
+                    var selectedCandidates = [];
                     collect3.forEach(function (item) {
                         if (item.chosen == true) {
                             selectedCandidates.push(item['entity']);

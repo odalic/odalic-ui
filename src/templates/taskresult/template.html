@@ -236,15 +236,15 @@
                                         <!-- user can write own classification -->
                                         <div class="form-group">
                                             <label class="control-label"> Own classification:</label>
-                                            <input type="text" class="form-control" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource">
+                                            <input type="text" class="form-control" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource" ng-disabled="true">
                                         </div>
                                         <!-- algorithm ignore chosen column -->
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]"> Ignore Column</label>
+                                            <label><input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]" ng-disabled="true"> Ignore Column</label>
                                         </div>
                                         <!--  -->
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]"> Skip disambiguation in all cell of this collumn </label>
+                                            <label><input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]" ng-disabled="true"> Skip disambiguation in all cell of this collumn </label>
                                         </div>
                                     </div>
                                 </div>
@@ -299,13 +299,13 @@
 
                                             <!-- user can write own classification -->
                                             <div class="form-group">
-                                                <label class="control-label "> Own disambiguation:</label>
+                                                <label class="control-label"> Own disambiguation:</label>
 
-                                                <input class="form-control" type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource">
+                                                <input class="form-control" type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource" ng-disabled="true">
 
                                         <!-- -->
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"> Skip disambiguation in the cell</label>
+                                            <label><input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]" ng-disabled="true"> Skip disambiguation in the cell</label>
                                         </div>
                                     </div>
                                 </div>
@@ -320,7 +320,6 @@
             <!-- VIEW: Relations -->
             <div ng-switch-when="2">
                 <h2>Choosing of predicates</h2>
-
                 <!-- Modal -->
                 <div id="modalPredicates" class="modal" role="dialog">
                     <div class="modal-dialog lg">
@@ -359,7 +358,7 @@
                                     <!-- user can write own relation -->
                                     <div class="form-group">
                                         <label class="control-label">Own relation:</label>
-                                        <input class="form-control" type="text" ng-change="gvmodal.modalPredicatesChange()" ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2].other[0].resource">
+                                        <input class="form-control" type="text" ng-change="gvmodal.modalPredicatesChange()" ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2].other[0].resource" ng-disabled="true">
                                     </div>
                                 </div>
 
@@ -384,24 +383,24 @@
         <div class="form-group odalic-hr-pushbtm">
             <div class="col-md-3">
                 <!--TODO spustit to znova-->
-                <button class="btn btn-lg" ng-click="" disabled="true">
+                <button class="btn btn-lg btn-block" ng-click="" disabled="true">
                     Start from the beginning
                 </button>
             </div>
             <div class="col-md-2">
                 <!--TODO prepsat na  Re-run the algorithm az se to bude umet na serveru-->
-                <button class="btn btn-lg" ng-click="setFeedback()" disabled="true">
+                <button class="btn btn-lg btn-block" ng-click="setFeedback()" disabled="true">
                     Send feedback
                 </button>
 
             </div>
             <div class="col-md-2 col-md-offset-3">
-                <button class="btn btn-lg" ng-click="previousState()" ng-disabled="state <= 0">
+                <button class="btn btn-lg btn-block" ng-click="previousState()" ng-disabled="state <= 0">
                     Previous step
                 </button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-lg" ng-click="nextState()" ng-disabled="state >= 2">
+                <button class="btn btn-lg btn-block" ng-click="nextState()" ng-disabled="state >= 2">
                     Next step
                 </button>
             </div>
