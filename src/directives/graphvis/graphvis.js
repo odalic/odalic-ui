@@ -79,7 +79,7 @@
                     centering: {
                         strength: 0.1
                     },
-                    linksDistance: 250,
+                    linksDistance: 330,
                     manyBody: {
                         strength: 0
                     }
@@ -198,7 +198,7 @@
                                 try {
                                     concept = text.uri(resource).page;
                                 } catch (e) {
-                                    concept = text.dotted(resource, 25);
+                                    concept = text.dotted(resource, 26);
                                 }
                             }
                             labels.push(kb + ':' + concept);
