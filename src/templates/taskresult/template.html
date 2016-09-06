@@ -236,15 +236,15 @@
                                         <!-- user can write own classification -->
                                         <div class="form-group">
                                             <label class="control-label"> Own classification:</label>
-                                            <input type="text" class="form-control" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource">
+                                            <input type="text" class="form-control" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource" ng-disabled="true">
                                         </div>
                                         <!-- algorithm ignore chosen column -->
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]"> Ignore Column</label>
+                                            <label><input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]" ng-disabled="true"> Ignore Column</label>
                                         </div>
                                         <!--  -->
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]"> Skip disambiguation in all cell of this collumn </label>
+                                            <label><input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]" ng-disabled="true"> Skip disambiguation in all cell of this collumn </label>
                                         </div>
                                     </div>
                                 </div>
@@ -299,13 +299,13 @@
 
                                             <!-- user can write own classification -->
                                             <div class="form-group">
-                                                <label class="control-label "> Own disambiguation:</label>
+                                                <label class="control-label"> Own disambiguation:</label>
 
-                                                <input class="form-control" type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource">
+                                                <input class="form-control" type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource" ng-disabled="true">
 
                                         <!-- -->
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"> Skip disambiguation in the cell</label>
+                                            <label><input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]" ng-disabled="true"> Skip disambiguation in the cell</label>
                                         </div>
                                     </div>
                                 </div>
