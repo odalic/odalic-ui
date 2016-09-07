@@ -23,8 +23,8 @@
 
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $location, $window, sharedata, requests, rest, ioc) {
-        $scope.primaryKB = sharedata.get("PrimaryKB");
-        $scope.chosenKBs = sharedata.get("ChosenKBs");
+        //$scope.primaryKB = sharedata.get("PrimaryKB");
+       // $scope.chosenKBs = sharedata.get("ChosenKBs");
         //$scope.primaryKB = "DBpedia";
         //$scope.chosenKBs = ["DBpedia"];
         // Loading the input CSV file
