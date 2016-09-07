@@ -9,6 +9,9 @@
         return {
             restrict: 'E',
             templateUrl: currentFolder + 'graphvis.html',
+			scope: {
+				// Separate our scope from the taskresult
+			},			
             link: function (scope, iElement, iAtttrs) {
 
                 // Retrieve the necessary data
