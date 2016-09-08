@@ -16,10 +16,13 @@
         $scope.files = {};
         $scope.remoteFile = {};
 
+
+        //TODO smazat az bude na vyber,tj.
+        //az to bude server umet, tak se dostupne kbs nastavi ze serveru
+
         //Supported knowledge bases
         $scope.availableKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
 
-        //TODO smazat az bude na vyber
         $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
         $scope.primaryKB = "DBpedia";
 

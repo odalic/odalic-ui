@@ -464,7 +464,7 @@
         //sets backgroung color of chosen classification/disambiguation in table by knowledge base
         $scope.backgroundColor = function (KB) {
             var index = $scope.chosenKBs.indexOf(KB);
-            var color = KBconstants.colorsArray[index % 10];
+            var color = KBconstants.colorsArray[index];
             return { "background-color": color, "border-radius": "5px", "opacity": "1" };
         };
 
