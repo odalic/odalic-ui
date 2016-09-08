@@ -23,8 +23,8 @@
 
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $location, $window, sharedata, requests, rest, ioc) {
-        $scope.primaryKB = sharedata.get("PrimaryKB");
-        $scope.chosenKBs = sharedata.get("ChosenKBs");
+        //$scope.primaryKB = sharedata.get("PrimaryKB");
+       // $scope.chosenKBs = sharedata.get("ChosenKBs");
         //$scope.primaryKB = "DBpedia";
         //$scope.chosenKBs = ["DBpedia"];
         // Loading the input CSV file
@@ -464,7 +464,7 @@
         //sets backgroung color of chosen classification/disambiguation in table by knowledge base
         $scope.backgroundColor = function (KB) {
             var index = $scope.chosenKBs.indexOf(KB);
-            var color = KBconstants.colorsArray[index % 10];
+            var color = KBconstants.colorsArray[index];
             return { "background-color": color, "border-radius": "5px", "opacity": "1" };
         };
 

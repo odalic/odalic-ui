@@ -182,7 +182,9 @@
                                 class="form-control"
                                 ng-model="chosenKBs"
                                 multiple
-                                ng-options="opt for opt in availableKBs"></select>
+                                ng-options="opt for opt in availableKBs"
+                                ng-change="automaticSelectPrimaryKB()"
+                                ng-disabled="true"></select>
                     </div>
                 </div>
                 <div class="form-group">

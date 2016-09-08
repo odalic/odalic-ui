@@ -16,12 +16,19 @@
         $scope.files = {};
         $scope.remoteFile = {};
 
-        //Supported knowledge bases
-        $scope.availableKBs = ["DBpedia"];
 
-        //TODO smazat az bude na vyber
-        $scope.chosenKBs = ["DBpedia"];
+        //TODO smazat az bude na vyber,tj.
+        //az to bude server umet, tak se dostupne kbs nastavi ze serveru
+
+        //Supported knowledge bases
+        $scope.availableKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
+
+        $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
         $scope.primaryKB = "DBpedia";
+
+        $scope.automaticSelectPrimaryKB = function () {
+            $scope.primaryKB = $scope.chosenKBs[0];
+        }
 
         // File uploading
         $scope.fileUpload = {
