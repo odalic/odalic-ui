@@ -30,13 +30,13 @@
                     </label>
                     <div class="col-md-5">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="fileProvision" value="local"/>
-                            Uploaded or local file
+                            <input type="radio" ng-model="fileProvision" value="local" />
+                            Uploaded or selected file
                         </label>
                     </div>
                     <div class="col-md-5">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="fileProvision" value="remote"/>
+                            <input type="radio" ng-model="fileProvision" value="remote" disabled="true"/>
                             Remote file
                         </label>
                     </div>
@@ -45,50 +45,47 @@
                 <div ng-switch="fileProvision">
                     <!-- When a file that was already uploaded is to be selected -->
                     <div ng-switch-when="local">
-                        <!-- Select from the already uploaded ones -->
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Available files:</label>
-                            <div class="col-md-10">
-                                <select class="form-control" ng-model="files.selectedFile"
-                                        ng-options="file.id for file in savedFiles"></select>
-                            </div>
-                        </div>
+
 
                         <!-- Upload a new local file -->
                         <div class="form-group">
                             <label class="col-md-2 control-label">Upload a new file:</label>
                             <div class="col-md-8">
-                                <input type="file" id="concreteFile"/>
+                                <input type="file" id="concreteFile" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
                             </div>
                             <div class="col-md-2"></div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-md-2 control-label">Identifier:</label>
                             <div class="col-md-8">
-                                <input type="text" class="form-control" ng-model="fileUpload.identifier" \>
+                                <input type="text" class="form-control" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" \>
                             </div>
                             <div class="col-md-2 text-center">
                                 <!-- Button 'upload' -->
                                 <button ng-hide="fileUpload.uploadingFile" type="button" class="form-control"
-                                        ng-click="fileUpload.uploadFile()">Upload
+                                        ng-click="fileUpload.uploadFile()" ng-disabled="fileUpload.isUploadDisabled">
+                                    Upload
                                 </button>
                                 <!-- Icon 'loading' -->
                                 <i ng-hide="!fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                             </div>
                         </div>
 
-                        <!--  Alert 'error while uploading' -->
-                        <div ng-show="fileUpload.uploadFileError.alert" class="alert alert-danger">
-                            <a class="close" ng-click="fileUpload.uploadFileError.close()"
-                               aria-label="close">&times;</a>
-                            An error occured while uploading the file. Details: {{ fileUpload.uploadFileError.details }}
+                        <!--  Alerts displaying notifications for a user -->
+                        <div ng-repeat="obj in fileUpload.alerts">
+                            <alert bind="obj">
+                                {{ obj.text }}
+                            </alert>
                         </div>
 
-                        <!--  Alert 'successfule upload' -->
-                        <div ng-show="fileUpload.uploadFileSuccess.alert" class="alert alert-success">
-                            <a class="close" ng-click="fileUpload.uploadFileSuccess.close()"
-                               aria-label="close">&times;</a>
-                            The file has been successfully uploaded.
+                        <!-- Select from the already uploaded ones -->
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Selected file:</label>
+                            <div class="col-md-10">
+                                <select class="form-control" ng-model="files.selectedFile"
+                                        ng-options="file.id for file in fileUpload.uploaded"></select>
+                            </div>
                         </div>
                     </div>
 
@@ -97,7 +94,7 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">specify a location:</label>
                             <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="location" \>
+                                <input class="form-control" type="text" ng-model="remoteFile.location" \>
                             </div>
                         </div>
                     </div>
@@ -105,7 +102,7 @@
             </fieldset>
 
             <!-- File settings -->
-            <fieldset>
+            <fieldset disabled="true">
                 <legend>File settings</legend>
                 <!-- File settings -->
                 <div class="form-group">
@@ -141,15 +138,15 @@
                             <input type="radio"
                                    ng-model="delimiter" value="semicolon">;
                         </label> <label class="radio-inline">
-                        <input type="radio"
-                               ng-model="delimiter" value="colon">:
-                    </label> <label class="radio-inline">
-                        <input type="radio"
-                               ng-model="delimiter" value="tab">tab
-                    </label> <label class="radio-inline">
-                        <input type="radio"
-                               ng-model="delimiter" value="other"> other:
-                    </label> <input type="text" ng-model="otherDelimiter">
+                            <input type="radio"
+                                   ng-model="delimiter" value="colon">:
+                        </label> <label class="radio-inline">
+                            <input type="radio"
+                                   ng-model="delimiter" value="tab">tab
+                        </label> <label class="radio-inline">
+                            <input type="radio"
+                                   ng-model="delimiter" value="other"> other:
+                        </label> <input type="text" ng-model="otherDelimiter">
 
                     </div>
                 </div>
@@ -172,6 +169,42 @@
                     </div>
                 </div>
             </fieldset>
+
+            <!-- Knowledge base settings -->
+            <fieldset>
+                <legend> Knowledge base settings</legend>
+                <!-- setting of knowledge bases -->
+                <!-- TODO mozna jinak -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Knowledge bases:</label>
+                    <div class="col-md-10">
+                        <select size={{availableKBs.length}}
+                                class="form-control"
+                                ng-model="chosenKBs"
+                                multiple
+                                ng-options="opt for opt in availableKBs"
+                                ng-change="automaticSelectPrimaryKB()"
+                                ng-disabled="true"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- setting of primary knowledge base -->
+                    <label class="col-md-2 control-label">Primary knowledge base:</label>
+                    <div class="col-md-10">
+                        <select class="form-control"
+                                ng-model="primaryKB"
+                                ng-options="opt for opt in chosenKBs"></select>
+
+                    </div>
+                </div>
+            </fieldset>
+
+            <!--  Alerts displaying notifications for a user regarding the whole form -->
+            <div ng-repeat="obj in wholeForm.alerts">
+                <alert bind="obj">
+                    {{ obj.text }}
+                </alert>
+            </div>
 
             <!-- submit button -->
             <button type="button" class="btn btn-lg pull-right" ng-click="createTask()">Create</button>

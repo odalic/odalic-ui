@@ -5,6 +5,8 @@
 
     // A service for reading data from files in a convenient way
     app.service('filedata', function () {
+        // Reference to self
+        var _ref = this;
 
         /** Reads a local file using an <input type="file" /> element.
          *  Returns the data in base64 format using a callback function (asynchronous).
@@ -22,7 +24,43 @@
             };
 
             reader.readAsDataURL(document.getElementById(inputFileElementId).files[0]);
-        }
+        };
+
+        /** Returns whether a file has been chosen for an upload.
+         *
+         * @param inputFileElementId    An id of the input file element to check.
+         * @returns {boolean}           Whether a file has been selected or not.
+         */
+        this.filePresent = function (inputFileElementId) {
+            return document.getElementById(inputFileElementId).files.length > 0;
+        };
+
+        /** Returns a file object of an input-file element.
+         *
+         * @param inputFileElementId    An id of the input file element to check.
+         * @returns {*}                 File object  or null, if no file is selected.
+         */
+        this.fileObject = function (inputFileElementId) {
+            if (_ref.filePresent(inputFileElementId)) {
+                return document.getElementById(inputFileElementId).files[0];
+            };
+
+            return null;
+        };
+
+        /** Returns a name of a selected file.
+         *
+         * @param inputFileElementId    An id of the input file element to check.
+         * @returns {*}                 Name of the file or null, if no file is selected.
+         */
+        this.fileName = function (inputFileElementId) {
+            var res = _ref.fileObject(inputFileElementId);
+            if (res) {
+                return res.name;
+            };
+
+            return null;
+        };
 
         /** Clears the specified <input type="file" /> control.
          *

@@ -37,6 +37,24 @@
             );
         }
 
+        /** A simple generic request wrapper.
+         * Does not support more complicated headers.
+         *
+         * @param url           Url of the source
+         * @param method        GET / POST / PUT / DELETE
+         * @param success       Success function
+         * @param failure       Failure function
+         */
+        this.quickRequest = function (url, method, success, failure) {
+            $http({
+                method: method,
+                url: url
+            }).then(
+                success,
+                failure
+            );
+        };
+
         /** Helps to prepare "multipart/form-data" payload.
          *
          * @return    JavaScript object with the following methods:
@@ -99,6 +117,15 @@
             generic_request(request_package, {'Content-Type': 'text/csv', 'Accept': 'text/csv'});
         };
 
+        /** Performs a generic request with MIME type set to 'text/turtle'.
+         *  Does not transform the response.
+         *
+         *    @param request_package        A generic request_package.
+         *
+         */
+        this.reqRDF = function (request_package) {
+            generic_request(request_package, {'Content-Type': 'text/turtle', 'Accept': 'text/turtle'});
+        };
     });
 
 })();

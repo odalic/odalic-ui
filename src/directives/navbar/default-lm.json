@@ -1,17 +1,8 @@
 [
   {
-    "title": "ODALIC",
-    "menu": [
-      {
-        "title": "Home",
-        "link": "#/"
-      },
-      {},
-      {
-        "title": "UI-Test",
-        "link": "#/test"
-      }
-    ]
+    "title": "Home",
+    "link": "#/",
+    "menu": []
   },
   {
     "title": "Create new task",
