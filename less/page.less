@@ -2,7 +2,6 @@
  * Page
  */
 html, body {
-    background-color: @odalic-color-almostwhite;
     height: 100%;
 }
 
@@ -49,17 +48,21 @@ html, body {
     .odalic-borders-middle;
 }
 
+.odalic-content-wide {
+    .odalic-gfont-general;
+	.odalic-bstyle-white;
+}
+
 
 /*
  * Footer
  */
 .odalic-footer {
     .odalic-gfont-alternative;
-    .odalic-borders-middle;
     &> div {
         .odalic-bstyle-almostwhite;
-        margin-left: -@bootstrap-padding-inner;
-        margin-right: -@bootstrap-padding-inner;
+        padding-left: @bootstrap-padding-inner;
+        padding-right: @bootstrap-padding-inner;
         border-bottom: 1px solid @odalic-color-lightgrey;
     }
 }
