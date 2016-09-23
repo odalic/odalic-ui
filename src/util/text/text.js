@@ -157,7 +157,7 @@ var text = {
     randomId: function () {
         var gen = function () {
             return Math.floor(Math.random() * 1000 + 1)
-        }
+        };
         return gen() + '-' + gen();
     },
 

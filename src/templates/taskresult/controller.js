@@ -554,15 +554,15 @@
                     candidates = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[selectedKB]
                 }
 
-                var urlList = candidates.map(function (candidate) { return candidate.entity.resource; })
+                var urlList = candidates.map(function (candidate) { return candidate.entity.resource; });
                 //adds new concept
                 if (!urlList.includes(event.data.data)) {
                     var newObj = {
                         "entity": { "resource": event.data.data, "label": "" },
                         "likelihood": { "value": 0 },
                         "chosen": true
-                    }
-                    candidates.push(newObj)
+                    };
+                    candidates.push(newObj);
 
 
                     //sets selected urls in select boxes
@@ -677,7 +677,7 @@
             var taskid = sharedata.get('TaskID');
 
             $scope.exporting = {
-				json: function () {
+                json: function () {
                     window.open(rest.tasks.name(taskid).result.export.json.address());
                 },
                 csv: function () {

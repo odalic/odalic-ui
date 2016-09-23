@@ -47,4 +47,4 @@ var edgecreator = function (d3sel) {
         _link.remove();
         _link = null;
     }
-}
+};

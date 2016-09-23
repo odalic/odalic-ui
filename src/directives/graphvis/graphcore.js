@@ -308,4 +308,4 @@ var graph = function(svgSelection, graphSettings) {
     this.forceUpdate = function () {
         tickFunction();
     }
-}
+};

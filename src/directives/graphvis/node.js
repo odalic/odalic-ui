@@ -354,4 +354,4 @@ var nodeWrapper = function (gprops) {
     };
 
     return node;
-}
+};

@@ -26,6 +26,3 @@ $.defineModule(function () {
         }
     };
 });
-
-
-

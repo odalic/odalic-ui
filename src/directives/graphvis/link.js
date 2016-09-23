@@ -218,7 +218,7 @@ var linkWrapper = function (gprops) {
             _parent = null;
             _link = null;
         };
-    }
+    };
 
     return link;
 };

@@ -22,6 +22,7 @@ $.defineModule(function () {
             //this.sharedata.clear("Result");
         },
         setKB: function () {
+            // empty
         }
-};
+    };
 });

@@ -6,7 +6,7 @@
         var oldURL = $.getCurrentPath;
         $.getCurrentPath = function () {
             return filepath;
-        }
+        };
 
         // Load the script synchronously
         $.ajax({
@@ -54,7 +54,7 @@
     $.getPathForRelativePath = function (filePath) {
         var current = $.getCurrentPath();
         return current.substring(0, current.lastIndexOf('/')) + '/' + filePath;
-    }
+    };
 
     // Define the angular module dependencies
     angular.module('odalic-app', ['ngRoute']);
