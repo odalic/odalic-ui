@@ -31,23 +31,15 @@
         //$scope.chosenKBs = ["DBpedia"];
         // Loading the input CSV file
         var loadInput = function (input) {
-            Papa.parse(input, {
-                worker: true,
-                complete: function (inputFile) {
-                    var inputFileRows = [];
-                    for (var i = 1; i < inputFile.data.length; i++) {
-                        inputFileRows.push(inputFile.data[i]);
-                    }
+            // Inject into the scope
+            $scope.inputFile = {
+                'columns': input.columns,
+                'rows': input.rows
+            };
 
-                    // Inject into the scope
-                    $scope.$apply(function () {
-                        $scope.inputFile = {
-                            "columns": inputFile.data[0],
-                            "rows": inputFileRows
-                        };
-                    });
-                }
-            });
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
         };
 
         // Load the input CSV file and the result

@@ -98,6 +98,19 @@
                             });
                         }
                     },
+                    input: {
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.reqJSON({
+                                    method: 'GET',
+                                    address: text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback', 'input'),
+                                    formData: undefined,
+                                    success: success,
+                                    failure: failure
+                                });
+                            }
+                        }
+                    },
                     result: {
                         retrieve: {
                             exec: function (success, failure) {

@@ -4,22 +4,27 @@ $.defineModule(function () {
         sharedata : null,
         rest: null,
         getCSV : function(callback) {
-            // Download the input CSV file and then load it
-            this.rest.files.name(this.sharedata.get('Input')).retrieve.exec(
-                // Success
+            // Download the input CSV file in a JSON format directly
+            this.rest.tasks.name(this.sharedata.get('TaskID')).input.retrieve.exec(
                 function (response) {
-                    callback(response.data);
-                    //this.sharedata.clear("Input");
+                    // Call the callback, which should handle the data and fill the table
+                    var r = JSON.parse(response.data);
+                    callback({
+                        'columns': r.headers,
+                        'rows': r.rows
+                    });
                 },
-                // Failure
-                function (response) {
-                    // Empty
+                // Fatal error, table is empty
+                function (data) {
+                    callback({
+                        'columns': [],
+                        'rows': []
+                    });
                 }
             );
         },
         getJSON : function(callback) {
             callback(JSON.parse(this.sharedata.get('Result')));
-            //this.sharedata.clear("Result");
         },
         setKB: function () {
             // empty
