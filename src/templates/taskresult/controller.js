@@ -4,6 +4,7 @@
     var app = angular.module('odalic-app');
 
 
+    // TODO: Kata, treba ti tento kus kodu? Ak nie, odstran, prosim.
     //app.filter('chosenCandidates', function () {
     //    return function (candidates) {
     //        var chosen = [];
@@ -23,6 +24,7 @@
 
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $location, $window, sharedata, requests, rest, ioc) {
+        // TODO: detto
         //$scope.primaryKB = sharedata.get("PrimaryKB");
        // $scope.chosenKBs = sharedata.get("ChosenKBs");
         //$scope.primaryKB = "DBpedia";

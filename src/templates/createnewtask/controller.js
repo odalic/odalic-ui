@@ -9,7 +9,7 @@
     };
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $http, $window, sharedata, filedata, requests, rest) {
+    app.controller('createnewtask-ctrl', function ($scope, $http, $window, $location, sharedata, filedata, requests, rest) {
 
         // Files
         $scope.fileProvision = settings.fileProvisionTypes[0];
@@ -153,7 +153,7 @@
 
                                 // Another file may be uploaded again
                                 _ref.uploadingFile = false;
-                _ref.isUploadDisabled = true;
+                                _ref.isUploadDisabled = true;
 
                                 // Clear chosen file
                                 angular.element("input[type='file']").val(null);
@@ -257,7 +257,9 @@
                         sharedata.set("Result", response.data);
                         // Save the task ID
                         sharedata.set("TaskID", $scope.taskCreation.identifier);
-                        $window.location.href = "#/taskresult";
+
+                        // Redirect to the result (while removing the loading screen from history, if all goes well)
+                        $location.path('taskresult').replace();
                     },
                     // Failure
                     // TODO: Uncomment this
@@ -267,7 +269,7 @@
                         $.getJSONSync("src/templates/taskresult/sample_result.json", function (sample) {
                             sharedata.set("Result", sample);
                         });
-                        $window.location.href = "#/taskresult";
+                        $location.path('taskresult').replace();
                     }
                 );
             };
