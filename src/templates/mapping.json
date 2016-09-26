@@ -5,6 +5,11 @@
         "controller": "generic"
     },
     {
+        "route": "/home",
+        "target": "/",
+        "controller": "reroute"
+    },
+    {
         "route": "/test",
         "folder": "test",
         "controller": "generic"

@@ -10,21 +10,23 @@
         
         // Prepare some variables
         var currentFolder = $.getPathForRelativePath('');
-
-        var templateFile = '/template.html';
-        var ctrlFile = '/controller.js';
-
-        var genericCtrlDeterminer = 'generic';
-        var genericCtrlName = 'odalic-generic-ctrl';
         var genericCtrlId = 0;
 
-        // Determine, whether a generic controller was specified for each template
+        // Configure
         mapping.forEach(function (item) {
-            if (item.controller == genericCtrlDeterminer) {
-                item.genericCtrl = true;
-                item.controller = genericCtrlName + (genericCtrlId++);
-            } else {
-                item.genericCtrl = false;
+            switch (item.controller) {
+                case 'generic':
+                    item.turl = currentFolder + item.folder + '/template.html';
+                    item.ctrl = 'odalic-generic-ctrl' + (genericCtrlId++);
+                    break;
+                case 'reroute':
+                    item.turl = currentFolder + '/reroute.html';
+                    item.ctrl = 'rerouter-ctrl' + (genericCtrlId++);
+                    break;
+                default:
+                    item.turl = currentFolder + item.folder + '/template.html';
+                    item.ctrl = item.controller;
+                    break;
             }
         });
 
@@ -32,24 +34,32 @@
         app.config(function ($routeProvider) {
             mapping.forEach(function (item) {
                 $routeProvider.when(item.route, {
-                    templateUrl: currentFolder + item.folder + templateFile,
-                    controller: item.controller
+                    templateUrl: item.turl,
+                    controller: item.ctrl
                 });
             });
         });
 
-        // Create controllers
+        // Configure controllers
         mapping.forEach(function (item) {
-            // If the generic controller was specified, create one for the template
-            if (item.genericCtrl) {
-                app.controller(item.controller, function ($scope) { /* Purposely empty. */ });
-            }
-            // Otherwise delegate the controller creation to an external script
-            else {
-                $.getScriptSync(currentFolder + item.folder + ctrlFile, function () { /* Purposely empty. */ });
+            switch (item.controller) {
+                case 'generic':
+                    // Create an empty controller
+                    app.controller(item.ctrl, function ($scope) {});
+                    break;
+                case 'reroute':
+                    // Create a rerouting controller
+                    app.controller(item.ctrl, function ($scope, $location) {
+                        $scope.rdlink = '#/' + item.target;
+                        $location.path(item.target).replace();
+                    });
+                    break;
+                default:
+                    // Delegate the controller creation to an external script
+                    $.getScriptSync(currentFolder + item.folder + '/controller.js', function () {});
+                    break;
             }
         });
-                
     });
 
 })();
