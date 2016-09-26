@@ -14,5 +14,6 @@
   "services/filedata/filedata.js",
   "services/requests/requests.js",
   "services/rest/rest.js",
+  "services/persist/persist.js",
   "templates/templates.js"
 ]
