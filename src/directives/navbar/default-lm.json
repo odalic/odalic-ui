@@ -5,16 +5,8 @@
     "menu": []
   },
   {
-    "title": "Tasks",
-    "menu": [
-      {
-        "title": "Create new",
-        "link": "#/createnewtask"
-      },
-      {
-        "title": "Task configurations",
-        "link": "#/taskconfigs"
-      }
-    ]
+    "title": "Create new task",
+    "link": "#/createnewtask",
+    "menu": []
   }
 ]
