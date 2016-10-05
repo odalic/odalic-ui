@@ -15,9 +15,9 @@
         "controller": "generic"
     },
     {
-        "route": "/taskconfig",
-        "folder": "taskconfig",
-        "controller": "odalic-taskconfig-ctrl"
+        "route": "/taskconfigs",
+        "folder": "taskconfigs",
+        "controller": "odalic-taskconfigs-ctrl"
     },
     {
         "route": "/createnewtask",

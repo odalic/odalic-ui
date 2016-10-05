@@ -9,6 +9,8 @@
   "directives/footer/footer.js",
   "directives/alert/alert.js",
   "directives/graphvis/graphvis.js",
+  "directives/tooltip/tooltip.js",
+  "directives/injector/injector.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",

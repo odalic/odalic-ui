@@ -157,6 +157,17 @@
                         }
                     }
                 };
+            },
+            list: {
+                exec: function (success, failure) {
+                    requests.reqJSON({
+                        method: 'GET',
+                        address: text.urlConcat(root, 'tasks'),
+                        formData: undefined,
+                        success: success,
+                        failure: failure
+                    });
+                }
             }
         };
 
