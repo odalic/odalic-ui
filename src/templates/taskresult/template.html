@@ -67,7 +67,7 @@
     <div class="container-fluid">
 
         <!-- VIEW -->
-        <div ng-switch="state">
+        <div ng-switch="state" ng-init="state = 0">
 
             <!-- VIEW: Sets subject column  -->
             <div ng-switch-when="0">
@@ -395,12 +395,12 @@
 
             </div>
             <div class="col-md-2 col-md-offset-3">
-                <button class="btn btn-lg btn-block" ng-click="previousState()" ng-disabled="state <= 0">
+                <button class="btn btn-lg btn-block" ng-click="state = state - 1" ng-disabled="state <= 0">
                     Previous step
                 </button>
             </div>
             <div class="col-md-2">
-                <button class="btn btn-lg btn-block" ng-click="nextState()" ng-disabled="state >= 2">
+                <button class="btn btn-lg btn-block" ng-click="state = state + 1" ng-disabled="state >= 2">
                     Next step
                 </button>
             </div>

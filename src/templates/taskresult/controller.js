@@ -3,67 +3,33 @@
     // Main module
     var app = angular.module('odalic-app');
 
-
-    // TODO: Kata, treba ti tento kus kodu? Ak nie, odstran, prosim.
-    //app.filter('chosenCandidates', function () {
-    //    return function (candidates) {
-    //        var chosen = [];
-    //        for (var knowledgeBase in candidates) {
-    //            var KBcandidates = candidates[knowledgeBase];
-    //            for (var i = 0; i < KBcandidates.length; i++) {
-    //                if (KBcandidates[i].chosen == true) {
-    //                    chosen.push(KBcandidates[i].entity.resource);
-    //                }
-
-    //            }
-    //        }
-
-    //        return chosen.join();
-    //    };
-    //});
-
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $location, $window, sharedata, requests, rest, ioc) {
-        // TODO: detto
-        //$scope.primaryKB = sharedata.get("PrimaryKB");
-       // $scope.chosenKBs = sharedata.get("ChosenKBs");
-        //$scope.primaryKB = "DBpedia";
-        //$scope.chosenKBs = ["DBpedia"];
-        // Loading the input CSV file
-        var loadInput = function (input) {
+
+        // Load the input CSV file
+        var loader = ioc['taskresult/loader'](sharedata, requests, rest);
+        loader.getCSV(function (data) {
             // Inject into the scope
             $scope.inputFile = {
-                'columns': input.columns,
-                'rows': input.rows
+                'columns': data.columns,
+                'rows': data.rows
             };
 
             if (!$scope.$$phase) {
                 $scope.$apply();
             }
-        };
-
-        // Load the input CSV file and the result
-        var loader = ioc['taskresult/loader'];
-        loader.sharedata = sharedata;
-        loader.requests = requests;
-        loader.rest = rest;
-        loader.getCSV(function (data) {
-            loadInput(data);
         });
+
+        // Load the result
         loader.getJSON(function (data) {
             $scope.result = data;
         });
 
-        loader.setKB();
+        // (??) Set (default) knowledge bases
+        var kbData = loader.getKB();
+        $scope.primaryKB = kbData.PrimaryKB;
+        $scope.chosenKBs = kbData.ChosenKBs;
 
-
-
-        $scope.primaryKB = sharedata.get("PrimaryKB");
-        $scope.chosenKBs = sharedata.get("ChosenKBs");
-
-        // Bylo presunuto z $.getJSONSync (metoda byla jen temporarni)
-        // Prosim, nemenit (pokud neni zavazny duvod) nacitavani "input CSV file" a "result".
-        // Taky tam nic nepripisovat (opet: jen ze zavazneho duvodu).
 
 
         //objects which saves users setting 
