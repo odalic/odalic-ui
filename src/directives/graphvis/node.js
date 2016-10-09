@@ -40,7 +40,7 @@ var nodeWrapper = function (gprops) {
     var node = function (id) {
         this.id = id;
 
-        // cenrtral position
+        // central position
         var center = {
             get x() {
                 var cx = gprops.graph.canvas.width / 2;

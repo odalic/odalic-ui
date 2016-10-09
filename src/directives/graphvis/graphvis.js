@@ -21,7 +21,7 @@
                 var openModal = tScope['gvmodal']['open'];
 
                 // Load the necessary modules
-                var toLoad = ['graphcore.js', 'node.js', 'link.js', 'label.js', 'edgecreator.js'];
+                var toLoad = ['graphcore.js', 'node.js', 'link.js', 'label.js', 'edgecreator.js', 'lock.js'];
                 toLoad.forEach(function (item) {
                     $.getScriptSync(currentFolder + item, function () {
                         /* Purposefully empty. */

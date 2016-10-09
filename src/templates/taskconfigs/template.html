@@ -37,7 +37,7 @@
                 <!-- A single task configuration -->
                 <tr ng-repeat="taskconfig in taskconfigs">
                     <td class="col-md-2">
-                        <span ng-show="['ready', 'error'].includes(taskconfig.status)">
+                        <span ng-show="['ready'].includes(taskconfig.status)">
                             <tooltip source="actiontext.run" place="top">
                                 <a class="btn btn-default" href="#"><i class="fa fa-play fa-lg"></i></a>
                             </tooltip>

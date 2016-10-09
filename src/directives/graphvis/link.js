@@ -56,25 +56,18 @@ var linkWrapper = function (gprops) {
         // label
         var _label = {
             labels: [],
+            locks: [],
             labelTypes: {
                 labelNormalDir: 0,
-                labelReversedDir: 1,
+                labelReversedDir: 1
             },
             attach: function (d3sel) {
-                //var _l1 = new edgelabel(d3sel);
-                //_l1.attach('');
-                //_l2.modifyY(-1);
-                //this.labels.push(_l1);
-                //
-                //var _l2 = new edgelabel(d3sel);
-                //_l2.attach('');
-                //_l2.modifyY(1);
-                //_l2.setArrows(null, null, -1);
-                //this.labels.push(_l2);
-
                 for (var i = 0; i < 2; i++) {
                     var _l = new edgelabel(d3sel);
                     _l.attach('');
+
+                    var _lock = new lock(d3sel);
+                    _lock.attach();
 
                     var dir = null;
                     var mod = null;
@@ -83,11 +76,14 @@ var linkWrapper = function (gprops) {
                         case this.labelTypes.labelNormalDir:
                             dir = [_ref.source, _ref.target];
                             _l.modifyY(-1);
+                            _lock.modifyY(1);
                             break;
                         case this.labelTypes.labelReversedDir:
                             dir = [_ref.target, _ref.source];
                             _l.modifyY(1);
                             _l.setArrows(null, null, -1);
+                            _lock.modifyY(-1);
+                            _lock.modifyX(-1);
                             break;
                     }
 
@@ -106,17 +102,23 @@ var linkWrapper = function (gprops) {
 
                     // push
                     this.labels.push(_l);
+                    this.locks.push(_lock);
                 }
             },
             update: function () {
-                this.labels.forEach(function (_l) {
-                    _l.update(
-                        _ref.source.x, _ref.source.y,
-                        _ref.target.x, _ref.target.y);
+                // Update labels and locks
+                var toUpdate = [this.labels, this.locks];
+                toUpdate.forEach(function (array) {
+                    array.forEach(function (_l) {
+                        _l.update(
+                            _ref.source.x, _ref.source.y,
+                            _ref.target.x, _ref.target.y);
+                    });
                 });
             },
             remove: function () {
                 this.labels = [];
+                this.locks = [];
             }
         };
         this.setLabel = function (text, vertex1, vertex2) {
@@ -157,6 +159,9 @@ var linkWrapper = function (gprops) {
                             if (_label.labels.length >= 2) {
                                 _label.labels[_label.labelTypes.labelNormalDir].toggleDisplay(normalDir);
                                 _label.labels[_label.labelTypes.labelReversedDir].toggleDisplay(reversDir);
+
+                                _label.locks[_label.labelTypes.labelNormalDir].setVisibility(normalDir);
+                                _label.locks[_label.labelTypes.labelReversedDir].setVisibility(reversDir);
                             }
                         };
 
@@ -192,9 +197,9 @@ var linkWrapper = function (gprops) {
                     .append('line')
                     .attr('stroke-width', '2')
                     .attr('stroke', constants.colors.black);
-            this.orient.orientation = this.orient.orientations.normal;
 
             _label.attach(d3sel);
+            this.orient.orientation = this.orient.orientations.normal;
 
             // set a position as well
             this.update();
