@@ -1,6 +1,12 @@
 <!-- Main Content -->
 <!-- TODO: Styly treba premiestnit do css/less. Pouzi helpers.less pre "miscellaneous" styly. -->
 <style>
+    .selectBoxIcon {
+        width: 15px;
+        height: 15px;
+        /*float: right;*/
+    }
+
     .markedColumn {
         background-color: WhiteSmoke;
     }
@@ -194,26 +200,29 @@
                                     <h2>Column classification</h2>
                                 </div>
 
+                                <!--<ui-select-choices repeat="person in ctrl.people | propsFilter: {name: $select.search, age: $select.search}">
+                                    <div ng-bind-html="person.name | highlight: $select.search"></div>-->
+
+
                                 <div class="modal-body">
                                     <div class="container-fluid">
                                         <div class="form-group">
                                             <h3 ng-class="'boldPrimaryKB'">{{primaryKB + " (Primary KB)" }}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
                                             <!-- in progress -->
+
+
                                             <ui-select ng-model="currentItems[selectedPosition.row][selectedPosition.column][primaryKB]" multiple theme="bootstrap" search-enabled="true" width="100">
                                                 <ui-select-match placeholder="Pick one...">
-                                                    <span ng-click="createIframe([$item.entity],primaryKB,1,$event)" title="lodlive browser">
-                                                        <img ng-src="graphics/link.png" height="15" width="15" />
-                                                    </span>
-                                                    {{$item.entity.resource}}
+                                                    <img ng-click="createIframe($item.entity,primaryKB,$event)" title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}" ng-class="'selectBoxIcon'" />
+                                                    &nbsp
+                                                    {{$item.entity.label}}<br>  ({{$item.entity.resource}})
                                                 </ui-select-match>
-                                                <ui-select-choices repeat="opt.entity as opt in result.headerAnnotations[selectedPosition.column].candidates[primaryKB ]">
-                                                    <span ng-click="createIframe([opt.entity],primaryKB,1,$event)" title="lodlive browser">
-                                                        <img ng-src="graphics/link.png" height="15" width="15" />
-                                                    </span>
-
-                                                    <div ng-style="{left: 20px}" title='opt.entity.label'>label: {{opt.entity.label}}</div>
-                                                    <div title={{opt.entity.resource}}>url: {{opt.entity.resource}}</div>
+                                                <ui-select-choices repeat="opt.entity as opt in result.headerAnnotations[selectedPosition.column].candidates[primaryKB]  | propsFilter : {'entity.resource': $select.search, 'entity.label': $select.search}">
+                                                    <img ng-click="createIframe(opt.entity,primaryKB,$event)" title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}" ng-class="'selectBoxIcon'" />
+                                                    &nbsp
+                                                    <span title={{opt.entity.resource}} ng-bind-html="opt.entity.label| highlight: $select.search"></span>
+                                                    <div title={{opt.entity.resource}} ng-bind-html="' ('+opt.entity.resource + ')'| highlight: $select.search"></div>
                                                 </ui-select-choices>
                                             </ui-select>
 
@@ -227,18 +236,15 @@
                                                     <h3>{{ knowledgeBase }}</h3>
                                                     <ui-select ng-model="currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]" multiple theme="bootstrap" search-enabled="true" width="100">
                                                         <ui-select-match placeholder="Pick one...">
-                                                            <span ng-click="createIframe([$item.entity],knowledgeBase,1,$event)" title="lodlive browser">
-                                                                <img ng-src="graphics/link.png" height="15" width="15" />
-                                                            </span>
-                                                            {{$item.entity.resource}}
+                                                            <img ng-click="createIframe($item.entity,knowledgeBase,$event)" title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}" ng-class="'selectBoxIcon'" />
+                                                            &nbsp
+                                                            {{$item.entity.label}}<br>  ({{$item.entity.resource}})
                                                         </ui-select-match>
-                                                        <ui-select-choices repeat="opt.entity as opt in result.headerAnnotations[selectedPosition.column].candidates[knowledgeBase]">
-                                                            <span ng-click="createIframe([opt.entity],knowledgeBase,1,$event)" title="lodlive browser">
-                                                                <img ng-src="graphics/link.png" height="25" width="25" />
-                                                            </span>
-
-                                                            <div ng-style="left:20px" title='opt.entity.label'>label: {{opt.entity.label}}</div>
-                                                            <div title={{opt.entity.resource}}>url: {{opt.entity.resource}}</div>
+                                                        <ui-select-choices repeat="opt.entity as opt in result.headerAnnotations[selectedPosition.column].candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search, 'entity.label': $select.search}">
+                                                            <img ng-click="createIframe(opt.entity,knowledgeBase,$event)" title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}" ng-class="'selectBoxIcon'" />
+                                                            &nbsp
+                                                            <span title={{opt.entity.resource}} ng-bind-html="opt.entity.label| highlight: $select.search"></span>
+                                                            <div title={{opt.entity.resource}} ng-bind-html="' ('+opt.entity.resource + ')'| highlight: $select.search"></div>
                                                         </ui-select-choices>
                                                     </ui-select>
                                                 </div>
@@ -275,19 +281,17 @@
                                             <!-- Separate div for each knowledge base -->
                                             <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
-                                            <ui-select ng-model="currentItems[selectedPosition.row][selectedPosition.column][primaryKB]" multiple theme="bootstrap" search-enabled="true">
+                                            <ui-select ng-model="currentItems[selectedPosition.row][selectedPosition.column][primaryKB]" multiple limit="1" theme="bootstrap" search-enabled="true" on-select="onSelectCallback($item.entity, primaryKB)">
                                                 <ui-select-match placeholder="Pick one...">
-                                                    <span ng-click="createIframe([$item.entity],primaryKB,1,$event)" title="lodlive browser">
-                                                        <img ng-src="graphics/link.png" height="15" width="15" />
-                                                    </span>
-                                                    {{$item.entity.resource}}
+                                                    <img ng-click="createIframe($item.entity,primaryKB,$event)" title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}" ng-class="'selectBoxIcon'" />
+                                                    &nbsp
+                                                    {{$item.entity.label}} <br> ({{$item.entity.resource}})
                                                 </ui-select-match>
-                                                <ui-select-choices repeat="opt.entity as opt in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates[primaryKB]">
-                                                    <span ng-click="createIframe([opt.entity],primaryKB,1,$event)" title="lodlive browser">
-                                                        <img ng-src="graphics/link.png" height="15" width="15" />
-                                                    </span>
-                                                    label: {{opt.entity.label}}
-                                                    url:{{opt.entity.resource}}
+                                                <ui-select-choices repeat="opt.entity as opt in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates[primaryKB]  | propsFilter : {'entity.resource': $select.search, 'entity.label': $select.search}" onselect="$item">
+                                                    <img ng-click="createIframe(opt.entity,primaryKB,$event)" title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}" ng-class="'selectBoxIcon'" />
+                                                    &nbsp
+                                                    <span title={{opt.entity.resource}} ng-bind-html="opt.entity.label| highlight: $select.search"></span>
+                                                    <div title={{opt.entity.resource}} ng-bind-html="' ('+opt.entity.resource + ')'| highlight: $select.search"></div>
                                                 </ui-select-choices>
                                             </ui-select>
 
@@ -298,19 +302,18 @@
                                                     <div class="form-group">
                                                         <h3>{{ knowledgeBase }}</h3>
                                                         <!-- Selection of a candidate(s) for the current knowledge base -->
-                                                        <ui-select ng-model="currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]" multiple theme="bootstrap" search-enabled="true">
+                                                        <ui-select ng-model="currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]" multiple limit="1" theme="bootstrap" search-enabled="true" on-select="onSelectCallback($item.entity, knowledgeBase)">
                                                             <ui-select-match placeholder="Pick one...">
-                                                                <span ng-click="createIframe([$item.entity],knowledgeBase,1,$event)" title="lodlive browser">
-                                                                    <img ng-src="graphics/link.png" height="15" width="15" />
-                                                                </span>
-                                                                {{$item.entity.resource}}
+                                                                <img ng-click="createIframe($item.entity,knowledgeBase,$event)" title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}" ng-class="'selectBoxIcon'" />
+                                                                &nbsp
+                                                                {{$item.entity.label}} <br> ({{$item.entity.resource}})
                                                             </ui-select-match>
-                                                            <ui-select-choices repeat="opt.entity as opt in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates[knowledgeBase]">
-                                                                <span ng-click="createIframe([opt.entity],knowledgeBase,1,$event)" title="lodlive browser">
-                                                                    <img ng-src="graphics/link.png" height="15" width="15" />
-                                                                </span>
-                                                                label: {{opt.entity.label}}
-                                                                url:{{opt.entity.resource}}
+                                                            <ui-select-choices repeat="opt.entity as opt in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search, 'entity.label': $select.search}">
+                                                                <img ng-click="createIframe(opt,knowledgeBase,$event)" title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}" ng-class="'selectBoxIcon'" />
+                                                                &nbsp
+                                                                &nbsp
+                                                                <span title={{opt.entity.resource}} ng-bind-html="opt.entity.label| highlight: $select.search"></span>
+                                                                <div title={{opt.entity.resource}} ng-bind-html="' ('+opt.entity.resource + ')'| highlight: $select.search"></div>
                                                             </ui-select-choices>
                                                         </ui-select>
 
