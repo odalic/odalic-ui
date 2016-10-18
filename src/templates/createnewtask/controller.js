@@ -28,7 +28,7 @@
 
         $scope.automaticSelectPrimaryKB = function () {
             $scope.primaryKB = $scope.chosenKBs[0];
-        }
+        };
 
         // File uploading
         $scope.fileUpload = {
@@ -81,7 +81,7 @@
                 rest.files.list.exec(
                     // Success
                     function (response) {
-                        _ref.uploaded = response.data;
+                        _ref.uploaded = response;
                         if (callback) {
                             callback(true);
                         }
@@ -133,7 +133,7 @@
                 sendData = function (fileData) {
                     rest.files.name(_ref.identifier).create(filedata.fileObject(_ref.inputFileId)).exec(
                         // Success
-                        function (response) {
+                        function () {
                             // The file has been uploaded successfully => refresh the list of available files
                             _ref.refreshUploaded(function (succes) {
                                 // Succes parameter ignored.
@@ -254,7 +254,7 @@
                     function (response) {
                         //TODO predelat pro vice tasku bezicich zaroven??
                         // Save the result and redirect
-                        sharedata.set("Result", response.data);
+                        sharedata.set("Result", response);
                         // Save the task ID
                         sharedata.set("TaskID", $scope.taskCreation.identifier);
 
@@ -278,7 +278,7 @@
             var reqStartTask = function () {
                 rest.tasks.name($scope.taskCreation.identifier).execute.exec(
                     // Success
-                    function (response) {
+                    function () {
                         reqGetResult();
                     },
                     // Failure
@@ -298,13 +298,13 @@
                         columnAmbiguities: [],
                         ambiguities: [],
                         disambiguations: [],
-                        cellRelations: [],
                         columnRelations: []
                     },
-                    primary_base: {
+                    primaryBase: {
                         name: $scope.primaryKB
                     }
-                }
+                },
+				description: ""
             }).exec(
                 // Success
                 function () {

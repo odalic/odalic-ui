@@ -62,7 +62,7 @@
                                 <a class="btn btn-default" href="#"><i class="fa fa-eraser fa-lg"></i></a>
                             </tooltip>
                         </span>
-                        <span ng-show="['ready'].includes(taskconfig.status)">
+                        <span ng-show="['ready', 'success', 'warning', 'error'].includes(taskconfig.status)">
                             <tooltip source="actiontext.configure" place="top">
                                 <a class="btn btn-default" href="#"><i class="fa fa-cog fa-lg"></i></a>
                             </tooltip>

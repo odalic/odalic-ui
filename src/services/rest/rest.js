@@ -7,6 +7,26 @@
     app.service('rest', function (requests) {
         var root = constants.addresses.odalicroot;
 
+        // Preparations
+        var successf = function (success) {
+            return function (response) {
+                var r = response.data;
+                var res = {};
+                var addarg1 = undefined;
+                var addarg2 = undefined;
+
+                if (r.type === 'DATA') {
+                    res = r.payload;
+                }
+                else if (r.type === 'MESSAGE') {
+                    res = r.payload.text;
+                    addarg1 = r.payload.additionalResources;
+                    addarg2 = r.payload.debugContent;
+                }
+                success(res, addarg1, addarg2);
+            };
+        };
+
         // Files service
         this.files = {
             name: function (identifier) {
@@ -27,7 +47,7 @@
                                         })
                                         .attachGeneric('input', /*document.getElementById("concreteFile").files[0]*/ data)
                                         .get(),
-                                    success: success,
+                                    success: successf(success),
                                     failure: failure
                                 });
                             }
@@ -35,7 +55,7 @@
                     },
                     remove: {
                         exec: function (success, failure) {
-                            requests.quickRequest(text.urlConcat(root, 'files', identifier), 'DELETE', success, failure);
+                            requests.quickRequest(text.urlConcat(root, 'files', identifier), 'DELETE', successf(success), failure);
                         }
                     },
                     retrieve: {
@@ -44,7 +64,7 @@
                                 method: 'GET',
                                 address: text.urlConcat(root, 'files', identifier),
                                 formData: 'unspecified',
-                                success: success,
+                                success: successf(success),
                                 failure: failure
                             });
                         }
@@ -53,7 +73,7 @@
             },
             list: {
                 exec: function (success, failure) {
-                    requests.quickRequest(text.urlConcat(root, 'files'), 'GET', success, failure);
+                    requests.quickRequest(text.urlConcat(root, 'files'), 'GET', successf(success), failure);
                 }
             }
         };
@@ -69,7 +89,7 @@
                                     method: 'PUT',
                                     address: text.urlConcat(root, 'tasks', identifier),
                                     formData: data,
-                                    success: success,
+                                    success: successf(success),
                                     failure: failure
                                 });
                             }
@@ -77,12 +97,12 @@
                     },
                     remove: {
                         exec: function (success, failure) {
-                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'DELETE', success, failure);
+                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'DELETE', successf(success), failure);
                         }
                     },
                     retrieve: {
                         exec: function (success, failure) {
-                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', success, failure);
+                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', successf(success), failure);
                         }
                     },
                     execute: {
@@ -93,34 +113,34 @@
                                 formData: {
                                     draft: false
                                 },
-                                success: success,
+                                success: successf(success),
                                 failure: failure
                             });
+                        }
+                    },
+                    stop: {
+                        exec: function (success, failure) {
+                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'execution'), 'DELETE', successf(success), failure);
+                        }
+                    },
+                    state: {
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'state'), 'GET', successf(success), failure);
+                            }
                         }
                     },
                     input: {
                         retrieve: {
                             exec: function (success, failure) {
-                                requests.reqJSON({
-                                    method: 'GET',
-                                    address: text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback', 'input'),
-                                    formData: undefined,
-                                    success: success,
-                                    failure: failure
-                                });
+                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback', 'input'), 'GET', successf(success), failure);
                             }
                         }
                     },
                     result: {
                         retrieve: {
                             exec: function (success, failure) {
-                                requests.reqJSON({
-                                    method: 'GET',
-                                    address: text.urlConcat(root, 'tasks', identifier, 'result'),
-                                    formData: undefined,
-                                    success: success,
-                                    failure: failure
-                                });
+                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'result'), 'GET', successf(success), failure);
                             }
                         },
                         export: {
@@ -149,24 +169,23 @@
                                         method: 'PUT',
                                         address: text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'),
                                         formData: data,
-                                        success: success,
+                                        success: successf(success),
                                         failure: failure
                                     });
                                 }
                             };
-                        }
+                        },
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'), 'GET', successf(success), failure);
+                            }
+                        },
                     }
                 };
             },
             list: {
                 exec: function (success, failure) {
-                    requests.reqJSON({
-                        method: 'GET',
-                        address: text.urlConcat(root, 'tasks'),
-                        formData: undefined,
-                        success: success,
-                        failure: failure
-                    });
+                    requests.quickRequest(text.urlConcat(root, 'tasks') + '?states=true', 'GET', successf(success), failure);
                 }
             }
         };
