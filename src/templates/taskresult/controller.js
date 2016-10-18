@@ -74,8 +74,11 @@
         $scope.currentItems = {};
 
         // Providing feedback
-        $scope.subjectColumn = $scope.result.subjectColumnPosition.index;    // Defaultly selected subject column
-
+        // TODO: There are several subject columns now, this is just a temporary solution.
+        objGetAny($scope.result.subjectColumnPositions, function (key, value) {
+            // Defaultly selected subject column
+            $scope.subjectColumn = value.index;
+        });
 
 
         //sets selection boxes from  classification and disambiguation of algorithm

@@ -13,6 +13,27 @@ var objForEach = function (obj, callback) {
 };
 
 
+/** Accesses any item (fist one) in the given object.
+ *
+ * @param obj           object to access an item of
+ * @param callback      a callback function that should accept the following arguments: "key", "value"
+ */
+var objGetAny = function (obj, callback) {
+    var accessed = false;
+
+    for (var item in obj) {
+        if (obj.hasOwnProperty(item)) {
+            callback(item, obj[item]);
+            accessed = true;
+            return;
+        }
+    }
+
+    if (!accessed) {
+        throw new Error('The object is empty.');
+    }
+};
+
 
 /** Accesses safely an object recursively with defined keys. This function is variadic.
  *

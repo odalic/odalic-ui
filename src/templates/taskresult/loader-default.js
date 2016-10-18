@@ -8,7 +8,7 @@ $.defineModule(function () {
             this.rest.tasks.name(this.sharedata.get('TaskID')).input.retrieve.exec(
                 function (response) {
                     // Call the callback, which should handle the data and fill the table
-                    var r = JSON.parse(response.data);
+                    var r = response;
                     callback({
                         'columns': r.headers,
                         'rows': r.rows
@@ -24,7 +24,7 @@ $.defineModule(function () {
             );
         },
         getJSON : function(callback) {
-            callback(JSON.parse(this.sharedata.get('Result')));
+            callback(this.sharedata.get('Result'));
         },
         setKB: function () {
             // empty
