@@ -9,18 +9,27 @@ var pollerComponent = function (rest) {
     var notifier = null;
     var bgtask = null;
 
+    // Adds tasks from 'toadd' array to 'states'
+    var addprepared = function (taskId) {
+        toadd.forEach(function (item) {
+            if ((item in states)) {
+                return;
+            }
+
+            states[taskId] = {
+                state: null
+            };
+            tasksnum++;
+        });
+    };
+
     // Poll for a single task's state and save to the 'states' object
     var pollsingle = function (taskId) {
         // Poll for the specified task's state
-        $.ajax({
-            async: false,
-            type: 'GET',
-            url: './test/samples/taskconfigs/tc1.json',
-            data: null,
-            success: function (response) {
-                var res = JSON.parse(response);
-
-                // TODO: Temp.
+        rest.tasks.name(taskId).state.retrieve.exec(
+            // Success
+            function (response) {
+                var res = response;
                 var state = res.state;
 
                 // Has the state changed?
@@ -36,16 +45,7 @@ var pollerComponent = function (rest) {
                 // The task has been handled; are we the last one to be handled?
                 if (++handled == tasksnum) {
                     // Handle "ToAdd" tasks
-                    toadd.forEach(function (item) {
-                        if ((item in states)) {
-                            return;
-                        }
-
-                        states[taskId] = {
-                            state: null
-                        };
-                        tasksnum++;
-                    });
+                    addprepared(taskId);
 
                     // Handle "ToRemove" tasks
                     toremove.forEach(function (item) {
@@ -60,11 +60,11 @@ var pollerComponent = function (rest) {
                     handled = null;
                 };
             },
-            error: function (response) {
+            // Failure
+            function (response) {
                 // Ignored.
-            },
-            dataType: 'text'
-        });
+            }
+        );
     };
 
     // Poll for all of the tasks' states
@@ -74,9 +74,13 @@ var pollerComponent = function (rest) {
             return;
         }
 
-        // Dismiss also if there are no tasks to handle
+        // Are there even any tasks to handle?
         if (tasksnum === 0) {
-            return;
+            if (toadd.length > 0) {
+                addprepared();
+            } else {
+                return;
+            }
         }
 
         handled = 0;

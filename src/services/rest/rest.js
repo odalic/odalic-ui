@@ -187,6 +187,13 @@
                 exec: function (success, failure) {
                     requests.quickRequest(text.urlConcat(root, 'tasks') + '?states=true', 'GET', successf(success), failure);
                 }
+            },
+            states: {
+                ready: 'READY',
+                running: 'RUNNING',
+                warning: 'WARNING',
+                error: 'ERROR',
+                success: 'SUCCESS'
             }
         };
 
