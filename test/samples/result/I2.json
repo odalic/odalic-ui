@@ -1,0 +1,3325 @@
+{
+	"subjectColumnPositions": {
+		"DBpedia Clone": {
+			"index": 0
+		},
+		"DBpedia": {
+			"index": 0
+		},
+		"German DBpedia": {
+			"index": 0
+		}
+	},
+	"headerAnnotations": [{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://schema.org/Book",
+					"label": "Book"
+				},
+				"score": {
+					"value": 1.5023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/Book",
+					"label": "Book"
+				},
+				"score": {
+					"value": 1.369047619047619
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Book",
+					"label": "book"
+				},
+				"score": {
+					"value": 1.369047619047619
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q571",
+					"label": "book"
+				},
+				"score": {
+					"value": 1.369047619047619
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatNovelsByGeorgeR.R.Martin",
+					"label": "Wikicat Novels By George RR Martin"
+				},
+				"score": {
+					"value": 1.2817464118832735
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://purl.org/ontology/bibo/Book",
+					"label": "Book"
+				},
+				"score": {
+					"value": 1.2738095238095237
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Work",
+					"label": "work"
+				},
+				"score": {
+					"value": 1.2372953379858735
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/CreativeWork",
+					"label": "Creative Work"
+				},
+				"score": {
+					"value": 1.2372953379858735
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q386724",
+					"label": "work"
+				},
+				"score": {
+					"value": 1.2372953379858735
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Book_CW",
+					"label": "Book CW"
+				},
+				"score": {
+					"value": 1.1468253968253967
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Album",
+					"label": "album"
+				},
+				"score": {
+					"value": 1.0164577979479978
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/MusicAlbum",
+					"label": "Music Album"
+				},
+				"score": {
+					"value": 1.0164577979479978
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q482994",
+					"label": "album"
+				},
+				"score": {
+					"value": 1.0164577979479978
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Abstraction100002137",
+					"label": "Abstraction"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Communication100033020",
+					"label": "Communication"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Fiction106367107",
+					"label": "Fiction"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/LiteraryComposition106364329",
+					"label": "Literary Composition"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Novel106367879",
+					"label": "Novel"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat2000Novels",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat2000sFantasyNovels",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat21st-centuryAmericanNovels",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanFantasyNovels",
+					"label": "Wikicat American Fantasy Novels"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanScienceFictionNovels",
+					"label": "Wikicat American Science Fiction Novels"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatFantasyNovels",
+					"label": "Wikicat Fantasy Novels"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Writing106362953",
+					"label": "Writing"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WrittenCommunication106349220",
+					"label": "Written Communication"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/WrittenWork",
+					"label": "written work"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/ConflictEvent",
+					"label": "Conflict Event"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Event",
+					"label": "Event"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://vocab.org/frbr/core#Work",
+					"label": "Work"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/MusicalWork",
+					"label": "musical work"
+				},
+				"score": {
+					"value": 0.5349143856049211
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q2188189",
+					"label": "musical work"
+				},
+				"score": {
+					"value": 0.5349143856049211
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://schema.org/Book",
+					"label": "Book"
+				},
+				"score": {
+					"value": 1.5023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/Book",
+					"label": "Book"
+				},
+				"score": {
+					"value": 1.369047619047619
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Book",
+					"label": "book"
+				},
+				"score": {
+					"value": 1.369047619047619
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q571",
+					"label": "book"
+				},
+				"score": {
+					"value": 1.369047619047619
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatNovelsByGeorgeR.R.Martin",
+					"label": "Wikicat Novels By George RR Martin"
+				},
+				"score": {
+					"value": 1.2817464118832735
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://purl.org/ontology/bibo/Book",
+					"label": "Book"
+				},
+				"score": {
+					"value": 1.2738095238095237
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Work",
+					"label": "work"
+				},
+				"score": {
+					"value": 1.2372953379858735
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/CreativeWork",
+					"label": "Creative Work"
+				},
+				"score": {
+					"value": 1.2372953379858735
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q386724",
+					"label": "work"
+				},
+				"score": {
+					"value": 1.2372953379858735
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Book_CW",
+					"label": "Book CW"
+				},
+				"score": {
+					"value": 1.1468253968253967
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Album",
+					"label": "album"
+				},
+				"score": {
+					"value": 1.0164577979479978
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/MusicAlbum",
+					"label": "Music Album"
+				},
+				"score": {
+					"value": 1.0164577979479978
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q482994",
+					"label": "album"
+				},
+				"score": {
+					"value": 1.0164577979479978
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Abstraction100002137",
+					"label": "Abstraction"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Communication100033020",
+					"label": "Communication"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Fiction106367107",
+					"label": "Fiction"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/LiteraryComposition106364329",
+					"label": "Literary Composition"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Novel106367879",
+					"label": "Novel"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat2000Novels",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat2000sFantasyNovels",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat21st-centuryAmericanNovels",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanFantasyNovels",
+					"label": "Wikicat American Fantasy Novels"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanScienceFictionNovels",
+					"label": "Wikicat American Science Fiction Novels"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatFantasyNovels",
+					"label": "Wikicat Fantasy Novels"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Writing106362953",
+					"label": "Writing"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WrittenCommunication106349220",
+					"label": "Written Communication"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/WrittenWork",
+					"label": "written work"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/ConflictEvent",
+					"label": "Conflict Event"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Event",
+					"label": "Event"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://vocab.org/frbr/core#Work",
+					"label": "Work"
+				},
+				"score": {
+					"value": 0.7023809523809524
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/MusicalWork",
+					"label": "musical work"
+				},
+				"score": {
+					"value": 0.5349143856049211
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q2188189",
+					"label": "musical work"
+				},
+				"score": {
+					"value": 0.5349143856049211
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Film",
+					"label": "Film"
+				},
+				"score": {
+					"value": 0.5223155698379469
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Wikidata:Q11424",
+					"label": "Wikidata Q 11424"
+				},
+				"score": {
+					"value": 0.5223155698379469
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Work",
+					"label": "Work"
+				},
+				"score": {
+					"value": 0.5223155698379469
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/CreativeWork",
+					"label": "Creative Work"
+				},
+				"score": {
+					"value": 0.5223155698379469
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/Movie",
+					"label": "Movie"
+				},
+				"score": {
+					"value": 0.5223155698379469
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q386724",
+					"label": "Q 386724"
+				},
+				"score": {
+					"value": 0.5223155698379469
+				}
+			}]
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://schema.org/Book",
+					"label": "Book"
+				},
+				"score": {
+					"value": 1.5023809523809524
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://schema.org/Book",
+					"label": "Book"
+				},
+				"score": {
+					"value": 1.5023809523809524
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://schema.org/CreativeWork",
+					"label": "Creative Work"
+				},
+				"score": {
+					"value": 0.5223155698379469
+				}
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/FilmMaker110088390",
+					"label": "Film Maker"
+				},
+				"score": {
+					"value": 1.0112615578276347
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanFilmProducers",
+					"label": "Wikicat American Film Producers"
+				},
+				"score": {
+					"value": 1.0083354481187412
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Advocate109774783",
+					"label": "Advocate"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Agnostic109779124",
+					"label": "Agnostic"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Alumnus109786338",
+					"label": "Alumnus"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Atheist109820044",
+					"label": "Atheist"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Blogger109860415",
+					"label": "Blogger"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/CausalAgent100007347",
+					"label": "Causal Agent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Communicator109610660",
+					"label": "Communicator"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/ConscientiousObjector109957013",
+					"label": "Conscientious Objector"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Creator109614315",
+					"label": "Creator"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Disbeliever110015897",
+					"label": "Disbeliever"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Dissenter110018021",
+					"label": "Dissenter"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Enthusiast110059582",
+					"label": "Enthusiast"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Guest110150940",
+					"label": "Guest"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/GuestOfHonor110151261",
+					"label": "Guest Of Honor"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Intellectual109621545",
+					"label": "Intellectual"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/LivingThing100004258",
+					"label": "Living Thing"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Maker110284064",
+					"label": "Maker"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Manufacturer110292316",
+					"label": "Manufacturer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/NonreligiousPerson109625789",
+					"label": "Nonreligious Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Novelist110363573",
+					"label": "Novelist"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Object100002684",
+					"label": "Object"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Organism100004475",
+					"label": "Organism"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Person100007846",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/PhysicalEntity100001930",
+					"label": "Physical Entity"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Producer110480018",
+					"label": "Producer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Scholar110557854",
+					"label": "Scholar"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Screenwriter110564400",
+					"label": "Screenwriter"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Scriptwriter110564905",
+					"label": "Scriptwriter"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Serviceman110582746",
+					"label": "Serviceman"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/SkilledWorker110605985",
+					"label": "Skilled Worker"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/SportsFan110639925",
+					"label": "Sports Fan"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Supporter110677713",
+					"label": "Supporter"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Traveler109629752",
+					"label": "Traveler"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Visitor110757193",
+					"label": "Visitor"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Volunteer110759331",
+					"label": "Volunteer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Whole100003553",
+					"label": "Whole"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat20th-centuryAmericanNovelists",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat21st-centuryAmericanNovelists",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat21st-centuryAmericanWriters",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanAgnostics",
+					"label": "Wikicat American Agnostics"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanAtheists",
+					"label": "Wikicat American Atheists"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanBloggers",
+					"label": "Wikicat American Bloggers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanConscientiousObjectors",
+					"label": "Wikicat American Conscientious Objectors"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanFantasyWriters",
+					"label": "Wikicat American Fantasy Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanHorrorWriters",
+					"label": "Wikicat American Horror Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanNovelists",
+					"label": "Wikicat American Novelists"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeople",
+					"label": "Wikicat American People"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfEnglishDescent",
+					"label": "Wikicat American People Of English Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfFrenchDescent",
+					"label": "Wikicat American People Of French Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfGermanDescent",
+					"label": "Wikicat American People Of German Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfIrishDescent",
+					"label": "Wikicat American People Of Irish Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfItalianDescent",
+					"label": "Wikicat American People Of Italian Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanScienceFictionWriters",
+					"label": "Wikicat American Science Fiction Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanScreenwriters",
+					"label": "Wikicat American Screenwriters"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanShortStoryWriters",
+					"label": "Wikicat American Short Story Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanTelevisionProducers",
+					"label": "Wikicat American Television Producers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanTelevisionWriters",
+					"label": "Wikicat American Television Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanWriters",
+					"label": "Wikicat American Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatEnglish-languageWriters",
+					"label": "Wikicat Englishlanguage Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatFantasyWriters",
+					"label": "Wikicat Fantasy Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatLivingPeople",
+					"label": "Wikicat Living People"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatNorthwesternUniversityAlumni",
+					"label": "Wikicat Northwestern University Alumni"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatPeopleFromBayonne,NewJersey",
+					"label": "Wikicat People From Bayonne New Jersey"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatPeopleFromBernalilloCounty,NewMexico",
+					"label": "Wikicat People From Bernalillo County New Mexico"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatPeopleFromHudsonCounty,NewJersey",
+					"label": "Wikicat People From Hudson County New Jersey"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatPeopleFromSantaFe,NewMexico",
+					"label": "Wikicat People From Santa Fe New Mexico"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatScienceFictionFans",
+					"label": "Wikicat Science Fiction Fans"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatScienceFictionWriters",
+					"label": "Wikicat Science Fiction Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatVISTAVolunteers",
+					"label": "Wikicat VISTA Volunteers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatWorldconGuestsOfHonor",
+					"label": "Wikicat Worldcon Guests Of Honor"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatWriters",
+					"label": "Wikicat Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatWritersFromNewJersey",
+					"label": "Wikicat Writers From New Jersey"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatWritersFromNewMexico",
+					"label": "Wikicat Writers From New Mexico"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Worker109632518",
+					"label": "Worker"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Writer110794014",
+					"label": "Writer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/YagoLegalActor",
+					"label": "Yago Legal Actor"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/YagoLegalActorGeo",
+					"label": "Yago Legal Actor Geo"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Agent",
+					"label": "agent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Person",
+					"label": "person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Writer",
+					"label": "writer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Artist",
+					"label": "Artist"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/PersonWithOccupation",
+					"label": "Person With Occupation"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Writer",
+					"label": "Writer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#NaturalPerson",
+					"label": "Natural Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q215627",
+					"label": "person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q36180",
+					"label": "writer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q5",
+					"label": "human"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://xmlns.com/foaf/0.1/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q3331189",
+					"label": "edition"
+				},
+				"score": {
+					"value": 0.5257834230632086
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/ontology#Item",
+					"label": "Item"
+				},
+				"score": {
+					"value": 0.5257834230632086
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/FilmMaker110088390",
+					"label": "Film Maker"
+				},
+				"score": {
+					"value": 1.0112615578276347
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanFilmProducers",
+					"label": "Wikicat American Film Producers"
+				},
+				"score": {
+					"value": 1.0083354481187412
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Advocate109774783",
+					"label": "Advocate"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Agnostic109779124",
+					"label": "Agnostic"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Alumnus109786338",
+					"label": "Alumnus"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Atheist109820044",
+					"label": "Atheist"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Blogger109860415",
+					"label": "Blogger"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/CausalAgent100007347",
+					"label": "Causal Agent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Communicator109610660",
+					"label": "Communicator"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/ConscientiousObjector109957013",
+					"label": "Conscientious Objector"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Creator109614315",
+					"label": "Creator"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Disbeliever110015897",
+					"label": "Disbeliever"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Dissenter110018021",
+					"label": "Dissenter"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Enthusiast110059582",
+					"label": "Enthusiast"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Guest110150940",
+					"label": "Guest"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/GuestOfHonor110151261",
+					"label": "Guest Of Honor"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Intellectual109621545",
+					"label": "Intellectual"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/LivingThing100004258",
+					"label": "Living Thing"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Maker110284064",
+					"label": "Maker"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Manufacturer110292316",
+					"label": "Manufacturer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/NonreligiousPerson109625789",
+					"label": "Nonreligious Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Novelist110363573",
+					"label": "Novelist"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Object100002684",
+					"label": "Object"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Organism100004475",
+					"label": "Organism"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Person100007846",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/PhysicalEntity100001930",
+					"label": "Physical Entity"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Producer110480018",
+					"label": "Producer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Scholar110557854",
+					"label": "Scholar"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Screenwriter110564400",
+					"label": "Screenwriter"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Scriptwriter110564905",
+					"label": "Scriptwriter"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Serviceman110582746",
+					"label": "Serviceman"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/SkilledWorker110605985",
+					"label": "Skilled Worker"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/SportsFan110639925",
+					"label": "Sports Fan"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Supporter110677713",
+					"label": "Supporter"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Traveler109629752",
+					"label": "Traveler"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Visitor110757193",
+					"label": "Visitor"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Volunteer110759331",
+					"label": "Volunteer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Whole100003553",
+					"label": "Whole"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat20th-centuryAmericanNovelists",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat21st-centuryAmericanNovelists",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Wikicat21st-centuryAmericanWriters",
+					"label": "Wikicat"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanAgnostics",
+					"label": "Wikicat American Agnostics"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanAtheists",
+					"label": "Wikicat American Atheists"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanBloggers",
+					"label": "Wikicat American Bloggers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanConscientiousObjectors",
+					"label": "Wikicat American Conscientious Objectors"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanFantasyWriters",
+					"label": "Wikicat American Fantasy Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanHorrorWriters",
+					"label": "Wikicat American Horror Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanNovelists",
+					"label": "Wikicat American Novelists"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeople",
+					"label": "Wikicat American People"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfEnglishDescent",
+					"label": "Wikicat American People Of English Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfFrenchDescent",
+					"label": "Wikicat American People Of French Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfGermanDescent",
+					"label": "Wikicat American People Of German Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfIrishDescent",
+					"label": "Wikicat American People Of Irish Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanPeopleOfItalianDescent",
+					"label": "Wikicat American People Of Italian Descent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanScienceFictionWriters",
+					"label": "Wikicat American Science Fiction Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanScreenwriters",
+					"label": "Wikicat American Screenwriters"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanShortStoryWriters",
+					"label": "Wikicat American Short Story Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanTelevisionProducers",
+					"label": "Wikicat American Television Producers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanTelevisionWriters",
+					"label": "Wikicat American Television Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatAmericanWriters",
+					"label": "Wikicat American Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatEnglish-languageWriters",
+					"label": "Wikicat Englishlanguage Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatFantasyWriters",
+					"label": "Wikicat Fantasy Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatLivingPeople",
+					"label": "Wikicat Living People"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatNorthwesternUniversityAlumni",
+					"label": "Wikicat Northwestern University Alumni"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatPeopleFromBayonne,NewJersey",
+					"label": "Wikicat People From Bayonne New Jersey"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatPeopleFromBernalilloCounty,NewMexico",
+					"label": "Wikicat People From Bernalillo County New Mexico"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatPeopleFromHudsonCounty,NewJersey",
+					"label": "Wikicat People From Hudson County New Jersey"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatPeopleFromSantaFe,NewMexico",
+					"label": "Wikicat People From Santa Fe New Mexico"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatScienceFictionFans",
+					"label": "Wikicat Science Fiction Fans"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatScienceFictionWriters",
+					"label": "Wikicat Science Fiction Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatVISTAVolunteers",
+					"label": "Wikicat VISTA Volunteers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatWorldconGuestsOfHonor",
+					"label": "Wikicat Worldcon Guests Of Honor"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatWriters",
+					"label": "Wikicat Writers"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatWritersFromNewJersey",
+					"label": "Wikicat Writers From New Jersey"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/WikicatWritersFromNewMexico",
+					"label": "Wikicat Writers From New Mexico"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Worker109632518",
+					"label": "Worker"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/Writer110794014",
+					"label": "Writer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/YagoLegalActor",
+					"label": "Yago Legal Actor"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/YagoLegalActorGeo",
+					"label": "Yago Legal Actor Geo"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Agent",
+					"label": "agent"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Person",
+					"label": "person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Writer",
+					"label": "writer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Artist",
+					"label": "Artist"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/PersonWithOccupation",
+					"label": "Person With Occupation"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://umbel.org/umbel/rc/Writer",
+					"label": "Writer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#NaturalPerson",
+					"label": "Natural Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q215627",
+					"label": "person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q36180",
+					"label": "writer"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q5",
+					"label": "human"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://xmlns.com/foaf/0.1/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.5972222222222222
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q3331189",
+					"label": "edition"
+				},
+				"score": {
+					"value": 0.5257834230632086
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/ontology#Item",
+					"label": "Item"
+				},
+				"score": {
+					"value": 0.5257834230632086
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Agent",
+					"label": "Agent"
+				},
+				"score": {
+					"value": 0.5138888888888888
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.5138888888888888
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.5138888888888888
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#NaturalPerson",
+					"label": "Natural Person"
+				},
+				"score": {
+					"value": 0.5138888888888888
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q215627",
+					"label": "Q 215627"
+				},
+				"score": {
+					"value": 0.5138888888888888
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q5",
+					"label": "Q 5"
+				},
+				"score": {
+					"value": 0.5138888888888888
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://xmlns.com/foaf/0.1/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.5138888888888888
+				}
+			}]
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/FilmMaker110088390",
+					"label": "Film Maker"
+				},
+				"score": {
+					"value": 1.0112615578276347
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/class/yago/FilmMaker110088390",
+					"label": "Film Maker"
+				},
+				"score": {
+					"value": 1.0112615578276347
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#NaturalPerson",
+					"label": "Natural Person"
+				},
+				"score": {
+					"value": 0.5138888888888888
+				}
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q1667921",
+					"label": "novel series"
+				},
+				"score": {
+					"value": 1.1361026026914272
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Agent",
+					"label": "agent"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/OrganisationMember",
+					"label": "Organisation member"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Person",
+					"label": "person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/SportsTeamMember",
+					"label": "Sports team member"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#NaturalPerson",
+					"label": "Natural Person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q215627",
+					"label": "person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q5",
+					"label": "human"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://xmlns.com/foaf/0.1/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/ontology#Item",
+					"label": "Item"
+				},
+				"score": {
+					"value": 0.5646740312628556
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q1667921",
+					"label": "novel series"
+				},
+				"score": {
+					"value": 1.1361026026914272
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Agent",
+					"label": "agent"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/OrganisationMember",
+					"label": "Organisation member"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/Person",
+					"label": "person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/SportsTeamMember",
+					"label": "Sports team member"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://schema.org/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.ontologydesignpatterns.org/ont/dul/DUL.owl#NaturalPerson",
+					"label": "Natural Person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q215627",
+					"label": "person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q5",
+					"label": "human"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://xmlns.com/foaf/0.1/Person",
+					"label": "Person"
+				},
+				"score": {
+					"value": 0.6279611588277282
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://www.wikidata.org/ontology#Item",
+					"label": "Item"
+				},
+				"score": {
+					"value": 0.5646740312628556
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/ontology/wikiPageWikiLink",
+					"label": ""
+				},
+				"score": {
+					"value": 0.26666666666666666
+				}
+			},
+			{
+				"entity": {
+					"resource": "http://purl.org/dc/terms/subject",
+					"label": ""
+				},
+				"score": {
+					"value": 0.26666666666666666
+				}
+			}]
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q1667921",
+					"label": "novel series"
+				},
+				"score": {
+					"value": 1.1361026026914272
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q1667921",
+					"label": "novel series"
+				},
+				"score": {
+					"value": 1.1361026026914272
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://purl.org/dc/terms/subject",
+					"label": ""
+				},
+				"score": {
+					"value": 0.26666666666666666
+				}
+			}]
+		}
+	}],
+	"cellAnnotations": [[{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/A_Storm_of_Swords",
+					"label": "A Storm of Swords"
+				},
+				"score": {
+					"value": 2.107142857142857
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/A_Storm_of_Swords",
+					"label": "A Storm of Swords"
+				},
+				"score": {
+					"value": 2.107142857142857
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/A_Storm_of_Swords",
+					"label": "A Storm of Swords"
+				},
+				"score": {
+					"value": 1.6666666666666665
+				}
+			}]
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/A_Storm_of_Swords",
+					"label": "A Storm of Swords"
+				},
+				"score": {
+					"value": 2.107142857142857
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/A_Storm_of_Swords",
+					"label": "A Storm of Swords"
+				},
+				"score": {
+					"value": 2.107142857142857
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/A_Storm_of_Swords",
+					"label": "A Storm of Swords"
+				},
+				"score": {
+					"value": 1.6666666666666665
+				}
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/George_R._R._Martin",
+					"label": "George R. R. Martin"
+				},
+				"score": {
+					"value": 1.7916666666666667
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/George_R._R._Martin",
+					"label": "George R. R. Martin"
+				},
+				"score": {
+					"value": 1.7916666666666667
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/George_R._R._Martin",
+					"label": "George R. R. Martin"
+				},
+				"score": {
+					"value": 1.5416666666666665
+				}
+			}]
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/George_R._R._Martin",
+					"label": "George R. R. Martin"
+				},
+				"score": {
+					"value": 1.7916666666666667
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/George_R._R._Martin",
+					"label": "George R. R. Martin"
+				},
+				"score": {
+					"value": 1.7916666666666667
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/George_R._R._Martin",
+					"label": "George R. R. Martin"
+				},
+				"score": {
+					"value": 1.5416666666666665
+				}
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q45875",
+					"label": "A Song of Ice and Fire"
+				},
+				"score": {
+					"value": 1.694022093788567
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q45875",
+					"label": "A Song of Ice and Fire"
+				},
+				"score": {
+					"value": 1.694022093788567
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/A_Song_of_Ice_and_Fire",
+					"label": "A Song of Ice and Fire"
+				},
+				"score": {
+					"value": 1.4082482904638631
+				}
+			}]
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q45875",
+					"label": "A Song of Ice and Fire"
+				},
+				"score": {
+					"value": 1.694022093788567
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q45875",
+					"label": "A Song of Ice and Fire"
+				},
+				"score": {
+					"value": 1.694022093788567
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/A_Song_of_Ice_and_Fire",
+					"label": "A Song of Ice and Fire"
+				},
+				"score": {
+					"value": 1.4082482904638631
+				}
+			}]
+		}
+	}],
+	[{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Harry_Potter_and_the_Chamber_of_Secrets_(soundtrack)",
+					"label": "Harry Potter and the Chamber of Secrets"
+				},
+				"score": {
+					"value": 1.6047431568147634
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Harry_Potter_and_the_Chamber_of_Secrets_(soundtrack)",
+					"label": "Harry Potter and the Chamber of Secrets"
+				},
+				"score": {
+					"value": 1.6047431568147634
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/Harry_Potter_und_die_Kammer_des_Schreckens_(Film)",
+					"label": "Harry Potter and the Chamber of Secrets"
+				},
+				"score": {
+					"value": 1.5669467095138407
+				}
+			}]
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Harry_Potter_and_the_Chamber_of_Secrets_(soundtrack)",
+					"label": "Harry Potter and the Chamber of Secrets"
+				},
+				"score": {
+					"value": 1.6047431568147634
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Harry_Potter_and_the_Chamber_of_Secrets_(soundtrack)",
+					"label": "Harry Potter and the Chamber of Secrets"
+				},
+				"score": {
+					"value": 1.6047431568147634
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/Harry_Potter_und_die_Kammer_des_Schreckens_(Film)",
+					"label": "Harry Potter and the Chamber of Secrets"
+				},
+				"score": {
+					"value": 1.5669467095138407
+				}
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia Clone": [],
+			"DBpedia": [],
+			"German DBpedia": []
+		},
+		"chosen": {
+			"DBpedia Clone": [],
+			"DBpedia": [],
+			"German DBpedia": []
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Horndean_F.C.__Harry_Potter__1",
+					"label": "Harry Potter"
+				},
+				"score": {
+					"value": 1.8838834764831844
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Horndean_F.C.__Harry_Potter__1",
+					"label": "Harry Potter"
+				},
+				"score": {
+					"value": 1.8838834764831844
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/Kategorie:Harry_Potter",
+					"label": "Harry Potter"
+				},
+				"score": {
+					"value": 1.972271824131503
+				}
+			}]
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Horndean_F.C.__Harry_Potter__1",
+					"label": "Harry Potter"
+				},
+				"score": {
+					"value": 1.8838834764831844
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Horndean_F.C.__Harry_Potter__1",
+					"label": "Harry Potter"
+				},
+				"score": {
+					"value": 1.8838834764831844
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/Kategorie:Harry_Potter",
+					"label": "Harry Potter"
+				},
+				"score": {
+					"value": 1.972271824131503
+				}
+			}]
+		}
+	}],
+	[{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Le_Pere_Goriot",
+					"label": "Le Pere Goriot"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Le_Pere_Goriot",
+					"label": "Le Pere Goriot"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"German DBpedia": []
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Le_Pere_Goriot",
+					"label": "Le Pere Goriot"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/Le_Pere_Goriot",
+					"label": "Le Pere Goriot"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"German DBpedia": []
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q19045624",
+					"label": "Honore de Balzac"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q19045624",
+					"label": "Honore de Balzac"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/Honore_de_Balzac",
+					"label": "Honore de Balzac"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}]
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q19045624",
+					"label": "Honore de Balzac"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://www.wikidata.org/entity/Q19045624",
+					"label": "Honore de Balzac"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"German DBpedia": [{
+				"entity": {
+					"resource": "http://de.dbpedia.org/resource/Honore_de_Balzac",
+					"label": "Honore de Balzac"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}]
+		}
+	},
+	{
+		"candidates": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/La_Comedie_Humaine",
+					"label": "La Comedie Humaine"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/La_Comedie_Humaine",
+					"label": "La Comedie Humaine"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"German DBpedia": []
+		},
+		"chosen": {
+			"DBpedia Clone": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/La_Comedie_Humaine",
+					"label": "La Comedie Humaine"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"DBpedia": [{
+				"entity": {
+					"resource": "http://dbpedia.org/resource/La_Comedie_Humaine",
+					"label": "La Comedie Humaine"
+				},
+				"score": {
+					"value": 1.5773502691896257
+				}
+			}],
+			"German DBpedia": []
+		}
+	}]],
+	"columnRelationAnnotations": {
+		"0": {
+			"1": {
+				"candidates": {
+					"DBpedia Clone": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/author",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					},
+					{
+						"entity": {
+							"resource": "http://dbpedia.org/property/author",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					}],
+					"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/author",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					},
+					{
+						"entity": {
+							"resource": "http://dbpedia.org/property/author",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					}],
+					"German DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/wikiPageWikiLink",
+							"label": ""
+						},
+						"score": {
+							"value": 0.26666666666666666
+						}
+					}]
+				},
+				"chosen": {
+					"DBpedia Clone": [{
+						"entity": {
+							"resource": "http://dbpedia.org/property/author",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					}],
+					"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/property/author",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					}],
+					"German DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/wikiPageWikiLink",
+							"label": ""
+						},
+						"score": {
+							"value": 0.26666666666666666
+						}
+					}]
+				}
+			},
+			"2": {
+				"candidates": {
+					"DBpedia Clone": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/series",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					},
+					{
+						"entity": {
+							"resource": "http://purl.org/dc/terms/subject",
+							"label": ""
+						},
+						"score": {
+							"value": 0.26666666666666666
+						}
+					}],
+					"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/series",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					},
+					{
+						"entity": {
+							"resource": "http://purl.org/dc/terms/subject",
+							"label": ""
+						},
+						"score": {
+							"value": 0.26666666666666666
+						}
+					}],
+					"German DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/wikiPageWikiLink",
+							"label": ""
+						},
+						"score": {
+							"value": 0.26666666666666666
+						}
+					},
+					{
+						"entity": {
+							"resource": "http://purl.org/dc/terms/subject",
+							"label": ""
+						},
+						"score": {
+							"value": 0.26666666666666666
+						}
+					}]
+				},
+				"chosen": {
+					"DBpedia Clone": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/series",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					}],
+					"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/series",
+							"label": ""
+						},
+						"score": {
+							"value": 1.6666666666666665
+						}
+					}],
+					"German DBpedia": [{
+						"entity": {
+							"resource": "http://purl.org/dc/terms/subject",
+							"label": ""
+						},
+						"score": {
+							"value": 0.26666666666666666
+						}
+					}]
+				}
+			}
+		}
+	},
+	"warnings": []
+}

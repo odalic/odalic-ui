@@ -238,8 +238,8 @@
             // Generic preparations
             var fileId = $scope.files.selectedFile.id;
 
-            // Immediately redirect to a loading screen
-            $window.location.href = "#/loading";
+            // Immediately redirect to a "task configurations" (task history) screen
+            $window.location.href = "#/taskconfigs";
 
             // For displaying error messages when a failure of one of the requests occurs
             var requestError = function (response) {
@@ -252,6 +252,7 @@
                 rest.tasks.name($scope.taskCreation.identifier).result.retrieve.exec(
                     // Success
                     function (response) {
+                        // TODO: Celkom odstranit.
                         //TODO predelat pro vice tasku bezicich zaroven??
                         // Save the result and redirect
                         sharedata.set("Result", response);

@@ -10,17 +10,18 @@ var pollerComponent = function (rest) {
     var bgtask = null;
 
     // Adds tasks from 'toadd' array to 'states'
-    var addprepared = function (taskId) {
+    var addprepared = function () {
         toadd.forEach(function (item) {
             if ((item in states)) {
                 return;
             }
 
-            states[taskId] = {
+            states[item] = {
                 state: null
             };
             tasksnum++;
         });
+        toadd = [];
     };
 
     // Poll for a single task's state and save to the 'states' object
@@ -29,11 +30,10 @@ var pollerComponent = function (rest) {
         rest.tasks.name(taskId).state.retrieve.exec(
             // Success
             function (response) {
-                var res = response;
-                var state = res.state;
+                var state = response;
 
                 // Has the state changed?
-                if (state != states[taskId].state) {
+                if (states[taskId].state != state) {
                     states[taskId].state = state;
 
                     // Notify an outsider
@@ -52,10 +52,10 @@ var pollerComponent = function (rest) {
                         if (!(item in states)) {
                             return;
                         }
-
                         delete states[taskId];
                         tasksnum--;
                     });
+                    toremove = [];
 
                     handled = null;
                 };
@@ -111,10 +111,6 @@ var pollerComponent = function (rest) {
          * @param taskId A single task id.
          */
         unwatch: function (taskId) {
-            if(Object.prototype.toString.call(taskIds) !== '[object Array]') {
-                throw new Error('Only 1 task may be unwatched at once.');
-            }
-
             if (taskId in states) {
                 toremove.push(taskId);
             }
@@ -125,13 +121,16 @@ var pollerComponent = function (rest) {
          * @param delay         Amount of time in milliseconds between pollings.
          * @param notifcallback Callback function to call when a particular task's state is updated.
          *                      Has to accept 2 parameters: (taskId, state).
+         *
          */
         beginTracking: function (delay, notifcallback) {
             notifier = notifcallback;
 
-            bgtask = setTimeout(function () {
+            bgtaskf = function () {
                 poll();
-            }, delay);
+                bgtask = setTimeout(bgtaskf, delay);
+            };
+            bgtask = setTimeout(bgtaskf, delay);
         },
 
         /** Stops the continuous polling of the tasks' states.

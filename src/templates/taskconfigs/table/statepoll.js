@@ -1,7 +1,7 @@
 var currentFolder = $.getPathForRelativePath('');
 
 // Deals with the table updates,specifically tasks' state polling
-var statepollComponent = function (scope, rest) {
+var statepollComponent = function (scope, rest, persist) {
 
     $.getScriptSync(currentFolder + '../poller/poller.js', function () {});
     var poller = pollerComponent(rest);
@@ -25,13 +25,30 @@ var statepollComponent = function (scope, rest) {
             }
 
             poller.beginTracking(3000, function (taskId, state) {
-                scope.taskconfigs[mirror[taskId]].state = state;
-                // TODO: It must propagate to table. $apply?
+                    scope.taskconfigs[mirror[taskId]].state = state;
 
-                if (state !== rest.tasks.states.running) {
-                    poller.unwatch(taskId);
+                    // Propagate the new state to task table
+                    if (!scope.$$phase) {
+                        scope.$apply();
+                    }
+
+                    if (state !== rest.tasks.states.running) {
+                        poller.unwatch(taskId);
+                    }
+                }
+            );
+
+            // Untrack when the page changes
+            persist.chain('statepoll').scope(scope).window.watch(function (window) {
+                if (window.current != window.history[0]) {
+                    window.clearWatchers();
+                    poller.endTracking();
                 }
             });
+        },
+
+        unsetPolling: function () {
+            poller.endTracking();
         },
 
         watch: function (taskId) {
