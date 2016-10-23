@@ -3,6 +3,8 @@ var tableComponent = function (scope, rest) {
 
     var mirror = {};
     var updateMirror = function () {
+        mirror = {};
+
         for (var i = 0; i < scope.taskconfigs.length; ++i) {
             (function (j) {
                 var task = scope.taskconfigs[j];
@@ -20,7 +22,10 @@ var tableComponent = function (scope, rest) {
                 function (response) {
                     scope.taskconfigs = response;
                     updateMirror();
-                    callback();
+
+                    if (callback) {
+                        callback();
+                    }
                 },
                 // Error
                 function (response) {
@@ -33,33 +38,29 @@ var tableComponent = function (scope, rest) {
         removeRecord: function (taskId, callback) {
             if (taskId in mirror) {
                 scope.taskconfigs.splice(mirror[taskId], 1);
-                delete mirror[taskId];
-                callback();
+                updateMirror();
+
+                if (callback) {
+                    callback();
+                }
             }
         },
 
         updateRecord: function (taskId, callback) {
             if (taskId in mirror) {
-                var errorf = function (response) {
-                    // Ignored for now.
-                };
-
-                rest.tasks.name(taskId).retrieve.exec(
-                    // Success
+                rest.tasks.name(taskId).state.retrieve.exec(
                     function (response) {
-                        var tasko = response;
-                        rest.tasks.name(taskId).state.retrieve.exec(
-                            function (response) {
-                                tasko.state = response;
-                                scope.taskconfigs[mirror[taskId]] = tasko;
-                                callback();
-                            },
-                            // Error
-                            errorf
-                        );
+                        scope.taskconfigs[mirror[taskId]].state = response;
+
+                        if (callback) {
+                            callback();
+                        }
                     },
+
                     // Error
-                    errorf
+                    function (response) {
+                        // TODO: What should happen when an error occurs?
+                    }
                 );
             }
         },

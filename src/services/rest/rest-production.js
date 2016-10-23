@@ -90,6 +90,19 @@ $.defineModule(function () {
                                 }
                             }
                         },
+                        replace: function (data) {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'PUT',
+                                        address: text.urlConcat(root, 'tasks', identifier, 'configuration'),
+                                        formData: data,
+                                        success: successf(success),
+                                        failure: failure
+                                    });
+                                }
+                            }
+                        },
                         remove: {
                             exec: function (success, failure) {
                                 requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'DELETE', successf(success), failure);

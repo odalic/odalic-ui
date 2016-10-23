@@ -5,17 +5,20 @@
             lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
     <div class="container-fluid" ng-controller="createnewtask-ctrl">
-        <h2>Creation of new task</h2>
+        <!-- Headline -->
+        <h2 ng-show="templFormat.creating">Creation of new task</h2>
+        <h2 ng-show="!templFormat.creating">Modification of a task configuration</h2>
+
         <form class="form-horizontal" role="form" name="taskCreationForm">
 
-            <!-- Name of new task -->
+            <!-- Basic settings -->
             <fieldset>
-                <legend>New task</legend>
+                <legend>Basic settings</legend>
                 <div class="form-group">
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" ng-model="taskCreation.identifier"
-                               required>
+                               ng-disabled="!templFormat.creating" required>
                     </div>
                 </div>
             </fieldset>
@@ -161,11 +164,12 @@
                     </div>
                 </div>
 
-                <!-- description -->
+                <!-- Description -->
                 <div class="form-group">
                     <label class="col-md-2 control-label">Description:</label>
                     <div class="col-md-10">
-                        <input class="form-control" type="text" ng-model="description">
+                        <input class="form-control" type="text" ng-model="description"
+                               ng-disabled="!templFormat.creating">
                     </div>
                 </div>
             </fieldset>
@@ -206,8 +210,9 @@
                 </alert>
             </div>
 
-            <!-- submit button -->
-            <button type="button" class="btn btn-lg pull-right" ng-click="createTask()">Create</button>
+            <!-- Submit -->
+            <button type="button" class="btn btn-lg pull-right" ng-click="templFormat.createTask()" ng-show="templFormat.creating">Create</button>
+            <button type="button" class="btn btn-lg pull-right" ng-click="templFormat.saveTask()" ng-show="!templFormat.creating">Save</button>
 
         </form>
     </div>

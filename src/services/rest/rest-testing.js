@@ -114,7 +114,7 @@ $.defineModule(function () {
                                                                 }
 
                                                                 // Call the callback, which should handle the data and fill the table
-                                                                callback({
+                                                                success({
                                                                     'columns': inputFile.data[0],
                                                                     'rows': inputFileRows
                                                                 });

@@ -4,31 +4,104 @@
     var app = angular.module('odalic-app');
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, $location, $window, sharedata, requests, rest, ioc) {
+    app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest) {
 
-        // Load the input CSV file
-        var loader = ioc['taskresult/loader'](sharedata, requests, rest);
-        loader.getCSV(function (data) {
-            // Inject into the scope
-            $scope.inputFile = {
-                'columns': data.columns,
-                'rows': data.rows
-            };
+        // TODO:
+        // - The whole page should just display a "loading icon" until the result is loaded.
+        // - Also it should be able to both display the result and an error message, if produced any.
 
-            if (!$scope.$$phase) {
-                $scope.$apply();
+        // The task's ID
+        var TaskID = $routeParams['taskid'];
+
+        // TODO: This is just a temporary solution; otherwise we get an error since result and inptu files are not ready at this point.
+        // - this can be solved via putting everything in a <div> with something like ng-show attribute if result is loaded.
+        // - the controller script must be edited appropiately as well.
+        $scope.inputFile = {
+            'columns': [],
+            'rows': []
+        };
+        $scope.result = {
+            subjectColumnPositions: {
+                index: 0
+            },
+            headerAnnotations: {},
+            cellAnnotations: {}
+        };
+
+        // Resource loading phases
+        var phases = {
+            result: {
+                complete: false
+            },
+            input: {
+                complete: false
+            },
+            kb: {
+                complete: false
             }
-        });
+        };
+
+        // Download the input CSV file in a JSON format directly
+        rest.tasks.name(TaskID).input.retrieve.exec(
+            // Success, inject into the scope
+            function (response) {
+                $scope.inputFile = {
+                    'columns': response.headers,
+                    'rows': response.rows
+                };
+
+                if (!$scope.$$phase) {
+                    $scope.$apply();
+                }
+
+                // Phase complete
+                phases.input.complete = true;
+            },
+
+            // Error
+            function (response) {
+                // TODO: Deal with this somehow.
+            }
+        );
 
         // Load the result
-        loader.getJSON(function (data) {
-            $scope.result = data;
-        });
+        rest.tasks.name(TaskID).result.retrieve.exec(
+            // Success
+            function (response) {
+                // TODO: $apply? or does this work alone? check.
+                $scope.result = response;
 
-        // (??) Set (default) knowledge bases
-        var kbData = loader.getKB();
-        $scope.primaryKB = kbData.PrimaryKB;
-        $scope.chosenKBs = kbData.ChosenKBs;
+                // Phase complete
+                phases.result.complete = true;
+            },
+
+            // Fatal error, result not loaded or task resulted in an error
+            function (response) {
+                // TODO
+                throw new Error('Task result could not have been loaded.');
+            }
+        );
+
+        // Set knowledge bases
+        rest.tasks.name(TaskID).retrieve.exec(
+            // Success
+            function (response) {
+                // TODO: $apply? or does this work alone? check.
+                $scope.primaryKB = response['configuration']['primaryBase']['name'];
+
+                // Phase complete
+                phases.kb.complete = true;
+            },
+
+            // Error
+            function (response) {
+                // TODO
+                throw new Error('Task configuration could not have been loaded.');
+            }
+        );
+        // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
+        $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
+
 
 
 
@@ -651,6 +724,7 @@
                 }
             };
         })();
+
     });
 
 })();

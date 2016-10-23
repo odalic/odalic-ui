@@ -25,7 +25,12 @@
         "controller": "createnewtask-ctrl"
     },
     {
-        "route": "/taskresult",
+        "route": "/createnewtask/:taskid",
+        "folder": "createnewtask",
+        "controller": "createnewtask-ctrl"
+    },
+    {
+        "route": "/taskresult/:taskid",
         "folder": "taskresult",
         "controller": "taskresult-ctrl"
     },

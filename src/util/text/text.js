@@ -178,5 +178,19 @@ var text = {
         r += gen() + gen();
 
         return r;
+    },
+
+    /** Converts a variable to string if defined.
+     *  If undefined, returns an empty string.
+     *
+     * @param variable      A variable to convert to string.
+     * @returns {string}    A string created from the passed variable.
+     */
+    safe: function (variable) {
+        if (variable) {
+            return String(variable);
+        } else {
+            return String();
+        }
     }
 };

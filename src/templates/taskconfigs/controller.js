@@ -5,7 +5,7 @@
 
     // Create a controller for taskconfigs
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-taskconfigs-ctrl', function ($scope, rest, $window, persist) {
+    app.controller('odalic-taskconfigs-ctrl', function ($scope, rest, persist) {
 
         // Dealing with the table
         $.getScriptSync(currentFolder + 'table/table.js', function () {});
@@ -29,13 +29,9 @@
                 },
                 // Error while starting the execution
                 function (response) {
-                    // Ignored
+                    // TODO: What should happen here?
                 }
             );
-        };
-
-        $scope.frerun = function (taskId) {
-            // TODO: No rest method for the function
         };
 
         $scope.fstop = function (taskId) {
@@ -46,21 +42,17 @@
                 },
                 // Error while stopping the execution
                 function (response) {
-                    // Ignored.
+                    // TODO: What should happen?
                 }
             );
         };
 
         $scope.fresult = function (taskId) {
-            // TODO:
-        };
-
-        $scope.fclear = function (taskId) {
-            // TODO: No rest method for the function
+            window.location = '#/taskresult/' + taskId;
         };
 
         $scope.fconfigure = function (taskId) {
-            $window.location.href = "#/createnewtask/" + taskId;
+            window.location = '#/createnewtask/' + taskId;
         };
 
         $scope.fremove = function (taskId) {
@@ -71,14 +63,11 @@
                 },
                 // Error while removing the task
                 function (response) {
-                    // Ignored.
+                    // TODO: What should happen?
                 }
             );
         };
 
-        // TODO: Automatically cancel polling when the page is changed. Use persist service?
-        // TODO: Task configs /taskId, by malo nacitat data o danom tasku (jeho konfiguraciu).
-        // TODO: Prechod na taskresult. Tu je to komplikovanejsie; navrhujem, aby taskresult screen prijimal v ramci path argument taskId a podla toho sa nacitali data. Zaroven by sa tam vyriesilo, ze pokial je dany task este running, tak to skonci s chybou.
     });
 
 })();
