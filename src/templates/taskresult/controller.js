@@ -6,9 +6,61 @@
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest) {
 
+
         // TODO:
         // - The whole page should just display a "loading icon" until the result is loaded.
         // - Also it should be able to both display the result and an error message, if produced any.
+
+        //works only for two hierarchy of json
+        app.filter('propsFilter', function () {
+            return function (items, props) {
+                var out = [];
+
+                if (angular.isArray(items)) {
+                    var keys = Object.keys(props);
+
+                    items.forEach(function (item) {
+                        var itemMatches = false;
+
+                        for (var i = 0; i < keys.length; i++) {
+                            var prop = keys[i].split('.');;
+                            var text = props[keys[i]].toLowerCase();
+
+                            // lower Case nebezpecne
+                            if (item[prop[0]][prop[1]].toString().toLowerCase().indexOf(text) !== -1) {
+                                itemMatches = true;
+                                break;
+                            }
+                        }
+
+                        if (itemMatches) {
+                            out.push(item);
+                        }
+                    });
+                } else {
+                    // Let the output be the input untouched
+                    out = items;
+                }
+
+                return out;
+            };
+        });
+
+        $scope.lodLiveBrowserIcon = "graphics/link.png";
+
+
+        //app.filter('chosenCandidates', function () {
+        //    return function (candidates) {
+        //        var chosen = [];
+        //        for (var knowledgeBase in candidates) {
+        //            var KBcandidates = candidates[knowledgeBase];
+        //            for (var i = 0; i < KBcandidates.length; i++) {
+        //                if (KBcandidates[i].chosen == true) {
+        //                    chosen.push(KBcandidates[i].entity.resource);
+        //                }
+
+        // Loading of the necessary resources
+        // ****************************************
 
         // The task's ID
         var TaskID = $routeParams['taskid'];
@@ -102,7 +154,8 @@
         // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
         $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
 
-
+        // ****************************************
+        // Loading of the necessary resources finishes here
 
 
         //objects which saves users setting 
@@ -137,16 +190,7 @@
             }
         }
 
-        //test pro barevnou paletu - smazat
-        //for (var i = 0; i < 10; i++)
-        //    $scope.currentItems[-1][0][i] =
-        //    {
-        //        "entity":
-        //           {
-        //               "resource": "bla",
-        //               "label": ""
-        //           }
-        //    }
+
         //set cells of table
         for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
             $scope.currentItems[i] = {};
@@ -459,7 +503,7 @@
         }
 
         // VIEW
-        $scope.state = 0;                       // Default VIEW
+        $scope.state = 1;                       // Default VIEW
         $scope.previousState = function () {
             $scope.state--;
         };
@@ -547,27 +591,28 @@
         // saves context of odalic for communication
         var lodLiveIframe;
         var selectedKB;
-        var selectedUrls;
-        var iterator = 0;
+        // var selectedUrls;
+        //  var iterator = 0;
+
 
         //creates iframe with lodLive application
-        $scope.createIframe = function (endUrls, currentKB, iteration) {
-
-            //alert($location.host())
+        $scope.createIframe = function (endUrl, currentKB, $event) {
+            $event.stopPropagation();
+            //alert(JSON.stringify( endUrls))
             //saves context 
-            iterator = iteration;
-            selectedUrls = endUrls;
+            //  iterator = iteration;
+            //selectedUrls = endUrls;
             selectedKB = currentKB;
 
             //multi choices
-            var n = endUrls.length - iterator;
-            if (n >= endUrls.length) {
-                return;
-            }
+            //var n = endUrls.length - iterator;
+            //if (n >= endUrls.length) {
+            //    return;
+            //}
 
 
             //LodLive iframe
-            var allUrl = "../LodLive/app_en.html?" + endUrls[n].resource;
+            var allUrl = "../LodLive/app_en.html?" + endUrl.resource;
             lodLiveIframe = document.createElement("IFRAME");
             lodLiveIframe.setAttribute("src", allUrl);
             document.body.appendChild(lodLiveIframe);
@@ -621,11 +666,17 @@
 
             document.body.removeChild(lodLiveIframe);
             //classification has more choices, one choice =  one iframe lodLive
-            $scope.createIframe(selectedUrls, selectedKB, iterator - 1);
+            //  $scope.createIframe(selectedUrls, selectedKB, iterator - 1);
         }
 
 
 
+        $scope.onSelectCallback = function (newSelection, knowledgeBase) {
+            $scope.currentItems[$scope.selectedPosition.row][$scope.selectedPosition.column][knowledgeBase] = [newSelection];
+        }
+        $scope.onSelectRelation = function (newSelection, knowledgeBase) {
+            $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][knowledgeBase] = [newSelection];
+        }
 
 
         //TODO mozna online detekce zmeny jinak je to k nicemu
