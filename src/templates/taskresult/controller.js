@@ -60,12 +60,10 @@
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $location, $window, sharedata, requests, rest, ioc) {
         //$scope.primaryKB = sharedata.get("PrimaryKB");
-       // $scope.chosenKBs = sharedata.get("ChosenKBs");
+        // $scope.chosenKBs = sharedata.get("ChosenKBs");
         //$scope.primaryKB = "DBpedia";
         //$scope.chosenKBs = ["DBpedia"];
-        //$scope.p = [{ name: "alik"  }, { name: "eva"  }]
-        $scope.p = [{ bla: { name: "alik" } }, { bla: { name: "eva" } }]
-        $scope.v = [];
+
 
         $scope.lodLiveBrowserIcon = "graphics/link.png";
         // Loading the input CSV file
@@ -142,16 +140,7 @@
             }
         }
 
-        //test pro barevnou paletu - smazat
-        //for (var i = 0; i < 10; i++)
-        //    $scope.currentItems[-1][0][i] =
-        //    {
-        //        "entity":
-        //           {
-        //               "resource": "bla",
-        //               "label": ""
-        //           }
-        //    }
+
         //set cells of table
         for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
             $scope.currentItems[i] = {};
@@ -552,8 +541,8 @@
         // saves context of odalic for communication
         var lodLiveIframe;
         var selectedKB;
-       // var selectedUrls;
-      //  var iterator = 0;
+        // var selectedUrls;
+        //  var iterator = 0;
 
 
         //creates iframe with lodLive application
@@ -561,7 +550,7 @@
             $event.stopPropagation();
             //alert(JSON.stringify( endUrls))
             //saves context 
-          //  iterator = iteration;
+            //  iterator = iteration;
             //selectedUrls = endUrls;
             selectedKB = currentKB;
 
@@ -627,15 +616,18 @@
 
             document.body.removeChild(lodLiveIframe);
             //classification has more choices, one choice =  one iframe lodLive
-          //  $scope.createIframe(selectedUrls, selectedKB, iterator - 1);
+            //  $scope.createIframe(selectedUrls, selectedKB, iterator - 1);
         }
 
 
 
-        $scope.onSelectCallback = function (newSelection, knowledgeBase)
-        {
-                $scope.currentItems[$scope.selectedPosition.row][$scope.selectedPosition.column][knowledgeBase] = [newSelection];
+        $scope.onSelectCallback = function (newSelection, knowledgeBase) {
+            $scope.currentItems[$scope.selectedPosition.row][$scope.selectedPosition.column][knowledgeBase] = [newSelection];
         }
+        $scope.onSelectRelation = function (newSelection, knowledgeBase) {
+            $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][knowledgeBase] = [newSelection];
+        }
+
 
         //TODO mozna online detekce zmeny jinak je to k nicemu
         $scope.change = function (chosenValues, kb) {                       // Changes the values in the table according to the selected classification and disambiguation (which is wrong; it should change the result file, see the "chosen" attribute)
@@ -722,7 +714,7 @@
             var taskid = sharedata.get('TaskID');
 
             $scope.exporting = {
-				json: function () {
+                json: function () {
                     window.open(rest.tasks.name(taskid).result.export.json.address());
                 },
                 csv: function () {

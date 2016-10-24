@@ -359,11 +359,14 @@
                                         <!-- Separate div for each knowledge base -->
                                         <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
                                         <!-- Selection of a candidate(s) for the current knowledge base -->
-                                        <select size="3"
-                                                ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][primaryKB][0]"
-                                                ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates[primaryKB]"
-                                                ng-change="gvmodal.modalPredicatesChange()"
-                                                class="form-control"></select>
+                                        <ui-select ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][primaryKB]" multiple limit="1" theme="bootstrap" search-enabled="true" on-select="onSelectRelation($item.entity, primaryKB)" ng-change="gvmodal.modalPredicatesChange()">
+                                            <ui-select-match placeholder="Pick one...">
+                                                {{$item.entity.resource}}
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="opt.entity as opt in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates[primaryKB]  | propsFilter : {'entity.resource': $select.search}">
+                                                <div title={{opt.entity.resource}} ng-bind-html="opt.entity.resource| highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>                    
                                     </div>
                                     <!-- Separate div for each knowledge base -->
                                     <div ng-repeat="(knowledgeBase, candidates) in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates">
@@ -371,11 +374,14 @@
                                             <div class="form-group">
                                                 <h3>{{ knowledgeBase }}</h3>
                                                 <!-- Selection of a candidate(s) for the current knowledge base -->
-                                                <select size="3"
-                                                        ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][knowledgeBase][0]"
-                                                        ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in candidates"
-                                                        ng-change="gvmodal.modalPredicatesChange()"
-                                                        class="form-control"></select>
+                                                <ui-select ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][knowledgeBase]" multiple limit="1" theme="bootstrap" search-enabled="true" on-select="onSelectRelation($item.entity, knowledgeBase)" ng-change="gvmodal.modalPredicatesChange()">
+                                                    <ui-select-match placeholder="Pick one...">
+                                                        {{$item.entity.resource}}
+                                                    </ui-select-match>
+                                                    <ui-select-choices repeat="opt.entity as opt in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates[ knowledgeBase]  | propsFilter : {'entity.resource': $select.search}">
+                                                        <div title={{opt.entity.resource}} ng-bind-html="opt.entity.resource| highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select> 
                                             </div>
                                         </div>
                                     </div>
