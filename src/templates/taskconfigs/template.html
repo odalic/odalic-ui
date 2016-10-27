@@ -22,6 +22,7 @@
         <!-- TODO: Unknown bug forcing me to write a first useless tooltip-->
         <tooltip msg=""/>
 
+        <!-- The table of tasks -->
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
@@ -100,6 +101,11 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Additional content below the table -->
+        <div>
+            <button type="button" class="btn btn-lg pull-right" ng-click="misc.gotocnt()">Create a new</button>
+        </div>
     </div>
 
 </main-cnt>
