@@ -25,16 +25,20 @@
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th>Action</th>
                 <th>Date created</th>
                 <th>Task name</th>
                 <th>Task description</th>
+                <th>Action</th>
                 <th>State</th>
             </tr>
             </thead>
             <tbody>
                 <!-- A single task configuration -->
                 <tr ng-repeat="taskconfig in taskconfigs">
+                    <td class="col-md-1">{{ taskconfig.created }}</td>
+                    <td class="col-md-2">{{ taskconfig.id }}</td>
+                    <td class="col-md-6">{{ taskconfig.description }}</td>
+
                     <td class="col-md-2">
                         <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.run" place="top">
@@ -62,10 +66,6 @@
                             </tooltip>
                         </span>
                     </td>
-
-                    <td class="col-md-1">{{ taskconfig.created }}</td>
-                    <td class="col-md-2">{{ taskconfig.id }}</td>
-                    <td class="col-md-6">{{ taskconfig.description }}</td>
 
                     <td class="col-md-1">
                         <!-- State icons -->
