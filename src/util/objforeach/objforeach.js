@@ -35,6 +35,21 @@ var objGetAny = function (obj, callback) {
 };
 
 
+/** Returns the first argument that is defined - either non-null or true.
+ *  If none such are available, null is returned.
+ *
+ * @returns {*}
+ */
+var getFirstArg = function () {
+    for (var i = 0; i < arguments.length; i++) {
+        if (arguments[i]) {
+            return arguments[i];
+        }
+    }
+    return null;
+};
+
+
 /** Accesses safely an object recursively with defined keys. This function is variadic.
  *
  *  Example 1:

@@ -11,6 +11,7 @@
   "directives/graphvis/graphvis.js",
   "directives/tooltip/tooltip.js",
   "directives/injector/injector.js",
+  "directives/modal/modal.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",
