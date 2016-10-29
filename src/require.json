@@ -18,5 +18,6 @@
   "services/requests/requests.js",
   "services/rest/rest.js",
   "services/persist/persist.js",
+  "services/report/report.js",
   "templates/templates.js"
 ]

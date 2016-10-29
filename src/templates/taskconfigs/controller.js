@@ -5,7 +5,7 @@
 
     // Create a controller for taskconfigs
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-taskconfigs-ctrl', function ($scope, rest, persist) {
+    app.controller('odalic-taskconfigs-ctrl', function ($scope, rest, persist, report) {
 
         // Dealing with the table
         $.getScriptSync(currentFolder + 'table/table.js', function () {});

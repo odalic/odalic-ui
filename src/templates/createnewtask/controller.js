@@ -9,7 +9,7 @@
     };
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest) {
+    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, report) {
 
         // Initialization
         $scope.templFormat = {

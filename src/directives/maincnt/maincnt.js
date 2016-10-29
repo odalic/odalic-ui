@@ -5,7 +5,7 @@
 
     // main-cnt directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('mainCnt', function () {
+    app.directive('mainCnt', function ($compile) {
         return {
             restrict: 'E',
             templateUrl: currentFolder + 'maincnt.html',
