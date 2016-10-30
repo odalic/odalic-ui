@@ -74,6 +74,7 @@
         $scope.misc.gotocnt = function () {
             window.location.href = '#/createnewtask';
         };
+
     });
 
 })();

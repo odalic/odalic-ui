@@ -41,6 +41,7 @@
         });
 
         // Configure controllers
+        var configured = {};
         mapping.forEach(function (item) {
             switch (item.controller) {
                 case 'generic':
@@ -56,7 +57,10 @@
                     break;
                 default:
                     // Delegate the controller creation to an external script
-                    $.getScriptSync(currentFolder + item.folder + '/controller.js', function () {});
+                    if (!(item.folder in configured)) {
+                        $.getScriptSync(currentFolder + item.folder + '/controller.js', function () {});
+                        configured[item.folder] = true;
+                    }
                     break;
             }
         });
