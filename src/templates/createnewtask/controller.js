@@ -253,7 +253,7 @@
         };
 
         // Task creation
-        $scope.templFormat.createTask = function () {
+        $scope.templFormat.createTask = function (callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
                 return;
@@ -287,6 +287,12 @@
             }).exec(
                 // Success
                 function (response) {
+                    // Don't handle if further action was specified
+                    if (callback) {
+                        callback();
+                        return;
+                    }
+
                     // The task has been created, redirect to the task configurations screen
                     window.location.href = '#/taskconfigs/' + taskId;
                 },
@@ -295,6 +301,31 @@
                     // TODO: What should happen when an error arises while trying to create the task...
                 }
             );
+        };
+        
+        // Task creation + run
+        $scope.templFormat.createAndRun = function () {
+            $scope.templFormat.createTask(function () {
+                // Prepare
+                var taskId = $scope.taskCreation.identifier;
+                var handler = function () {
+                    // Just continue to the taskconfigs screen
+                    window.location.href = '#/taskconfigs/' + taskId;
+                };
+
+                // Start the task
+                rest.tasks.name(taskId).execute.exec(
+                    // Execution started successfully
+                    function (response) {
+                        handler();
+                    },
+                    // Error while starting the execution
+                    function (response) {
+                        // TODO: This is a problem - task was created, but not run. Maybe just show a message and continue to the taskconfigs screen anyway?
+                        handler();
+                    }
+                );
+            });
         };
 
         // Task saving
