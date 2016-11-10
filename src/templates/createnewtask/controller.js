@@ -15,6 +15,8 @@
         $scope['taskCreation'] = {};
 
         // Initialization
+        var reporting = report($scope);
+
         $scope.templFormat = {
             createTask: null,
             saveTask: null,
@@ -298,7 +300,7 @@
                 },
                 // Failure
                 function (response) {
-                    // TODO: What should happen when an error arises while trying to create the task...
+                    reporting.error(response);
                 }
             );
         };
@@ -321,7 +323,7 @@
                     },
                     // Error while starting the execution
                     function (response) {
-                        // TODO: This is a problem - task was created, but not run. Maybe just show a message and continue to the taskconfigs screen anyway?
+                        reporting.error(response);
                         handler();
                     }
                 );
@@ -362,7 +364,7 @@
                 },
                 // Failure
                 function (response) {
-                    // TODO: What should happen when an error arises while trying to modify the task...
+                    reporting.error(response);
                 }
             );
         };
@@ -394,7 +396,7 @@
 
                     // Failure to load the task's config
                     function (response) {
-                        // TODO
+                        reporting.error(response);
                     }
                 );
             }

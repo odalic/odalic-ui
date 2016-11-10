@@ -1,5 +1,5 @@
 // Deals with the table updates with an exception of state polling
-var tableComponent = function (scope, rest) {
+var tableComponent = function (scope, rest, reporting) {
 
     var mirror = {};
     var updateMirror = function () {
@@ -59,7 +59,7 @@ var tableComponent = function (scope, rest) {
 
                     // Error
                     function (response) {
-                        // TODO: What should happen when an error occurs?
+                        reporting.error(response);
                     }
                 );
             }

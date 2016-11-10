@@ -59,15 +59,13 @@
             // REST error reporting
             var resterror = function (response) {
                 // Regarding the REST API.
-                if (typeof(response) !== 'object') {
-                    throw new Error('Fatal error in report service: response is not an object.')
-                }
+                response = JSON.parse(response.data);
 
                 // Fill
                 scope.report.errormodal.status = response.status;
 
-                var description = (response.type === 'MESSAGE') ? response.payload : response.payload.text;
-                scope.report.errormodal.description = text.dotted(description, 30);
+                var description = (response.type === 'MESSAGE') ? response.payload.debugContent : response.payload;
+                scope.report.errormodal.description = text.dotted(description, 150);
 
                 // Human-readable description
                 var decider = Math.floor(response.status / 100);
