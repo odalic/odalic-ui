@@ -11,6 +11,9 @@
     // Create a controller for task-creation screen
     app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, report) {
 
+        // Template initialization
+        $scope['taskCreation'] = {};
+
         // Initialization
         $scope.templFormat = {
             createTask: null,
@@ -264,7 +267,7 @@
                         name: $scope.primaryKB
                     }
                 },
-				description: text.safe($scope.description)
+				description: text.safe($scope.taskCreation.description)
             }).exec(
                 // Success
                 function (response) {
@@ -338,7 +341,7 @@
                         objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
                         $scope.fileProvision = 'local';
                         $scope.files.selectedFile = $scope.fileUpload.uploaded[selectedFile];
-                        $scope.description = response.description;
+                        $scope.taskCreation.description = response.description;
                         $scope.templFormat.creating = false;
                     },
 
