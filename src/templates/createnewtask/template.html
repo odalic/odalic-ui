@@ -22,6 +22,9 @@
                                ng-disabled="!templFormat.creating" required>
                     </div>
                 </div>
+                <alert bind="alerts.taskCreation.identifier">
+                    Task name not set.
+                </alert>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label">Description:</label>
@@ -57,7 +60,6 @@
                 <div ng-switch="fileProvision">
                     <!-- When a file that was already uploaded is to be selected -->
                     <div ng-switch-when="local">
-
 
                         <!-- Upload a new local file -->
                         <div class="form-group">
@@ -99,6 +101,10 @@
                                         ng-options="file.id for file in fileUpload.uploaded"></select>
                             </div>
                         </div>
+
+                        <alert bind="alerts.files.selectedFile">
+                            No file selected.
+                        </alert>
                     </div>
 
                     <!-- When a remote file is to be specified -->

@@ -3,7 +3,24 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // footer directive
+    /** Aler directive, for displaying bootstrap alert panel.
+     *  Usage: <alert bind="myvar">Hooray!</alert>
+     *
+     *  $scope.myvar = {
+     *      type: 'neutral',
+     *      visible: true,
+     *      close: function() {
+     *          // Action on close
+     *      }
+     *  };
+     *
+     *  If function close is defined, it is called on alert close.
+     *  If it is not defined, the default action is called ("visible = false;").
+     *
+     *  Available types:
+     *  'neutral', 'success', 'error', 'warning'
+     *
+     */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('alert', function () {
         return {

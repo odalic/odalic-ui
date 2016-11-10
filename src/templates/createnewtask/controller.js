@@ -26,6 +26,22 @@
         $scope.files = {};
         $scope.remoteFile = {};
 
+        // Alerts
+        $scope.alerts = {
+            taskCreation: {
+                identifier: {
+                    type: 'error',
+                    visible: false
+                }
+            },
+            files: {
+                selectedFile: {
+                    type: 'error',
+                    visible: false
+                }
+            }
+        };
+
         //TODO smazat az bude na vyber,tj.
         //az to bude server umet, tak se dostupne kbs nastavi ze serveru
 
@@ -213,7 +229,7 @@
                 // Task name set?
                 if (!objRecurAccess($scope, 'taskCreation')['identifier']) {
                     valid = false;
-                    this.pushAlert('error', 'Task name not set.');
+                    $scope.alerts.taskCreation.identifier.visible = true;
                 }
 
                 // File selected?
@@ -221,7 +237,7 @@
                     case 'local':
                         if (!objRecurAccess($scope, 'files', 'selectedFile')['id']) {
                             valid = false;
-                            this.pushAlert('error', 'No file selected.');
+                            $scope.alerts.files.selectedFile.visible = true;
                         }
                         break;
                     case 'remote':
