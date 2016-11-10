@@ -5,7 +5,7 @@
 
     // Create a controller for taskconfigs
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-taskconfigs-ctrl', function ($scope, rest, persist, report) {
+    app.controller('odalic-taskconfigs-ctrl', function ($scope, $routeParams, rest, persist, report) {
 
         // Dealing with the table
         $.getScriptSync(currentFolder + 'table/table.js', function () {});
@@ -69,12 +69,13 @@
         };
 
         // Miscellaneous
-        $scope.misc = {};
+        $scope.misc = {
+            gotocnt: function () {
+                window.location.href = '#/createnewtask';
+            },
 
-        $scope.misc.gotocnt = function () {
-            window.location.href = '#/createnewtask';
+            selected: $routeParams['taskid']
         };
-
     });
 
 })();

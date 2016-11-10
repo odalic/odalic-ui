@@ -26,7 +26,7 @@
         $scope.files = {};
         $scope.remoteFile = {};
 
-        // Alerts
+        // Static alerts
         $scope.alerts = {
             taskCreation: {
                 identifier: {
@@ -288,7 +288,7 @@
                 // Success
                 function (response) {
                     // The task has been created, redirect to the task configurations screen
-                    window.location.href = '#/taskconfigs/';
+                    window.location.href = '#/taskconfigs/' + taskId;
                 },
                 // Failure
                 function (response) {
@@ -327,7 +327,7 @@
                 // Success
                 function (response) {
                     // The task has been updated, redirect to the task configurations screen
-                    window.location.href = '#/taskconfigs/';
+                    window.location.href = '#/taskconfigs/' + $scope.taskCreation.identifier;
                 },
                 // Failure
                 function (response) {
