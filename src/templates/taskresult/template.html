@@ -45,7 +45,7 @@
                 </div>
 
 
-                <div id="myModal" class="modal" role="dialog">
+                <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog lg">
 
                         <div class="modal-content">
@@ -251,7 +251,7 @@
                 </div>
 
 
-                <div id="newEntities" class="modal" role="dialog">
+                <div id="newEntities" class="modal fade" role="dialog">
                     <div class="modal-dialog lg">
                         <div class="modal-head">
 
@@ -354,7 +354,7 @@
                 <pre>{{locked.graphEdges}} </pre>
 
                 <!-- Modal -->
-                <div id="modalPredicates" class="modal" role="dialog">
+                <div id="modalPredicates" class="modal fade" role="dialog">
                     <div class="modal-dialog lg">
                         <div class="modal-content">
                             <!-- Headline -->
@@ -499,14 +499,14 @@
             t-center">
             <div class="text-center">
                 <ul class="pagination">
-                    <li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
+                    <li><a class="odalic-cursor-pointer" ng-click="setState(state - 1)">Previous</a></li>
 
                     <li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
-                        <a class="pointer" ng-click="setState($index)">
+                        <a class="odalic-cursor-pointer" ng-click="setState($index)">
                             {{ $index }}
                         </a>
                     </li>
-                    <li><a class="pointer" ng-click="setState(state + 1)">Next</a></li>
+                    <li><a class="odalic-cursor-pointer" ng-click="setState(state + 1)">Next</a></li>
                 </ul>
             </div>-->
     </div>
