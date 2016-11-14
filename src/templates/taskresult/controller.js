@@ -649,21 +649,17 @@
 
             // region Exporting to JSON / CSV / RDF
             // **************************************
-            (function () {
-                var taskid = sharedata.get('TaskID');
-
-                $scope.exporting = {
-                    json: function () {
-                        window.open(rest.tasks.name(taskid).result.export.json.address());
-                    },
-                    csv: function () {
-                        window.open(rest.tasks.name(taskid).result.export.csv.address());
-                    },
-                    rdf: function () {
-                        window.open(rest.tasks.name(taskid).result.export.rdf.address());
-                    }
-                };
-            })();
+            $scope.exporting = {
+                json: function () {
+                    window.open(rest.tasks.name(TaskID).result.export.json.address());
+                },
+                csv: function () {
+                    window.open(rest.tasks.name(TaskID).result.export.csv.address());
+                },
+                rdf: function () {
+                    window.open(rest.tasks.name(TaskID).result.export.rdf.address());
+                }
+            };
             // endregion
         }
     );
