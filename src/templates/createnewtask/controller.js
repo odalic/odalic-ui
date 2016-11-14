@@ -9,9 +9,14 @@
     };
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest) {
+    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, report) {
+
+        // Template initialization
+        $scope['taskCreation'] = {};
 
         // Initialization
+        var reporting = report($scope);
+
         $scope.templFormat = {
             createTask: null,
             saveTask: null,
@@ -22,6 +27,22 @@
         $scope.fileProvision = settings.fileProvisionTypes[0];
         $scope.files = {};
         $scope.remoteFile = {};
+
+        // Static alerts
+        $scope.alerts = {
+            taskCreation: {
+                identifier: {
+                    type: 'error',
+                    visible: false
+                }
+            },
+            files: {
+                selectedFile: {
+                    type: 'error',
+                    visible: false
+                }
+            }
+        };
 
         //TODO smazat az bude na vyber,tj.
         //az to bude server umet, tak se dostupne kbs nastavi ze serveru
@@ -210,7 +231,7 @@
                 // Task name set?
                 if (!objRecurAccess($scope, 'taskCreation')['identifier']) {
                     valid = false;
-                    this.pushAlert('error', 'Task name not set.');
+                    $scope.alerts.taskCreation.identifier.visible = true;
                 }
 
                 // File selected?
@@ -218,7 +239,7 @@
                     case 'local':
                         if (!objRecurAccess($scope, 'files', 'selectedFile')['id']) {
                             valid = false;
-                            this.pushAlert('error', 'No file selected.');
+                            $scope.alerts.files.selectedFile.visible = true;
                         }
                         break;
                     case 'remote':
@@ -234,7 +255,7 @@
         };
 
         // Task creation
-        $scope.templFormat.createTask = function () {
+        $scope.templFormat.createTask = function (callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
                 return;
@@ -264,18 +285,49 @@
                         name: $scope.primaryKB
                     }
                 },
-				description: text.safe($scope.description)
+				description: text.safe($scope.taskCreation.description)
             }).exec(
                 // Success
                 function (response) {
+                    // Don't handle if further action was specified
+                    if (callback) {
+                        callback();
+                        return;
+                    }
+
                     // The task has been created, redirect to the task configurations screen
-                    window.location.href = '#/taskconfigs/';
+                    window.location.href = '#/taskconfigs/' + taskId;
                 },
                 // Failure
                 function (response) {
-                    // TODO: What should happen when an error arises while trying to create the task...
+                    reporting.error(response);
                 }
             );
+        };
+        
+        // Task creation + run
+        $scope.templFormat.createAndRun = function () {
+            $scope.templFormat.createTask(function () {
+                // Prepare
+                var taskId = $scope.taskCreation.identifier;
+                var handler = function () {
+                    // Just continue to the taskconfigs screen
+                    window.location.href = '#/taskconfigs/' + taskId;
+                };
+
+                // Start the task
+                rest.tasks.name(taskId).execute.exec(
+                    // Execution started successfully
+                    function (response) {
+                        handler();
+                    },
+                    // Error while starting the execution
+                    function (response) {
+                        reporting.error(response);
+                        handler();
+                    }
+                );
+            });
         };
 
         // Task saving
@@ -308,11 +360,11 @@
                 // Success
                 function (response) {
                     // The task has been updated, redirect to the task configurations screen
-                    window.location.href = '#/taskconfigs/';
+                    window.location.href = '#/taskconfigs/' + $scope.taskCreation.identifier;
                 },
                 // Failure
                 function (response) {
-                    // TODO: What should happen when an error arises while trying to modify the task...
+                    reporting.error(response);
                 }
             );
         };
@@ -338,13 +390,13 @@
                         objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
                         $scope.fileProvision = 'local';
                         $scope.files.selectedFile = $scope.fileUpload.uploaded[selectedFile];
-                        $scope.description = response.description;
+                        $scope.taskCreation.description = response.description;
                         $scope.templFormat.creating = false;
                     },
 
                     // Failure to load the task's config
                     function (response) {
-                        // TODO
+                        reporting.error(response);
                     }
                 );
             }

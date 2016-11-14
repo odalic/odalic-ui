@@ -5,11 +5,14 @@
 
     // Create a controller for taskconfigs
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-taskconfigs-ctrl', function ($scope, rest, persist) {
+    app.controller('odalic-taskconfigs-ctrl', function ($scope, $routeParams, rest, persist, report) {
+
+        // Reporting service
+        var reporting = report($scope);
 
         // Dealing with the table
         $.getScriptSync(currentFolder + 'table/table.js', function () {});
-        var table = tableComponent($scope, rest);
+        var table = tableComponent($scope, rest, reporting);
 
         // Dealing with the state updates
         $.getScriptSync(currentFolder + 'table/statepoll.js', function () {});
@@ -29,7 +32,7 @@
                 },
                 // Error while starting the execution
                 function (response) {
-                    // TODO: What should happen here?
+                    reporting.error(response);
                 }
             );
         };
@@ -42,7 +45,7 @@
                 },
                 // Error while stopping the execution
                 function (response) {
-                    // TODO: What should happen?
+                    reporting.error(response);
                 }
             );
         };
@@ -63,16 +66,18 @@
                 },
                 // Error while removing the task
                 function (response) {
-                    // TODO: What should happen?
+                    reporting.error(response);
                 }
             );
         };
 
         // Miscellaneous
-        $scope.misc = {};
+        $scope.misc = {
+            gotocnt: function () {
+                window.location.href = '#/createnewtask';
+            },
 
-        $scope.misc.gotocnt = function () {
-            window.location.href = '#/createnewtask';
+            selected: $routeParams['taskid']
         };
     });
 
