@@ -356,6 +356,8 @@
                 primaryBase: {
                     name: $scope.primaryKB
                 }
+                // TODO: Waiting for ODALIC Server
+                //description: text.safe($scope.taskCreation.description)
             }).exec(
                 // Success
                 function (response) {
