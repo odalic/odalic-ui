@@ -476,10 +476,14 @@
                 <div class="odalic-hr-separator">Export</div>
             </div>
 
-            <div class="col-md-12">
-                <button class="btn" ng-click="exporting.json()">JSON</button>
-                <button class="btn" ng-click="exporting.csv()">CSV</button>
-                <button class="btn" ng-click="exporting.rdf()">RDF</button>
+            <div class="col-md-3">
+                <button class="btn" ng-click="exporting.json()">Table annotations</button>
+                <button class="btn" ng-click="exporting.csv()">Extended table</button>
+            </div>
+
+            <div class="col-md-9">
+                <button class="btn" ng-click="exporting.turtle()">Turtle</button>
+                <button class="btn" ng-click="exporting.jsonld()">JSON-LD</button>
             </div>
 
             <div class="col-md-12">

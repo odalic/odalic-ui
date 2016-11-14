@@ -162,7 +162,12 @@ $.defineModule(function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'csv-export');
                                     }
                                 },
-                                rdf: {
+                                turtle: {
+                                    address: function () {
+                                        return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export');
+                                    }
+                                },
+                                jsonld: {
                                     address: function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export');
                                     }

@@ -317,130 +317,131 @@
             }
             //endregion
 
+            // TODO: [critical] Feedback saving not working when a user actually makes a change.
             var feedbackFunctions = {
                 //region sendFeedback
                 sendFeedback: function (success, error) {
 
-                //region subjectsColumns
-                $scope.feedback.subjectColumnPosition = {};
-                for (var KB in  $scope.locked.subjectColumns) {
-                    for (var columnIndex in $scope.locked.subjectColumns[KB]) {
-                        if ($scope.locked.subjectColumns[KB][columnIndex] == 1) {
-                            $scope.feedback.subjectColumnPosition[KB] = {};
-                            $scope.feedback.subjectColumnPosition[KB] = {position: {index: columnIndex}}
+                    //region subjectsColumns
+                    $scope.feedback.subjectColumnPosition = {};
+                    for (var KB in  $scope.locked.subjectColumns) {
+                        for (var columnIndex in $scope.locked.subjectColumns[KB]) {
+                            if ($scope.locked.subjectColumns[KB][columnIndex] == 1) {
+                                $scope.feedback.subjectColumnPosition[KB] = {};
+                                $scope.feedback.subjectColumnPosition[KB] = {position: {index: columnIndex}}
+                            }
+
                         }
-
                     }
-                }
-                //endregion
+                    //endregion
 
-                //region columnIgnores- sets ignored columns
-                //"columnIgnores": [ { position: { index: 6 } },...]
-                $scope.feedback.columnIgnores = [];
-                for (var columnNumber in $scope.ignoredColumn) {
-                    if ($scope.ignoredColumn[columnNumber] == true) {
-                        $scope.feedback.columnIgnores.push({position: {index: columnNumber}});
+                    //region columnIgnores- sets ignored columns
+                    //"columnIgnores": [ { position: { index: 6 } },...]
+                    $scope.feedback.columnIgnores = [];
+                    for (var columnNumber in $scope.ignoredColumn) {
+                        if ($scope.ignoredColumn[columnNumber] == true) {
+                            $scope.feedback.columnIgnores.push({position: {index: columnNumber}});
+                        }
                     }
-                }
-                //endregion
+                    //endregion
 
-                //region classification
-                $scope.feedback.classifications = [];
-                for (var columnIndex in $scope.locked.tableCells[-1]) {
-                    if ($scope.locked.tableCells[-1][columnIndex] == 1) {
-                        var obj = {
-                            "position": {"index": columnIndex},
-                            "annotation": $scope.result.headerAnnotations[columnIndex]
-                        };
-                        $scope.feedback.classifications.push(obj);
-                    }
-                }
-                //endregion
-
-                //region disambiguation
-                $scope.feedback.disambiguations = [];
-                for (var rowIndex in $scope.locked.tableCells) {
-                    for (var columnIndex in $scope.locked.tableCells[rowIndex]) {
-                        if ($scope.locked.tableCells[rowIndex][columnIndex] == 1) {
+                    //region classification
+                    $scope.feedback.classifications = [];
+                    for (var columnIndex in $scope.locked.tableCells[-1]) {
+                        if ($scope.locked.tableCells[-1][columnIndex] == 1) {
                             var obj = {
-                                "position": {
-                                    "rowPosition": {"index": rowIndex},
-                                    "columnPosition": {"index": columnIndex}
-                                },
-                                "annotation": $scope.result.cellAnnotations[rowIndex][columnIndex]
+                                "position": {"index": columnIndex},
+                                "annotation": $scope.result.headerAnnotations[columnIndex]
                             };
-                            $scope.feedback.disambiguations.push(obj);
+                            $scope.feedback.classifications.push(obj);
+                        }
+                    }
+                    //endregion
+
+                    //region disambiguation
+                    $scope.feedback.disambiguations = [];
+                    for (var rowIndex in $scope.locked.tableCells) {
+                        for (var columnIndex in $scope.locked.tableCells[rowIndex]) {
+                            if ($scope.locked.tableCells[rowIndex][columnIndex] == 1) {
+                                var obj = {
+                                    "position": {
+                                        "rowPosition": {"index": rowIndex},
+                                        "columnPosition": {"index": columnIndex}
+                                    },
+                                    "annotation": $scope.result.cellAnnotations[rowIndex][columnIndex]
+                                };
+                                $scope.feedback.disambiguations.push(obj);
+                            }
+
+                        }
+                    }
+                    //endregion
+
+                    //region columnAmbiguities-sets the skipped column -disambiguations
+                    //"columnAmbiguities": [{ position: { index: 6 } },...],
+                    $scope.feedback.columnAmbiguities = [];
+                    for (var columnNumber in $scope.noDisambiguationColumn) {
+                        if ($scope.noDisambiguationColumn[columnNumber] == true) {
+                            $scope.feedback.columnAmbiguities.push({position: {index: columnNumber}});
                         }
 
                     }
-                }
-                //endregion
+                    //endregion
 
-                //region columnAmbiguities-sets the skipped column -disambiguations
-                //"columnAmbiguities": [{ position: { index: 6 } },...],
-                $scope.feedback.columnAmbiguities = [];
-                for (var columnNumber in $scope.noDisambiguationColumn) {
-                    if ($scope.noDisambiguationColumn[columnNumber] == true) {
-                        $scope.feedback.columnAmbiguities.push({position: {index: columnNumber}});
+                    //region ambiguities-sets the skipped cell disambiguations
+                    //"ambiguities": [{ position: { rowPosition: { index: 6 }, columnPosition: { index: 6 } } }, ...],
+                    $scope.feedback.ambiguities = [];
+                    for (var rowNumber in $scope.noDisambiguationCell) {
+                        for (var columnNumber in $scope.noDisambiguationCell[rowNumber]) {
+                            if ($scope.noDisambiguationCell[rowNumber][columnNumber] == true) {
+                                $scope.feedback.ambiguities.push({
+                                    position: {
+                                        rowPosition: {index: rowNumber},
+                                        columnPosition: {index: columnNumber}
+                                    }
+                                });
+
+                            }
+
+                        }
                     }
+                    //endregion
 
-                }
-                //endregion
-
-                //region ambiguities-sets the skipped cell disambiguations
-                //"ambiguities": [{ position: { rowPosition: { index: 6 }, columnPosition: { index: 6 } } }, ...],
-                $scope.feedback.ambiguities = [];
-                for (var rowNumber in $scope.noDisambiguationCell) {
-                    for (var columnNumber in $scope.noDisambiguationCell[rowNumber]) {
-                        if ($scope.noDisambiguationCell[rowNumber][columnNumber] == true) {
-                            $scope.feedback.ambiguities.push({
-                                position: {
-                                    rowPosition: {index: rowNumber},
-                                    columnPosition: {index: columnNumber}
-                                }
+                    //region relations
+                    $scope.feedback.columnRelations = [];
+                    objForEach($scope.currentRelations, function (column1, collect1) {
+                        objForEach(collect1, function (column2, collect2) {
+                            changed = false;
+                            objForEach(collect2, function (kb, item) {
+                                userChanges = item;
+                                inputSetting = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'][kb];
+                                changed = findUserChanges(userChanges, inputSetting, column1, column2, changed, kb, 'forRelations');
                             });
 
-                        }
-
-                    }
-                }
-                //endregion
-
-                //region relations
-                $scope.feedback.columnRelations = [];
-                objForEach($scope.currentRelations, function (column1, collect1) {
-                    objForEach(collect1, function (column2, collect2) {
-                        changed = false;
-                        objForEach(collect2, function (kb, item) {
-                            userChanges = item;
-                            inputSetting = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'][kb];
-                            changed = findUserChanges(userChanges, inputSetting, column1, column2, changed, kb, 'forRelations');
-                        });
-
-                        // TODO: Kata, prosim, checkni, ci toto vyhovuje.
-                        if (changed) {
-                            var changedRelation = {
-                                position: {
-                                    column1position: {
-                                        index: column1
-                                    },
-                                    column2position: {
-                                        index: column2
+                            // TODO: Kata, prosim, checkni, ci toto vyhovuje.
+                            if (changed) {
+                                var changedRelation = {
+                                    position: {
+                                        column1position: {
+                                            index: column1
+                                        },
+                                        column2position: {
+                                            index: column2
+                                        }
                                     }
-                                }
-                            };
+                                };
 
-                            var rel = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'];
-                            setFeedbackChanges(changedRelation, column1, column2, rel, 'forRelations');
-                            $scope.feedback.columnRelations.push(changedRelation);
-                        }
+                                var rel = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'];
+                                setFeedbackChanges(changedRelation, column1, column2, rel, 'forRelations');
+                                $scope.feedback.columnRelations.push(changedRelation);
+                            }
+                        });
                     });
-                });
-                //endregion
+                    //endregion
 
-                //region sends feedback to server
-                rest.tasks.name(TaskID).feedback.store($scope.feedback).exec(success, error);
-                //endregion
+                    //region sends feedback to server
+                    rest.tasks.name(TaskID).feedback.store($scope.feedback).exec(success, error);
+                    //endregion
                 }
                 //endregion
             };
@@ -656,8 +657,11 @@
                 csv: function () {
                     window.open(rest.tasks.name(TaskID).result.export.csv.address());
                 },
-                rdf: function () {
-                    window.open(rest.tasks.name(TaskID).result.export.rdf.address());
+                turtle: function () {
+                    window.open(rest.tasks.name(TaskID).result.export.turtle.address());
+                },
+                jsonld: function () {
+                    window.open(rest.tasks.name(TaskID).result.export.jsonld.address());
                 }
             };
             // endregion
