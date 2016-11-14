@@ -439,11 +439,10 @@
                 //endregion
 
                 //region sends feedback to server
-                rest.tasks.name(sharedata.get('TaskID')).feedback.store($scope.feedback).exec(
+                rest.tasks.name(TaskID).feedback.store($scope.feedback).exec(
                     // Success
                     function (response) {
                         alert("Feedback was saved.");
-                        $window.location.href = "#/createnewtask";
                     },
                     // Failure
                     function (response) {
@@ -453,7 +452,7 @@
 
                 //endregion
 
-            }
+            };
             //endregion
 
             //region old feedback function
