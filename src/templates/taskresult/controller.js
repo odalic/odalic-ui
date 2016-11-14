@@ -317,9 +317,9 @@
             }
             //endregion
 
-
-            //region feedback
-            $scope.userFeedback = function () {
+            var feedbackFunctions = {
+                //region sendFeedback
+                sendFeedback: function (success, error) {
 
                 //region subjectsColumns
                 $scope.feedback.subjectColumnPosition = {};
@@ -439,19 +439,55 @@
                 //endregion
 
                 //region sends feedback to server
-                rest.tasks.name(TaskID).feedback.store($scope.feedback).exec(
+                rest.tasks.name(TaskID).feedback.store($scope.feedback).exec(success, error);
+                //endregion
+                }
+                //endregion
+            };
+
+            //region feedback
+            $scope.userFeedback = function () {
+                feedbackFunctions.sendFeedback(
                     // Success
                     function (response) {
                         alert("Feedback was saved.");
                     },
+
                     // Failure
                     function (response) {
-                        alert("Fail.");
+                        alert("Error.");
                     }
                 );
+            };
+            //endregion
 
-                //endregion
+            //region reexecute
+            $scope.reexecute = function () {
+                // TODO: Error reporting should be improved.
 
+                // Send feedback
+                feedbackFunctions.sendFeedback(
+                    // Feedback sent successfully
+                    function (response) {
+                        // Start the task
+                        rest.tasks.name(TaskID).execute.exec(
+                            // Execution started successfully
+                            function (response) {
+                                window.location.href = '#/taskconfigs/' + TaskID;
+                            },
+
+                            // Error while starting the execution
+                            function (response) {
+                                throw new Error('Error while trying to run the task; cannot continue.');
+                            }
+                        );
+                    },
+
+                    // Failure while sending feedback
+                    function (response) {
+                        throw new Error('Error while saving feedback; cannot continue.');
+                    }
+                );
             };
             //endregion
 
