@@ -203,7 +203,41 @@ $.defineModule(function () {
                     error: 'ERROR',
                     success: 'SUCCESS'
                 }
-            }
-        };
+            },
+
+            // GET http://example.com/base/entities?query=Pra&limit=20
+            base:
+                function (KB) {
+                    return {
+                        query: function (string) {
+                            return {
+                                limit: function (countLimit) {
+                                    return {
+                                        retrieve: {
+                                            exec: function (success, failure) {
+                                                alert(root + KB + '/entities?query=' + string + '&limit=' + countLimit)
+                                                requests.quickRequest(root +  KB+ '/entities?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
+                                               // alert(root + KB + '/entities?query=' + string + '&limit=' + countLimit)
+                                                // requests.reqJSON({
+                                                //     method: 'GET',
+                                                //     address: root +  KB+ '/entities?query=' + string + '&limit=' + countLimit,
+                                                //     formData: 'unspecified',
+                                                //     success: successf(success),
+                                                //     failure: failure
+                                                // });
+                                            },
+                                        },
+
+
+                                    };
+                                },
+
+                            };
+                        },
+
+                    };
+
+                },
+            };
     };
 });

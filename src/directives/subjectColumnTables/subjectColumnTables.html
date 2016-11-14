@@ -1,0 +1,32 @@
+<h2>Choosing of a subject column</h2>
+<pre>{{locked.subjectColumns}}</pre>
+
+<div ng-repeat="kb in chosenKBs">
+    <h3>{{kb}}</h3>
+    <!-- Input file table -->
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td ng-repeat="cell in inputFile.columns"
+                    ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' :''"
+                    ng-click="selectSubjectColumn($index,kb)">
+                    {{ cell }}
+                    <span class="pull-right" ng-show ="$index == result.subjectColumnPositions[kb].index" >
+                        <lock locked="locked.subjectColumns" first-parametr="{{kb}}" second-parametr="{{$index }}"></lock>
+                    </span>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in inputFile.rows| limitTo: 2">
+                <td ng-repeat="cell in row"
+                    ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' : ''"
+                    ng-click="selectSubjectColumn($index,kb)">
+                    {{ cell }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

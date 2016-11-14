@@ -3,779 +3,635 @@
     // Main module
     var app = angular.module('odalic-app');
 
+    //region filter for a string matching in the select boxes
+    //works only for two hierarchy of json
+    app.filter('propsFilter', function () {
+        return function (items, props) {
+            var out = [];
+            if (angular.isArray(items)) {
+                var keys = Object.keys(props);
+
+                items.forEach(function (item) {
+                    var itemMatches = false;
+
+                    for (var i = 0; i < keys.length; i++) {
+                        var prop = keys[i].split('.');
+                        ;
+                        var text = props[keys[i]].toLowerCase();
+
+                        // lower Case nebezpecne
+                        if (item[prop[0]][prop[1]].toString().toLowerCase().indexOf(text) !== -1) {
+                            itemMatches = true;
+                            break;
+                        }
+                    }
+
+                    if (itemMatches) {
+                        out.push(item);
+                    }
+                });
+            } else {
+                // Let the output be the input untouched
+                out = items;
+            }
+
+            return out;
+        };
+    });
+    //endregion
+
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest) {
 
+            //region inits objects which saves users changes
+            $scope.feedback = {};
+            $scope.ignoredColumn = {};
+            $scope.noDisambiguationColumn = {};
+            $scope.noDisambiguationCell = {};
+            $scope.locked = {};
 
-        // TODO:
-        // - The whole page should just display a "loading icon" until the result is loaded.
-        // - Also it should be able to both display the result and an error message, if produced any.
-
-        //works only for two hierarchy of json
-        app.filter('propsFilter', function () {
-            return function (items, props) {
-                var out = [];
-
-                if (angular.isArray(items)) {
-                    var keys = Object.keys(props);
-
-                    items.forEach(function (item) {
-                        var itemMatches = false;
-
-                        for (var i = 0; i < keys.length; i++) {
-                            var prop = keys[i].split('.');;
-                            var text = props[keys[i]].toLowerCase();
-
-                            // lower Case nebezpecne
-                            if (item[prop[0]][prop[1]].toString().toLowerCase().indexOf(text) !== -1) {
-                                itemMatches = true;
-                                break;
-                            }
-                        }
-
-                        if (itemMatches) {
-                            out.push(item);
-                        }
-                    });
-                } else {
-                    // Let the output be the input untouched
-                    out = items;
-                }
-
-                return out;
+            $scope.selectedPosition = {
+                column: -1,
+                row: -1
             };
-        });
 
-        $scope.lodLiveBrowserIcon = "graphics/link.png";
+            $scope.selectedRelation = {
+                column1: -1,
+                column2: -1
+            };
 
-
-        //app.filter('chosenCandidates', function () {
-        //    return function (candidates) {
-        //        var chosen = [];
-        //        for (var knowledgeBase in candidates) {
-        //            var KBcandidates = candidates[knowledgeBase];
-        //            for (var i = 0; i < KBcandidates.length; i++) {
-        //                if (KBcandidates[i].chosen == true) {
-        //                    chosen.push(KBcandidates[i].entity.resource);
-        //                }
-
-        // Loading of the necessary resources
-        // ****************************************
-
-        // The task's ID
-        var TaskID = $routeParams['taskid'];
-
-        // TODO: This is just a temporary solution; otherwise we get an error since result and inptu files are not ready at this point.
-        // - this can be solved via putting everything in a <div> with something like ng-show attribute if result is loaded.
-        // - the controller script must be edited appropiately as well.
-        $scope.inputFile = {
-            'columns': [],
-            'rows': []
-        };
-        $scope.result = {
-            subjectColumnPositions: {
-                index: 0
-            },
-            headerAnnotations: {},
-            cellAnnotations: {}
-        };
-
-        // Resource loading phases
-        var phases = {
-            result: {
-                complete: false
-            },
-            input: {
-                complete: false
-            },
-            kb: {
-                complete: false
-            }
-        };
-
-        // Download the input CSV file in a JSON format directly
-        rest.tasks.name(TaskID).input.retrieve.exec(
-            // Success, inject into the scope
-            function (response) {
-                $scope.inputFile = {
-                    'columns': response.headers,
-                    'rows': response.rows
-                };
-
-                if (!$scope.$$phase) {
-                    $scope.$apply();
-                }
-
-                // Phase complete
-                phases.input.complete = true;
-            },
-
-            // Error
-            function (response) {
-                // TODO: Deal with this somehow.
-            }
-        );
-
-        // Load the result
-        rest.tasks.name(TaskID).result.retrieve.exec(
-            // Success
-            function (response) {
-                // TODO: $apply? or does this work alone? check.
-                $scope.result = response;
-
-                // Phase complete
-                phases.result.complete = true;
-            },
-
-            // Fatal error, result not loaded or task resulted in an error
-            function (response) {
-                // TODO
-                throw new Error('Task result could not have been loaded.');
-            }
-        );
-
-        // Set knowledge bases
-        rest.tasks.name(TaskID).retrieve.exec(
-            // Success
-            function (response) {
-                // TODO: $apply? or does this work alone? check.
-                $scope.primaryKB = response['configuration']['primaryBase']['name'];
-
-                // Phase complete
-                phases.kb.complete = true;
-            },
-
-            // Error
-            function (response) {
-                // TODO
-                throw new Error('Task configuration could not have been loaded.');
-            }
-        );
-        // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
-        $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
-
-        // ****************************************
-        // Loading of the necessary resources finishes here
-
-
-        //objects which saves users setting 
-        $scope.feedback = {};
-        $scope.ignoredColumn = {};
-        $scope.noDisambiguationColumn = {};
-        $scope.noDisambiguationCell = {};
-        $scope.currentItems = {};
-
-        // Providing feedback
-        // TODO: There are several subject columns now, this is just a temporary solution.
-        objGetAny($scope.result.subjectColumnPositions, function (key, value) {
-            // Defaultly selected subject column
-            $scope.subjectColumn = value.index;
-        });
-
-
-        //sets selection boxes from  classification and disambiguation of algorithm
-        //sets header of table       
-        $scope.currentItems['-1'] = {};
-        for (var i = 0; i < $scope.result.headerAnnotations.length; i++) {
-            var cell = $scope.result.headerAnnotations[i].candidates;
-            $scope.currentItems['-1'][i] = {};
-            for (var kb in cell) {
-                var selectedCandidates = [];
-                for (var k = 0; k < cell[kb].length; k++) {
-                    if (cell[kb][k].chosen == true) {
-                        selectedCandidates.push(cell[kb][k].entity);
-                    }
-                }
-                $scope.currentItems['-1'][i][kb] = selectedCandidates;
-            }
-        }
-
-
-        //set cells of table
-        for (var i = 0; i < $scope.result.cellAnnotations.length; i++) {
-            $scope.currentItems[i] = {};
-            var row = $scope.result.cellAnnotations[i];
-            for (var j = 0; j < row.length; j++) {
-                $scope.currentItems[i][j] = {};
-                var cell = row[j].candidates;
-                if (cell != {}) {
-                    for (var kb in cell) {
-                        var selectedCandidates = []
-                        for (var k = 0; k < cell[kb].length; k++) {
-                            if (cell[kb][k].chosen == true) {
-                                selectedCandidates.push(cell[kb][k].entity);
-                            }
-                        }
-                        $scope.currentItems[i][j][kb] = selectedCandidates;
-                    }
-                }
-            }
-        }
-
-        // set relations
-        $scope.currentRelations = {};
-        objForEach($scope.result.columnRelationAnnotations, function (column1, collect1) {
-            objForEach(collect1, function (column2, collect2) {
-                objForEach(collect2['candidates'], function (kb, collect3) {
-                    var selectedCandidates = [];
-                    collect3.forEach(function (item) {
-                        if (item.chosen == true) {
-                            selectedCandidates.push(item['entity']);
-                        }
-                    });
-                    objRecurAccess($scope.currentRelations, column1, column2)[kb] = selectedCandidates;
-                });
-            });
-        });
-
-
-        $scope.setFeedback = function () {
-            //sets subjectColumn
-            //"subjectColumnPosition": { "index": 3 }
-            //TODO mozna pouzit nejakou funkci na tvoreni vic levlu objektu, nebo mozna zbytecne slozita struktura
-            $scope.feedback.subjectColumnPosition = {};
-            $scope.feedback.subjectColumnPosition.index = $scope.subjectColumn;
-
-            //sets ignored columns
-            //"columnIgnores": [ { position: { index: 6 } },...]
-            $scope.feedback.columnIgnores = [];
-            for (var columnNumber in $scope.ignoredColumn) {
-                if ($scope.ignoredColumn[columnNumber] == true) {
-                    $scope.feedback.columnIgnores.push({ position: { index: columnNumber } });
-                }
-
-            }
-
-
-            //sets changed classification
-            //"classifications": [{
-            //    position: { index: 5 },
-            //    annotation: {"candidates": {"dbpedia": [{"entity": { "resource": "http://bleble.com", "label": "Ble" }, "likelihood": { "value": 0.5 },"chosen":true;}, ...],    "wikidata": ...,},
-
-            $scope.feedback.classifications = [];
-
-            for (var columnNumber in $scope.currentItems[-1]) {
-                changed = false;
-                for (var KB in $scope.currentItems[-1][columnNumber]) {
-                    userChanges = $scope.currentItems[-1][columnNumber][KB];
-                    inputSetting = $scope.result.headerAnnotations[columnNumber].candidates[KB];
-
-                    changed = findUserChanges(userChanges, inputSetting, -1, columnNumber, changed, KB);
-                }
-                // sets feedback, if user changed some clasification in headers of table
-                if (changed) {
-                    var changedClassification = {};
-
-                    changedClassification.position = {};
-                    changedClassification.position.index = columnNumber;
-
-                    changedClassification.annotation = {};
-                    changedClassification.annotation.candidates = {};
-
-                    cell = $scope.result.headerAnnotations[columnNumber].candidates;
-                    setFeedbackChanges(changedClassification, -1, columnNumber, cell);
-
-                    $scope.feedback.classifications.push(changedClassification);
-
-                }
-
-            }
-
-            //sets the skipped column -disambiguations
-            //"columnAmbiguities": [{ position: { index: 6 } },...],
-            $scope.feedback.columnAmbiguities = [];
-            for (var columnNumber in $scope.noDisambiguationColumn) {
-                if ($scope.noDisambiguationColumn[columnNumber] == true) {
-                    $scope.feedback.columnAmbiguities.push({ position: { index: columnNumber } });
-                }
-
-            }
-
-            //sets the skipped cell disambiguations
-            //"ambiguities": [{ position: { rowPosition: { index: 6 }, columnPosition: { index: 6 } } }, ...],
-            $scope.feedback.ambiguities = [];
-            for (var rowNumber in $scope.noDisambiguationCell) {
-                for (var columnNumber in $scope.noDisambiguationCell[rowNumber]) {
-                    if ($scope.noDisambiguationCell[rowNumber][columnNumber] == true) {
-                        $scope.feedback.ambiguities.push({ position: { rowPosition: { index: rowNumber }, columnPosition: { index: columnNumber } } });
-
-                    }
-
-                }
-            }
-
-            //sets changed disambiguations
-            //"disambiguations": [{
-            //    position: { positionRow:{ index: 5 }, positionColumn{index :6}},
-            //    annotation: {"candidates": {"dbpedia": [{"entity": { "resource": "http://bleble.com", "label": "Ble" }, "likelihood": { "value": 0.5 },"chosen":true;}, ...],    "wikidata": ...,},
-
-            $scope.feedback.disambiguations = [];
-            for (var rowNumber in $scope.currentItems) {
-
-                if (rowNumber == -1)
-                    continue;
-
-                for (var columnNumber in $scope.currentItems[rowNumber]) {
-                    changed = false;
-                    for (var KB in $scope.currentItems[rowNumber][columnNumber]) {
-                        userChanges = $scope.currentItems[rowNumber][columnNumber][KB];
-                        inputSetting = $scope.result.cellAnnotations[rowNumber][columnNumber].candidates[KB];
-                        changed = findUserChanges(userChanges, inputSetting, rowNumber, columnNumber, changed, KB);
-                    }
-                    // sets feedback, if user changed some disambiguation in cell of table
-                    if (changed) {
-                        var changedDisambiguation = {};
-
-                        changedDisambiguation.position = {};
-                        changedDisambiguation.position.rowPosition = {};
-                        changedDisambiguation.position.rowPosition.index = rowNumber;
-
-                        changedDisambiguation.position.columnPosition = {};
-                        changedDisambiguation.position.columnPosition.index = columnNumber;
-
-                        cell = $scope.result.cellAnnotations[rowNumber][columnNumber].candidates;
-                        setFeedbackChanges(changedDisambiguation, rowNumber, columnNumber, cell);
-
-                        $scope.feedback.disambiguations.push(changedDisambiguation);
-
-                    }
-
-                }
-
-
-            }
-            $scope.feedback.cellRelations = [];
-
-            $scope.feedback.columnRelations = [];
-            objForEach($scope.currentRelations, function (column1, collect1) {
-                objForEach(collect1, function (column2, collect2) {
-                    changed = false;
-                    objForEach(collect2, function (kb, item) {
-                        userChanges = item;
-                        inputSetting = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'][kb];
-                        changed = findUserChanges(userChanges, inputSetting, column1, column2, changed, kb, 'forRelations');
-                    });
-
-                    // TODO: Kata, prosim, checkni, ci toto vyhovuje.
-                    if (changed) {
-                        var changedRelation = {
-                            position: {
-                                column1position: {
-                                    index: column1
-                                },
-                                column2position: {
-                                    index: column2
-                                }
-                            }
-                        };
-
-                        var rel = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'];
-                        setFeedbackChanges(changedRelation, column1, column2, rel, 'forRelations');
-                        $scope.feedback.columnRelations.push(changedRelation);
-                    }
-                });
-            });
-
-
-            //sends feedback to server
-            rest.tasks.name(sharedata.get('TaskID')).feedback.store($scope.feedback).exec(
-                // Success
-                function (response) {
-                    alert("Feedback was saved.");
-                    $window.location.href = "#/createnewtask";
+            $scope.inputFile = {
+                'columns': [],
+                'rows': []
+            };
+            $scope.result = {
+                subjectColumnPositions: {
+                    index: 0
                 },
-                // Failure
+                headerAnnotations: {},
+                cellAnnotations: {}
+            };
+
+
+            //endregion
+            // TODO:
+            // - The whole page should just display a "loading icon" until the result is loaded.
+            // - Also it should be able to both display the result and an error message, if produced any.
+
+            //region gets data from server
+            // Loading of the necessary resources
+            // ****************************************
+
+            // The task's ID
+            var TaskID = $routeParams['taskid'];
+            // TODO: This is just a temporary solution; otherwise we get an error since result and inptu files are not ready at this point.
+            // Išty myslím že tohle se řeší přes routering resolve, tím zajitíme že šablona se začne vykreslovat až přijdou data
+            // tohle bych resila spolu s loginem, mozna bude pozdeji lepsi ten globalni routering zlokalnit
+
+            // - this can be solved via putting everything in a <div> with something like ng-show attribute if result is loaded.
+            // - the controller script must be edited appropiately as well.
+
+
+            // Resource loading phases
+            var phases = {
+                result: {
+                    complete: false
+                },
+                input: {
+                    complete: false
+                },
+                kb: {
+                    complete: false
+                }
+            };
+
+            //region Download the input CSV file in a JSON format directly
+            rest.tasks.name(TaskID).input.retrieve.exec(
+                // Success, inject into the scope
                 function (response) {
-                    alert("Fail.");
+                    $scope.inputFile = {
+                        'columns': response.headers,
+                        'rows': response.rows
+                    };
+
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+
+                    // Phase complete
+                    phases.input.complete = true;
+                },
+
+                // Error
+                function (response) {
+                    // TODO: Deal with this somehow.
                 }
             );
+            //endregion
 
-            // TODO: Deprecated - tento sposob pouzivania restovskych sluzieb; odteraz pouzivame servisu "rest"; vid src/services/rest/rest.js
-            //TODO udelat jako globalni konfiguracni promennou -- netreba, uz je vyriesene; vid vyssie
-            //var feedbackUrl = constants.addresses.odalicroot + "tasks/" + sharedata.get('TaskID') + "/configuration/feedback"
-            //requests.reqJSON({
-            //    method: "PUT",
-            //    address: feedbackUrl,
-            //    formData: $scope.feedback,
-            //    success: function (response) {
-            //        alert("Feedback was saved.");
-            //        $window.location.href = "#/createnewtask";
-            //    },
-            //    failure: function (response) {
-            //        alert("Fail.");
-            //    }
-            //});
+            //region Load the result
+            rest.tasks.name(TaskID).result.retrieve.exec(
+                // Success
+                function (response) {
+                    // TODO: $apply? or does this work alone? check.
+                    $scope.result = response;
 
-        };
+                    // Phase complete
+                    phases.result.complete = true;
+                    setsData();
+                    setsLockedFlags();
+                },
+
+                // Fatal error, result not loaded or task resulted in an error
+                function (response) {
+                    // TODO
+                    throw new Error('Task result could not have been loaded.');
+                }
+            );
+            //endregion
+
+            //region Set knowledge bases
+            rest.tasks.name(TaskID).retrieve.exec(
+                // Success
+                function (response) {
+                    // TODO: $apply? or does this work alone? check.
+                    $scope.primaryKB = response['configuration']['primaryBase']['name'];
+
+                    // Phase complete
+                    phases.kb.complete = true;
+                },
+
+                // Error
+                function (response) {
+                    // TODO
+                    throw new Error('Task configuration could not have been loaded.');
+                }
+            );
+            //endregion
 
 
+            // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
+            $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
+            //region dependent on data from server
+            //TODO isty :  k predelani/smazani
+            //sets data for graph component
+            $scope.currentRelations = {};
+            setsData = function () {
+                objForEach($scope.result.columnRelationAnnotations, function (column1, collect1) {
+                    objForEach(collect1, function (column2, collect2) {
+                        objForEach(collect2['chosen'], function (kb, collect3) {
+                            var selectedCandidates = [];
+                            collect3.forEach(function (item) {
+                                selectedCandidates.push(item['entity']);
+                            });
+                            objRecurAccess($scope.currentRelations, column1, column2)[kb] = selectedCandidates;
+                        });
+                    });
+                });
 
-        //TODO mozna predpocitat pri kazde zmene - rozmyslet
-        function findUserChanges(userChanges, inputSetting, rowNumber, columnNumber, changed, KB, forRelations) {
 
-            if (KB != "other") {
-                for (var i = 0; i < inputSetting.length; i++) {
+            }
 
-                    //TODO mozna rychleji
-                    //detectes user's changed classification
-                    if (userChanges.map(function (c) { return c.resource; }).includes(inputSetting[i].entity.resource)) {
-                        // changedIndexes[KB].push(i);
-                        if (inputSetting[i].chosen == false) {
-                            changed = true;
-                            inputSetting[i].chosen = true;
-                        }
+            setsLockedFlags = function () {
+                var columnCount = $scope.result.cellAnnotations[0].length;
+                var rowCount = $scope.result.cellAnnotations.length;
+                $scope.locked.tableCells = {};
+                $scope.locked.tableCells[-1] = {};
+                for (var c = 0; c < columnCount; c++) {
+                    $scope.locked.tableCells[-1][c] = 0;
+                }
+                for (var r = 0; r < rowCount; r++) {
+                    $scope.locked.tableCells[r] = {};
+
+                    for (var c = 0; c < columnCount; c++) {
+                        $scope.locked.tableCells[r][c] = 0;
                     }
-                    else {
-                        if (inputSetting[i].chosen == true) {
-                            changed = true;
-                            inputSetting[i].chosen = false;
-                        }
+                }
+
+                $scope.locked.subjectColumns = {};
+                for (var i in $scope.chosenKBs) {
+                    var kb = $scope.chosenKBs[i];
+                    $scope.locked.subjectColumns[kb] = {};
+                    for (var c = 0; c < columnCount; c++) {
+                        $scope.locked.subjectColumns[kb][c] = 0;
+                    }
+                }
+
+                //TODO isty : mozna predelat nevim jestli mam spravne poradi, predpokladam ze column1 je mensi nez column2
+                $scope.locked.graphEdges = {};
+                for (var r = 0; r < columnCount - 1; r++) {
+                    $scope.locked.graphEdges[r] = {};
+                    for (var c = r + 1; c < columnCount; c++) {
+                        $scope.locked.graphEdges[r][c] = 0;
                     }
                 }
             }
-            else {
-                // TODO: Aby nebol zbytocny chaos, len som dopisal 1 argument, aby sa nic nemuselo menit v tvojom kode (funkcie su variadicke v JS)
-                if (typeof (forRelations) === 'undefined') {
-                    // If "forRelations" argument is not passed in the function call, handle the situation the old way
-                    // TODO asi jinak protoze je mozna potreba sjednotit currentItems.other z ""  na  [""]
-                    if (!($scope.currentItems[rowNumber][columnNumber]["other"][0].resource == "")) {
-                        changed = true;
+            //endregion
+            // ****************************************
+            // Loading of the necessary resources finishes here
+            //endregion
+
+
+            //region proposal settings
+            $scope.setProposal = function () {
+                var url = proposal.prefixUrl + proposal.sufixUrl;
+                var alternativeLabels = [proposal.alternativeLabel, proposal.alternativeLabel]
+
+                if (selectedPosition.row == -1) {
+
+                    var obj = {
+                        "label": proposal.label,
+                        "alternativeLabels": alternativeLabels,
+                        " suffix": url,
+                        "superClass": proposal.superClass
                     }
-                } else {
-                    // Otherwise handle it specifically for relations
-                    // TODO: Kata, checkni, ci takto si to predstavujes.
-                    if (!($scope.currentRelations[rowNumber][columnNumber]["other"][0].resource == "")) {       // This will work, though "rowNumber" in this case is "column1" and "columnNumber" is "column2"
-                        changed = true;
-                    }
-                }
-            }
-            return changed;
-        }
-
-        function setFeedbackChanges(changedSelection, rowNumber, columnNumber, cell, forRelations) {
-            changedSelection.annotation = {};
-            changedSelection.annotation.candidates = {};
-
-            feedbackCandidates = changedSelection.annotation.candidates;
-
-            // TODO: Rovnaky princip, ako vyssie pri findUserChanges; forRelations je nepovinny argument. (to len pre informaciu; tento komentarmozes potom zmazat)
-            var collection = null;
-            if (typeof (forRelations) === 'undefined') {
-                // Handle basic case
-                collection = $scope.currentItems[rowNumber][columnNumber];
-            } else {
-                // Specifically when relations are to be handled
-                collection = $scope.currentRelations[rowNumber][columnNumber];      // 'rowNumber' as a 'column1' and 'columnNumber' as a 'column2'
-            }
-
-            for (var KB in collection) {
-                feedbackCandidates[KB] = [];
-
-                if (KB == "other") {
-                    feedbackCandidates["other"].push(
-                       {
-                           "entity": {
-                               "resource": collection[KB][0].resource,
-                               "label": ""
-                           },
-                           "likelihood": { "value": 0 },
-                           "chosen": true
-                       }
-                   );
-
                 }
                 else {
-                    //TODO mozna jinak
-                    for (var i = 0; i < cell[KB].length; i++) {
-                        feedbackCandidates[KB].push(
-                                cell[KB][i]
+                    //http://example.com/base/entities/classes
+                    // rest.base($scope.primaryKB).entities.
+                    var obj = {
+                        "label": proposal.label,
+                        "alternativeLabels": alternativeLabels,
+                        "suffix": url,
+                        "superClass": $scope.result.headerAnnotations[selectedPosition.column]
+                    }
+
+                }
+
+                // {  "classes" : [{"resource" : "https://www.wikidata.org/wiki/Class:C1080", "label" : "City" }, ...]}
+            }
+            //endregion
+
+            //region suggestion from primaryKB
+            $scope.suggestions = {};
+
+            $scope.addSuggestions = function (suggestion) {
+
+                $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
+                var newObj = {
+                    "entity": {"resource": suggestion.resource, "label": suggestion.label},
+                    "score": {"value": 0}
+                };
+                alert(JSON.stringify(newObj));
+
+                if ($scope.selectedPosition.row == -1) {
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB].push(newObj);
+                }
+                else {
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
+                }
+            }
+
+            $scope.getSuggestions = function (string, limit) {
+                //alert(string)
+                // $scope.suggestions = [{
+                //     "resource": "https://www.wikidata.org/wiki/Property:P1082",
+                //     "label": "has population"
+                // },
+                //     {"resource": "https://www.wikidata.org/wiki/Property:P12", "label": "has pation"},
+                //     {"resource": "https://www.a.org/wiki/Property:P1082", "label": "has "}];
+                rest.base($scope.primaryKB).query(string).limit(limit).retrieve.exec(
+                    // Success, inject into the scope
+                    function (response) {
+                        $scope.suggestions = response;
+                        alert("a")
+                        alert(JSON.stringify($scope.suggestions))
+
+                        // if (!$scope.$$phase) {
+                        //     $scope.$apply();
+                        // }
+
+                        // Phase complete
+                        // phases.input.complete = true;
+                    },
+
+                    // Error
+                    function (response) {
+                        alert("aaaa")
+                        // TODO: Deal with this somehow.
+                    }
+                );
+            }
+            //endregion
+
+
+            //region feedback
+            $scope.userFeedback = function () {
+
+                //region subjectsColumns
+                $scope.feedback.subjectColumnPosition = {};
+                for (var KB in  $scope.locked.subjectColumns) {
+                    for (var columnIndex in $scope.locked.subjectColumns[KB]) {
+                        if ($scope.locked.subjectColumns[KB][columnIndex] == 1) {
+                            $scope.feedback.subjectColumnPosition[KB] = {};
+                            $scope.feedback.subjectColumnPosition[KB] = {position: {index: columnIndex}}
+                        }
+
+                    }
+                }
+                //endregion
+
+                //region columnIgnores- sets ignored columns
+                //"columnIgnores": [ { position: { index: 6 } },...]
+                $scope.feedback.columnIgnores = [];
+                for (var columnNumber in $scope.ignoredColumn) {
+                    if ($scope.ignoredColumn[columnNumber] == true) {
+                        $scope.feedback.columnIgnores.push({position: {index: columnNumber}});
+                    }
+                }
+                //endregion
+
+                //region classification
+                $scope.feedback.classifications = [];
+                for (var columnIndex in $scope.locked.tableCells[-1]) {
+                    if ($scope.locked.tableCells[-1][columnIndex] == 1) {
+                        var obj = {
+                            "position": {"index": columnIndex},
+                            "annotation": $scope.result.headerAnnotations[columnIndex]
+                        };
+                        $scope.feedback.classifications.push(obj);
+                    }
+                }
+                //endregion
+
+                //region disambiguation
+                $scope.feedback.disambiguations = [];
+                for (var rowIndex in $scope.locked.tableCells) {
+                    for (var columnIndex in $scope.locked.tableCells[rowIndex]) {
+                        if ($scope.locked.tableCells[rowIndex][columnIndex] == 1) {
+                            var obj = {
+                                "position": {
+                                    "rowPosition": {"index": rowIndex},
+                                    "columnPosition": {"index": columnIndex}
+                                },
+                                "annotation": $scope.result.cellAnnotations[rowIndex][columnIndex]
+                            };
+                            $scope.feedback.disambiguations.push(obj);
+                        }
+
+                    }
+                }
+                //endregion
+
+                //region columnAmbiguities-sets the skipped column -disambiguations
+                //"columnAmbiguities": [{ position: { index: 6 } },...],
+                $scope.feedback.columnAmbiguities = [];
+                for (var columnNumber in $scope.noDisambiguationColumn) {
+                    if ($scope.noDisambiguationColumn[columnNumber] == true) {
+                        $scope.feedback.columnAmbiguities.push({position: {index: columnNumber}});
+                    }
+
+                }
+                //endregion
+
+                //region ambiguities-sets the skipped cell disambiguations
+                //"ambiguities": [{ position: { rowPosition: { index: 6 }, columnPosition: { index: 6 } } }, ...],
+                $scope.feedback.ambiguities = [];
+                for (var rowNumber in $scope.noDisambiguationCell) {
+                    for (var columnNumber in $scope.noDisambiguationCell[rowNumber]) {
+                        if ($scope.noDisambiguationCell[rowNumber][columnNumber] == true) {
+                            $scope.feedback.ambiguities.push({
+                                position: {
+                                    rowPosition: {index: rowNumber},
+                                    columnPosition: {index: columnNumber}
+                                }
+                            });
+
+                        }
+
+                    }
+                }
+                //endregion
+
+                //region relations
+                $scope.feedback.columnRelations = [];
+                objForEach($scope.currentRelations, function (column1, collect1) {
+                    objForEach(collect1, function (column2, collect2) {
+                        changed = false;
+                        objForEach(collect2, function (kb, item) {
+                            userChanges = item;
+                            inputSetting = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'][kb];
+                            changed = findUserChanges(userChanges, inputSetting, column1, column2, changed, kb, 'forRelations');
+                        });
+
+                        // TODO: Kata, prosim, checkni, ci toto vyhovuje.
+                        if (changed) {
+                            var changedRelation = {
+                                position: {
+                                    column1position: {
+                                        index: column1
+                                    },
+                                    column2position: {
+                                        index: column2
+                                    }
+                                }
+                            };
+
+                            var rel = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'];
+                            setFeedbackChanges(changedRelation, column1, column2, rel, 'forRelations');
+                            $scope.feedback.columnRelations.push(changedRelation);
+                        }
+                    });
+                });
+                //endregion
+
+                //region sends feedback to server
+                rest.tasks.name(sharedata.get('TaskID')).feedback.store($scope.feedback).exec(
+                    // Success
+                    function (response) {
+                        alert("Feedback was saved.");
+                        $window.location.href = "#/createnewtask";
+                    },
+                    // Failure
+                    function (response) {
+                        alert("Fail.");
+                    }
+                );
+
+                //endregion
+
+            }
+            //endregion
+
+            //region old feedback function
+            //TODO zatim nechat jsou na tom zavisle relations pak smazat
+            function findUserChanges(userChanges, inputSetting, rowNumber, columnNumber, changed, KB, forRelations) {
+
+                if (KB != "other") {
+                    for (var i = 0; i < inputSetting.length; i++) {
+
+                        //TODO mozna rychleji
+                        //detectes user's changed classification
+                        if (userChanges.map(function (c) {
+                                return c.resource;
+                            }).includes(inputSetting[i].entity.resource)) {
+                            // changedIndexes[KB].push(i);
+                            if (inputSetting[i].chosen == false) {
+                                changed = true;
+                                inputSetting[i].chosen = true;
+                            }
+                        }
+                        else {
+                            if (inputSetting[i].chosen == true) {
+                                changed = true;
+                                inputSetting[i].chosen = false;
+                            }
+                        }
+                    }
+                }
+                else {
+                    // TODO: Aby nebol zbytocny chaos, len som dopisal 1 argument, aby sa nic nemuselo menit v tvojom kode (funkcie su variadicke v JS)
+                    if (typeof (forRelations) === 'undefined') {
+                        // If "forRelations" argument is not passed in the function call, handle the situation the old way
+                        // TODO asi jinak protoze je mozna potreba sjednotit currentItems.other z ""  na  [""]
+                        if (!($scope.currentItems[rowNumber][columnNumber]["other"][0].resource == "")) {
+                            changed = true;
+                        }
+                    } else {
+                        // Otherwise handle it specifically for relations
+                        // TODO: Kata, checkni, ci takto si to predstavujes.
+                        if (!($scope.currentRelations[rowNumber][columnNumber]["other"][0].resource == "")) {       // This will work, though "rowNumber" in this case is "column1" and "columnNumber" is "column2"
+                            changed = true;
+                        }
+                    }
+                }
+                return changed;
+            }
+
+            //TODO zatim nechat jsou na tom zavisle relations pak smazat
+            function setFeedbackChanges(changedSelection, rowNumber, columnNumber, cell, forRelations) {
+                changedSelection.annotation = {};
+                changedSelection.annotation.candidates = {};
+
+                feedbackCandidates = changedSelection.annotation.candidates;
+
+                // TODO: Rovnaky princip, ako vyssie pri findUserChanges; forRelations je nepovinny argument. (to len pre informaciu; tento komentarmozes potom zmazat)
+                var collection = null;
+                if (typeof (forRelations) === 'undefined') {
+                    // Handle basic case
+                    collection = $scope.currentItems[rowNumber][columnNumber];
+                } else {
+                    // Specifically when relations are to be handled
+                    collection = $scope.currentRelations[rowNumber][columnNumber];      // 'rowNumber' as a 'column1' and 'columnNumber' as a 'column2'
+                }
+
+                for (var KB in collection) {
+                    feedbackCandidates[KB] = [];
+
+                    if (KB == "other") {
+                        feedbackCandidates["other"].push(
+                            {
+                                "entity": {
+                                    "resource": collection[KB][0].resource,
+                                    "label": ""
+                                },
+                                "likelihood": {"value": 0},
+                                "chosen": true
+                            }
                         );
 
-
-                    }
-                }
-            }
-
-
-
-
-
-        }
-
-        // VIEW
-        $scope.state = 1;                       // Default VIEW
-        $scope.previousState = function () {
-            $scope.state--;
-        };
-        $scope.nextState = function () {
-            $scope.state++;
-        };
-
-
-        // Table cell selection
-        $scope.selectedPosition = {
-            column: -1,
-            row: -1
-        };
-
-        // Relation selection
-        $scope.selectedRelation = {
-            column1: -1,
-            column2: -1
-        };
-
-
-        $scope.selectSubjectColumn = function (column) {
-            if ($scope.subjectColumn == column) {
-                $scope.subjectColumn = -1;
-            }
-            else {
-                $scope.subjectColumn = column;
-            }
-
-        };
-
-        $scope.selectPosition = function (column, row) {
-
-            $scope.selectedPosition.column = column;
-            $scope.selectedPosition.row = row;
-        };
-
-        //sets backgroung color of chosen classification/disambiguation in table by knowledge base
-        $scope.backgroundColor = function (KB) {
-            var index = $scope.chosenKBs.indexOf(KB);
-            var color = KBconstants.colorsArray[index];
-            return { "background-color": color, "border-radius": "5px", "opacity": "1" };
-        };
-
-
-
-        // LOD
-        // **************************************************
-        //$scope.okno;
-        //$scope.pok = function () {
-        //    // $scope.okno = window.open("http://localhost:8080/lodview", 'bla');
-        //    $scope.okno = window.open("file:///C:/Users/Kata/Desktop/odalicLod/LodLive/app_en.html?http://dbpedia.org/resource/Steven_Erikson", 'bla');
-
-        //}
-
-        //$scope.zprava = function () {
-
-
-        //    //var win = $scope.okno;
-        //    var win = document.getElementById("iframe").contentWindow
-
-        //    a = {}
-        //    a.pozdrav = "Zdravim";
-
-        //    win.postMessage(
-        //      a,
-        //      "*"
-        //    )
-
-
-        //}
-
-
-
-
-        //LODLIVE communication
-
-        //sets listener
-        if (window.addEventListener) {
-            addEventListener("message", listener, false)
-        } else {
-            attachEvent("onmessage", listener)
-        }
-
-        // saves context of odalic for communication
-        var lodLiveIframe;
-        var selectedKB;
-        // var selectedUrls;
-        //  var iterator = 0;
-
-
-        //creates iframe with lodLive application
-        $scope.createIframe = function (endUrl, currentKB, $event) {
-            $event.stopPropagation();
-            //alert(JSON.stringify( endUrls))
-            //saves context 
-            //  iterator = iteration;
-            //selectedUrls = endUrls;
-            selectedKB = currentKB;
-
-            //multi choices
-            //var n = endUrls.length - iterator;
-            //if (n >= endUrls.length) {
-            //    return;
-            //}
-
-
-            //LodLive iframe
-            var allUrl = "../LodLive/app_en.html?" + endUrl.resource;
-            lodLiveIframe = document.createElement("IFRAME");
-            lodLiveIframe.setAttribute("src", allUrl);
-            document.body.appendChild(lodLiveIframe);
-
-        };
-
-        function listener(event) {
-            //TODO kontrola nefunguje event.origin ==null
-            // if ( event.origin !== "http://localhost:8080" )
-            //   return
-
-            // json result sends from lodlive: {action: close/returnUrl, data: "www.dbpedia..."}
-            if (event.data.action != 'close') {
-                var candidates;
-                //gets the current header or cell candidates by position
-                if ($scope.selectedPosition.row == -1) {
-                    candidates = $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[selectedKB]
-                }
-                else {
-                    candidates = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[selectedKB]
-                }
-
-                var urlList = candidates.map(function (candidate) { return candidate.entity.resource; });
-                //adds new concept
-                if (!urlList.includes(event.data.data)) {
-                    var newObj = {
-                        "entity": { "resource": event.data.data, "label": "" },
-                        "likelihood": { "value": 0 },
-                        "chosen": true
-                    };
-                    candidates.push(newObj);
-
-
-                    //sets selected urls in select boxes
-                    if ($scope.selectedPosition.row == -1) {
-                        //classification - multi choice is possible
-                        $scope.currentItems[$scope.selectedPosition.row][$scope.selectedPosition.column][selectedKB].push(newObj.entity)
                     }
                     else {
-                        //disambiguation - only one choice is possible
-                        $scope.currentItems[$scope.selectedPosition.row][$scope.selectedPosition.column][selectedKB] = [newObj.entity]
+                        //TODO mozna jinak
+                        for (var i = 0; i < cell[KB].length; i++) {
+                            feedbackCandidates[KB].push(
+                                cell[KB][i]
+                            );
+
+
+                        }
                     }
-                    //TODO hlaska o pridani vlevy dolni rohu viz cvut angular
                 }
-                    //TODO  hezci hlaska - o existenci vlevy dolni rohu viz cvut angular
-                else { alert("This url is already in the selection. ") }
 
-                $scope.$apply();
 
             }
 
-            document.body.removeChild(lodLiveIframe);
-            //classification has more choices, one choice =  one iframe lodLive
-            //  $scope.createIframe(selectedUrls, selectedKB, iterator - 1);
-        }
+            //endregion
 
+            //region state of page
+            $scope.state = 1;                       // Default VIEW
+            $scope.previousState = function () {
+                $scope.state--;
+            };
 
+            $scope.nextState = function () {
+                $scope.state++;
+            };
+            //endregion
 
-        $scope.onSelectCallback = function (newSelection, knowledgeBase) {
-            $scope.currentItems[$scope.selectedPosition.row][$scope.selectedPosition.column][knowledgeBase] = [newSelection];
-        }
-        $scope.onSelectRelation = function (newSelection, knowledgeBase) {
-            $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][knowledgeBase] = [newSelection];
-        }
-
-
-        //TODO mozna online detekce zmeny jinak je to k nicemu
-        $scope.change = function (chosenValues, kb) {                       // Changes the values in the table according to the selected classification and disambiguation (which is wrong; it should change the result file, see the "chosen" attribute)
-            //var r = $scope.selectedPosition.row;
-            //var c = $scope.selectedPosition.column;
-
-
-
-
-
-            ////saves changed indexes of selection
-            //// Table header selected
-            //if (r == -1) {
-            //    var chosenKnowledgeBase = $scope.result.headerAnnotations[c].candidates[kb];
-            //    changedIndexes[r][c][chosenKnowledgeBase] = [];
-            //    for (var i = 0; i < chosenKnowledgeBase.length; i++) {
-            //        //TODO mozna to jde rychleji protoze je to stejne serazene??
-            //        if (chosenValues.includes(chosenKnowledgeBase[i].entity.resource)) {
-            //            if (chosenKnowledgeBase[i].chosen == false){
-            //                changedIndexes[chosenKnowledgeBase].push = i;
-            //            }
-            //        }
-            //    }
-
-            //}
-            //// Non-header cell selected
-            //else {
-            //    var chosenKnowledgeBase = $scope.result.cellAnnotations[r][c].candidates[kb];
-            //    changedIndexes[r][c][chosenKnowledgeBase] = [];
-            //    for (var i = 0; i < chosenKnowledgeBase.length; i++) {
-            //        //TODO mozna to jde rychleji protoze je to stejne serazene??
-            //        if (chosenValues.includes(chosenKnowledgeBase[i].entity.resource)) {
-            //            if (chosenKnowledgeBase[i].chosen == false) {
-            //                changedIndexes[chosenKnowledgeBase].push = i;
-            //            }
-            //        }
-
-            //    }
-            //}
-        };
-
-
-
-        // Sharing data between graphvis directive and this controller
-        // **************************************
-        // Store date to sharedata service
-        $scope.gvscope = 'gv_scope';
-        sharedata.set($scope.gvscope, $scope);
-
-        // Functionalities connected to the modal window for graphvis directive
-        $scope.gvmodal = {
-            /** A function to be injected from the graphvis directive */
-            modelChanged: null,
-
-            /** Opens a modal window.
-             *
-             * @param c1    Index of the firt column.
-             * @param c2    Index of the second column.
-             */
-            open: function (c1, c2) {
-                with ($scope.selectedRelation) {
-                    column1 = c1;
-                    column2 = c2;
-                };
-                if (!$scope.$$phase) {
-                    $scope.$apply();
-                }
-                $("#modalPredicates").modal();
-            },
-
-            /** Called from taskresult template when a change in model occurs. */
-            modalPredicatesChange: function () {
-                this.modelChanged(
-                    $scope.selectedRelation.column1,
-                    $scope.selectedRelation.column2
-                )
+            //region Relation ui-selectbox functions
+            //TODO isty : stara struktura
+            $scope.switchRelation = function (newSelection, knowledgeBase) {
+                $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][knowledgeBase] = [newSelection];
             }
-        };
 
+            $scope.lockRelation = function () {
+                $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+            }
 
-        // Exporting to JSON / CSV / RDF
-        // **************************************
-        (function () {
-            var taskid = sharedata.get('TaskID');
+            //endregion
 
-            $scope.exporting = {
-                json: function () {
-                    window.open(rest.tasks.name(taskid).result.export.json.address());
+            // region Sharing data between graphvis directive and this controller
+            // **************************************
+            // Store date to sharedata service
+            $scope.gvscope = 'gv_scope';
+            sharedata.set($scope.gvscope, $scope);
+
+            // Functionalities connected to the modal window for graphvis directive
+            $scope.gvmodal = {
+                /** A function to be injected from the graphvis directive */
+                modelChanged: null,
+
+                /** Opens a modal window.
+                 *
+                 * @param c1    Index of the firt column.
+                 * @param c2    Index of the second column.
+                 */
+                open: function (c1, c2) {
+                    with ($scope.selectedRelation) {
+                        column1 = c1;
+                        column2 = c2;
+                    }
+                    ;
+                    if (!$scope.$$phase) {
+                        $scope.$apply();
+                    }
+                    $("#modalPredicates").modal();
                 },
-                csv: function () {
-                    window.open(rest.tasks.name(taskid).result.export.csv.address());
-                },
-                rdf: function () {
-                    window.open(rest.tasks.name(taskid).result.export.rdf.address());
+
+                /** Called from taskresult template when a change in model occurs. */
+                modalPredicatesChange: function () {
+                    this.modelChanged(
+                        $scope.selectedRelation.column1,
+                        $scope.selectedRelation.column2
+                    )
                 }
             };
-        })();
+            // endregion
 
-    });
+            // region Exporting to JSON / CSV / RDF
+            // **************************************
+            (function () {
+                var taskid = sharedata.get('TaskID');
 
-})();
+                $scope.exporting = {
+                    json: function () {
+                        window.open(rest.tasks.name(taskid).result.export.json.address());
+                    },
+                    csv: function () {
+                        window.open(rest.tasks.name(taskid).result.export.csv.address());
+                    },
+                    rdf: function () {
+                        window.open(rest.tasks.name(taskid).result.export.rdf.address());
+                    }
+                };
+            })();
+            // endregion
+        }
+    );
+
+})
+();
