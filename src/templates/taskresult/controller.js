@@ -43,6 +43,8 @@
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest) {
 
+
+
             //region inits objects which saves users changes
             $scope.feedback = {};
             $scope.ignoredColumn = {};
@@ -244,8 +246,8 @@
                 if (proposal.alternativeLabel != null) {
                     alternativeLabels.push(proposal.alternativeLabel)
                 }
-                if (proposal.alternativeLabel != null) {
-                    alternativeLabels.push(proposal.alternativeLabe2)
+                if (proposal.alternativeLabel2 != null) {
+                    alternativeLabels.push(proposal.alternativeLabel2)
                 }
 
 
