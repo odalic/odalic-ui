@@ -339,25 +339,29 @@
 
             // Generic preparations
             var fileId = $scope.files.selectedFile.id;
+			var taskid = $scope.taskCreation.identifier;
 
             // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
             // Insert the task
-            rest.tasks.name($scope.taskCreation.identifier).replace({
-                input: fileId,
-                feedback: {
-                    columnIgnores: [],
-                    classifications: [],
-                    columnAmbiguities: [],
-                    ambiguities: [],
-                    disambiguations: [],
-                    columnRelations: []
+			rest.tasks.name(taskid).create({
+				id: String(taskid),
+                created: (new Date()).toString("yyyy-MM-dd HH:mm"),
+                configuration: {
+                    input: fileId,
+                    feedback: {
+                        columnIgnores: [],
+                        classifications: [],
+                        columnAmbiguities: [],
+                        ambiguities: [],
+                        disambiguations: [],
+                        columnRelations: []
+                    },
+                    primaryBase: {
+                        name: $scope.primaryKB
+                    }
                 },
-                primaryBase: {
-                    name: $scope.primaryKB
-                }
-                // TODO: Waiting for ODALIC Server
-                //description: text.safe($scope.taskCreation.description)
+				description: text.safe($scope.taskCreation.description)
             }).exec(
                 // Success
                 function (response) {
