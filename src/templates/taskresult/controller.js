@@ -56,8 +56,8 @@
             };
 
             $scope.selectedRelation = {
-                column1: -1,
-                column2: -1
+                column1: 0,
+                column2: 0
             };
 
             $scope.inputFile = {
@@ -225,6 +225,8 @@
                         $scope.locked.graphEdges[r][c] = 0;
                     }
                 }
+
+
             }
             //endregion
             // ****************************************
@@ -233,34 +235,109 @@
 
 
             //region proposal settings
-            $scope.setProposal = function () {
-                var url = proposal.prefixUrl + proposal.sufixUrl;
-                var alternativeLabels = [proposal.alternativeLabel, proposal.alternativeLabel]
+            $scope.setProposal = function (proposal) {
 
-                if (selectedPosition.row == -1) {
-
-                    var obj = {
-                        "label": proposal.label,
-                        "alternativeLabels": alternativeLabels,
-                        " suffix": url,
-                        "superClass": proposal.superClass
-                    }
+                //TOTO prefix ?????
+                var prefixUrl = "";
+                var url = proposal.suffixUrl;
+                var alternativeLabels = [];
+                if (proposal.alternativeLabel != null) {
+                    alternativeLabels.push(proposal.alternativeLabel)
                 }
-                else {
-                    //http://example.com/base/entities/classes
-                    // rest.base($scope.primaryKB).entities.
+                if (proposal.alternativeLabel != null) {
+                    alternativeLabels.push(proposal.alternativeLabe2)
+                }
+
+
+                var newObj = {
+                    "entity": {"resource": url, "label": proposal.label},
+                    "score": {"value": 0}
+                };
+                // alert(JSON.stringify(newObj));
+                //TODO spis dve funkce + opakujici se kod s sugestion
+                if ($scope.state == 2) {
+                    $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+
+
+                    $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].candidates[$scope.primaryKB].push(newObj);
+                    // $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[$scope.primaryKB] = [newObj]
+                    $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][$scope.primaryKB].push(newObj.entity)
+
                     var obj = {
                         "label": proposal.label,
                         "alternativeLabels": alternativeLabels,
                         "suffix": url,
-                        "superClass": $scope.result.headerAnnotations[selectedPosition.column]
+                        "superClass": null
+                        // "superClass": proposal.superClass
                     }
+                    classes(obj)
+                }
+                else {
+                    $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+                    if ($scope.selectedPosition.row == -1) {
 
+                        $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
+                        $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB].push(newObj);
+
+                        var obj = {
+                            "label": proposal.label,
+                            "alternativeLabels": alternativeLabels,
+                            "suffix": url,
+                            "superClass": null
+                            // "superClass": proposal.superClass
+                        }
+                        classes(obj)
+                    }
+                    else {
+                        //http://example.com/base/entities/classes
+                        // rest.base($scope.primaryKB).entities.
+
+                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
+                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
+
+                        var obj = {
+                            "label": proposal.label,
+                            "alternativeLabels": alternativeLabels,
+                            "suffix": url,
+                            "classes": []
+                            // "superClass": $scope.result.headerAnnotations[selectedPosition.column]
+                        }
+                        resources(obj)
+
+                    }
                 }
 
                 // {  "classes" : [{"resource" : "https://www.wikidata.org/wiki/Class:C1080", "label" : "City" }, ...]}
             }
             //endregion
+            var classes = function (obj) {
+
+               // alert(JSON.stringify(obj));
+                console.log(JSON.stringify(obj));
+                rest.base($scope.primaryKB).entities.classes.update(obj).exec(
+                    // Success, inject into the scope
+                    function (response) {
+                        alert("Class was saved")
+                    },
+                    // Error
+                    function (response) {
+                        alert("Something is wrong. Please, try to again.")
+                    }
+                );
+            }
+            var resources = function (obj) {
+                console.log(JSON.stringify(obj));
+                rest.base($scope.primaryKB).entities.resources.update(obj).exec(
+                    // Success, inject into the scope
+                    function (response) {
+                        alert("Resource was saved")
+                    },
+                    // Error
+                    function (response) {
+                         alert("Something is wrong. Please, try to again.")
+                    }
+                );
+            }
 
             //region suggestion from primaryKB
             $scope.suggestions = {};
@@ -273,7 +350,6 @@
                     "entity": {"resource": suggestion.resource, "label": suggestion.label},
                     "score": {"value": 0}
                 };
-                alert(JSON.stringify(newObj));
 
                 if ($scope.selectedPosition.row == -1) {
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
@@ -284,21 +360,28 @@
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
                 }
             }
+            $scope.addRelationSuggestions = function (suggestion) {
+
+                $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+
+                var newObj = {
+                    "entity": {"resource": suggestion.resource, "label": suggestion.label},
+                    "score": {"value": 0}
+                };
+
+                $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].candidates[$scope.primaryKB].push(newObj);
+                // $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[$scope.primaryKB] = [newObj]
+                $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][$scope.primaryKB].push(newObj.entity)
+
+            }
+
 
             $scope.getSuggestions = function (string, limit) {
-                //alert(string)
-                // $scope.suggestions = [{
-                //     "resource": "https://www.wikidata.org/wiki/Property:P1082",
-                //     "label": "has population"
-                // },
-                //     {"resource": "https://www.wikidata.org/wiki/Property:P12", "label": "has pation"},
-                //     {"resource": "https://www.a.org/wiki/Property:P1082", "label": "has "}];
-                rest.base($scope.primaryKB).query(string).limit(limit).retrieve.exec(
+                rest.base($scope.primaryKB).entities.query(string).limit(limit).retrieve.exec(
                     // Success, inject into the scope
                     function (response) {
                         $scope.suggestions = response;
-                        alert("a")
-                        alert(JSON.stringify($scope.suggestions))
+                        alert("Result is available")
 
                         // if (!$scope.$$phase) {
                         //     $scope.$apply();
@@ -310,8 +393,7 @@
 
                     // Error
                     function (response) {
-                        alert("aaaa")
-                        // TODO: Deal with this somehow.
+                        alert("Something is wrong. Please, try to again.")
                     }
                 );
             }
@@ -323,12 +405,13 @@
                 sendFeedback: function (success, error) {
 
                     //region subjectsColumns
-                    $scope.feedback.subjectColumnPosition = {};
+                    $scope.feedback.subjectColumnPositions = {};
                     for (var KB in  $scope.locked.subjectColumns) {
                         for (var columnIndex in $scope.locked.subjectColumns[KB]) {
                             if ($scope.locked.subjectColumns[KB][columnIndex] == 1) {
-                                $scope.feedback.subjectColumnPosition[KB] = {};
-                                $scope.feedback.subjectColumnPosition[KB] = {position: {index: columnIndex}}
+                                $scope.feedback.subjectColumnPositions[KB] = {};
+                                $scope.feedback.subjectColumnPositions[KB] = {index: columnIndex}
+                                console.log(JSON.stringify($scope.feedback.subjectColumnPositions))
                             }
 
                         }
@@ -361,18 +444,20 @@
                     //region disambiguation
                     $scope.feedback.disambiguations = [];
                     for (var rowIndex in $scope.locked.tableCells) {
-                        for (var columnIndex in $scope.locked.tableCells[rowIndex]) {
-                            if ($scope.locked.tableCells[rowIndex][columnIndex] == 1) {
-                                var obj = {
-                                    "position": {
-                                        "rowPosition": {"index": rowIndex},
-                                        "columnPosition": {"index": columnIndex}
-                                    },
-                                    "annotation": $scope.result.cellAnnotations[rowIndex][columnIndex]
-                                };
-                                $scope.feedback.disambiguations.push(obj);
-                            }
+                        if (rowIndex != -1) {
+                            for (var columnIndex in $scope.locked.tableCells[rowIndex]) {
+                                if ($scope.locked.tableCells[rowIndex][columnIndex] == 1) {
+                                    var obj = {
+                                        "position": {
+                                            "rowPosition": {"index": rowIndex},
+                                            "columnPosition": {"index": columnIndex}
+                                        },
+                                        "annotation": $scope.result.cellAnnotations[rowIndex][columnIndex]
+                                    };
+                                    $scope.feedback.disambiguations.push(obj);
+                                }
 
+                            }
                         }
                     }
                     //endregion
@@ -400,7 +485,6 @@
                                         columnPosition: {index: columnNumber}
                                     }
                                 });
-
                             }
 
                         }
@@ -409,34 +493,20 @@
 
                     //region relations
                     $scope.feedback.columnRelations = [];
-                    objForEach($scope.currentRelations, function (column1, collect1) {
-                        objForEach(collect1, function (column2, collect2) {
-                            changed = false;
-                            objForEach(collect2, function (kb, item) {
-                                userChanges = item;
-                                inputSetting = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'][kb];
-                                changed = findUserChanges(userChanges, inputSetting, column1, column2, changed, kb, 'forRelations');
-                            });
-
-                            // TODO: Kata, prosim, checkni, ci toto vyhovuje.
-                            if (changed) {
-                                var changedRelation = {
-                                    position: {
-                                        column1position: {
-                                            index: column1
-                                        },
-                                        column2position: {
-                                            index: column2
-                                        }
-                                    }
+                    for (var column1Index in $scope.locked.graphEdges) {
+                        for (var column2Index in $scope.locked.graphEdges[column1Index]) {
+                            if ($scope.locked.graphEdges[column1Index][column2Index] == 1) {
+                                var obj = {
+                                    "position": {
+                                        "first": {"index": column1Index},
+                                        "second": {"index": column2Index}
+                                    },
+                                    "annotation": $scope.result.columnRelationAnnotations[column1Index][column2Index]
                                 };
-
-                                var rel = $scope.result['columnRelationAnnotations'][column1][column2]['candidates'];
-                                setFeedbackChanges(changedRelation, column1, column2, rel, 'forRelations');
-                                $scope.feedback.columnRelations.push(changedRelation);
+                                $scope.feedback.columnRelations.push(obj);
                             }
-                        });
-                    });
+                        }
+                    }
                     //endregion
 
                     //region sends feedback to server
@@ -490,101 +560,6 @@
                     }
                 );
             };
-            //endregion
-
-            //region old feedback function
-            //TODO zatim nechat jsou na tom zavisle relations pak smazat
-            function findUserChanges(userChanges, inputSetting, rowNumber, columnNumber, changed, KB, forRelations) {
-
-                if (KB != "other") {
-                    for (var i = 0; i < inputSetting.length; i++) {
-
-                        //TODO mozna rychleji
-                        //detectes user's changed classification
-                        if (userChanges.map(function (c) {
-                                return c.resource;
-                            }).includes(inputSetting[i].entity.resource)) {
-                            // changedIndexes[KB].push(i);
-                            if (inputSetting[i].chosen == false) {
-                                changed = true;
-                                inputSetting[i].chosen = true;
-                            }
-                        }
-                        else {
-                            if (inputSetting[i].chosen == true) {
-                                changed = true;
-                                inputSetting[i].chosen = false;
-                            }
-                        }
-                    }
-                }
-                else {
-                    // TODO: Aby nebol zbytocny chaos, len som dopisal 1 argument, aby sa nic nemuselo menit v tvojom kode (funkcie su variadicke v JS)
-                    if (typeof (forRelations) === 'undefined') {
-                        // If "forRelations" argument is not passed in the function call, handle the situation the old way
-                        // TODO asi jinak protoze je mozna potreba sjednotit currentItems.other z ""  na  [""]
-                        if (!($scope.currentItems[rowNumber][columnNumber]["other"][0].resource == "")) {
-                            changed = true;
-                        }
-                    } else {
-                        // Otherwise handle it specifically for relations
-                        // TODO: Kata, checkni, ci takto si to predstavujes.
-                        if (!($scope.currentRelations[rowNumber][columnNumber]["other"][0].resource == "")) {       // This will work, though "rowNumber" in this case is "column1" and "columnNumber" is "column2"
-                            changed = true;
-                        }
-                    }
-                }
-                return changed;
-            }
-
-            //TODO zatim nechat jsou na tom zavisle relations pak smazat
-            function setFeedbackChanges(changedSelection, rowNumber, columnNumber, cell, forRelations) {
-                changedSelection.annotation = {};
-                changedSelection.annotation.candidates = {};
-
-                feedbackCandidates = changedSelection.annotation.candidates;
-
-                // TODO: Rovnaky princip, ako vyssie pri findUserChanges; forRelations je nepovinny argument. (to len pre informaciu; tento komentarmozes potom zmazat)
-                var collection = null;
-                if (typeof (forRelations) === 'undefined') {
-                    // Handle basic case
-                    collection = $scope.currentItems[rowNumber][columnNumber];
-                } else {
-                    // Specifically when relations are to be handled
-                    collection = $scope.currentRelations[rowNumber][columnNumber];      // 'rowNumber' as a 'column1' and 'columnNumber' as a 'column2'
-                }
-
-                for (var KB in collection) {
-                    feedbackCandidates[KB] = [];
-
-                    if (KB == "other") {
-                        feedbackCandidates["other"].push(
-                            {
-                                "entity": {
-                                    "resource": collection[KB][0].resource,
-                                    "label": ""
-                                },
-                                "likelihood": {"value": 0},
-                                "chosen": true
-                            }
-                        );
-
-                    }
-                    else {
-                        //TODO mozna jinak
-                        for (var i = 0; i < cell[KB].length; i++) {
-                            feedbackCandidates[KB].push(
-                                cell[KB][i]
-                            );
-
-
-                        }
-                    }
-                }
-
-
-            }
-
             //endregion
 
             //region state of page
