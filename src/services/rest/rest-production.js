@@ -164,12 +164,12 @@ $.defineModule(function () {
                                 },
                                 turtle: {
                                     address: function () {
-                                        return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export');
+                                        return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'turtle');
                                     }
                                 },
                                 jsonld: {
                                     address: function () {
-                                        return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export');
+                                        return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'json-ld');
                                     }
                                 }
                             }
