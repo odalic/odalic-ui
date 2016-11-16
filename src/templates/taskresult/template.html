@@ -14,11 +14,13 @@
             <!-- VIEW: Sets subject column  -->
             <div ng-switch-when="0">
                 <h2>Choosing of classifications and disambiguations</h2>
-                <pre>{{locked.tableCells}} </pre>
-                <!--<pre>{{selectedPosition}} </pre>-->
-                <!--<pre> dis:{{feedback}} </pre>-->
+                <!--<pre>{{locked.tableCells}} </pre>-->
+                <!--&lt;!&ndash;<pre>{{selectedPosition}} </pre>&ndash;&gt;-->
+                <!--&lt;!&ndash;<pre> dis:{{feedback}} </pre>&ndash;&gt;-->
+                <!--<pre>{{result.headerAnnotations[0].candidates}}</pre>-->
                 <!--<pre>{{result.headerAnnotations[0].chosen}}</pre>-->
-                <!--<pre>{{feedback.disambiguations[0].annotation.chosen}} </pre>-->
+                <!--<pre>{{feedback.classifications}} </pre>-->
+                <!--<pre>{{feedback.disambiguations}} </pre>-->
 
                 <!--<pre>{{result.cellAnnotations[0][1].chosen}} </pre>-->
                 <!-- Input file table -->
@@ -35,10 +37,8 @@
                         <!-- wrong directive-->
                         <tr ng-class-even="'evenRow'"
                             ng-repeat="row in inputFile.rows"
-
                             rows-of-classification-table row="row" row-index="$index"
                             data="result.cellAnnotations[$index]">
-
                         </tr>
                         </tbody>
                     </table>
@@ -58,15 +58,7 @@
                                         <div class="form-group">
                                             <h3 ng-class="'boldPrimaryKB'">{{primaryKB + " (Primary KB)" }}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
-                                            <!--<select-box-->
-                                                    <!--data = "result.headerAnnotations"-->
-                                                    <!--kb = "primaryKB"-->
-                                                    <!--column = "selectedPosition.column"-->
-                                                    <!--locked = "locked.tableCells[-1]"-->
-                                            <!--&gt;-->
-                                            <!--</select-box>-->
                                             <select-box  knowledge-base = "primaryKB" ></select-box>
-
                                         </div>
 
                                         <!-- Separate div for each knowledge base -->
@@ -74,34 +66,28 @@
                                             <div ng-if="knowledgeBase != primaryKB">
                                                 <div class="form-group">
                                                     <h3>{{ knowledgeBase }}</h3>
-                                                    <!--<select-box-->
-                                                            <!--data = "result.headerAnnotations"-->
-                                                            <!--kb = "knowledgeBase"-->
-                                                            <!--column = "selectedPosition.column"-->
-                                                            <!--locked = "locked.tableCells[-1]"-->
-                                                    <!--&gt;</select-box>-->
                                                     <select-box  knowledge-base = "knowledgeBase"></select-box>
-
                                                 </div>
                                             </div>
                                         </div>
                                         <br>
 
-                                        <button class="btn  btn-lg" data-toggle="modal" data-target="#newEntities">
+                                        <button class="btn  btn-lg pull-right" data-toggle="modal" data-target="#newEntities">
                                             Proposal
                                         </button>
                                         <br>
 
 
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label">Search: </label>
-                                            <div class="col-md-6">
+                                            <label class="col-md-12 control-label">Search: </label>
+                                            <div class="col-md-10">
 
                                                 <input type="text" class="form-control"
                                                        ng-model="string">
                                             </div>
 
-                                            <div class="col-md-4 text-center">
+                                            <!--TODO spojit to do jednoho elementu-->
+                                            <div class="col-md-2 text-center">
                                                 <button type="button" class="form-control"
                                                 ng-click="getSuggestions(string,'10')">
                                                 Find
@@ -110,48 +96,33 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-md-2 control-label"></label>
-                                            <div class="col-md-6">
+                                            <div class="col-md-10">
                                                 <select style = "width: 100%"
                                                         ng-model="suggestion"
                                                         ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
 
                                                 </select>
 
-
                                                 <!--<ui-select-->
-                                                        <!--ng-init = "bla = $select.search"-->
                                                         <!--ng-model="suggestion"-->
                                                         <!--theme="bootstrap"-->
                                                         <!--search-enabled="true"-->
-                                                        <!--width="100"-->
-                                                        <!--ng-change="getSuggestions($select.search,'10')">-->
+                                                        <!--width="100"">-->
+                                                    <!--&lt;!&ndash;  ng-change="getSuggestions($select.search,'10')"&ndash;&gt;-->
                                                     <!--<ui-select-match ng-init = "bla = $select.search" placeholder="Write...">-->
-                                                        <!--&lt;!&ndash;{{$select.selected.label}}&ndash;&gt;-->
-                                                        <!--&lt;!&ndash;&#13;&#10;&ndash;&gt;-->
+                                                        <!--{{$select.selected.label}}-->
+                                                        <!--+ '\n'+-->
                                                         <!--({{$select.selected.resource}})-->
                                                     <!--</ui-select-match>-->
-                                                    <!--<ui-select-choices-->
-                                                            <!--ng-init = "bla = $select.search"-->
-                                                            <!--repeat="opt in suggestions ">-->
-
+                                                    <!--<ui-select-choices repeat="opt in suggestions ">-->
                                                         <!--<span ng-bind-html="opt.label"></span>-->
                                                         <!--<div ng-bind-html="' ('+opt.resource + ')'"></div>-->
                                                     <!--</ui-select-choices>-->
 
                                                 <!--</ui-select>-->
-
-
-
-
-
                                             </div>
 
-                                            <div class="col-md-4 text-center">
-                                                <!--<button type="button" class="form-control"-->
-                                                        <!--ng-click="getSuggestions('Prag','10')">-->
-                                                    <!--Add-->
-                                                <!--</button>-->
+                                            <div class="col-md-2 text-center">
                                                 <button type="button" class="form-control"
                                                         ng-click="addSuggestions(suggestion)">
                                                     Add+
@@ -159,10 +130,10 @@
                                                 <!-- Icon 'loading' -->
 
                                             </div>
-                                        </div><div>{{bla}}</div>
+                                        </div>
                                         <br>
 
-                                        <div>sug:{{suggestion}}</div>
+
                                         <!-- user can write own classification -->
                                         <div class="form-group">
                                             <label class="control-label"> Own classification:</label>
@@ -194,33 +165,77 @@
                                     <modal-head>Cell disambiguation</modal-head>
 
                                     <div class="modal-body">
-
                                         <div class="form-group">
                                             <!-- Separate div for each knowledge base -->
                                             <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
-                                            <!--<select-box-->
-                                                    <!--data = "result.cellAnnotations[selectedPosition.row]"-->
-                                                    <!--kb = "primaryKB"-->
-                                                    <!--column = "selectedPosition.column"-->
-                                                    <!--locked = "locked.tableCells[selectedPosition.row]"-->
-                                            <!--&gt;</select-box>-->
                                             <select-box knowledge-base = "primaryKB" ></select-box>
                                             <!-- Separate div for each knowledge base -->
                                             <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
-
                                                 <div ng-if="knowledgeBase != primaryKB">
                                                     <div class="form-group">
                                                         <h3>{{ knowledgeBase }}</h3>
                                                         <!-- Selection of a candidate(s) for the current knowledge base -->
-                                                        <!--<select-box-->
-                                                                <!--data ="result.cellAnnotations[selectedPosition.row]"-->
-                                                                <!--kb = "knowledgeBase"-->
-                                                                <!--column = "selectedPosition.column"-->
-                                                                <!--locked = "locked.tableCells[selectedPosition.row]"-->
-                                                        <!--&gt;</select-box>-->
                                                         <select-box knowledge-base = "knowledgeBase"></select-box>
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                            <button class="btn  btn-lg pull-right" data-toggle="modal" data-target="#newEntities">
+                                                Proposal
+                                            </button>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col-md-12 control-label">Search: </label>
+                                                <div class="col-md-10">
+
+                                                    <input type="text" class="form-control"
+                                                           ng-model="string">
+                                                </div>
+
+                                                <!--TODO spojit to do jednoho elementu-->
+                                                <div class="col-md-2 text-center">
+                                                    <button type="button" class="form-control"
+                                                            ng-click="getSuggestions(string,'10')">
+                                                        Find
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <select style = "width: 100%"
+                                                            ng-model="suggestion"
+                                                            ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
+
+                                                    </select>
+
+                                                    <!--<ui-select-->
+                                                    <!--ng-model="suggestion"-->
+                                                    <!--theme="bootstrap"-->
+                                                    <!--search-enabled="true"-->
+                                                    <!--width="100"">-->
+                                                    <!--&lt;!&ndash;  ng-change="getSuggestions($select.search,'10')"&ndash;&gt;-->
+                                                    <!--<ui-select-match ng-init = "bla = $select.search" placeholder="Write...">-->
+                                                    <!--{{$select.selected.label}}-->
+                                                    <!--+ '\n'+-->
+                                                    <!--({{$select.selected.resource}})-->
+                                                    <!--</ui-select-match>-->
+                                                    <!--<ui-select-choices repeat="opt in suggestions ">-->
+                                                    <!--<span ng-bind-html="opt.label"></span>-->
+                                                    <!--<div ng-bind-html="' ('+opt.resource + ')'"></div>-->
+                                                    <!--</ui-select-choices>-->
+
+                                                    <!--</ui-select>-->
+                                                </div>
+
+                                                <div class="col-md-2 text-center">
+                                                    <button type="button" class="form-control"
+                                                            ng-click="addSuggestions(suggestion)">
+                                                        Add+
+                                                    </button>
+                                                    <!-- Icon 'loading' -->
+
                                                 </div>
                                             </div>
 
@@ -294,43 +309,42 @@
                                     </div>
                                 </div>
 
-                                <div ng-if="(selectedPosition.row == -1)">
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Subclass of:</label>
-                                        <div class="col-md-8">
-                                            <!--<input type="text" class="form-control" ng-model="" \>-->
-                                        </div>
-                                        <div class="col-md-2 text-center">
-                                            <!-- Button 'upload' -->
-                                            <button ng-hide="" type="button" class="form-control"
-                                                    ng-click="">
-                                                Use
-                                            </button>
-                                            <!-- Icon 'loading' -->
-                                            <i ng-hide="!fileUpload.uploadingFile"
-                                               class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-                                        </div>
-                                    </div>
+                                <!--<div ng-if="(selectedPosition.row == -1)">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-md-2 control-label">Subclass of:</label>-->
+                                        <!--<div class="col-md-8">-->
+                                            <!--&lt;!&ndash;<input type="text" class="form-control" ng-model="" \>&ndash;&gt;-->
+                                        <!--</div>-->
+                                        <!--<div class="col-md-2 text-center">-->
+                                            <!--&lt;!&ndash; Button 'upload' &ndash;&gt;-->
+                                            <!--<button ng-hide="" type="button" class="form-control"-->
+                                                    <!--ng-click="">-->
+                                                <!--Use-->
+                                            <!--</button>-->
+                                            <!--&lt;!&ndash; Icon 'loading' &ndash;&gt;-->
+                                            <!--<i ng-hide="!fileUpload.uploadingFile"-->
+                                               <!--class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
 
-                                    <br>
-                                </div>
+                                    <!--<br>-->
+                                <!--</div>-->
 
-                                <div ng-if="(selectedPosition.row != -1)">
-                                    <div class="form-group">
-                                        <label class="col-md-2 control-label">Class</label>
-                                        <!--<label class="col-md-4 control-label"-->
-                                               <!--ng-repeat="class in result.headerAnnotations[selectedPosition.row].chosen">-->
-                                            <!--{{class}}-->
-                                        <!--</label>-->
-                                        <div class="col-md-6">
-                                            ne tlacitko
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--<div ng-if="(selectedPosition.row != -1)">-->
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="col-md-2 control-label">Class</label>-->
+                                        <!--&lt;!&ndash;<label class="col-md-4 control-label"&ndash;&gt;-->
+                                               <!--&lt;!&ndash;ng-repeat="class in result.headerAnnotations[selectedPosition.row].chosen">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;{{class}}&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</label>&ndash;&gt;-->
+                                        <!--<div class="col-md-6">-->
+                                            <!--ne tlacitko-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
 
                                 <br>
-                                <button ng-hide="" type="button" class="form-control"
-                                        ng-click="">
+                                <button  type="button" class="btn btn-lg" ng-click="setProposal(proposal)">
                                     OK
                                 </button>
 
@@ -343,15 +357,14 @@
 
             <!-- VIEW: Sets classifications and disambiguations -->
             <div ng-switch-when="1">
-
                 <subject-column-tables></subject-column-tables>
-
             </div>
 
             <!-- VIEW: Relations -->
             <div ng-switch-when="2">
                 <h2>Choosing of predicates</h2>
-                <pre>{{locked.graphEdges}} </pre>
+                <!--<pre>{{locked.graphEdges}} </pre>-->
+                <!--<pre>{{feedback.columnRelations}}</pre>-->
 
                 <!-- Modal -->
                 <div id="modalPredicates" class="modal fade" role="dialog">
@@ -360,7 +373,7 @@
                             <!-- Headline -->
                             <div class="modal-head">
                                 <div class="row">
-                                    <h2 class="col-md-11" ng-transclude></h2>
+                                    <h2 class="col-md-11" > Relations</h2>
                                     <h2 class="col-md-1">
                                         <lock locked="locked.graphEdges" first-parametr="{{selectedRelation.column1}}"  second-parametr="{{selectedRelation.column2}}"></lock>
                                     </h2>
@@ -411,6 +424,65 @@
                                                     </ui-select-choices>
                                                 </ui-select>
                                             </div>
+                                        </div>
+                                    </div>
+
+                                    <!--<button class="btn  btn-lg pull-right" data-toggle="modal" data-target="#newEntities">-->
+                                        <!--Proposal-->
+                                    <!--</button>-->
+                                    <br>
+
+                                    <div class="form-group">
+                                        <label class="col-md-12 control-label">Search: </label>
+                                        <div class="col-md-10">
+
+                                            <input type="text" class="form-control"
+                                                   ng-model="string">
+                                        </div>
+
+                                        <!--TODO spojit to do jednoho elementu-->
+                                        <div class="col-md-2 text-center">
+                                            <button type="button" class="form-control"
+                                                    ng-click="getSuggestions(string,'10')">
+                                                Find
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            <select style = "width: 100%"
+                                                    ng-model="suggestion"
+                                                    ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
+
+                                            </select>
+
+                                            <!--<ui-select-->
+                                            <!--ng-model="suggestion"-->
+                                            <!--theme="bootstrap"-->
+                                            <!--search-enabled="true"-->
+                                            <!--width="100"">-->
+                                            <!--&lt;!&ndash;  ng-change="getSuggestions($select.search,'10')"&ndash;&gt;-->
+                                            <!--<ui-select-match ng-init = "bla = $select.search" placeholder="Write...">-->
+                                            <!--{{$select.selected.label}}-->
+                                            <!--+ '\n'+-->
+                                            <!--({{$select.selected.resource}})-->
+                                            <!--</ui-select-match>-->
+                                            <!--<ui-select-choices repeat="opt in suggestions ">-->
+                                            <!--<span ng-bind-html="opt.label"></span>-->
+                                            <!--<div ng-bind-html="' ('+opt.resource + ')'"></div>-->
+                                            <!--</ui-select-choices>-->
+
+                                            <!--</ui-select>-->
+                                        </div>
+
+                                        <div class="col-md-2 text-center">
+                                            <button type="button" class="form-control"
+                                                    ng-click="addRelationSuggestions(suggestion)">
+                                                Add+
+                                            </button>
+                                            <!-- Icon 'loading' -->
+
                                         </div>
                                     </div>
                                     <!-- user can write own relation -->
