@@ -231,7 +231,7 @@ $.defineModule(function () {
                             update: function (data) {
                                 return {
                                     exec: function (success, failure) {
-                                        alert( text.urlConcat(root, kb, 'entities', 'classes'));
+                                        console.log( text.urlConcat(root, kb, 'entities', 'classes'));
                                         requests.reqJSON({
                                             method: 'POST',
                                             address: text.urlConcat(root, kb, 'entities', 'classes'),
@@ -247,7 +247,7 @@ $.defineModule(function () {
                             update: function (data) {
                                 return {
                                     exec: function (success, failure) {
-                                        alert( text.urlConcat(root, kb, 'entities', 'resources'));
+                                        console.log( text.urlConcat(root, kb, 'entities', 'resources'));
                                         requests.reqJSON({
                                             method: 'POST',
                                             address: text.urlConcat(root, kb, 'entities', 'resources'),

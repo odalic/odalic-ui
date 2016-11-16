@@ -239,14 +239,21 @@
 
                 //TOTO prefix ?????
                 var prefixUrl = "";
-                var url =  proposal.suffixUrl;
-                var alternativeLabels = [proposal.alternativeLabel, proposal.alternativeLabel]
+                var url = proposal.suffixUrl;
+                var alternativeLabels = [];
+                if (proposal.alternativeLabel != null) {
+                    alternativeLabels.push(proposal.alternativeLabel)
+                }
+                if (proposal.alternativeLabel != null) {
+                    alternativeLabels.push(proposal.alternativeLabe2)
+                }
+
 
                 var newObj = {
                     "entity": {"resource": url, "label": proposal.label},
                     "score": {"value": 0}
                 };
-               // alert(JSON.stringify(newObj));
+                // alert(JSON.stringify(newObj));
                 //TODO spis dve funkce + opakujici se kod s sugestion
                 if ($scope.state == 2) {
                     $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
@@ -260,7 +267,7 @@
                         "label": proposal.label,
                         "alternativeLabels": alternativeLabels,
                         "suffix": url,
-                        "superClass": {}
+                        "superClass": null
                         // "superClass": proposal.superClass
                     }
                     classes(obj)
@@ -276,7 +283,7 @@
                             "label": proposal.label,
                             "alternativeLabels": alternativeLabels,
                             "suffix": url,
-                            "superClass": {}
+                            "superClass": null
                             // "superClass": proposal.superClass
                         }
                         classes(obj)
@@ -305,7 +312,8 @@
             //endregion
             var classes = function (obj) {
 
-                //alert(JSON.stringify(obj));
+               // alert(JSON.stringify(obj));
+                console.log(JSON.stringify(obj));
                 rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                     // Success, inject into the scope
                     function (response) {
@@ -313,20 +321,20 @@
                     },
                     // Error
                     function (response) {
-                      //  alert("Something is wrong. Please, try to again.")
+                        alert("Something is wrong. Please, try to again.")
                     }
                 );
             }
             var resources = function (obj) {
-                //alert(JSON.stringify(obj));
+                console.log(JSON.stringify(obj));
                 rest.base($scope.primaryKB).entities.resources.update(obj).exec(
                     // Success, inject into the scope
                     function (response) {
-                        alert("Class was saved")
+                        alert("Resource was saved")
                     },
                     // Error
                     function (response) {
-                       // alert("Something is wrong. Please, try to again.")
+                         alert("Something is wrong. Please, try to again.")
                     }
                 );
             }

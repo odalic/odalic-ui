@@ -58,7 +58,7 @@
                                         <div class="form-group">
                                             <h3 ng-class="'boldPrimaryKB'">{{primaryKB + " (Primary KB)" }}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
-                                            <select-box  knowledge-base = "primaryKB" ></select-box>
+                                            <select-box knowledge-base="primaryKB"></select-box>
                                         </div>
 
                                         <!-- Separate div for each knowledge base -->
@@ -66,13 +66,14 @@
                                             <div ng-if="knowledgeBase != primaryKB">
                                                 <div class="form-group">
                                                     <h3>{{ knowledgeBase }}</h3>
-                                                    <select-box  knowledge-base = "knowledgeBase"></select-box>
+                                                    <select-box knowledge-base="knowledgeBase"></select-box>
                                                 </div>
                                             </div>
                                         </div>
                                         <br>
 
-                                        <button class="btn  btn-lg pull-right" data-toggle="modal" data-target="#newEntities">
+                                        <button class="btn  btn-lg pull-right" data-toggle="modal"
+                                                data-target="#newEntities">
                                             Proposal
                                         </button>
                                         <br>
@@ -89,35 +90,35 @@
                                             <!--TODO spojit to do jednoho elementu-->
                                             <div class="col-md-2 text-center">
                                                 <button type="button" class="form-control"
-                                                ng-click="getSuggestions(string,'10')">
-                                                Find
+                                                        ng-click="getSuggestions(string,'10')">
+                                                    Find
                                                 </button>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="col-md-10">
-                                                <select style = "width: 100%"
+                                                <select style="width: 100%"
                                                         ng-model="suggestion"
                                                         ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
 
                                                 </select>
 
                                                 <!--<ui-select-->
-                                                        <!--ng-model="suggestion"-->
-                                                        <!--theme="bootstrap"-->
-                                                        <!--search-enabled="true"-->
-                                                        <!--width="100"">-->
-                                                    <!--&lt;!&ndash;  ng-change="getSuggestions($select.search,'10')"&ndash;&gt;-->
-                                                    <!--<ui-select-match ng-init = "bla = $select.search" placeholder="Write...">-->
-                                                        <!--{{$select.selected.label}}-->
-                                                        <!--+ '\n'+-->
-                                                        <!--({{$select.selected.resource}})-->
-                                                    <!--</ui-select-match>-->
-                                                    <!--<ui-select-choices repeat="opt in suggestions ">-->
-                                                        <!--<span ng-bind-html="opt.label"></span>-->
-                                                        <!--<div ng-bind-html="' ('+opt.resource + ')'"></div>-->
-                                                    <!--</ui-select-choices>-->
+                                                <!--ng-model="suggestion"-->
+                                                <!--theme="bootstrap"-->
+                                                <!--search-enabled="true"-->
+                                                <!--width="100"">-->
+                                                <!--&lt;!&ndash;  ng-change="getSuggestions($select.search,'10')"&ndash;&gt;-->
+                                                <!--<ui-select-match ng-init = "bla = $select.search" placeholder="Write...">-->
+                                                <!--{{$select.selected.label}}-->
+                                                <!--+ '\n'+-->
+                                                <!--({{$select.selected.resource}})-->
+                                                <!--</ui-select-match>-->
+                                                <!--<ui-select-choices repeat="opt in suggestions ">-->
+                                                <!--<span ng-bind-html="opt.label"></span>-->
+                                                <!--<div ng-bind-html="' ('+opt.resource + ')'"></div>-->
+                                                <!--</ui-select-choices>-->
 
                                                 <!--</ui-select>-->
                                             </div>
@@ -169,19 +170,20 @@
                                             <!-- Separate div for each knowledge base -->
                                             <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
-                                            <select-box knowledge-base = "primaryKB" ></select-box>
+                                            <select-box knowledge-base="primaryKB"></select-box>
                                             <!-- Separate div for each knowledge base -->
                                             <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
                                                 <div ng-if="knowledgeBase != primaryKB">
                                                     <div class="form-group">
                                                         <h3>{{ knowledgeBase }}</h3>
                                                         <!-- Selection of a candidate(s) for the current knowledge base -->
-                                                        <select-box knowledge-base = "knowledgeBase"></select-box>
+                                                        <select-box knowledge-base="knowledgeBase"></select-box>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <button class="btn  btn-lg pull-right" data-toggle="modal" data-target="#newEntities">
+                                            <button class="btn  btn-lg pull-right" data-toggle="modal"
+                                                    data-target="#newEntities">
                                                 Proposal
                                             </button>
                                             <br>
@@ -204,7 +206,7 @@
 
                                             <div class="form-group">
                                                 <div class="col-md-10">
-                                                    <select style = "width: 100%"
+                                                    <select style="width: 100%"
                                                             ng-model="suggestion"
                                                             ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
 
@@ -270,6 +272,14 @@
                     <div class="modal-dialog lg">
                         <div class="modal-head">
 
+                            <!--<div ng-if="(selectedPosition.row == -1)">-->
+                                <!--<h3>Propose new class</h3>-->
+                            <!--</div>-->
+                            <!--<div ng-if="(selectedPosition.row != -1)">-->
+                                <!--<h3>Propose new entity</h3>-->
+                            <!--</div>-->
+
+
                         </div>
 
                         <div class="modal-content">
@@ -310,41 +320,41 @@
                                 </div>
 
                                 <!--<div ng-if="(selectedPosition.row == -1)">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<label class="col-md-2 control-label">Subclass of:</label>-->
-                                        <!--<div class="col-md-8">-->
-                                            <!--&lt;!&ndash;<input type="text" class="form-control" ng-model="" \>&ndash;&gt;-->
-                                        <!--</div>-->
-                                        <!--<div class="col-md-2 text-center">-->
-                                            <!--&lt;!&ndash; Button 'upload' &ndash;&gt;-->
-                                            <!--<button ng-hide="" type="button" class="form-control"-->
-                                                    <!--ng-click="">-->
-                                                <!--Use-->
-                                            <!--</button>-->
-                                            <!--&lt;!&ndash; Icon 'loading' &ndash;&gt;-->
-                                            <!--<i ng-hide="!fileUpload.uploadingFile"-->
-                                               <!--class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-md-2 control-label">Subclass of:</label>-->
+                                <!--<div class="col-md-8">-->
+                                <!--&lt;!&ndash;<input type="text" class="form-control" ng-model="" \>&ndash;&gt;-->
+                                <!--</div>-->
+                                <!--<div class="col-md-2 text-center">-->
+                                <!--&lt;!&ndash; Button 'upload' &ndash;&gt;-->
+                                <!--<button ng-hide="" type="button" class="form-control"-->
+                                <!--ng-click="">-->
+                                <!--Use-->
+                                <!--</button>-->
+                                <!--&lt;!&ndash; Icon 'loading' &ndash;&gt;-->
+                                <!--<i ng-hide="!fileUpload.uploadingFile"-->
+                                <!--class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>-->
+                                <!--</div>-->
+                                <!--</div>-->
 
-                                    <!--<br>-->
+                                <!--<br>-->
                                 <!--</div>-->
 
                                 <!--<div ng-if="(selectedPosition.row != -1)">-->
-                                    <!--<div class="form-group">-->
-                                        <!--<label class="col-md-2 control-label">Class</label>-->
-                                        <!--&lt;!&ndash;<label class="col-md-4 control-label"&ndash;&gt;-->
-                                               <!--&lt;!&ndash;ng-repeat="class in result.headerAnnotations[selectedPosition.row].chosen">&ndash;&gt;-->
-                                            <!--&lt;!&ndash;{{class}}&ndash;&gt;-->
-                                        <!--&lt;!&ndash;</label>&ndash;&gt;-->
-                                        <!--<div class="col-md-6">-->
-                                            <!--ne tlacitko-->
-                                        <!--</div>-->
-                                    <!--</div>-->
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-md-2 control-label">Class</label>-->
+                                <!--&lt;!&ndash;<label class="col-md-4 control-label"&ndash;&gt;-->
+                                <!--&lt;!&ndash;ng-repeat="class in result.headerAnnotations[selectedPosition.row].chosen">&ndash;&gt;-->
+                                <!--&lt;!&ndash;{{class}}&ndash;&gt;-->
+                                <!--&lt;!&ndash;</label>&ndash;&gt;-->
+                                <!--<div class="col-md-6">-->
+                                <!--ne tlacitko-->
+                                <!--</div>-->
+                                <!--</div>-->
                                 <!--</div>-->
 
                                 <br>
-                                <button  type="button" class="btn btn-lg" ng-click="setProposal(proposal)">
+                                <button type="button" class="btn btn-lg" ng-click="setProposal(proposal)">
                                     OK
                                 </button>
 
@@ -373,9 +383,10 @@
                             <!-- Headline -->
                             <div class="modal-head">
                                 <div class="row">
-                                    <h2 class="col-md-11" > Relations</h2>
+                                    <h2 class="col-md-11"> Relations</h2>
                                     <h2 class="col-md-1">
-                                        <lock locked="locked.graphEdges" first-parametr="{{selectedRelation.column1}}"  second-parametr="{{selectedRelation.column2}}"></lock>
+                                        <lock locked="locked.graphEdges" first-parametr="{{selectedRelation.column1}}"
+                                              second-parametr="{{selectedRelation.column2}}"></lock>
                                     </h2>
                                 </div>
                             </div>
@@ -428,7 +439,7 @@
                                     </div>
 
                                     <!--<button class="btn  btn-lg pull-right" data-toggle="modal" data-target="#newEntities">-->
-                                        <!--Proposal-->
+                                    <!--Proposal-->
                                     <!--</button>-->
                                     <br>
 
@@ -451,7 +462,7 @@
 
                                     <div class="form-group">
                                         <div class="col-md-10">
-                                            <select style = "width: 100%"
+                                            <select style="width: 100%"
                                                     ng-model="suggestion"
                                                     ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
 
