@@ -6,13 +6,13 @@
     <!-- NavBar -->
     <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
-    <div class="container-fluid">
+    <div  ng-if="loadedData == 5" class="container-fluid">
 
         <!-- VIEW -->
         <div ng-switch="state" ng-init="state = 0">
 
             <!-- VIEW: Sets subject column  -->
-            <div ng-switch-when="1">
+            <div ng-switch-when="0">
                 <h2>Choosing of classifications and disambiguations</h2>
                 <!--<pre>{{locked.tableCells}} </pre>-->
                 <!--&lt;!&ndash;<pre>{{selectedPosition}} </pre>&ndash;&gt;-->
@@ -148,13 +148,14 @@
                                         <div class="checkbox">
                                             <label><input type="checkbox"
                                                           ng-model="ignoredColumn[selectedPosition.column]"
-                                                          ng-disabled="true"> Ignore Column</label>
+                                                          ng-change="lockCell()"
+                                            > Ignore Column</label>
                                         </div>
 
                                         <div class="checkbox">
                                             <label><input type="checkbox"
                                                           ng-model="noDisambiguationColumn[selectedPosition.column]"
-                                                          ng-disabled="true"> Skip disambiguation in all cell of
+                                                          ng-change="lockCell()"> Skip disambiguation in all cell of
                                                 this
                                                 collumn </label>
                                         </div>
@@ -255,7 +256,7 @@
                                                 <div class="checkbox">
                                                     <label><input type="checkbox"
                                                                   ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"
-                                                                  ng-disabled="true"> Skip disambiguation in the
+                                                                  ng-change="lockCell()"> Skip disambiguation in the
                                                         cell</label>
                                                 </div>
                                             </div>
@@ -366,7 +367,7 @@
 
 
             <!-- VIEW: Sets classifications and disambiguations -->
-            <div ng-switch-when="0">
+            <div ng-switch-when="1">
                 <subject-column-tables></subject-column-tables>
             </div>
 

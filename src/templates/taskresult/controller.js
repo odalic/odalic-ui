@@ -95,17 +95,28 @@
 
 
             // Resource loading phases
-            var phases = {
-                result: {
-                    complete: false
-                },
-                input: {
-                    complete: false
-                },
-                kb: {
-                    complete: false
-                }
-            };
+
+
+
+
+        var phases = {
+            result: {
+                complete: false
+            },
+            input: {
+                complete: false
+            },
+            kb: {
+                complete: false
+            },
+            locks: {
+                complete: false
+            }
+        };
+        $scope.loadedData= 0;
+
+
+
 
             $scope.serverFeedback= {};
 
@@ -123,6 +134,7 @@
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
+                    $scope.loadedData ++;
 
                     // Phase complete
                     phases.input.complete = true;
@@ -141,14 +153,16 @@
                 function (response) {
                     // TODO: $apply? or does this work alone? check.
                     $scope.result = response;
-                    // console.log("///////////////////////////////////////////////////////////")
-                    // console.log('result :\n'+JSON.stringify(result,null, 4));
+                   // console.log("///////////////////////////////////////////////////////////")
+                   // console.log('result :\n'+JSON.stringify(result.cellAnnotations[1][1],null, 4));
+
+
 
                     // Phase complete
                     phases.result.complete = true;
                     setsData();
                     getFeedback()
-                   // setsLockedFlags();
+
                 },
 
                 // Fatal error, result not loaded or task resulted in an error
@@ -165,6 +179,8 @@
                 function (response) {
                     // TODO: $apply? or does this work alone? check.
                     $scope.primaryKB = response['configuration']['primaryBase']['name'];
+
+                    $scope.loadedData ++;
 
                     // Phase complete
                     phases.kb.complete = true;
@@ -198,7 +214,7 @@
                     });
                 });
 
-
+                $scope.loadedData ++;
             }
 
             getFeedback = function () {
@@ -208,7 +224,8 @@
                         console.log("------------------------------------------------------------------------")
                         console.log('server feedback: \n '+JSON.stringify( $scope.serverFeedback,null, 4));
                         //alert("Feedback was saved")
-                        setsLockedFlags();
+                        setLockedFlags();
+                        setIgnoreThings();
                     },
                     // Error
                     function (response) {
@@ -218,11 +235,31 @@
 
 
             }
-            setsLockedFlags = function () {
+            setIgnoreThings = function()
+            {
+                // for (var index in $scope.serverFeedback.columnIgnores) {
+                //     $scope.ignoredColumn[$scope.serverFeedback.columnIgnores[index].position.index] = 1;
+                // }
+                //
+                // for (var index in $scope.serverFeedback.columnAmbiguities) {
+                //    $scope.noDisambiguationColumn[$scope.serverFeedback.columnAmbiguities[index].position.index] = 1;
+                // }
+                //
+                // for (var index in $scope.serverFeedback.columnIgnores) {
+                //     var row =$scope.serverFeedback.columnIgnores[index].rowPosition.index;
+                //     var column =$scope.serverFeedback.columnIgnores[index].columnPosition.index;
+                //     $scope.noDisambiguationCell[row][column] = 1;
+                // }
+                $scope.loadedData ++;
+
+            }
+
+            setLockedFlags = function () {
 
 
                 var columnCount = $scope.result.cellAnnotations[0].length;
                 var rowCount = $scope.result.cellAnnotations.length;
+
 
                 //default classification locking
                 $scope.locked.tableCells = {};
@@ -291,14 +328,20 @@
                     $scope.locked.graphEdges[column1][column2] = 1;
                 }
 
+               // $scope.loadedData = true;
 
+                $scope.loadedData ++;
 
             }
             //endregion
             // ****************************************
             // Loading of the necessary resources finishes here
-            //endregion
+            //endregion4
 
+            $scope.lockCell = function()
+            {
+                $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+            }
 
             //region proposal settings
             $scope.setProposal = function (proposal) {
