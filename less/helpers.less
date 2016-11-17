@@ -1,6 +1,74 @@
 /*
  * Cursors
  */
-.pointer {
+.odalic-cursor-pointer {
     cursor: pointer;
+}
+
+.odalic-cursor-normal {
+    cursor: default;
+}
+
+
+/* Not cursors. Whatever. */
+.selectBoxIcon {
+    width: 15px;
+    height: 15px;
+    /*float: right;*/
+}
+
+.markedColumn {
+    background-color: WhiteSmoke;
+}
+
+/*TODO mozna jiny typ oznaceni*/
+.markedCell {
+    outline: 1px solid black !important;
+}
+
+.boldPrimaryKB {
+    font-weight: bold;
+}
+
+.evenRow {
+    background-color: WhiteSmoke;
+}
+
+.headerRow {
+    background-color: Gainsboro;
+}
+
+/* Graphical separation of buttons */
+/* TODO: Generalize and put to *.LESS */
+.odalic-hr-separator {
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.odalic-hr-pushtop {
+    margin-top: 75px;
+}
+
+.odalic-hr-pushbtm {
+    margin-bottom: 15px;
+}
+
+/* lod iframe */
+iframe {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    background-color: #FFF;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    margin: 0% auto; /* 15% from the top and centered */
+    padding: 20px;
 }

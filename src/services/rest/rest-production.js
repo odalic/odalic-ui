@@ -162,9 +162,14 @@ $.defineModule(function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'csv-export');
                                     }
                                 },
-                                rdf: {
+                                turtle: {
                                     address: function () {
-                                        return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export');
+                                        return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'turtle');
+                                    }
+                                },
+                                jsonld: {
+                                    address: function () {
+                                        return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'json-ld');
                                     }
                                 }
                             }
@@ -203,7 +208,61 @@ $.defineModule(function () {
                     error: 'ERROR',
                     success: 'SUCCESS'
                 }
-            }
+            },
+
+            // GET http://example.com/base/entities?query=Pra&limit=20
+            base: function (kb) {
+                return {
+                    entities: {
+                        query: function (string) {
+                            return {
+                                limit: function (countLimit) {
+                                    return {
+                                        retrieve: {
+                                            exec: function (success, failure) {
+                                                requests.quickRequest(text.urlConcat(root, kb, 'entities')+ '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
+                                            },
+                                        },
+                                    };
+                                },
+                            };
+                        },
+                        classes: {
+                            update: function (data) {
+                                return {
+                                    exec: function (success, failure) {
+                                        console.log( text.urlConcat(root, kb, 'entities', 'classes'));
+                                        requests.reqJSON({
+                                            method: 'POST',
+                                            address: text.urlConcat(root, kb, 'entities', 'classes'),
+                                            formData: data,
+                                            success: successf(success),
+                                            failure: failure
+                                        });
+                                    },
+                                };
+                            },
+                        },
+                        resources: {
+                            update: function (data) {
+                                return {
+                                    exec: function (success, failure) {
+                                        console.log( text.urlConcat(root, kb, 'entities', 'resources'));
+                                        requests.reqJSON({
+                                            method: 'POST',
+                                            address: text.urlConcat(root, kb, 'entities', 'resources'),
+                                            formData: data,
+                                            success: successf(success),
+                                            failure: failure
+                                        });
+                                    },
+                                };
+                            },
+                        },
+                    },
+                };
+            },
         };
     };
-});
+})
+;
