@@ -12,7 +12,7 @@
         <div ng-switch="state" ng-init="state = 0">
 
             <!-- VIEW: Sets subject column  -->
-            <div ng-switch-when="0">
+            <div ng-switch-when="1">
                 <h2>Choosing of classifications and disambiguations</h2>
                 <!--<pre>{{locked.tableCells}} </pre>-->
                 <!--&lt;!&ndash;<pre>{{selectedPosition}} </pre>&ndash;&gt;-->
@@ -366,7 +366,7 @@
 
 
             <!-- VIEW: Sets classifications and disambiguations -->
-            <div ng-switch-when="1">
+            <div ng-switch-when="0">
                 <subject-column-tables></subject-column-tables>
             </div>
 

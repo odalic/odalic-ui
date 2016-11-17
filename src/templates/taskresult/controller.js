@@ -107,6 +107,10 @@
                 }
             };
 
+            $scope.serverFeedback= {};
+
+
+
             //region Download the input CSV file in a JSON format directly
             rest.tasks.name(TaskID).input.retrieve.exec(
                 // Success, inject into the scope
@@ -137,11 +141,14 @@
                 function (response) {
                     // TODO: $apply? or does this work alone? check.
                     $scope.result = response;
+                    // console.log("///////////////////////////////////////////////////////////")
+                    // console.log('result :\n'+JSON.stringify(result,null, 4));
 
                     // Phase complete
                     phases.result.complete = true;
                     setsData();
-                    setsLockedFlags();
+                    getFeedback()
+                   // setsLockedFlags();
                 },
 
                 // Fatal error, result not loaded or task resulted in an error
@@ -194,30 +201,78 @@
 
             }
 
+            getFeedback = function () {
+                rest.tasks.name(TaskID).feedback.retrieve.exec(
+                    function (response) {
+                        $scope.serverFeedback = response
+                        console.log("------------------------------------------------------------------------")
+                        console.log('server feedback: \n '+JSON.stringify( $scope.serverFeedback,null, 4));
+                        //alert("Feedback was saved")
+                        setsLockedFlags();
+                    },
+                    // Error
+                    function (response) {
+                        alert("Something is wrong. Please, try to again.")
+                    }
+                )
+
+
+            }
             setsLockedFlags = function () {
+
+
                 var columnCount = $scope.result.cellAnnotations[0].length;
                 var rowCount = $scope.result.cellAnnotations.length;
+
+                //default classification locking
                 $scope.locked.tableCells = {};
                 $scope.locked.tableCells[-1] = {};
                 for (var c = 0; c < columnCount; c++) {
+
                     $scope.locked.tableCells[-1][c] = 0;
                 }
-                for (var r = 0; r < rowCount; r++) {
-                    $scope.locked.tableCells[r] = {};
-
-                    for (var c = 0; c < columnCount; c++) {
-                        $scope.locked.tableCells[r][c] = 0;
-                    }
+                //classification locking from server feedback
+                for (var index in  $scope.serverFeedback.classifications)
+                {
+                    var column = $scope.serverFeedback.classifications[index].position.index;
+                    $scope.locked.tableCells[-1][column] = 1;
                 }
 
+
+                //default disambiguation locking
+                for (var r = 0; r < rowCount; r++) {
+                    $scope.locked.tableCells[r] = {};
+                    for (var c = 0; c < columnCount; c++) {
+                        $scope.locked.tableCells[r][c] = 0;
+
+                    }
+                }
+                //disambiguation locking from server feedback
+                for (var index in  $scope.serverFeedback.disambiguations)
+                {
+                    var row = $scope.serverFeedback.disambiguations[index].position.rowPosition.index;
+                    var column = $scope.serverFeedback.disambiguations[index].position.columnPosition.index;
+                    $scope.locked.tableCells[row][column] = 1;
+                }
+
+
+                //subject column server locking
                 $scope.locked.subjectColumns = {};
                 for (var i in $scope.chosenKBs) {
                     var kb = $scope.chosenKBs[i];
                     $scope.locked.subjectColumns[kb] = {};
                     for (var c = 0; c < columnCount; c++) {
-                        $scope.locked.subjectColumns[kb][c] = 0;
+                        if ($scope.serverFeedback.subjectColumnPositions.hasOwnProperty(kb) && $scope.serverFeedback.subjectColumnPositions[kb].index == c) {
+                            $scope.locked.subjectColumns[kb][c] = 1;
+                        }
+                        else
+                        {
+                            $scope.locked.subjectColumns[kb][c] = 0;
+                        }
                     }
                 }
+
+
 
                 //TODO isty : mozna predelat nevim jestli mam spravne poradi, predpokladam ze column1 je mensi nez column2
                 $scope.locked.graphEdges = {};
@@ -227,6 +282,15 @@
                         $scope.locked.graphEdges[r][c] = 0;
                     }
                 }
+
+
+                for (var index in  $scope.serverFeedback.columnRelations)
+                {
+                    var column1 = $scope.serverFeedback.columnRelations[index].position.first.index;
+                    var column2 = $scope.serverFeedback.columnRelations[index].position.second.index;
+                    $scope.locked.graphEdges[column1][column2] = 1;
+                }
+
 
 
             }
@@ -314,8 +378,8 @@
             //endregion
             var classes = function (obj) {
 
-               // alert(JSON.stringify(obj));
-                console.log(JSON.stringify(obj));
+                // alert(JSON.stringify(obj));
+                //console.log(JSON.stringify(obj));
                 rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                     // Success, inject into the scope
                     function (response) {
@@ -328,7 +392,7 @@
                 );
             }
             var resources = function (obj) {
-                console.log(JSON.stringify(obj));
+                //console.log(JSON.stringify(obj));
                 rest.base($scope.primaryKB).entities.resources.update(obj).exec(
                     // Success, inject into the scope
                     function (response) {
@@ -336,7 +400,7 @@
                     },
                     // Error
                     function (response) {
-                         alert("Something is wrong. Please, try to again.")
+                        alert("Something is wrong. Please, try to again.")
                     }
                 );
             }
@@ -413,7 +477,6 @@
                             if ($scope.locked.subjectColumns[KB][columnIndex] == 1) {
                                 $scope.feedback.subjectColumnPositions[KB] = {};
                                 $scope.feedback.subjectColumnPositions[KB] = {index: columnIndex}
-                                console.log(JSON.stringify($scope.feedback.subjectColumnPositions))
                             }
 
                         }
@@ -523,7 +586,8 @@
                 feedbackFunctions.sendFeedback(
                     // Success
                     function (response) {
-                        alert("Feedback was saved.");
+                        console.log("*************************************************************")
+                        console.log('user feedback :\n'+JSON.stringify($scope.feedback,null, 4));
                     },
 
                     // Failure
@@ -542,6 +606,8 @@
                 feedbackFunctions.sendFeedback(
                     // Feedback sent successfully
                     function (response) {
+                        console.log("*************************************************************")
+                        console.log('user feedback :\n'+JSON.stringify($scope.feedback,null, 4));
                         // Start the task
                         rest.tasks.name(TaskID).execute.exec(
                             // Execution started successfully
