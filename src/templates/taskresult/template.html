@@ -72,7 +72,7 @@
                                         </div>
                                         <br>
 
-                                        <button class="btn  btn-lg pull-right" data-toggle="modal"
+                                        <button class="btn pull-right" data-toggle="modal"
                                                 data-target="#newEntities">
                                             Proposal
                                         </button>
@@ -89,16 +89,17 @@
 
                                             <!--TODO spojit to do jednoho elementu-->
                                             <div class="col-md-2 text-center">
-                                                <button type="button" class="form-control"
+                                                <button ng-hide="waitForSuggestions" type="button" class="form-control"
                                                         ng-click="getSuggestions(string,'10')">
                                                     Find
                                                 </button>
+                                                <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="col-md-10">
-                                                <select style="width: 100%"
+                                                <select class="form-control" style="width: 100%"
                                                         ng-model="suggestion"
                                                         ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
 
@@ -126,7 +127,7 @@
                                             <div class="col-md-2 text-center">
                                                 <button type="button" class="form-control"
                                                         ng-click="addSuggestions(suggestion)">
-                                                    Add+
+                                                    Add
                                                 </button>
                                                 <!-- Icon 'loading' -->
 
@@ -183,7 +184,7 @@
                                                 </div>
                                             </div>
 
-                                            <button class="btn  btn-lg pull-right" data-toggle="modal"
+                                            <button class="btn pull-right" data-toggle="modal"
                                                     data-target="#newEntities">
                                                 Proposal
                                             </button>
@@ -198,16 +199,17 @@
 
                                                 <!--TODO spojit to do jednoho elementu-->
                                                 <div class="col-md-2 text-center">
-                                                    <button type="button" class="form-control"
+                                                    <button ng-hide="waitForSuggestions" type="button" class="form-control"
                                                             ng-click="getSuggestions(string,'10')">
                                                         Find
                                                     </button>
+                                                    <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                                                 </div>
                                             </div>
-
+                                            
                                             <div class="form-group">
                                                 <div class="col-md-10">
-                                                    <select style="width: 100%"
+                                                    <select class="form-control" style="width: 100%"
                                                             ng-model="suggestion"
                                                             ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
 
@@ -235,7 +237,7 @@
                                                 <div class="col-md-2 text-center">
                                                     <button type="button" class="form-control"
                                                             ng-click="addSuggestions(suggestion)">
-                                                        Add+
+                                                        Add
                                                     </button>
                                                     <!-- Icon 'loading' -->
 
@@ -288,8 +290,8 @@
                                 <!--<div class="container-fluid">-->
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Label:</label>
-                                    <div class="col-md-10">
+                                    <label class="col-md-4 control-label">Label:</label>
+                                    <div class="col-md-8">
                                         <input class="form-control" type="text" ng-model="proposal.label" required>
                                     </div>
                                 </div>
@@ -297,25 +299,24 @@
                                 <br>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Alternative label:</label>
-                                    <div class="col-md-10">
+                                    <label class="col-md-4 control-label">Alternative label:</label>
+                                    <div class="col-md-8">
                                         <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
                                     </div>
                                 </div>
                                 <br>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Alternative label:</label>
-                                    <div class="col-md-10">
+                                    <label class="col-md-4 control-label">Alternative label:</label>
+                                    <div class="col-md-8">
                                         <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
                                     </div>
                                 </div>
                                 <br>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Custom url:</label>
-                                    <label class="col-md-4 control-label">url-zmenit podle ceho</label>
-                                    <div class="col-md-6">
+                                    <label class="col-md-4 control-label">Custom URL suffix:</label>
+                                    <div class="col-md-8">
                                         <input class="form-control" type="text" ng-model="proposal.suffixUrl" required>
                                     </div>
                                 </div>
@@ -404,7 +405,7 @@
                                                 multiple limit="1" theme="bootstrap" search-enabled="true"
                                                 on-select="switchRelation($item.entity, primaryKB)"
                                                 ng-change="gvmodal.modalPredicatesChange();lockRelation()">
-                                            <ui-select-match placeholder="Pick one...">
+                                            <ui-select-match placeholder="">
                                                 {{$item.entity.resource}}
                                             </ui-select-match>
                                             <ui-select-choices
@@ -426,7 +427,7 @@
                                                         search-enabled="true"
                                                         on-select="switchRelation($item.entity, knowledgeBase)"
                                                         ng-change="gvmodal.modalPredicatesChange();lockRelation()">
-                                                    <ui-select-match placeholder="Pick one...">
+                                                    <ui-select-match placeholder="">
                                                         {{$item.entity.resource}}
                                                     </ui-select-match>
                                                     <ui-select-choices
@@ -454,16 +455,17 @@
 
                                         <!--TODO spojit to do jednoho elementu-->
                                         <div class="col-md-2 text-center">
-                                            <button type="button" class="form-control"
+                                            <button ng-hide="waitForSuggestions" type="button" class="form-control"
                                                     ng-click="getSuggestions(string,'10')">
                                                 Find
                                             </button>
+                                            <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-md-10">
-                                            <select style="width: 100%"
+                                            <select class="form-control" style="width: 100%"
                                                     ng-model="suggestion"
                                                     ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
 
@@ -491,7 +493,7 @@
                                         <div class="col-md-2 text-center">
                                             <button type="button" class="form-control"
                                                     ng-click="addRelationSuggestions(suggestion)">
-                                                Add+
+                                                Add
                                             </button>
                                             <!-- Icon 'loading' -->
 

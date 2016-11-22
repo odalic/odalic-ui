@@ -29,7 +29,7 @@
             ng-model="result.headerAnnotations[selectedPosition.column].chosen[knowledgeBase]"
             multiple theme="bootstrap" search-enabled="true" width="100"
             ng-change="lockCell()">
-        <ui-select-match placeholder="Pick one...">
+        <ui-select-match placeholder="">
             <img ng-click="createIframe($item.entity,knowledgeBase,$event)"
                  title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}"
                  ng-class="'selectBoxIcon'"/>
@@ -57,7 +57,7 @@
             search-enabled="true"
             on-select="switchChosen($item, knowledgeBase)"
             ng-change="lockCell()">
-        <ui-select-match placeholder="Pick one...">
+        <ui-select-match placeholder="">
             <img ng-click="createIframe($item.entity,knowledgeBase,$event)"
                  title="lodlive browser"
                  ng-src="{{lodLiveBrowserIcon}}"

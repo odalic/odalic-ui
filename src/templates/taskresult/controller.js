@@ -426,7 +426,6 @@
                 rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                     // Success, inject into the scope
                     function (response) {
-                        alert("Class was saved")
                     },
                     // Error
                     function (response) {
@@ -439,7 +438,6 @@
                 rest.base($scope.primaryKB).entities.resources.update(obj).exec(
                     // Success, inject into the scope
                     function (response) {
-                        alert("Resource was saved")
                     },
                     // Error
                     function (response) {
@@ -484,13 +482,22 @@
 
             }
 
-
+            $scope.waitForSuggestions = false;
             $scope.getSuggestions = function (string, limit) {
+                $scope.waitForSuggestions = true;
                 rest.base($scope.primaryKB).entities.query(string).limit(limit).retrieve.exec(
                     // Success, inject into the scope
                     function (response) {
                         $scope.suggestions = response;
-                        alert("Result is available")
+                        
+                        // TODO: Works only once. As soon as you add the result,
+                        // it breaks.
+                        if ($scope.suggestions.length > 0) {
+                            $scope.suggestion = $scope.suggestions[0];
+                        }
+
+                        $scope.waitForSuggestions = false;
+                        //alert("Result is available")
 
                         // if (!$scope.$$phase) {
                         //     $scope.$apply();
