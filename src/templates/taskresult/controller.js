@@ -426,7 +426,6 @@
                 rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                     // Success, inject into the scope
                     function (response) {
-                        alert("Class was saved")
                     },
                     // Error
                     function (response) {
@@ -439,7 +438,6 @@
                 rest.base($scope.primaryKB).entities.resources.update(obj).exec(
                     // Success, inject into the scope
                     function (response) {
-                        alert("Resource was saved")
                     },
                     // Error
                     function (response) {
