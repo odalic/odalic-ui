@@ -89,10 +89,11 @@
 
                                             <!--TODO spojit to do jednoho elementu-->
                                             <div class="col-md-2 text-center">
-                                                <button type="button" class="form-control"
+                                                <button ng-hide="waitForSuggestions" type="button" class="form-control"
                                                         ng-click="getSuggestions(string,'10')">
                                                     Find
                                                 </button>
+                                                <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                                             </div>
                                         </div>
 
@@ -126,7 +127,7 @@
                                             <div class="col-md-2 text-center">
                                                 <button type="button" class="form-control"
                                                         ng-click="addSuggestions(suggestion)">
-                                                    Add+
+                                                    Add
                                                 </button>
                                                 <!-- Icon 'loading' -->
 
@@ -198,10 +199,11 @@
 
                                                 <!--TODO spojit to do jednoho elementu-->
                                                 <div class="col-md-2 text-center">
-                                                    <button type="button" class="form-control"
+                                                    <button ng-hide="waitForSuggestions" type="button" class="form-control"
                                                             ng-click="getSuggestions(string,'10')">
                                                         Find
                                                     </button>
+                                                    <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                                                 </div>
                                             </div>
 
@@ -235,7 +237,7 @@
                                                 <div class="col-md-2 text-center">
                                                     <button type="button" class="form-control"
                                                             ng-click="addSuggestions(suggestion)">
-                                                        Add+
+                                                        Add
                                                     </button>
                                                     <!-- Icon 'loading' -->
 
@@ -453,10 +455,11 @@
 
                                         <!--TODO spojit to do jednoho elementu-->
                                         <div class="col-md-2 text-center">
-                                            <button type="button" class="form-control"
+                                            <button ng-hide="waitForSuggestions" type="button" class="form-control"
                                                     ng-click="getSuggestions(string,'10')">
                                                 Find
                                             </button>
+                                            <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                                         </div>
                                     </div>
 
@@ -490,7 +493,7 @@
                                         <div class="col-md-2 text-center">
                                             <button type="button" class="form-control"
                                                     ng-click="addRelationSuggestions(suggestion)">
-                                                Add+
+                                                Add
                                             </button>
                                             <!-- Icon 'loading' -->
 
