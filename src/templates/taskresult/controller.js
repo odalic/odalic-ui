@@ -492,11 +492,11 @@
                     function (response) {
                         $scope.suggestions = response;
                         
-                        //TODO: Works only once. As soon as you add the result,
+                        // TODO: Works only once. As soon as you add the result,
                         // it breaks.
-                        // if ($scope.suggestions.length > 0) {
-                        //     $scope.suggestion = $scope.suggestions[0];
-                        // }
+                        if ($scope.suggestions.length > 0) {
+                            $scope.suggestion = $scope.suggestions[0];
+                        }
 
                         $scope.waitForSuggestions = false;
                         //alert("Result is available")
