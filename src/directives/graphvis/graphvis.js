@@ -31,8 +31,8 @@
                 // Create a root <svg> element
                 var svg = d3.select(iElement.get(0).childNodes[2])
                     .append('svg')
-                    .attr('width', 900)
-                    .attr('height', 450);
+                    .attr('width', 1200)
+                    .attr('height', 550);
 
                 // Create a marker (arrow)
                 (function () {
