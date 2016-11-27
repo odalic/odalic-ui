@@ -35,7 +35,7 @@
             </thead>
             <tbody>
                 <!-- A single task configuration -->
-                <tr ng-repeat="taskconfig in taskconfigs" ng-class="{info: taskconfig.id == misc.selected}">
+                <tr ng-repeat="taskconfig in taskconfigs" ng-class="{'odalic-trstyle-lightgrey': taskconfig.id == misc.selected}">
                     <td class="col-md-1">{{ taskconfig.created }}</td>
                     <td class="col-md-2">{{ taskconfig.id }}</td>
                     <td class="col-md-6">{{ taskconfig.description }}</td>
