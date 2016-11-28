@@ -375,8 +375,6 @@
             <!-- VIEW: Relations -->
             <div ng-switch-when="2">
                 <h2>Choosing of predicates</h2>
-                <!--<pre>{{locked.graphEdges}} </pre>-->
-                <!--<pre>{{feedback.columnRelations}}</pre>-->
 
                 <!-- Modal -->
                 <div id="modalPredicates" class="modal fade" role="dialog">
@@ -385,10 +383,11 @@
                             <!-- Headline -->
                             <div class="modal-head">
                                 <div class="row">
-                                    <h2 class="col-md-11"> Relations</h2>
+                                    <h2 class="col-md-11">Relations</h2>
                                     <h2 class="col-md-1">
-                                        <lock locked="locked.graphEdges" first-parametr="{{selectedRelation.column1}}"
-                                              second-parametr="{{selectedRelation.column2}}"></lock>
+                                        <lock locked="locked.graphEdges"
+                                              first-parametr="{{ selectedRelation.column1 }}"
+                                              second-parametr="{{ selectedRelation.column2 }}"/>
                                     </h2>
                                 </div>
                             </div>
@@ -396,15 +395,18 @@
                             <!-- Body -->
                             <div class="modal-body">
                                 <div class="container-fluid">
+
+                                    <!-- Primary Knowledge Base -->
                                     <div class="form-group">
-                                        <!-- Separate div for each knowledge base -->
                                         <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
+
                                         <!-- Selection of a candidate(s) for the current knowledge base -->
                                         <ui-select
-                                                ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][primaryKB]"
-                                                multiple limit="1" theme="bootstrap" search-enabled="true"
+                                                ng-model="result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].chosen[primaryKB]"
+                                                multiple limit="1" theme="bootstrap"
+                                                search-enabled="true"
                                                 on-select="switchRelation($item.entity, primaryKB)"
-                                                ng-change="gvmodal.modalPredicatesChange();lockRelation()">
+                                                ng-change="gvdata.mc(); lockRelation()">
                                             <ui-select-match placeholder="">
                                                 {{$item.entity.resource}}
                                             </ui-select-match>
@@ -415,18 +417,20 @@
                                             </ui-select-choices>
                                         </ui-select>
                                     </div>
+
                                     <!-- Separate div for each knowledge base -->
                                     <div ng-repeat="(knowledgeBase, candidates) in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates">
                                         <div ng-if="knowledgeBase != primaryKB">
                                             <div class="form-group">
                                                 <h3>{{ knowledgeBase }}</h3>
                                                 <!-- Selection of a candidate(s) for the current knowledge base -->
+
                                                 <ui-select
-                                                        ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][knowledgeBase]"
+                                                        ng-model="result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].chosen[knowledgeBase]"
                                                         multiple limit="1" theme="bootstrap"
                                                         search-enabled="true"
                                                         on-select="switchRelation($item.entity, knowledgeBase)"
-                                                        ng-change="gvmodal.modalPredicatesChange();lockRelation()">
+                                                        ng-change="gvdata.mc(); lockRelation()">
                                                     <ui-select-match placeholder="">
                                                         {{$item.entity.resource}}
                                                     </ui-select-match>
@@ -440,17 +444,11 @@
                                         </div>
                                     </div>
 
-                                    <!--<button class="btn  btn-lg pull-right" data-toggle="modal" data-target="#newEntities">-->
-                                    <!--Proposal-->
-                                    <!--</button>-->
-                                    <br>
-
+                                    <br/>
                                     <div class="form-group">
                                         <label class="col-md-12 control-label">Search: </label>
                                         <div class="col-md-10">
-
-                                            <input type="text" class="form-control"
-                                                   ng-model="string">
+                                            <input type="text" class="form-control" ng-model="string"/>
                                         </div>
 
                                         <!--TODO spojit to do jednoho elementu-->
@@ -462,32 +460,12 @@
                                             <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <div class="col-md-10">
                                             <select class="form-control" style="width: 100%"
                                                     ng-model="suggestion"
-                                                    ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
-
+                                                    ng-options="suggest.resource + ' ' + suggest.label  for suggest in suggestions">
                                             </select>
-
-                                            <!--<ui-select-->
-                                            <!--ng-model="suggestion"-->
-                                            <!--theme="bootstrap"-->
-                                            <!--search-enabled="true"-->
-                                            <!--width="100"">-->
-                                            <!--&lt;!&ndash;  ng-change="getSuggestions($select.search,'10')"&ndash;&gt;-->
-                                            <!--<ui-select-match ng-init = "bla = $select.search" placeholder="Write...">-->
-                                            <!--{{$select.selected.label}}-->
-                                            <!--+ '\n'+-->
-                                            <!--({{$select.selected.resource}})-->
-                                            <!--</ui-select-match>-->
-                                            <!--<ui-select-choices repeat="opt in suggestions ">-->
-                                            <!--<span ng-bind-html="opt.label"></span>-->
-                                            <!--<div ng-bind-html="' ('+opt.resource + ')'"></div>-->
-                                            <!--</ui-select-choices>-->
-
-                                            <!--</ui-select>-->
                                         </div>
 
                                         <div class="col-md-2 text-center">
@@ -495,19 +473,17 @@
                                                     ng-click="addRelationSuggestions(suggestion)">
                                                 Add
                                             </button>
-                                            <!-- Icon 'loading' -->
-
                                         </div>
                                     </div>
-                                    <!-- user can write own relation -->
+
+                                    <!-- Own relation -->
                                     <div class="form-group">
                                         <label class="control-label">Own relation:</label>
-                                        <input class="form-control" type="text"
-                                               ng-change="gvmodal.modalPredicatesChange();lockRelation()"
-                                               ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2].other[0].resource">
+                                        <input type="text" class="form-control"
+                                               ng-model="result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].chosen.other[0].entity.resource"
+                                               ng-change="gvdata.mc(); lockRelation()"/>
                                     </div>
                                 </div>
-
 
                             </div>
                         </div>
@@ -515,7 +491,7 @@
                 </div>
 
                 <!-- Graph visualiser -->
-                <graphvis scope="{{ gvscope }}"></graphvis>
+                <graphvis bind="gvdata"></graphvis>
             </div>
 
             <!-- VIEW: Default -->

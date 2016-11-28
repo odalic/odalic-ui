@@ -95,3 +95,27 @@ var objRecurAccess = function (obj) {
         _obj = _obj[key];
     }
 };
+
+
+/** Copies contents of a one object into another.
+ *  Omits the properties that are already defined in the second object.
+ *
+ * @param obj1 The object to copy.
+ * @param obj2 The object to copy the first object to. Must not be null nor undefined.
+ */
+var objCopy = function (obj1, obj2) {
+    if (!obj1) {
+        return;
+    }
+
+    if (!obj2) {
+        // JS does not support passing arguments by reference, so this has to be an error
+        throw new Error('obj2 not an object.');
+    }
+
+    objForEach(obj1, function (key, value) {
+        if (!obj2[key]) {
+            obj2[key] = value;
+        }
+    });
+};

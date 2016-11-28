@@ -89,6 +89,9 @@
             // TODO: This is just a temporary solution; otherwise we get an error since result and inptu files are not ready at this point.
             // Išty myslím že tohle se řeší přes routering resolve, tím zajitíme že šablona se začne vykreslovat až přijdou data
             // tohle bych resila spolu s loginem, mozna bude pozdeji lepsi ten globalni routering zlokalnit
+        // netreba -- ng-if rovno v DOM strome zakáže/pridá potrebné HTML elementy, ktoré sa nemajú šancu aktivovať predčasne
+        // => loadico directive by mala fungovať správne
+        // pozn. nefunguje s ng-show, ten len mení CSS style medzi hidden/visible
 
             // - this can be solved via putting everything in a <div> with something like ng-show attribute if result is loaded.
             // - the controller script must be edited appropiately as well.
@@ -198,24 +201,33 @@
             // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
             $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
             //region dependent on data from server
-            //TODO isty :  k predelani/smazani
             //sets data for graph component
             $scope.currentRelations = {};
             setsData = function () {
+                // TODO: Own relation? Takto?
                 objForEach($scope.result.columnRelationAnnotations, function (column1, collect1) {
                     objForEach(collect1, function (column2, collect2) {
-                        objForEach(collect2['chosen'], function (kb, collect3) {
-                            var selectedCandidates = [];
-                            collect3.forEach(function (item) {
-                                selectedCandidates.push(item['entity']);
-                            });
-                            objRecurAccess($scope.currentRelations, column1, column2)[kb] = selectedCandidates;
-                        });
+
+                        // Create a fake candidate for custom relations
+                        objRecurAccess($scope.result, column1, column2, 'chosen')['other'] = [
+                            {
+                                "entity": {
+                                    "resource" : "",
+                                    "label" : ""
+                                },
+                                "score": 1
+                            }
+                        ];
                     });
                 });
 
+                // Load the graphvis directive when the data is ready
+                loadGraphVis();
+
+                // Another data loaded
                 $scope.loadedData ++;
-            }
+            };
+
 
             getFeedback = function () {
                 rest.tasks.name(TaskID).feedback.retrieve.exec(
@@ -252,7 +264,7 @@
                 // }
                 $scope.loadedData ++;
 
-            }
+            };
 
             setLockedFlags = function () {
 
@@ -341,7 +353,7 @@
             $scope.lockCell = function()
             {
                 $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-            }
+            };
 
             //region proposal settings
             $scope.setProposal = function (proposal) {
@@ -432,7 +444,7 @@
                         alert("Something is wrong. Please, try to again.")
                     }
                 );
-            }
+            };
             var resources = function (obj) {
                 //console.log(JSON.stringify(obj));
                 rest.base($scope.primaryKB).entities.resources.update(obj).exec(
@@ -444,7 +456,7 @@
                         alert("Something is wrong. Please, try to again.")
                     }
                 );
-            }
+            };
 
             //region suggestion from primaryKB
             $scope.suggestions = {};
@@ -694,51 +706,46 @@
             //region Relation ui-selectbox functions
             //TODO isty : stara struktura
             $scope.switchRelation = function (newSelection, knowledgeBase) {
-                $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][knowledgeBase] = [newSelection];
-            }
+                // TODO: remove, when bug corrected.
+                console.log($scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2]);
+            };
 
             $scope.lockRelation = function () {
                 $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
-            }
+            };
 
             //endregion
 
-            // region Sharing data between graphvis directive and this controller
+            // region Handling graphvis directive
             // **************************************
-            // Store date to sharedata service
-            $scope.gvscope = 'gv_scope';
-            sharedata.set($scope.gvscope, $scope);
+            function loadGraphVis() {
+                // Initialization
+                if (!$scope.gvdata) {
+                    $scope.gvdata= {};
+                }
 
-            // Functionalities connected to the modal window for graphvis directive
-            $scope.gvmodal = {
-                /** A function to be injected from the graphvis directive */
-                modelChanged: null,
-
-                /** Opens a modal window.
-                 *
-                 * @param c1    Index of the firt column.
-                 * @param c2    Index of the second column.
-                 */
-                open: function (c1, c2) {
+                // Set the necessary data
+                $scope.gvdata.vertices = $scope['inputFile']['columns'];
+                $scope.gvdata.result = $scope['result'];
+                $scope.gvdata.edgeClick = function (c1, c2) {
                     with ($scope.selectedRelation) {
                         column1 = c1;
                         column2 = c2;
-                    }
-                    ;
+                    };
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
                     $("#modalPredicates").modal();
-                },
+                };
 
-                /** Called from taskresult template when a change in model occurs. */
-                modalPredicatesChange: function () {
-                    this.modelChanged(
+                // Calls modelChanged on the currently selected relation.
+                $scope.gvdata.mc = function () {
+                    $scope.gvdata.modelChanged(
                         $scope.selectedRelation.column1,
                         $scope.selectedRelation.column2
-                    )
-                }
-            };
+                    );
+                };
+            }
             // endregion
 
             // region Exporting to JSON / CSV / RDF
