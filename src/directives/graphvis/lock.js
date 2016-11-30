@@ -17,6 +17,12 @@ var lock = function (d3sel) {
     var _width = null;
     var _height = null;
     var _visible = null;
+    var _svisible = null;
+    var _onclick = null;
+    var _onupdate = null;
+
+    // Locked?
+    var _locktext = '\uf09c';
 
     // Attach the lock to a node
     this.attach = function () {
@@ -39,6 +45,38 @@ var lock = function (d3sel) {
         this.setVisibility(false);
         _ymodif = 0;
         _xmodif = 1;
+
+        // Clicking on the lock
+        _label.on('click', function () {
+            if (_onclick) {
+                _onclick();
+            }
+        });
+    };
+
+    // Sets the lock
+    this.setLock = function (locked) {
+        if (locked) {
+            _locktext = '\uf09c';
+        } else {
+            _locktext = '\uf023';
+        }
+
+        if (_svisible) {
+            if (_visible) {
+                _label.text(_locktext);
+            }
+        }
+    };
+
+    // What should happen when the lock is clicked
+    this.onClick = function (handler) {
+        _onclick = handler;
+    };
+
+    // Additional actions to happen on update
+    this.onUpdate = function (handler) {
+        _onupdate = handler;
     };
 
     // Allows to modify the standard vertical positioning of the lock
@@ -71,7 +109,8 @@ var lock = function (d3sel) {
         // Does our label text fit on the edge?
         var dist = eucgeom.dist2p(x1, y1, x2, y2);
         var realDist = dist - 32*2 - 10;
-        if (realDist < 50) {
+        _svisible = !(realDist < 50);
+        if (!_svisible) {
             // Hide
             _label.text('');
         } else {
@@ -91,17 +130,21 @@ var lock = function (d3sel) {
             })
             .attr('dx', modif*xpos - _width/2)
             .attr('dy', _ymodif*(_height/2) + 8);
+
+        // Additional actions
+        if (_onupdate) {
+            _onupdate();
+        }
     };
 
     // Shows or hides the lock
     this.setVisibility = function (visible) {
         if (visible) {
-            _label.text('\uf023');
-            _visible = visible;
+            _label.text(_locktext);
         } else {
             _label.text('');
-            _visible = visible;
         }
+        _visible = visible;
     };
 
     // Detach and remove the lock
@@ -111,6 +154,9 @@ var lock = function (d3sel) {
         _width = null;
         _height = null;
         _visible = null;
+        _svisible = null;
         _ymodif = null;
+        _onclick = null;
+        _onupdate = null;
     };
 };

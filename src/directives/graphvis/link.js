@@ -87,6 +87,27 @@ var linkWrapper = function (gprops) {
                             break;
                     }
 
+                    // 2-way data binding to 'locks' data structure
+                    (function (d, l) {
+                        // initialization
+                        var outlocked = function () {
+                            return gprops.link.getLock(d[0], d[1]);
+                        };
+                        l.setLock(outlocked());
+
+                        // when user clicks the lock
+                        _lock.onClick(function () {
+                            var locked = !outlocked();
+                            gprops.link.setLock(d[0], d[1], locked);
+                            l.setLock(locked);
+                        });
+
+                        // when the 'locks' data structure is updated from an outside
+                        _lock.onUpdate(function () {
+                            l.setLock(outlocked());
+                        });
+                    })(dir, _lock);
+
                     // set events
                     (function (d) {
                         _l.event.mouseClick(function () {

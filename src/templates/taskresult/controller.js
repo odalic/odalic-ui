@@ -727,6 +727,7 @@
                 // Set the necessary data
                 $scope.gvdata.vertices = $scope['inputFile']['columns'];
                 $scope.gvdata.result = $scope['result'];
+                $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
                 $scope.gvdata.edgeClick = function (c1, c2) {
                     with ($scope.selectedRelation) {
                         column1 = c1;
@@ -737,6 +738,13 @@
                     }
                     $("#modalPredicates").modal();
                 };
+
+                // TODO: $scope.locked.graphEdges is not initialized at this point! This has to be changed.
+                window.setTimeout(function () {
+                    // Presumably 3 seconds is enough to initialize the data structure
+                    console.warn('lockobj set. Note this is dangerous and should be changed as soon as possible.');
+                    $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
+                }, 3000);
 
                 // Calls modelChanged on the currently selected relation.
                 $scope.gvdata.mc = function () {

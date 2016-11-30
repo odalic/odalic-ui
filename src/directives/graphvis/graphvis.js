@@ -33,6 +33,11 @@
                      */
                     result: null,
 
+                    /** The structure holding locks for each 2 columns.
+                     *  The same applies about the tight coupling as above.
+                     */
+                    lockobj: null,
+
                     /** Signalling a model change to graphvis. */
                     modelChanged: function (column1, column2) {},
                 };
@@ -99,7 +104,7 @@
                 var g = new graph(svg, {
                     decay: {
                         velocity: 0.05,
-                        alpha: 0.02,
+                        alpha: 0.02
                     },
                     collision: {
                         radius: 75,
@@ -115,6 +120,14 @@
                 });
 
                 // General graph state, properties and functions
+                var applyOnColIdcs = function (node1, node2, f) {
+                    var column1 = g.vertices.indexOf(node1.id);
+                    var column2 = g.vertices.indexOf(node2.id);
+                    if (column1 !== column2) {
+                        f(column1, column2);
+                    }
+                };
+
                 var gprops = (function () {
                     var _state = 0;
                     return {
@@ -143,19 +156,54 @@
                             }
                         },
                         link: {
+                            // Locks
+                            setLock: function (node1, node2, locked) {
+                                applyOnColIdcs(node1, node2, function (column1, column2) {
+                                    try {
+                                        // TODO: The data structure seems to be illogical. Why negate?
+                                        scope.bind.lockobj[column1][column2] = !locked;
+                                    } catch (e) {
+                                        // TODO: Catching this exception should not be necessary.
+                                        console.warn('locks data structure does not allow locking for these columns:' + column1 + ' ' + column2);
+                                        // TODO: Just a temporary bug-fix. Must be removed.
+                                        if (!scope.bind.lockobj) {
+                                            scope.bind.lockobj = {};
+                                        }
+                                        scope.bind.lockobj[column1] = {};
+                                        scope.bind.lockobj[column1][column2] = false;
+                                    }
+                                });
+                            },
+                            getLock:  function (node1, node2) {
+                                var result = null;
+                                applyOnColIdcs(node1, node2, function (column1, column2) {
+                                    try {
+                                        // TODO: The data structure seems to be illogical. Why negate?
+                                        result = !scope.bind.lockobj[column1][column2];
+                                    } catch (e) {
+                                        // TODO: Catching this exception should not be necessary.
+                                        console.warn('locks data structure does not allow locking for these columns:' + column1 + ' ' + column2);
+                                        // TODO: Just a temporary bug-fix. Must be removed.
+                                        if (!scope.bind.lockobj) {
+                                            scope.bind.lockobj = {};
+                                        }
+                                        scope.bind.lockobj[column1] = {};
+                                        scope.bind.lockobj[column1][column2] = false;
+                                    }
+                                });
+                                return result;
+                            },
+
+                            // Creation and editting of the labels
                             create: function (node1, node2) {
-                                var column1 = g.vertices.indexOf(node1.id);
-                                var column2 = g.vertices.indexOf(node2.id);
-                                if (column1 !== column2) {
+                                applyOnColIdcs(node1, node2, function (column1, column2) {
                                     scope.bind.edgeClick(column1, column2);
-                                }
+                                });
                             },
                             settings: function (node1, node2) {
-                                var column1 = g.vertices.indexOf(node1.id);
-                                var column2 = g.vertices.indexOf(node2.id);
-                                if (column1 !== column2) {
+                                applyOnColIdcs(node1, node2, function (column1, column2) {
                                     scope.bind.edgeClick(column1, column2);
-                                }
+                                });
                             },
                             hoveredNode: null
                         },
