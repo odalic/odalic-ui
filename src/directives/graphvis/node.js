@@ -64,6 +64,9 @@ var nodeWrapper = function (gprops) {
         var _parent = null;
         var _node = null;
 
+        // settings
+        var _radius = 32;
+
         // label
         var _label = null;
         var _labelText = null;
@@ -120,7 +123,7 @@ var nodeWrapper = function (gprops) {
             _node =
                 (_parent = d3sel)
                     .append('circle')
-                    .attr('r', '32')
+                    .attr('r', String(_radius))
                     .attr('stroke', constants.colors.black);
 
             _label = new label(d3sel);
@@ -136,14 +139,14 @@ var nodeWrapper = function (gprops) {
         this.update = function () {
             // prevent node escaping the canvas
             var canvas = gprops.graph.canvas;
-            if (_ref.x < 0)
-                _ref.x = 1;
-            if (_ref.x > canvas.width)
-                _ref.x = canvas.width - 1;
-            if (_ref.y < 0)
-                _ref.y = 1;
-            if (_ref.y > canvas.height)
-                _ref.y = canvas.height - 1;
+            if (_ref.x < _radius)
+                _ref.x = _radius + 1;
+            if (_ref.x > canvas.width - _radius)
+                _ref.x = canvas.width - _radius - 1;
+            if (_ref.y < _radius)
+                _ref.y = _radius + 1;
+            if (_ref.y > canvas.height - _radius)
+                _ref.y = canvas.height - _radius - 1;
 
             // update the visuals
             _node

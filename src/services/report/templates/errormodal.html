@@ -1,0 +1,19 @@
+<modal bind='report.errormodal' title='Error'>
+    <p>
+        <b>An unexpected error occured.</b>
+    </p>
+    <table class="table">
+        <tr>
+            <td><b>Status:</b></td>
+            <td>{{ report.errormodal.status }}</td>
+        </tr>
+        <tr>
+            <td><b>Description:</b></td>
+            <td>{{ report.errormodal.description }}</td>
+        </tr>
+        <tr>
+            <td><b>What this means for you:</b></td>
+            <td>{{ report.errormodal.hrd }}</td>
+        </tr>
+    </table>
+</modal>

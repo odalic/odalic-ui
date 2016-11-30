@@ -1,0 +1,12 @@
+{
+	"I1": {
+		"begin": "READY",
+		"running": 3,
+		"end": "SUCCESS"
+	},
+	"I2": {
+		"begin": "RUNNING",
+		"running": 3,
+		"end": "WARNING"
+	}
+}

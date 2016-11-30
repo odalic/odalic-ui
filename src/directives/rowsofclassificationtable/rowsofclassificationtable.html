@@ -1,0 +1,46 @@
+<td ng-repeat="cell in row "
+    ng-init="columnIndex = $index"
+    ng-class="(rowIndex == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
+    ng-mouseover="selectPosition( rowIndex,$index)"
+>
+
+
+    <span>{{ cell }}</span>
+    <div class="pull-right">
+
+        <a data-toggle="modal" data-target="#newEntities">
+            <span class="fa fa-plus-square-o"></span>
+        </a>
+
+        <lock locked="locked.tableCells" first-parametr="{{rowIndex}}" second-parametr="{{columnIndex}}"></lock>
+
+        <a data-toggle="modal" data-target="#myModal">
+            <span class="glyphicon glyphicon-new-window"></span>
+        </a>
+    </div>
+
+
+    <!-- primary knowledge base disambiguation -->
+    <!--<div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-repeat="disam in currentItems[$parent.$index][$index][primaryKB]">-->
+    <div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
+         ng-repeat="disam in concreteData[columnIndex].chosen[primaryKB]">
+        <a ng-click="removeClass(concreteData[columnIndex].chosen[primaryKB],columnIndex,$index)" class=" pull-right">
+            <span ng-class="'fa fa-trash'">
+            </span>
+        </a>
+        <span>{{ disam.entity.label + ' ' + '(' + disam.entity.resource + ')' }}</span>
+
+    </div>
+    <!-- other knowledge base disambiguation  -->
+    <!--<div ng-repeat="(KB,data) in currentItems[$parent.$index][$index]">-->
+    <div ng-repeat="(KB,data) in concreteData[columnIndex].chosen ">
+        <div ng-if="KB != primaryKB">
+            <div ng-style="backgroundColor(KB)" ng-repeat="disam in data"  ng-init="itemIndex = $index" >
+                <a ng-click="removeClass(concreteData[columnIndex].chosen[KB],columnIndex,$index)"  class=" pull-right">
+                    <span ng-class="'fa fa-trash'"></span></a>
+                <span>{{ disam.entity.label + ' ' + '(' + disam.entity.resource + ')' }}</span>
+
+            </div>
+        </div>
+    </div>
+</td>

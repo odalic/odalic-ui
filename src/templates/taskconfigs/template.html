@@ -7,102 +7,93 @@
     <div class="container-fluid">
         <h2>Task configurations</h2>
 
-        <injector for="statustext.ready">The task is ready to be run.</injector>
-        <injector for="statustext.running">The task is running.</injector>
-        <injector for="statustext.success">The task has finished.</injector>
-        <injector for="statustext.warning">The task has finished, but there were some problems.</injector>
-        <injector for="statustext.error">The task execution failed.</injector>
+        <injector for="statetext.ready">The task is ready to be run.</injector>
+        <injector for="statetext.running">The task is running.</injector>
+        <injector for="statetext.success">The task has finished.</injector>
+        <injector for="statetext.warning">The task has finished, but there were some problems.</injector>
+        <injector for="statetext.error">The task execution failed.</injector>
 
         <injector for="actiontext.run">Run the task</injector>
-        <injector for="actiontext.rerun">Clear the result and re-run the task</injector>
         <injector for="actiontext.stop">Stop the running task</injector>
         <injector for="actiontext.result">Go to result</injector>
-        <injector for="actiontext.clear">Clear the result</injector>
         <injector for="actiontext.configure">Configure the task</injector>
         <injector for="actiontext.remove">Remove the task</injector>
 
         <!-- TODO: Unknown bug forcing me to write a first useless tooltip-->
         <tooltip msg=""/>
 
+        <!-- The table of tasks -->
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
-                <th>Action</th>
+                <th>Date created</th>
                 <th>Task name</th>
                 <th>Task description</th>
-                <th>Status</th>
+                <th>Action</th>
+                <th>State</th>
             </tr>
             </thead>
             <tbody>
                 <!-- A single task configuration -->
-                <tr ng-repeat="taskconfig in taskconfigs">
+                <tr ng-repeat="taskconfig in taskconfigs" ng-class="{'odalic-trstyle-lightgrey': taskconfig.id == misc.selected}">
+                    <td class="col-md-1">{{ taskconfig.created }}</td>
+                    <td class="col-md-2">{{ taskconfig.id }}</td>
+                    <td class="col-md-6">{{ taskconfig.description }}</td>
+
                     <td class="col-md-2">
-                        <span ng-show="['ready'].includes(taskconfig.status)">
+                        <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.run" place="top">
-                                <a class="btn btn-default" href="#"><i class="fa fa-play fa-lg"></i></a>
+                                <a class="btn btn-default" ng-click="frun(taskconfig.id)"><i class="fa fa-play fa-lg"></i></a>
                             </tooltip>
                         </span>
-                        <span ng-show="['success', 'warning', 'error'].includes(taskconfig.status)">
-                            <tooltip source="actiontext.rerun" place="top">
-                                <a class="btn btn-default" href="#"><i class="fa fa-repeat fa-lg"></i></a>
-                            </tooltip>
-                        </span>
-                        <span ng-show="['running'].includes(taskconfig.status)">
+                        <span ng-show="['RUNNING'].includes(taskconfig.state)">
                             <tooltip source="actiontext.stop" place="top">
-                                <a class="btn btn-default" href="#"><i class="fa fa-stop fa-lg"></i></a>
+                                <a class="btn btn-default" ng-click="fstop(taskconfig.id)"><i class="fa fa-stop fa-lg"></i></a>
                             </tooltip>
                         </span>
-                        <span ng-show="['success', 'warning', 'error'].includes(taskconfig.status)">
+                        <span ng-show="['SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.result" place="top">
-                                <a class="btn btn-default" href="#"><i class="fa fa-external-link fa-lg"></i></a>
+                                <a class="btn btn-default" ng-click="fresult(taskconfig.id)"><i class="fa fa-external-link fa-lg"></i></a>
                             </tooltip>
                         </span>
-                        <span ng-show="['success', 'warning', 'error'].includes(taskconfig.status)">
-                            <tooltip source="actiontext.clear" place="top">
-                                <a class="btn btn-default" href="#"><i class="fa fa-eraser fa-lg"></i></a>
-                            </tooltip>
-                        </span>
-                        <span ng-show="['ready'].includes(taskconfig.status)">
+                        <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.configure" place="top">
-                                <a class="btn btn-default" href="#"><i class="fa fa-cog fa-lg"></i></a>
+                                <a class="btn btn-default" ng-click="fconfigure(taskconfig.id)"><i class="fa fa-cog fa-lg"></i></a>
                             </tooltip>
                         </span>
-                        <span ng-show="['ready', 'success', 'warning', 'error'].includes(taskconfig.status)">
+                        <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.remove" place="top">
-                                <a class="btn btn-default" href="#"><i class="fa fa-trash fa-lg"></i></a>
+                                <a class="btn btn-default" ng-click="fremove(taskconfig.id)"><i class="fa fa-trash fa-lg"></i></a>
                             </tooltip>
                         </span>
                     </td>
 
-                    <td class="col-md-2">{{ taskconfig.id }}</td>
-                    <td class="col-md-7">{{ taskconfig.description }}</td>
-
                     <td class="col-md-1">
-                        <!-- Status icons -->
-                        <div ng-switch="taskconfig.status">
-                            <div ng-switch-when="ready">
-                                <tooltip source="statustext.ready" place="top">
-                                    <a class="btn btn-info"><i class="fa fa-ellipsis-h fa-lg"></i></a>
+                        <!-- State icons -->
+                        <div ng-switch="taskconfig.state">
+                            <div ng-switch-when="READY">
+                                <tooltip source="statetext.ready" place="top">
+                                    <a class="btn btn-info odalic-cursor-normal"><i class="fa fa-ellipsis-h fa-lg"></i></a>
                                 </tooltip>
                             </div>
-                            <div ng-switch-when="running">
-                                <tooltip source="statustext.running" place="top">
-                                    <a class="btn btn-primary"><i class="fa fa-refresh fa-lg fa-spin fa-fw"></i></a>
+                            <div ng-switch-when="RUNNING">
+                                <tooltip source="statetext.running" place="top">
+                                    <a class="btn btn-primary odalic-cursor-normal"><i class="fa fa-refresh fa-lg fa-spin fa-fw"></i></a>
                                 </tooltip>
                             </div>
-                            <div ng-switch-when="success">
-                                <tooltip source="statustext.success" place="top">
-                                    <a class="btn btn-success"><i class="fa fa-check fa-lg"></i></a>
+                            <div ng-switch-when="SUCCESS">
+                                <tooltip source="statetext.success" place="top">
+                                    <a class="btn btn-success odalic-cursor-normal"><i class="fa fa-check fa-lg"></i></a>
                                 </tooltip>
                             </div>
-                            <div ng-switch-when="warning">
-                                <tooltip source="statustext.warning" place="top">
-                                    <a class="btn btn-warning"><i class="fa fa-exclamation-triangle fa-lg"></i></a>
+                            <div ng-switch-when="WARNING">
+                                <tooltip source="statetext.warning" place="top">
+                                    <a class="btn btn-warning odalic-cursor-normal"><i class="fa fa-exclamation-triangle fa-lg"></i></a>
                                 </tooltip>
                             </div>
-                            <div ng-switch-when="error">
-                                <tooltip source="statustext.error" place="top">
-                                    <a class="btn btn-danger"><i class="fa fa-exclamation-circle fa-lg"></i></a>
+                            <div ng-switch-when="ERROR">
+                                <tooltip source="statetext.error" place="top">
+                                    <a class="btn btn-danger odalic-cursor-normal"><i class="fa fa-exclamation-circle fa-lg"></i></a>
                                 </tooltip>
                             </div>
                         </div>
@@ -110,11 +101,14 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Additional content below the table -->
+        <div>
+            <button type="button" class="btn btn-lg pull-right" ng-click="misc.gotocnt()">Create a new</button>
+        </div>
     </div>
 
 </main-cnt>
 
 <!-- Footer -->
-<footer>
-    Footer is empty...
-</footer>
+<footer/>

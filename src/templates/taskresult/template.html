@@ -1,210 +1,64 @@
 <!-- Main Content -->
 <!-- TODO: Styly treba premiestnit do css/less. Pouzi helpers.less pre "miscellaneous" styly. -->
-<style>
-    .markedColumn {
-        background-color: WhiteSmoke;
-    }
-    /*TODO mozna jiny typ oznaceni*/
-    .markedCell {
-        outline: 1px solid black !important;
-    }
-
-
-    .boldPrimaryKB {
-        font-weight: bold;
-    }
-
-    .evenRow {
-        background-color: WhiteSmoke;
-    }
-
-    .headerRow {
-        background-color: Gainsboro;
-    }
-
-    /* Graphical separation of buttons */
-    /* TODO: Generalize and put to *.LESS */
-    .odalic-hr-separator {
-        width: 100%;
-        border-bottom: 1px solid lightgrey;
-        margin-top: 5px;
-        margin-bottom: 5px;
-
-        text-align: center;
-    }
-    .odalic-hr-pushtop {
-        margin-top: 75px;
-    }
-    .odalic-hr-pushbtm {
-        margin-bottom: 15px;
-    }
-
-    /* lod iframe */
-    iframe {
-        position: fixed;
-        top: 0px;
-        right: 0px;
-        width: 100%;
-        height: 100%;
-        z-index: 2000;
-        background-color: #FFF;
-    }
-</style>
-
-<style>
-    /* Modal Content/Box */
-    .modal-content {
-        margin: 0% auto; /* 15% from the top and centered */
-        padding: 20px;
-    }
-</style>
 
 
 <main-cnt>
     <!-- NavBar -->
     <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
-    <div class="container-fluid">
+    <div  ng-if="loadedData == 5" class="container-fluid">
 
         <!-- VIEW -->
         <div ng-switch="state" ng-init="state = 0">
 
             <!-- VIEW: Sets subject column  -->
             <div ng-switch-when="0">
-                <h2>Choosing of a subject column</h2>
-
-                <!-- Input file table -->
-                <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <td ng-repeat="cell in inputFile.columns"
-                                    ng-class="($index == subjectColumn) ? 'markedColumn' :''"
-                                    ng-click="selectSubjectColumn($index)">
-                                    {{ cell }}
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="row in inputFile.rows">
-                                <td ng-repeat="cell in row" ng-class="($index == subjectColumn) ? 'markedColumn' : ''"
-                                    ng-click="selectSubjectColumn($index)">
-                                    {{ cell }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- VIEW: Sets classifications and disambiguations -->
-            <div ng-switch-when="1">
                 <h2>Choosing of classifications and disambiguations</h2>
+                <!--<pre>{{locked.tableCells}} </pre>-->
+                <!--&lt;!&ndash;<pre>{{selectedPosition}} </pre>&ndash;&gt;-->
+                <!--&lt;!&ndash;<pre> dis:{{feedback}} </pre>&ndash;&gt;-->
+                <!--<pre>{{result.headerAnnotations[0].candidates}}</pre>-->
+                <!--<pre>{{result.headerAnnotations[0].chosen}}</pre>-->
+                <!--<pre>{{feedback.classifications}} </pre>-->
+                <!--<pre>{{feedback.disambiguations}} </pre>-->
+
+                <!--<pre>{{result.cellAnnotations[0][1].chosen}} </pre>-->
                 <!-- Input file table -->
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
-                            <tr ng-class="'headerRow'">
-                                <td ng-repeat="cell in inputFile.columns"
-                                    ng-class="(-1 == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
-                                    ng-click="selectPosition($index, -1)"
-                                    data-toggle="modal" data-target="#myModal">
-                                    <!-- origin header from the input table -->
-                                    <div>
-                                        {{ cell }}
-                                    </div>
-                                    <!-- primary knowledge base classifications-->
-                                    <div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-repeat="class in currentItems[-1][$index][primaryKB]">
-                                        {{x+ class.label  + ' ' + '(' + class.resource + ')' }}
-
-                                    </div>
-
-                                    <!-- other knowledge base classifications-->
-                                    <div ng-repeat="(KB,data) in currentItems[-1][$index]">
-                                        <div ng-if="KB != primaryKB">
-                                            <div ng-style="backgroundColor(KB)" ng-repeat="class in data">
-                                                {{ class.label  + ' ' + '(' + class.resource + ')'  }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                        <!-- wrong directive-->
+                        <tr ng-class="'headerRow'"
+                            rows-of-classification-table row="inputFile.columns" row-index="-1"
+                            data="result.headerAnnotations">
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr ng-class-even="'evenRow'" ng-repeat="row in inputFile.rows">
-                                <td ng-repeat="cell in row"
-                                    ng-class="($parent.$index == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
-                                    ng-click="selectPosition($index, $parent.$index)"
-                                    data-toggle="modal" data-target="#myModal">
-                                    <!-- origin cell value from the input table -->
-                                    <div>
-                                        {{ cell }}
-                                    </div>
-                                    <!-- primary knowledge base disambiguation -->
-                                    <div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-repeat="disam in currentItems[$parent.$index][$index][primaryKB]">
-                                        {{ disam.label  + ' ' + '(' + disam.resource + ')' }}
-                                    </div>
-                                    <!-- other knowledge base disambiguation  -->
-                                    <div ng-repeat="(KB,data) in currentItems[$parent.$index][$index]">
-                                        <div ng-if="KB != primaryKB">
-                                            <div ng-style="backgroundColor(KB)" ng-repeat="disam in data">
-                                                {{ disam.label  + ' ' + '(' + disam.resource + ')' }}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                        <!-- wrong directive-->
+                        <tr ng-class-even="'evenRow'"
+                            ng-repeat="row in inputFile.rows"
+                            rows-of-classification-table row="row" row-index="$index"
+                            data="result.cellAnnotations[$index]">
+                        </tr>
                         </tbody>
                     </table>
                 </div>
-                <!--<iframe src="LodLive/app_en.html?http://dbpedia.org/resource/Steven_Erikson" id="iframe"></iframe>-->
 
-              
-                <!--<button class="btn btn-lg" ng-click=pokus()>
-                    Start from the beginning
-                </button>
-                <div><dfeedback :{{bla}}</div>-->
 
-                <!--{{primaryKB}}
-
-                {{chosenKBs}}
-                <div>feedback :{{feedback}}</div>
-                <div>bla :{{currentItems}}</div>
-                <div>ignoredColumn :{{ignoredColumn}}</div>
-                <div>noDisambiguationColumn :{{noDisambiguationColumn}}</div>
-                <div>noDisambiguationCell :{{noDisambiguationCell}}</div>-->
-                <!-- Modal window for classification/disambiguation selection -->
-                <!--
-                   TODO: odselcteni crtl - click -> dotykove pristroje vi buh
-                   TODO: init selection : currentItems[selectedPosition.row+selectedPosition.column] == [www.dbpedia, www.dbpedia]
-                   TODO: stylovanie
-                -->
-                <div id="myModal" class="modal" role="dialog">
+                <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog lg">
+
                         <div class="modal-content">
+                            <div class="container-fluid">
+                                <!-- Column classification -->
+                                <div ng-if="(selectedPosition.row == -1)">
+                                    <modal-head>Column classification</modal-head>
 
-                            <!-- Column classification -->
-                            <div ng-if="(selectedPosition.row == -1)">
-
-                                <div class="modal-head">
-                                    <h2>Column classification</h2>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="container-fluid">
+                                    <div class="modal-body">
                                         <div class="form-group">
                                             <h3 ng-class="'boldPrimaryKB'">{{primaryKB + " (Primary KB)" }}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
-                                            <select size="3"
-                                                    ng-model="currentItems[selectedPosition.row][selectedPosition.column][primaryKB]"
-                                                    multiple
-                                                    ng-options="opt.entity as opt.entity.label + ' ' + '(' + opt.entity.resource + ')' for opt in result.headerAnnotations[selectedPosition.column].candidates[primaryKB ]"
-                                                    class="form-control"></select>
-                                            <div class="col-md-2 col-md-offset-10">
-                                                <button class="btn btn-sm" ng-click="createIframe(currentItems[selectedPosition.row][selectedPosition.column][primaryKB],primaryKB,currentItems[selectedPosition.row][selectedPosition.column][primaryKB].length)">
-                                                    browse
-                                                </button>
-                                            </div>
+                                            <select-box knowledge-base="primaryKB"></select-box>
                                         </div>
 
                                         <!-- Separate div for each knowledge base -->
@@ -212,88 +66,181 @@
                                             <div ng-if="knowledgeBase != primaryKB">
                                                 <div class="form-group">
                                                     <h3>{{ knowledgeBase }}</h3>
-                                                    <!-- Selection of a candidate(s) for the current knowledge base -->
-                                                    <select size="3"
-                                                            ng-model="currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase]"
-                                                            multiple
-                                                            ng-options="opt.entity as opt.entity.label + ' ' + '(' + opt.entity.resource + ')' for opt in candidates"
-                                                            class="form-control"></select>
-
-                                                </div>
-
-                                                <div class="col-md-2 col-md-offset-10">
-                                                    <button class="btn btn-sm" ng-click="createIframe(currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase],knowledgeBase,currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase].length)">
-                                                        browse
-                                                    </button>
+                                                    <select-box knowledge-base="knowledgeBase"></select-box>
                                                 </div>
                                             </div>
                                         </div>
+                                        <br>
+
+                                        <button class="btn pull-right" data-toggle="modal"
+                                                data-target="#newEntities">
+                                            Proposal
+                                        </button>
+                                        <br>
 
 
-                                        <!--<button ng-click="createIframe()">
-                                            zprava
-                                        </button>-->
+                                        <div class="form-group">
+                                            <label class="col-md-12 control-label">Search: </label>
+                                            <div class="col-md-10">
+
+                                                <input type="text" class="form-control"
+                                                       ng-model="string">
+                                            </div>
+
+                                            <!--TODO spojit to do jednoho elementu-->
+                                            <div class="col-md-2 text-center">
+                                                <button ng-hide="waitForSuggestions" type="button" class="form-control"
+                                                        ng-click="getSuggestions(string,'10')">
+                                                    Find
+                                                </button>
+                                                <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                                <select class="form-control" style="width: 100%"
+                                                        ng-model="suggestion"
+                                                        ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
+
+                                                </select>
+
+                                                <!--<ui-select-->
+                                                <!--ng-model="suggestion"-->
+                                                <!--theme="bootstrap"-->
+                                                <!--search-enabled="true"-->
+                                                <!--width="100"">-->
+                                                <!--&lt;!&ndash;  ng-change="getSuggestions($select.search,'10')"&ndash;&gt;-->
+                                                <!--<ui-select-match ng-init = "bla = $select.search" placeholder="Write...">-->
+                                                <!--{{$select.selected.label}}-->
+                                                <!--+ '\n'+-->
+                                                <!--({{$select.selected.resource}})-->
+                                                <!--</ui-select-match>-->
+                                                <!--<ui-select-choices repeat="opt in suggestions ">-->
+                                                <!--<span ng-bind-html="opt.label"></span>-->
+                                                <!--<div ng-bind-html="' ('+opt.resource + ')'"></div>-->
+                                                <!--</ui-select-choices>-->
+
+                                                <!--</ui-select>-->
+                                            </div>
+
+                                            <div class="col-md-2 text-center">
+                                                <button type="button" class="form-control"
+                                                        ng-click="addSuggestions(suggestion)">
+                                                    Add
+                                                </button>
+                                                <!-- Icon 'loading' -->
+
+                                            </div>
+                                        </div>
+                                        <br>
+
+
                                         <!-- user can write own classification -->
                                         <div class="form-group">
                                             <label class="control-label"> Own classification:</label>
-                                            <input type="text" class="form-control" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource" ng-disabled="true">
+                                            <!--<input type="text" class="form-control" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource" ng-disabled="true">-->
+                                            <!--TODO blbe predelat other neexistuje-->
+                                            <input type="text" class="form-control"
+                                                   ng-model="result.headerAnnotations[selectedPosition.column].chosen.other[0]"
+                                                   ng-disabled="true">
                                         </div>
                                         <!-- algorithm ignore chosen column -->
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="ignoredColumn[selectedPosition.column]" ng-disabled="true"> Ignore Column</label>
+                                            <label><input type="checkbox"
+                                                          ng-model="ignoredColumn[selectedPosition.column]"
+                                                          ng-change="lockCell()"
+                                            > Ignore Column</label>
                                         </div>
-                                        <!--  -->
+
                                         <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="noDisambiguationColumn[selectedPosition.column]" ng-disabled="true"> Skip disambiguation in all cell of this collumn </label>
+                                            <label><input type="checkbox"
+                                                          ng-model="noDisambiguationColumn[selectedPosition.column]"
+                                                          ng-change="lockCell()"> Skip disambiguation in all cell of
+                                                this
+                                                collumn </label>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
+                                <!-- Cell disambiguation -->
+                                <div ng-if="(selectedPosition.row != -1)">
+                                    <modal-head>Cell disambiguation</modal-head>
 
-                            <!-- Cell disambiguation -->
-                            <div ng-if="(selectedPosition.row != -1)">
-                                <div class="modal-head">
-                                    <h2>Cell disambiguation</h2>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="container-fluid">
+                                    <div class="modal-body">
                                         <div class="form-group">
                                             <!-- Separate div for each knowledge base -->
                                             <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
                                             <!-- Selection of a candidate(s) for the current knowledge base -->
-                                            <select size="3"
-                                                    ng-model="currentItems[selectedPosition.row][selectedPosition.column][primaryKB][0]"
-                                                    ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates[primaryKB]"
-                                                    class="form-control"></select>
-
-                                            <div class="col-md-2 col-md-offset-10">
-                                                <button class="btn btn-sm" ng-click="createIframe(currentItems[selectedPosition.row][selectedPosition.column][primaryKB],primaryKB,currentItems[selectedPosition.row][selectedPosition.column][primaryKB].length)">
-                                                    browse
-                                                </button>
-                                            </div>
-
-
+                                            <select-box knowledge-base="primaryKB"></select-box>
                                             <!-- Separate div for each knowledge base -->
                                             <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
-
                                                 <div ng-if="knowledgeBase != primaryKB">
                                                     <div class="form-group">
                                                         <h3>{{ knowledgeBase }}</h3>
                                                         <!-- Selection of a candidate(s) for the current knowledge base -->
-                                                        <select size="3"
-                                                                ng-model=" currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase][0]"
-                                                                ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in candidates"
-                                                                class="form-control"></select>
-
-                                                        <div class="col-md-2 col-md-offset-10">
-                                                            <button class="btn btn-sm" ng-click="createIframe(currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase],knowledgeBase,currentItems[selectedPosition.row][selectedPosition.column][knowledgeBase].length)">
-                                                                browse
-                                                            </button>
-                                                        </div>
-
+                                                        <select-box knowledge-base="knowledgeBase"></select-box>
                                                     </div>
+                                                </div>
+                                            </div>
+
+                                            <button class="btn pull-right" data-toggle="modal"
+                                                    data-target="#newEntities">
+                                                Proposal
+                                            </button>
+                                            <br>
+                                            <div class="form-group">
+                                                <label class="col-md-12 control-label">Search: </label>
+                                                <div class="col-md-10">
+
+                                                    <input type="text" class="form-control"
+                                                           ng-model="string">
+                                                </div>
+
+                                                <!--TODO spojit to do jednoho elementu-->
+                                                <div class="col-md-2 text-center">
+                                                    <button ng-hide="waitForSuggestions" type="button" class="form-control"
+                                                            ng-click="getSuggestions(string,'10')">
+                                                        Find
+                                                    </button>
+                                                    <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <div class="col-md-10">
+                                                    <select class="form-control" style="width: 100%"
+                                                            ng-model="suggestion"
+                                                            ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
+
+                                                    </select>
+
+                                                    <!--<ui-select-->
+                                                    <!--ng-model="suggestion"-->
+                                                    <!--theme="bootstrap"-->
+                                                    <!--search-enabled="true"-->
+                                                    <!--width="100"">-->
+                                                    <!--&lt;!&ndash;  ng-change="getSuggestions($select.search,'10')"&ndash;&gt;-->
+                                                    <!--<ui-select-match ng-init = "bla = $select.search" placeholder="Write...">-->
+                                                    <!--{{$select.selected.label}}-->
+                                                    <!--+ '\n'+-->
+                                                    <!--({{$select.selected.resource}})-->
+                                                    <!--</ui-select-match>-->
+                                                    <!--<ui-select-choices repeat="opt in suggestions ">-->
+                                                    <!--<span ng-bind-html="opt.label"></span>-->
+                                                    <!--<div ng-bind-html="' ('+opt.resource + ')'"></div>-->
+                                                    <!--</ui-select-choices>-->
+
+                                                    <!--</ui-select>-->
+                                                </div>
+
+                                                <div class="col-md-2 text-center">
+                                                    <button type="button" class="form-control"
+                                                            ng-click="addSuggestions(suggestion)">
+                                                        Add
+                                                    </button>
+                                                    <!-- Icon 'loading' -->
+
                                                 </div>
                                             </div>
 
@@ -301,67 +248,242 @@
                                             <div class="form-group">
                                                 <label class="control-label"> Own disambiguation:</label>
 
-                                                <input class="form-control" type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource" ng-disabled="true">
+                                                <!--<input class="form-control" type="text" ng-model="currentItems[selectedPosition.row][selectedPosition.column].other[0].resource" ng-disabled="true">-->
+                                                <!--TODO asi blbe other neexistuje-->
+                                                <input class="form-control" type="text"
+                                                       ng-model="result.cellAnnotations[selectedPosition.row][selectedPosition.column].chosen.other[0].resource"
+                                                       ng-disabled="true">
 
-                                        <!-- -->
-                                        <div class="checkbox">
-                                            <label><input type="checkbox" ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]" ng-disabled="true"> Skip disambiguation in the cell</label>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox"
+                                                                  ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"
+                                                                  ng-change="lockCell()"> Skip disambiguation in the
+                                                        cell</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                        </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+                <div id="newEntities" class="modal fade" role="dialog">
+                    <div class="modal-dialog lg">
+                        <div class="modal-head">
+
+                            <!--<div ng-if="(selectedPosition.row == -1)">-->
+                                <!--<h3>Propose new class</h3>-->
+                            <!--</div>-->
+                            <!--<div ng-if="(selectedPosition.row != -1)">-->
+                                <!--<h3>Propose new entity</h3>-->
+                            <!--</div>-->
+
+
+                        </div>
+
+                        <div class="modal-content">
+                            <form class="form-horizontal" role="form">
+                                <!--<div class="container-fluid">-->
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Label:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" ng-model="proposal.label" required>
+                                    </div>
+                                </div>
+
+                                <br>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Alternative label:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Alternative label:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
+                                    </div>
+                                </div>
+                                <br>
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Custom URL suffix:</label>
+                                    <div class="col-md-8">
+                                        <input class="form-control" type="text" ng-model="proposal.suffixUrl" required>
+                                    </div>
+                                </div>
+
+                                <!--<div ng-if="(selectedPosition.row == -1)">-->
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-md-2 control-label">Subclass of:</label>-->
+                                <!--<div class="col-md-8">-->
+                                <!--&lt;!&ndash;<input type="text" class="form-control" ng-model="" \>&ndash;&gt;-->
+                                <!--</div>-->
+                                <!--<div class="col-md-2 text-center">-->
+                                <!--&lt;!&ndash; Button 'upload' &ndash;&gt;-->
+                                <!--<button ng-hide="" type="button" class="form-control"-->
+                                <!--ng-click="">-->
+                                <!--Use-->
+                                <!--</button>-->
+                                <!--&lt;!&ndash; Icon 'loading' &ndash;&gt;-->
+                                <!--<i ng-hide="!fileUpload.uploadingFile"-->
+                                <!--class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>-->
+                                <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<br>-->
+                                <!--</div>-->
+
+                                <!--<div ng-if="(selectedPosition.row != -1)">-->
+                                <!--<div class="form-group">-->
+                                <!--<label class="col-md-2 control-label">Class</label>-->
+                                <!--&lt;!&ndash;<label class="col-md-4 control-label"&ndash;&gt;-->
+                                <!--&lt;!&ndash;ng-repeat="class in result.headerAnnotations[selectedPosition.row].chosen">&ndash;&gt;-->
+                                <!--&lt;!&ndash;{{class}}&ndash;&gt;-->
+                                <!--&lt;!&ndash;</label>&ndash;&gt;-->
+                                <!--<div class="col-md-6">-->
+                                <!--ne tlacitko-->
+                                <!--</div>-->
+                                <!--</div>-->
+                                <!--</div>-->
+
+                                <br>
+                                <button type="button" class="btn btn-lg" ng-click="setProposal(proposal)">
+                                    OK
+                                </button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
+            <!-- VIEW: Sets classifications and disambiguations -->
+            <div ng-switch-when="1">
+                <subject-column-tables></subject-column-tables>
             </div>
 
             <!-- VIEW: Relations -->
             <div ng-switch-when="2">
                 <h2>Choosing of predicates</h2>
+
                 <!-- Modal -->
-                <div id="modalPredicates" class="modal" role="dialog">
+                <div id="modalPredicates" class="modal fade" role="dialog">
                     <div class="modal-dialog lg">
                         <div class="modal-content">
                             <!-- Headline -->
                             <div class="modal-head">
-                                <h2>Predicates</h2>
+                                <div class="row">
+                                    <h2 class="col-md-11">Relations</h2>
+                                    <h2 class="col-md-1">
+                                        <lock locked="locked.graphEdges"
+                                              first-parametr="{{ selectedRelation.column1 }}"
+                                              second-parametr="{{ selectedRelation.column2 }}"/>
+                                    </h2>
+                                </div>
                             </div>
+
                             <!-- Body -->
                             <div class="modal-body">
                                 <div class="container-fluid">
+
+                                    <!-- Primary Knowledge Base -->
                                     <div class="form-group">
-                                        <!-- Separate div for each knowledge base -->
                                         <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
+
                                         <!-- Selection of a candidate(s) for the current knowledge base -->
-                                        <select size="3"
-                                                ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][primaryKB][0]"
-                                                ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates[primaryKB]"
-                                                ng-change="gvmodal.modalPredicatesChange()"
-                                                class="form-control"></select>
+                                        <ui-select
+                                                ng-model="result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].chosen[primaryKB]"
+                                                multiple limit="1" theme="bootstrap"
+                                                search-enabled="true"
+                                                on-select="switchRelation($item.entity, primaryKB)"
+                                                ng-change="gvdata.mc(); lockRelation()">
+                                            <ui-select-match placeholder="">
+                                                {{$item.entity.resource}}
+                                            </ui-select-match>
+                                            <ui-select-choices
+                                                    repeat="opt.entity as opt in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates[primaryKB]  | propsFilter : {'entity.resource': $select.search}">
+                                                <div title={{opt.entity.resource}}
+                                                     ng-bind-html="opt.entity.resource| highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
                                     </div>
+
                                     <!-- Separate div for each knowledge base -->
                                     <div ng-repeat="(knowledgeBase, candidates) in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates">
                                         <div ng-if="knowledgeBase != primaryKB">
                                             <div class="form-group">
                                                 <h3>{{ knowledgeBase }}</h3>
                                                 <!-- Selection of a candidate(s) for the current knowledge base -->
-                                                <select size="3"
-                                                        ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2][knowledgeBase][0]"
-                                                        ng-options="opt.entity as  opt.entity.label + ' (' + opt.entity.resource + ')' for opt in candidates"
-                                                        ng-change="gvmodal.modalPredicatesChange()"
-                                                        class="form-control"></select>
+
+                                                <ui-select
+                                                        ng-model="result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].chosen[knowledgeBase]"
+                                                        multiple limit="1" theme="bootstrap"
+                                                        search-enabled="true"
+                                                        on-select="switchRelation($item.entity, knowledgeBase)"
+                                                        ng-change="gvdata.mc(); lockRelation()">
+                                                    <ui-select-match placeholder="">
+                                                        {{$item.entity.resource}}
+                                                    </ui-select-match>
+                                                    <ui-select-choices
+                                                            repeat="opt.entity as opt in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates[ knowledgeBase]  | propsFilter : {'entity.resource': $select.search}">
+                                                        <div title={{opt.entity.resource}}
+                                                             ng-bind-html="opt.entity.resource| highlight: $select.search"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- user can write own relation -->
+
+                                    <br/>
+                                    <div class="form-group">
+                                        <label class="col-md-12 control-label">Search: </label>
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control" ng-model="string"/>
+                                        </div>
+
+                                        <!--TODO spojit to do jednoho elementu-->
+                                        <div class="col-md-2 text-center">
+                                            <button ng-hide="waitForSuggestions" type="button" class="form-control"
+                                                    ng-click="getSuggestions(string,'10')">
+                                                Find
+                                            </button>
+                                            <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            <select class="form-control" style="width: 100%"
+                                                    ng-model="suggestion"
+                                                    ng-options="suggest.resource + ' ' + suggest.label  for suggest in suggestions">
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-2 text-center">
+                                            <button type="button" class="form-control"
+                                                    ng-click="addRelationSuggestions(suggestion)">
+                                                Add
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Own relation -->
                                     <div class="form-group">
                                         <label class="control-label">Own relation:</label>
-                                        <input class="form-control" type="text" ng-change="gvmodal.modalPredicatesChange()" ng-model="currentRelations[selectedRelation.column1][selectedRelation.column2].other[0].resource">
+                                        <input type="text" class="form-control"
+                                               ng-model="result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].chosen.other[0].entity.resource"
+                                               ng-change="gvdata.mc(); lockRelation()"/>
                                     </div>
                                 </div>
-
 
                             </div>
                         </div>
@@ -369,7 +491,7 @@
                 </div>
 
                 <!-- Graph visualiser -->
-                <graphvis scope="{{ gvscope }}"></graphvis>
+                <graphvis bind="gvdata"></graphvis>
             </div>
 
             <!-- VIEW: Default -->
@@ -381,7 +503,7 @@
         </div>
 
         <div class="form-group odalic-hr-pushbtm">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <!--TODO spustit to znova-->
                 <button class="btn btn-lg btn-block" ng-click="" disabled="true">
                     Start from the beginning
@@ -389,12 +511,16 @@
             </div>
             <div class="col-md-2">
                 <!--TODO prepsat na  Re-run the algorithm az se to bude umet na serveru-->
-                <button class="btn btn-lg btn-block" ng-click="setFeedback()" disabled="true">
+                <button class="btn btn-lg btn-block" ng-click="userFeedback()">
                     Send feedback
                 </button>
-
             </div>
-            <div class="col-md-2 col-md-offset-3">
+            <div class="col-md-2">
+                <button class="btn btn-lg btn-block" ng-click="reexecute()">
+                    Reexecute
+                </button>
+            </div>
+            <div class="col-md-2 col-md-offset-2">
                 <button class="btn btn-lg btn-block" ng-click="state = state - 1" ng-disabled="state <= 0">
                     Previous step
                 </button>
@@ -412,10 +538,14 @@
                 <div class="odalic-hr-separator">Export</div>
             </div>
 
-            <div class="col-md-12">
-                <button class="btn" ng-click="exporting.json()">JSON</button>
-                <button class="btn" ng-click="exporting.csv()">CSV</button>
-                <button class="btn" ng-click="exporting.rdf()">RDF</button>
+            <div class="col-md-3">
+                <button class="btn" ng-click="exporting.json()">Table annotations</button>
+                <button class="btn" ng-click="exporting.csv()">Extended table</button>
+            </div>
+
+            <div class="col-md-9">
+                <button class="btn" ng-click="exporting.turtle()">Turtle</button>
+                <button class="btn" ng-click="exporting.jsonld()">JSON-LD</button>
             </div>
 
             <div class="col-md-12">
@@ -431,20 +561,19 @@
             t-center">
             <div class="text-center">
                 <ul class="pagination">
-                    <li><a class="pointer" ng-click="setState(state - 1)">Previous</a></li>
+                    <li><a class="odalic-cursor-pointer" ng-click="setState(state - 1)">Previous</a></li>
 
                     <li ng-repeat="single_state in states track by $index" ng-class="$index == state ? 'active' : ''">
-                        <a class="pointer" ng-click="setState($index)">
+                        <a class="odalic-cursor-pointer" ng-click="setState($index)">
                             {{ $index }}
                         </a>
                     </li>
-                    <li><a class="pointer" ng-click="setState(state + 1)">Next</a></li>
+                    <li><a class="odalic-cursor-pointer" ng-click="setState(state + 1)">Next</a></li>
                 </ul>
             </div>-->
+    </div>
     </div>
 </main-cnt>
 
 <!-- Footer -->
-<footer>
-
-</footer>
+<footer/>

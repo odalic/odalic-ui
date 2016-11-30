@@ -9,13 +9,40 @@
     };
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $http, $window, $location, sharedata, filedata, requests, rest) {
+    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, report) {
+
+        // Template initialization
+        $scope['taskCreation'] = {};
+
+        // Initialization
+        var reporting = report($scope);
+
+        $scope.templFormat = {
+            createTask: null,
+            saveTask: null,
+            creating: true
+        };
 
         // Files
         $scope.fileProvision = settings.fileProvisionTypes[0];
         $scope.files = {};
         $scope.remoteFile = {};
 
+        // Static alerts
+        $scope.alerts = {
+            taskCreation: {
+                identifier: {
+                    type: 'error',
+                    visible: false
+                }
+            },
+            files: {
+                selectedFile: {
+                    type: 'error',
+                    visible: false
+                }
+            }
+        };
 
         //TODO smazat az bude na vyber,tj.
         //az to bude server umet, tak se dostupne kbs nastavi ze serveru
@@ -28,7 +55,7 @@
 
         $scope.automaticSelectPrimaryKB = function () {
             $scope.primaryKB = $scope.chosenKBs[0];
-        }
+        };
 
         // File uploading
         $scope.fileUpload = {
@@ -81,7 +108,7 @@
                 rest.files.list.exec(
                     // Success
                     function (response) {
-                        _ref.uploaded = response.data;
+                        _ref.uploaded = response;
                         if (callback) {
                             callback(true);
                         }
@@ -133,7 +160,7 @@
                 sendData = function (fileData) {
                     rest.files.name(_ref.identifier).create(filedata.fileObject(_ref.inputFileId)).exec(
                         // Success
-                        function (response) {
+                        function () {
                             // The file has been uploaded successfully => refresh the list of available files
                             _ref.refreshUploaded(function (succes) {
                                 // Succes parameter ignored.
@@ -204,7 +231,7 @@
                 // Task name set?
                 if (!objRecurAccess($scope, 'taskCreation')['identifier']) {
                     valid = false;
-                    this.pushAlert('error', 'Task name not set.');
+                    $scope.alerts.taskCreation.identifier.visible = true;
                 }
 
                 // File selected?
@@ -212,7 +239,7 @@
                     case 'local':
                         if (!objRecurAccess($scope, 'files', 'selectedFile')['id']) {
                             valid = false;
-                            this.pushAlert('error', 'No file selected.');
+                            $scope.alerts.files.selectedFile.visible = true;
                         }
                         break;
                     case 'remote':
@@ -227,9 +254,8 @@
             }
         };
 
-
         // Task creation
-        $scope.createTask = function () {
+        $scope.templFormat.createTask = function (callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
                 return;
@@ -237,59 +263,14 @@
 
             // Generic preparations
             var fileId = $scope.files.selectedFile.id;
+            var taskId = $scope.taskCreation.identifier;
 
-            // Immediately redirect to a loading screen
-            $window.location.href = "#/loading";
+            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
-            // For displaying error messages when a failure of one of the requests occurs
-            var requestError = function (response) {
-                sharedata.set("Failure", response.data);
-                $window.location.href = "#/genericerror";
-            };
-
-            // A request for retrieval of an executed task's result
-            var reqGetResult = function () {
-                rest.tasks.name($scope.taskCreation.identifier).result.retrieve.exec(
-                    // Success
-                    function (response) {
-                        //TODO predelat pro vice tasku bezicich zaroven??
-                        // Save the result and redirect
-                        sharedata.set("Result", response.data);
-                        // Save the task ID
-                        sharedata.set("TaskID", $scope.taskCreation.identifier);
-
-                        // Redirect to the result (while removing the loading screen from history, if all goes well)
-                        $location.path('taskresult').replace();
-                    },
-                    // Failure
-                    // TODO: Uncomment this
-                    //failure : requestError
-                    function () {
-                        // TODO: This is just a temporary solution until a problem with REST file upload is resolved
-                        $.getJSONSync("src/templates/taskresult/sample_result.json", function (sample) {
-                            sharedata.set("Result", sample);
-                        });
-                        $location.path('taskresult').replace();
-                    }
-                );
-            };
-
-            // A request for executing the prepared task
-            var reqStartTask = function () {
-                rest.tasks.name($scope.taskCreation.identifier).execute.exec(
-                    // Success
-                    function (response) {
-                        reqGetResult();
-                    },
-                    // Failure
-                    requestError
-                );
-            };
-
-            // Start with a request for inserting a task
-            rest.tasks.name($scope.taskCreation.identifier).create({
-                id: String($scope.taskCreation.identifier),
-                created: "2000-01-01 00:00",
+            // Insert the task
+            rest.tasks.name(taskId).create({
+                id: String(taskId),
+                created: (new Date()).toString("yyyy-MM-dd HH:mm"),
                 configuration: {
                     input: fileId,
                     feedback: {
@@ -298,27 +279,135 @@
                         columnAmbiguities: [],
                         ambiguities: [],
                         disambiguations: [],
-                        cellRelations: [],
                         columnRelations: []
                     },
-                    primary_base: {
+                    primaryBase: {
                         name: $scope.primaryKB
                     }
-                }
+                },
+				description: text.safe($scope.taskCreation.description)
             }).exec(
                 // Success
-                function () {
-                    //TODO predelat pro vice tasku bezicich zaroven??
-                    // Save the chosen input file identifier
-                    sharedata.set("Input", $scope.files.selectedFile.id);
-                    sharedata.set("PrimaryKB", $scope.primaryKB);
-                    sharedata.set("ChosenKBs", $scope.chosenKBs);
-                    reqStartTask();
+                function (response) {
+                    // Don't handle if further action was specified
+                    if (callback) {
+                        callback();
+                        return;
+                    }
+
+                    // The task has been created, redirect to the task configurations screen
+                    window.location.href = '#/taskconfigs/' + taskId;
                 },
                 // Failure
-                requestError
+                function (response) {
+                    reporting.error(response);
+                }
             );
-        }
+        };
+        
+        // Task creation + run
+        $scope.templFormat.createAndRun = function () {
+            $scope.templFormat.createTask(function () {
+                // Prepare
+                var taskId = $scope.taskCreation.identifier;
+                var handler = function () {
+                    // Just continue to the taskconfigs screen
+                    window.location.href = '#/taskconfigs/' + taskId;
+                };
+
+                // Start the task
+                rest.tasks.name(taskId).execute.exec(
+                    // Execution started successfully
+                    function (response) {
+                        handler();
+                    },
+                    // Error while starting the execution
+                    function (response) {
+                        reporting.error(response);
+                        handler();
+                    }
+                );
+            });
+        };
+
+        // Task saving
+        $scope.templFormat.saveTask = function () {
+            // Validate the form
+            if (!$scope.wholeForm.validate()) {
+                return;
+            }
+
+            // Generic preparations
+            var fileId = $scope.files.selectedFile.id;
+			var taskid = $scope.taskCreation.identifier;
+
+            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
+
+            // Insert the task
+			rest.tasks.name(taskid).create({
+				id: String(taskid),
+                created: (new Date()).toString("yyyy-MM-dd HH:mm"),
+                configuration: {
+                    input: fileId,
+                    feedback: {
+                        columnIgnores: [],
+                        classifications: [],
+                        columnAmbiguities: [],
+                        ambiguities: [],
+                        disambiguations: [],
+                        columnRelations: []
+                    },
+                    primaryBase: {
+                        name: $scope.primaryKB
+                    }
+                },
+				description: text.safe($scope.taskCreation.description)
+            }).exec(
+                // Success
+                function (response) {
+                    // The task has been updated, redirect to the task configurations screen
+                    window.location.href = '#/taskconfigs/' + $scope.taskCreation.identifier;
+                },
+                // Failure
+                function (response) {
+                    reporting.error(response);
+                }
+            );
+        };
+
+        // Preloading form controls (if applicable), or creation of a completely new task
+        (function () {
+            var TaskID = $routeParams['taskid'];
+            if (TaskID) {
+                rest.tasks.name(TaskID).retrieve.exec(
+                    // Success
+                    function (response) {
+                        // Find the previously chosen file for the current task
+                        var selectedFile = 0;
+                        var uploaded = $scope.fileUpload.uploaded;
+                        for (var i = 0; i < uploaded.length; ++i) {
+                            if (uploaded[i].id === response.configuration.input) {
+                                selectedFile = i;
+                                break;
+                            }
+                        }
+
+                        // Fill the controls
+                        objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
+                        $scope.fileProvision = 'local';
+                        $scope.files.selectedFile = $scope.fileUpload.uploaded[selectedFile];
+                        $scope.taskCreation.description = response.description;
+                        $scope.templFormat.creating = false;
+                    },
+
+                    // Failure to load the task's config
+                    function (response) {
+                        reporting.error(response);
+                    }
+                );
+            }
+        })();
+
     });
 
 })();

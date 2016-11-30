@@ -10,16 +10,42 @@
             restrict: 'E',
             templateUrl: currentFolder + 'graphvis.html',
             scope: {
-                // Separate our scope from the taskresult
+                bind: '='
             },
             link: function (scope, iElement, iAtttrs) {
 
-                // Retrieve the necessary data
-                var tScope = sharedata.get(iAtttrs['scope']);
-                var vertices = tScope['inputFile']['columns'];
-                var result = tScope['result'];
-                var openModal = tScope['gvmodal']['open'];
+                // Public interface via 'bind'
+                // *******************************
+                var pif = {
+                    /** An event handler when an edge is clicked on.
+                     *  The function has to accept 2 arguments (column1, column2).
+                     *  Presumably for modal opening.
+                     */
+                    edgeClick: null,
 
+                    /** Array of columns names.
+                     *  Must be in correct order, i.e. $scope['inputFile']['columns'] is suitable.
+                     */
+                    vertices: null,
+
+                    /** The structure holding the whole result.
+                     *  Yes, this is a tight coupling, but at this point it's really not worth it to do something about it.
+                     */
+                    result: null,
+
+                    /** Signalling a model change to graphvis. */
+                    modelChanged: function (column1, column2) {},
+                };
+
+                // Copy the interface into 'bind'
+                if (!scope.bind) {
+                    scope.bind = {};
+                }
+                objCopy(pif, scope.bind);
+
+
+                // Private
+                // *******************************
                 // Load the necessary modules
                 var toLoad = ['graphcore.js', 'node.js', 'link.js', 'label.js', 'edgecreator.js', 'lock.js'];
                 toLoad.forEach(function (item) {
@@ -31,8 +57,8 @@
                 // Create a root <svg> element
                 var svg = d3.select(iElement.get(0).childNodes[2])
                     .append('svg')
-                    .attr('width', 900)
-                    .attr('height', 450);
+                    .attr('width', 1200)
+                    .attr('height', 550);
 
                 // Create a marker (arrow)
                 (function () {
@@ -121,14 +147,14 @@
                                 var column1 = g.vertices.indexOf(node1.id);
                                 var column2 = g.vertices.indexOf(node2.id);
                                 if (column1 !== column2) {
-                                    openModal(column1, column2);
+                                    scope.bind.edgeClick(column1, column2);
                                 }
                             },
                             settings: function (node1, node2) {
                                 var column1 = g.vertices.indexOf(node1.id);
                                 var column2 = g.vertices.indexOf(node2.id);
                                 if (column1 !== column2) {
-                                    openModal(column1, column2);
+                                    scope.bind.edgeClick(column1, column2);
                                 }
                             },
                             hoveredNode: null
@@ -179,7 +205,7 @@
                 var link = linkWrapper(gprops);
 
                 // Generate vertices
-                vertices.forEach(function (item) {
+                scope.bind.vertices.forEach(function (item) {
                     g.vertices.addItem(new node(item));
                 });
 
@@ -189,7 +215,8 @@
                         var vertex1 = g.vertices.arr[column1].id;
                         var vertex2 = g.vertices.arr[column2].id;
 
-                        var selection = tScope['currentRelations'][column1][column2];
+                        var selection = scope.bind.result['columnRelationAnnotations'][column1][column2]['chosen'];
+
                         var e = g.edges.find(vertex1, vertex2);
                         var labels = [];
 
@@ -210,14 +237,14 @@
                         // Retrieve selected predicate labels
                         objForEach(selection, function (kb, scArr) {
                             if (kb === 'other') {
-                                if (scArr && scArr[0]['resource']) {
-                                    handleCandidate(kb, scArr[0]);
+                                if (scArr && scArr[0]['entity']['resource']) {
+                                    handleCandidate(kb, scArr[0]['entity']);
                                 }
                                 return;
                             }
 
                             scArr.forEach(function (candidate) {
-                                handleCandidate(kb, candidate);
+                                handleCandidate(kb, candidate['entity']);
                             });
                         });
 
@@ -240,10 +267,12 @@
                     };
 
                     // Set the event handler for model changes
-                    tScope['gvmodal']['modelChanged'] = modelChanged;
+                    scope.bind.modelChanged = function (column1, column2) {
+                        modelChanged(column1, column2);
+                    };
 
                     // Generate first edges the similar way
-                    objForEach(tScope['currentRelations'], function (column1, cl1) {
+                    objForEach(scope.bind.result['columnRelationAnnotations'], function (column1, cl1) {
                         objForEach(cl1, function (column2, cl2) {
                             modelChanged(parseInt(column1), parseInt(column2));
                         });

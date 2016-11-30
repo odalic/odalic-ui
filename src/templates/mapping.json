@@ -20,12 +20,22 @@
         "controller": "odalic-taskconfigs-ctrl"
     },
     {
+        "route": "/taskconfigs/:taskid",
+        "folder": "taskconfigs",
+        "controller": "odalic-taskconfigs-ctrl"
+    },
+    {
         "route": "/createnewtask",
         "folder": "createnewtask",
         "controller": "createnewtask-ctrl"
     },
     {
-        "route": "/taskresult",
+        "route": "/createnewtask/:taskid",
+        "folder": "createnewtask",
+        "controller": "createnewtask-ctrl"
+    },
+    {
+        "route": "/taskresult/:taskid",
         "folder": "taskresult",
         "controller": "taskresult-ctrl"
     },

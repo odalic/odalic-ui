@@ -4,18 +4,32 @@
     <navbar selected="1"
             lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
-    <div class="container-fluid" ng-controller="createnewtask-ctrl">
-        <h2>Creation of new task</h2>
+    <div class="container-fluid">
+        <!-- Headline -->
+        <h2 ng-show="templFormat.creating">Creation of new task</h2>
+        <h2 ng-show="!templFormat.creating">Modification of a task configuration</h2>
+
         <form class="form-horizontal" role="form" name="taskCreationForm">
 
-            <!-- Name of new task -->
+            <!-- Basic settings -->
             <fieldset>
-                <legend>New task</legend>
+                <legend>Basic settings</legend>
+
                 <div class="form-group">
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" ng-model="taskCreation.identifier"
-                               required>
+                               ng-disabled="!templFormat.creating" required>
+                    </div>
+                </div>
+                <alert bind="alerts.taskCreation.identifier">
+                    Task name not set.
+                </alert>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Description:</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" ng-model="taskCreation.description">
                     </div>
                 </div>
             </fieldset>
@@ -45,7 +59,6 @@
                 <div ng-switch="fileProvision">
                     <!-- When a file that was already uploaded is to be selected -->
                     <div ng-switch-when="local">
-
 
                         <!-- Upload a new local file -->
                         <div class="form-group">
@@ -87,6 +100,10 @@
                                         ng-options="file.id for file in fileUpload.uploaded"></select>
                             </div>
                         </div>
+
+                        <alert bind="alerts.files.selectedFile">
+                            No file selected.
+                        </alert>
                     </div>
 
                     <!-- When a remote file is to be specified -->
@@ -161,13 +178,6 @@
                     </div>
                 </div>
 
-                <!-- description -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Description:</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" ng-model="description">
-                    </div>
-                </div>
             </fieldset>
 
             <!-- Knowledge base settings -->
@@ -206,8 +216,15 @@
                 </alert>
             </div>
 
-            <!-- submit button -->
-            <button type="button" class="btn btn-lg pull-right" ng-click="createTask()">Create</button>
+            <!-- Submit -->
+            <div ng-show="templFormat.creating">
+                <button type="button" class="btn btn-lg pull-right" ng-click="templFormat.createTask()">Create</button>
+                <button type="button" class="btn btn-lg pull-right" ng-click="templFormat.createAndRun()">Create and run</button>
+            </div>
+
+            <div ng-show="!templFormat.creating">
+                <button type="button" class="btn btn-lg pull-right" ng-click="templFormat.saveTask()">Save</button>
+            </div>
 
         </form>
     </div>
@@ -215,6 +232,4 @@
 </main-cnt>
 
 <!-- Footer -->
-<footer>
-    Footer is empty...
-</footer>
+<footer/>

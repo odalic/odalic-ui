@@ -1,52 +1,88 @@
 /*
- * Box color styles
+ * Row color styles
  */
-.odalic-bstyle-lightorange {
+.odalic-trstyle-lightorange {
     color: @odalic-color-black;
-    border-color: @odalic-color-lightorange;
     background-color: @odalic-color-lightorange;
 }
 
-.odalic-bstyle-orange {
+.odalic-trstyle-orange {
     color: @odalic-color-black;
-    border-color: @odalic-color-orange;
     background-color: @odalic-color-orange;
 }
 
-.odalic-bstyle-iorange {
+.odalic-trstyle-iorange {
     color: @odalic-color-orange;
-    border-color: @odalic-color-orange;
     background-color: @odalic-color-white;
 }
 
-.odalic-bstyle-blue {
+.odalic-trstyle-blue {
     color: @odalic-color-white;
-    border-color: @odalic-color-blue;
     background-color: @odalic-color-blue;
 }
 
-.odalic-bstyle-iblue {
+.odalic-trstyle-iblue {
     color: @odalic-color-blue;
-    border-color: @odalic-color-blue;
     background-color: @odalic-color-white;
 }
 
-.odalic-bstyle-almostwhite {
+.odalic-trstyle-almostwhite {
     color: @odalic-color-darkgrey;
-    border-color: @odalic-color-grey;
     background-color: @odalic-color-almostwhite;
 }
 
-.odalic-bstyle-lightgrey {
+.odalic-trstyle-lightgrey {
     color: @odalic-color-black;
-    border-color: @odalic-color-grey;
+    background-color: @odalic-color-almostwhite;
+}
+
+.odalic-trstyle-white {
+    color: @odalic-color-black;
     background-color: @odalic-color-white;
 }
 
+
+/*
+ * Box color styles
+ */
+.odalic-bstyle-lightorange {
+    .odalic-trstyle-lightorange;
+    border-color: @odalic-color-lightorange;
+}
+
+.odalic-bstyle-orange {
+    .odalic-trstyle-orange;
+    border-color: @odalic-color-orange;
+}
+
+.odalic-bstyle-iorange {
+    .odalic-trstyle-iorange;
+    border-color: @odalic-color-orange;
+}
+
+.odalic-bstyle-blue {
+    .odalic-trstyle-blue;
+    border-color: @odalic-color-blue;
+}
+
+.odalic-bstyle-iblue {
+    .odalic-trstyle-iblue;
+    border-color: @odalic-color-blue;
+}
+
+.odalic-bstyle-almostwhite {
+    .odalic-trstyle-almostwhite;
+    border-color: @odalic-color-grey;
+}
+
+.odalic-bstyle-lightgrey {
+    .odalic-trstyle-lightgrey;
+    border-color: @odalic-color-grey;
+}
+
 .odalic-bstyle-white {
-    color: @odalic-color-black;
+    .odalic-trstyle-white;
     border-color: transparent;
-    background-color: @odalic-color-white;
 }
 
 
