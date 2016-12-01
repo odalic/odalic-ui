@@ -504,13 +504,6 @@
 
         <div class="form-group odalic-hr-pushbtm">
             <div class="col-md-2">
-                <!--TODO spustit to znova-->
-                <button class="btn btn-lg btn-block" ng-click="" disabled="true">
-                    Start from the beginning
-                </button>
-            </div>
-            <div class="col-md-2">
-                <!--TODO prepsat na  Re-run the algorithm az se to bude umet na serveru-->
                 <button class="btn btn-lg btn-block" ng-click="userFeedback()">
                     Send feedback
                 </button>
@@ -520,7 +513,7 @@
                     Reexecute
                 </button>
             </div>
-            <div class="col-md-2 col-md-offset-2">
+            <div class="col-md-2 col-md-offset-4">
                 <button class="btn btn-lg btn-block" ng-click="state = state - 1" ng-disabled="state <= 0">
                     Previous step
                 </button>
