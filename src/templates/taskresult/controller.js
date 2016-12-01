@@ -43,7 +43,8 @@
     // Create a controller for taskconfig
     app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest) {
 
-
+        // The task's ID
+        var TaskID = $routeParams['taskid'];
 
             //region inits objects which saves users changes
             $scope.feedback = {};
@@ -76,54 +77,42 @@
 
 
             //endregion
-            // TODO:
-            // - The whole page should just display a "loading icon" until the result is loaded.
-            // - Also it should be able to both display the result and an error message, if produced any.
 
-            //region gets data from server
-            // Loading of the necessary resources
-            // ****************************************
+        //region Loading data from server
 
-            // The task's ID
-            var TaskID = $routeParams['taskid'];
-            // TODO: This is just a temporary solution; otherwise we get an error since result and inptu files are not ready at this point.
-            // Išty myslím že tohle se řeší přes routering resolve, tím zajitíme že šablona se začne vykreslovat až přijdou data
-            // tohle bych resila spolu s loginem, mozna bude pozdeji lepsi ten globalni routering zlokalnit
-        // netreba -- ng-if rovno v DOM strome zakáže/pridá potrebné HTML elementy, ktoré sa nemajú šancu aktivovať predčasne
-        // => loadico directive by mala fungovať správne
-        // pozn. nefunguje s ng-show, ten len mení CSS style medzi hidden/visible
+        (function () {
 
-            // - this can be solved via putting everything in a <div> with something like ng-show attribute if result is loaded.
-            // - the controller script must be edited appropiately as well.
+            // Initialization
+            $scope.dataload = {};
 
+            // Phases enum
+            var phases = {
+                input: 1,
+                result: 2,
+                kb: 3
+            };
 
-            // Resource loading phases
+            // To call when a certain phase is loaded
+            var dataLoaded = (function () {
+                var loads = {};
 
+                return function (phase) {
+                    loads[phase] = true;
 
+                    // Are there any additional phases, or was everything already loaded?
+                    var empty = true;
+                    objForEach(phases, function (key, value) {
+                        if (!(value in loads)) {
+                            empty = false;
+                        }
+                    });
 
-
-        var phases = {
-            result: {
-                complete: false
-            },
-            input: {
-                complete: false
-            },
-            kb: {
-                complete: false
-            },
-            locks: {
-                complete: false
-            }
-        };
-        $scope.loadedData= 0;
-
-
-
-
-            $scope.serverFeedback= {};
-
-
+                    // Everything was loaded => show the data
+                    if (empty) {
+                        $scope.dataload.show = true;
+                    }
+                };
+            })();
 
             //region Download the input CSV file in a JSON format directly
             rest.tasks.name(TaskID).input.retrieve.exec(
@@ -137,10 +126,9 @@
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
-                    $scope.loadedData ++;
 
                     // Phase complete
-                    phases.input.complete = true;
+                    dataLoaded(phases.input);
                 },
 
                 // Error
@@ -154,18 +142,14 @@
             rest.tasks.name(TaskID).result.retrieve.exec(
                 // Success
                 function (response) {
-                    // TODO: $apply? or does this work alone? check.
                     $scope.result = response;
-                   // console.log("///////////////////////////////////////////////////////////")
-                   // console.log('result :\n'+JSON.stringify(result.cellAnnotations[1][1],null, 4));
 
-
+                    // ...
+                    setsData();
+                    getFeedback();
 
                     // Phase complete
-                    phases.result.complete = true;
-                    setsData();
-                    getFeedback()
-
+                    dataLoaded(phases.result);
                 },
 
                 // Fatal error, result not loaded or task resulted in an error
@@ -180,13 +164,10 @@
             rest.tasks.name(TaskID).retrieve.exec(
                 // Success
                 function (response) {
-                    // TODO: $apply? or does this work alone? check.
                     $scope.primaryKB = response['configuration']['primaryBase']['name'];
 
-                    $scope.loadedData ++;
-
                     // Phase complete
-                    phases.kb.complete = true;
+                    dataLoaded(phases.kb);
                 },
 
                 // Error
@@ -196,6 +177,14 @@
                 }
             );
             //endregion
+
+
+        })();
+
+
+
+        $scope.loadedData = 0;
+        $scope.serverFeedback= {};
 
 
             // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
@@ -739,12 +728,16 @@
                     $("#modalPredicates").modal();
                 };
 
-                // TODO: $scope.locked.graphEdges is not initialized at this point! This has to be changed.
-                window.setTimeout(function () {
-                    // Presumably 3 seconds is enough to initialize the data structure
-                    console.warn('lockobj set. Note this is dangerous and should be changed as soon as possible.');
-                    $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
-                }, 3000);
+                // TODO: $scope.locked.graphEdges is not initialized at this point! Is this pattern OK?
+                timed.ready(
+                    function () {
+                        return (!!$scope['locked'] && !!$scope['locked']['graphEdges'])
+                    },
+                    function () {
+                        console.warn('lockobj set. check the used pattern');
+                        $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
+                    }
+                );
 
                 // Calls modelChanged on the currently selected relation.
                 $scope.gvdata.mc = function () {
