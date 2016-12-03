@@ -220,6 +220,7 @@ $.defineModule(function () {
                                     return {
                                         retrieve: {
                                             exec: function (success, failure) {
+                                                console.log(text.urlConcat(root, kb, 'entities')+ '?query=' + string + '&limit=' + countLimit, 'GET');
                                                 requests.quickRequest(text.urlConcat(root, kb, 'entities')+ '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
                                             },
                                         },

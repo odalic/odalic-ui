@@ -1,0 +1,127 @@
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog lg">
+
+        <div class="modal-content">
+            <div class="container-fluid">
+                <!-- Column classification -->
+                <div ng-if="(selectedPosition.row == -1)">
+                    <modal-head>Column classification</modal-head>
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <h3 ng-class="'boldPrimaryKB'">{{primaryKB + " (Primary KB)" }}</h3>
+                             Selection of a candidate(s) for the current knowledge base
+                            <select-box knowledge-base="{{primaryKB}}"
+                                        selected-position="selectedPosition" ,
+                                        locked="locked" ,
+                                        result="result">
+                            </select-box>
+                        </div>
+
+                        <!-- Separate div for each knowledge base -->
+                        <div ng-repeat="(knowledgeBase, candidates) in result.headerAnnotations[selectedPosition.column].candidates">
+                            <div ng-if="knowledgeBase != primaryKB">
+                                <div class="form-group">
+                                    <h3>{{ knowledgeBase }}</h3>
+                                    <select-box knowledge-base="{{knowledgeBase}}"
+                                                selected-position="selectedPosition" ,
+                                                locked="locked" ,
+                                                result="result">
+                                    </select-box>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <button class="btn pull-right" data-toggle="modal"
+                                data-target="#newEntities">
+                            Proposal
+                        </button>
+                        <br>
+
+                        <c-d-suggestions selected-position="selectedPosition" ,
+                                         locked="locked" ,
+                                         primary-k-b="{{primaryKB}}" ,
+                                         result="result">
+                        </c-d-suggestions>
+
+
+                        <br>
+                        <!-- algorithm ignore chosen column -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label><input type="checkbox"
+                                              ng-model="ignoredColumn[selectedPosition.column]"
+                                              ng-change="lockCell()"
+                                > Ignore Column</label>
+                            </div>
+
+                            <div class="checkbox">
+                                <label><input type="checkbox"
+                                              ng-model="noDisambiguationColumn[selectedPosition.column]"
+                                              ng-change="lockCell()"> Skip disambiguation in all cell of this collumn
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cell disambiguation -->
+                <div ng-if="(selectedPosition.row != -1)">
+                    <modal-head>Cell disambiguation</modal-head>
+
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <!-- Separate div for each knowledge base -->
+                            <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary KB)"}}</h3>
+                            <!-- Selection of a candidate(s) for the current knowledge base -->
+                            <select-box knowledge-base="{{primaryKB}}"
+                                        selected-position="selectedPosition" ,
+                                        locked="locked" ,
+                                        result="result">
+                            </select-box>
+                            <!-- Separate div for each knowledge base -->
+                            <div ng-repeat="(knowledgeBase, candidates) in result.cellAnnotations[selectedPosition.row][selectedPosition.column].candidates">
+                                <div ng-if="knowledgeBase != primaryKB">
+                                    <div class="form-group">
+                                        <h3>{{ knowledgeBase }}</h3>
+                                        <!-- Selection of a candidate(s) for the current knowledge base -->
+                                        <select-box knowledge-base="{{knowledgeBase}}"
+                                                    selected-position="selectedPosition" ,
+                                                    locked="locked",
+                                                    result="result">
+                                        </select-box>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn pull-right" data-toggle="modal"
+                                    data-target="#newEntities">
+                                Proposal
+                            </button>
+                            <br>
+
+                            <c-d-suggestions selected-position="selectedPosition" ,
+                                             locked="locked" ,
+                                             primary-k-b="{{primaryKB}}" ,
+                                             result="result">
+                            </c-d-suggestions>
+
+                            <!-- user can write own classification -->
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label><input type="checkbox"
+                                                  ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"
+                                                  ng-change="lockCell()"> Skip disambiguation in the cell
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

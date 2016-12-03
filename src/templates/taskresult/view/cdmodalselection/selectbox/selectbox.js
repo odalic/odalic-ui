@@ -10,18 +10,19 @@
 
 
             restrict: 'E',
-            // scope:
-            // {
-            //     data : '=',
-            //     column: '=',
-            //     kb :'=',
-            //     locked :'='
-            // },
+             scope:
+            {
+
+                selectedPosition: '=',
+                locked: '=',
+                knowledgeBase: '@',
+                result: '='
+            },
 
 
             templateUrl: currentFolder + 'selectbox.html',
             link: function ($scope, iElement, iAttrs) {
-                $scope.knowledgeBase = $scope.$eval(iAttrs.knowledgeBase);
+                // $scope.knowledgeBase = $scope.$eval(iAttrs.knowledgeBase);
 
                 $scope.lodLiveBrowserIcon = "graphics/link.png";
 
