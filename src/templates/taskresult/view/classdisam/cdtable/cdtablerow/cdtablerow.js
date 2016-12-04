@@ -5,7 +5,7 @@
 
     // lock directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('cDTableRows', function () {
+    app.directive('cDTableRow', function () {
         return {
             restrict: 'A',
             scope: {
@@ -17,7 +17,7 @@
                 chosenKBs: '=',
                 primaryKB:'@'
             },
-            templateUrl: currentFolder + 'cDTableRows.html',
+            templateUrl: currentFolder + 'cDTableRow.html',
             link: function (scope, iElement, iAttrs) {
 
 

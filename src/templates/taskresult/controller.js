@@ -85,13 +85,14 @@
             // ****************************************
 
             // The task's ID
-            var TaskID = $routeParams['taskid'];
+            $scope.taskID = $routeParams['taskid'];
+
             // TODO: This is just a temporary solution; otherwise we get an error since result and inptu files are not ready at this point.
             // Išty myslím že tohle se řeší přes routering resolve, tím zajitíme že šablona se začne vykreslovat až přijdou data
             // tohle bych resila spolu s loginem, mozna bude pozdeji lepsi ten globalni routering zlokalnit
-        // netreba -- ng-if rovno v DOM strome zakáže/pridá potrebné HTML elementy, ktoré sa nemajú šancu aktivovať predčasne
-        // => loadico directive by mala fungovať správne
-        // pozn. nefunguje s ng-show, ten len mení CSS style medzi hidden/visible
+            // netreba -- ng-if rovno v DOM strome zakáže/pridá potrebné HTML elementy, ktoré sa nemajú šancu aktivovať predčasne
+            // => loadico directive by mala fungovať správne
+            // pozn. nefunguje s ng-show, ten len mení CSS style medzi hidden/visible
 
             // - this can be solved via putting everything in a <div> with something like ng-show attribute if result is loaded.
             // - the controller script must be edited appropiately as well.
@@ -100,33 +101,28 @@
             // Resource loading phases
 
 
+            var phases = {
+                result: {
+                    complete: false
+                },
+                input: {
+                    complete: false
+                },
+                kb: {
+                    complete: false
+                },
+                locks: {
+                    complete: false
+                }
+            };
+            $scope.loadedData = 0;
 
 
-        var phases = {
-            result: {
-                complete: false
-            },
-            input: {
-                complete: false
-            },
-            kb: {
-                complete: false
-            },
-            locks: {
-                complete: false
-            }
-        };
-        $scope.loadedData= 0;
-
-
-
-
-            $scope.serverFeedback= {};
-
+            $scope.serverFeedback = {};
 
 
             //region Download the input CSV file in a JSON format directly
-            rest.tasks.name(TaskID).input.retrieve.exec(
+            rest.tasks.name($scope.taskID).input.retrieve.exec(
                 // Success, inject into the scope
                 function (response) {
                     $scope.inputFile = {
@@ -137,7 +133,7 @@
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
-                    $scope.loadedData ++;
+                    $scope.loadedData++;
 
                     // Phase complete
                     phases.input.complete = true;
@@ -151,14 +147,13 @@
             //endregion
 
             //region Load the result
-            rest.tasks.name(TaskID).result.retrieve.exec(
+            rest.tasks.name($scope.taskID).result.retrieve.exec(
                 // Success
                 function (response) {
                     // TODO: $apply? or does this work alone? check.
                     $scope.result = response;
-                   // console.log("///////////////////////////////////////////////////////////")
-                   // console.log('result :\n'+JSON.stringify(result.cellAnnotations[1][1],null, 4));
-
+                    // console.log("///////////////////////////////////////////////////////////")
+                    // console.log('result :\n'+JSON.stringify(result.cellAnnotations[1][1],null, 4));
 
 
                     // Phase complete
@@ -177,13 +172,13 @@
             //endregion
 
             //region Set knowledge bases
-            rest.tasks.name(TaskID).retrieve.exec(
+            rest.tasks.name($scope.taskID).retrieve.exec(
                 // Success
                 function (response) {
                     // TODO: $apply? or does this work alone? check.
                     $scope.primaryKB = response['configuration']['primaryBase']['name'];
 
-                    $scope.loadedData ++;
+                    $scope.loadedData++;
 
                     // Phase complete
                     phases.kb.complete = true;
@@ -212,8 +207,8 @@
                         objRecurAccess($scope.result, column1, column2, 'chosen')['other'] = [
                             {
                                 "entity": {
-                                    "resource" : "",
-                                    "label" : ""
+                                    "resource": "",
+                                    "label": ""
                                 },
                                 "score": 1
                             }
@@ -225,16 +220,16 @@
                 loadGraphVis();
 
                 // Another data loaded
-                $scope.loadedData ++;
+                $scope.loadedData++;
             };
 
 
             getFeedback = function () {
-                rest.tasks.name(TaskID).feedback.retrieve.exec(
+                rest.tasks.name($scope.taskID).feedback.retrieve.exec(
                     function (response) {
                         $scope.serverFeedback = response
                         console.log("------------------------------------------------------------------------")
-                        console.log('server feedback: \n '+JSON.stringify( $scope.serverFeedback,null, 4));
+                        console.log('server feedback: \n ' + JSON.stringify($scope.serverFeedback, null, 4));
                         //alert("Feedback was saved")
                         setLockedFlags();
                         setIgnoreThings();
@@ -247,8 +242,7 @@
 
 
             }
-            setIgnoreThings = function()
-            {
+            setIgnoreThings = function () {
                 // for (var index in $scope.serverFeedback.columnIgnores) {
                 //     $scope.ignoredColumn[$scope.serverFeedback.columnIgnores[index].position.index] = 1;
                 // }
@@ -262,7 +256,7 @@
                 //     var column =$scope.serverFeedback.columnIgnores[index].columnPosition.index;
                 //     $scope.noDisambiguationCell[row][column] = 1;
                 // }
-                $scope.loadedData ++;
+                $scope.loadedData++;
 
             };
 
@@ -281,8 +275,7 @@
                     $scope.locked.tableCells[-1][c] = 0;
                 }
                 //classification locking from server feedback
-                for (var index in  $scope.serverFeedback.classifications)
-                {
+                for (var index in  $scope.serverFeedback.classifications) {
                     var column = $scope.serverFeedback.classifications[index].position.index;
                     $scope.locked.tableCells[-1][column] = 1;
                 }
@@ -297,8 +290,7 @@
                     }
                 }
                 //disambiguation locking from server feedback
-                for (var index in  $scope.serverFeedback.disambiguations)
-                {
+                for (var index in  $scope.serverFeedback.disambiguations) {
                     var row = $scope.serverFeedback.disambiguations[index].position.rowPosition.index;
                     var column = $scope.serverFeedback.disambiguations[index].position.columnPosition.index;
                     $scope.locked.tableCells[row][column] = 1;
@@ -314,13 +306,11 @@
                         if ($scope.serverFeedback.subjectColumnPositions.hasOwnProperty(kb) && $scope.serverFeedback.subjectColumnPositions[kb].index == c) {
                             $scope.locked.subjectColumns[kb][c] = 1;
                         }
-                        else
-                        {
+                        else {
                             $scope.locked.subjectColumns[kb][c] = 0;
                         }
                     }
                 }
-
 
 
                 //TODO isty : mozna predelat nevim jestli mam spravne poradi, predpokladam ze column1 je mensi nez column2
@@ -333,16 +323,15 @@
                 }
 
 
-                for (var index in  $scope.serverFeedback.columnRelations)
-                {
+                for (var index in  $scope.serverFeedback.columnRelations) {
                     var column1 = $scope.serverFeedback.columnRelations[index].position.first.index;
                     var column2 = $scope.serverFeedback.columnRelations[index].position.second.index;
                     $scope.locked.graphEdges[column1][column2] = 1;
                 }
 
-               // $scope.loadedData = true;
+                // $scope.loadedData = true;
 
-                $scope.loadedData ++;
+                $scope.loadedData++;
 
             }
             //endregion
@@ -350,33 +339,18 @@
             // Loading of the necessary resources finishes here
             //endregion4
 
-
-            $scope.lockCell = function()
-            {
-                $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-            };
-
-
-            //region Relation ui-selectbox functions
-            //TODO isty : stara struktura
-            $scope.switchRelation = function (newSelection, knowledgeBase) {
-                // TODO: remove, when bug corrected.
-                console.log($scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2]);
-            };
-
+            //TODO dat nekam do direktivy az se vyjasni own relace
             $scope.lockRelation = function () {
                 $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
             };
 
-
-            //endregion
 
             // region Handling graphvis directive
             // **************************************
             function loadGraphVis() {
                 // Initialization
                 if (!$scope.gvdata) {
-                    $scope.gvdata= {};
+                    $scope.gvdata = {};
                 }
 
                 // Set the necessary data
@@ -387,7 +361,8 @@
                     with ($scope.selectedRelation) {
                         column1 = c1;
                         column2 = c2;
-                    };
+                    }
+                    ;
                     if (!$scope.$$phase) {
                         $scope.$apply();
                     }
@@ -409,6 +384,7 @@
                     );
                 };
             }
+
             // endregion
 
 

@@ -1,0 +1,24 @@
+<div ng-if="(selectedPosition.row == -1)">
+
+    <div class="row">
+        <h2 class="col-md-11">Column classification</h2>
+        <h2 class="col-md-1">
+            <c-d-lock locked="locked.tableCells"
+                      row="{{selectedPosition.row}}"
+                      column="{{selectedPosition.column}}"/>
+        </h2>
+    </div>
+
+</div>
+<div ng-if="(selectedPosition.row != -1)">
+
+    <div class="row">
+        <h2 class="col-md-11">Cell disambiguation</h2>
+        <h2 class="col-md-1">
+            <c-d-lock locked="locked.tableCells"
+                      row="{{selectedPosition.row}}"
+                      column="{{selectedPosition.column}}"/>
+        </h2>
+    </div>
+
+</div>

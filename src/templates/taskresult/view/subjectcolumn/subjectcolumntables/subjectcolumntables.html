@@ -11,17 +11,20 @@
         <table class="table table-bordered">
             <thead>
             <tr>
+                <!--shows headers of table-->
                 <td ng-repeat="cell in inputFile.columns"
                     ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' :''"
                     ng-click="selectSubjectColumn($index,kb)">
                     {{ cell }}
+                    <!--allows to lock and unlock subject column -->
                     <span class="pull-right" ng-show ="$index == result.subjectColumnPositions[kb].index" >
-                        <lock locked="locked.subjectColumns" first-parametr="{{kb}}" second-parametr="{{$index }}"></lock>
+                        <s-c-lock locked="locked.subjectColumns" k-b="{{kb}}" column="{{$index }}"></s-c-lock>
                     </span>
                 </td>
             </tr>
             </thead>
             <tbody>
+            <!--shows only the first two rows of table-->
             <tr ng-repeat="row in inputFile.rows| limitTo: 2">
                 <td ng-repeat="cell in row"
                     ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' : ''"

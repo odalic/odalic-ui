@@ -1,0 +1,46 @@
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog lg">
+
+        <div class="modal-content">
+            <div class="container-fluid">
+                <!-- Column classification -->
+                <div class="modal-head">
+                    <c-d-modal-head/>
+
+                </div>
+                <div class="modal-body">
+
+                    <c-d-selecting
+                            primary-k-b="{{primaryKB}}"
+                            selected-position="selectedPosition" ,
+                            locked="locked" ,
+                            result="result"/>
+
+                    <br>
+
+                    <button class="btn pull-right" data-toggle="modal"
+                            data-target="#newEntities">
+                        Proposal
+                    </button>
+                    <br>
+
+                    <c-d-suggestions selected-position="selectedPosition" ,
+                                     locked="locked" ,
+                                     primary-k-b="{{primaryKB}}" ,
+                                     result="result"/>
+
+                    <br>
+
+                    <c-d-check-boxes selected-position="selectedPosition"
+                                     locked="locked"
+                                     ignored-column="ignoreColumn"
+                                     no-disambiguation-cell="noDisambiguationCell"
+                                     no-disambiguation-column="noDisambiguationColumn"/>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>

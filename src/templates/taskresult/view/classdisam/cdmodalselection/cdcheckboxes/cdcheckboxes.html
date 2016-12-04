@@ -1,0 +1,30 @@
+<div ng-if="(selectedPosition.row == -1)">
+    <div class="form-group">
+        <div class="checkbox">
+            <label><input type="checkbox"
+                          ng-model="ignoredColumn[selectedPosition.column]"
+                          ng-change="lockCell()"
+            > Ignore Column</label>
+        </div>
+
+
+        <div class="checkbox">
+            <label><input type="checkbox"
+                          ng-model="noDisambiguationColumn[selectedPosition.column]"
+                          ng-change="lockCell()"> Skip disambiguation in all cell of this collumn
+            </label>
+        </div>
+    </div>
+</div>
+
+<div ng-if="(selectedPosition.row != -1)">
+    <div class="form-group">
+        <div class="checkbox">
+            <label><input type="checkbox"
+                          ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"
+                          ng-change="lockCell()"> Skip disambiguation in the cell
+            </label>
+        </div>
+    </div>
+</div>
+</div>

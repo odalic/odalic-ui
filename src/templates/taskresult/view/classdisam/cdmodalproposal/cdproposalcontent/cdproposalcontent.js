@@ -61,6 +61,7 @@
                     // }
                     // else {
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
                     if ($scope.selectedPosition.row == -1) {
 
                         //adds classification into rusult

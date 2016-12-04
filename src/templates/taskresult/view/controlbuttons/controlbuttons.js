@@ -3,17 +3,13 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // lock directive
+    //allows sends feedback, reexecute algorithm and scroll through results
     var currentFolder = $.getPathForRelativePath('');
     app.directive('controlButtons',['rest', function (rest) {
         return {
-
-
             restrict: 'E',
-
             templateUrl: currentFolder + 'controlButtons.html',
             link: function ($scope, iElement, iAttrs) {
-                //region controll button
 
                 // TODO: [critical] Feedback saving not working when a user actually makes a change.
                 var feedbackFunctions = {
@@ -125,7 +121,7 @@
                         //endregion
 
                         //region sends feedback to server
-                        rest.tasks.name(TaskID).feedback.store($scope.feedback).exec(success, error);
+                        rest.tasks.name($scope.taskID).feedback.store($scope.feedback).exec(success, error);
                         //endregion
                     }
                     //endregion
@@ -159,10 +155,10 @@
                             console.log("*************************************************************")
                             console.log('user feedback :\n'+JSON.stringify($scope.feedback,null, 4));
                             // Start the task
-                            rest.tasks.name(TaskID).execute.exec(
+                            rest.tasks.name($scope.taskID).execute.exec(
                                 // Execution started successfully
                                 function (response) {
-                                    window.location.href = '#/taskconfigs/' + TaskID;
+                                    window.location.href = '#/taskconfigs/' + $scope.taskID;
                                 },
 
                                 // Error while starting the execution
@@ -181,7 +177,7 @@
                 //endregion
 
                 //region state of page
-                $scope.state = 0;                       // Default VIEW
+                //$scope.state = 0;                       // Default VIEW
                 $scope.previousState = function () {
                     $scope.state--;
                 };
@@ -190,10 +186,6 @@
                     $scope.state++;
                 };
                 //endregion
-                //endregion
-
-
-
             }
         }
     }]);
