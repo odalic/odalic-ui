@@ -6,13 +6,22 @@
 
 
     <span>{{ cell }}</span>
+
+    <!--<pre>{{row}} </pre>-->
+    <!--<pre>{{rowIndex}} </pre>-->
+    <!--<pre>{{ concreteData}} </pre>-->
+    <!--<pre>{{selectedPosition}} </pre>-->
+    <!--<pre>{{chosenKBs}} </pre>-->
+    <!--<pre>{{primaryKB}} </pre>-->
+    <!--<pre>{{lockedTableCells}} </pre>-->
+
     <div class="pull-right">
 
         <a data-toggle="modal" data-target="#newEntities">
             <span class="fa fa-plus-square-o"></span>
         </a>
 
-        <lock locked="locked.tableCells" first-parametr="{{rowIndex}}" second-parametr="{{columnIndex}}"></lock>
+        <c-d-lock locked="lockedTableCells" row="{{rowIndex}}" column="{{columnIndex}}"></c-d-lock>
 
         <a data-toggle="modal" data-target="#myModal">
             <span class="glyphicon glyphicon-new-window"></span>

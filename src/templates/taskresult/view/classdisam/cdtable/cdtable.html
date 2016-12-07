@@ -1,0 +1,37 @@
+<h2>Choosing of classifications and disambiguations</h2>
+<!--<pre>{{locked.tableCells}} </pre>-->
+<!--&lt;!&ndash;<pre>{{selectedPosition}} </pre>&ndash;&gt;-->
+<!--&lt;!&ndash;<pre> dis:{{feedback}} </pre>&ndash;&gt;-->
+<!--<pre>{{result.headerAnnotations[0].candidates}}</pre>-->
+<!--<pre>{{result.headerAnnotations[0].chosen}}</pre>-->
+<!--<pre>{{feedback.classifications}} </pre>-->
+<!--<pre>{{feedback.disambiguations}} </pre>-->
+
+<!--<pre>{{result.cellAnnotations[0][1].chosen}} </pre>-->
+<!-- Input file table -->
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+        <!-- wrong directive-->
+        <!--<tr ng-class="'headerRow'"-->
+            <!--c-d-table-rows row="inputFile.columns" row-index="-1"-->
+            <!--concrete-data="result.headerAnnotations>-->
+        <!--row index -1 represents headers-->
+        <tr ng-class="'headerRow'"
+            c-d-table-row row="inputFile.columns" row-index="-1"
+            concrete-data="result.headerAnnotations" selected-position="selectedPosition"
+            locked-table-cells = "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{primaryKB}}" >
+        </tr>
+        </thead>
+        <tbody>
+        <!--row index <0, inputFile.rows>  represents  disambiguation result-->
+        <!-- wrong directive-->
+        <tr ng-class-even="'evenRow'"
+            ng-repeat="row in inputFile.rows"
+            c-d-table-row row="row" row-index="$index"
+            concrete-data="result.cellAnnotations[$index]"  selected-position="selectedPosition"
+            locked-table-cells= "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{primaryKB}}">
+        </tr>
+        </tbody>
+    </table>
+</div>

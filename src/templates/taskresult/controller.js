@@ -45,41 +45,39 @@
 
         // The task's ID
         var TaskID = $routeParams['taskid'];
+        $scope.taskID = TaskID;
 
-            //region inits objects which saves users changes
-            $scope.feedback = {};
-            $scope.ignoredColumn = {};
-            $scope.noDisambiguationColumn = {};
-            $scope.noDisambiguationCell = {};
-            $scope.locked = {};
+        //region Initialization of objects which save user changes
+        $scope.feedback = {};
+        $scope.ignoredColumn = {};
+        $scope.noDisambiguationColumn = {};
+        $scope.noDisambiguationCell = {};
+        $scope.locked = {};
 
-            $scope.selectedPosition = {
-                column: -1,
-                row: -1
-            };
+        $scope.selectedPosition = {
+            column: -1,
+            row: -1
+        };
 
-            $scope.selectedRelation = {
-                column1: 0,
-                column2: 0
-            };
+        $scope.selectedRelation = {
+            column1: 0,
+            column2: 0
+        };
 
-            $scope.inputFile = {
-                'columns': [],
-                'rows': []
-            };
-            $scope.result = {
-                subjectColumnPositions: {
-                    index: 0
-                },
-                headerAnnotations: {},
-                cellAnnotations: {}
-            };
-
-
-            //endregion
+        $scope.inputFile = {
+            'columns': [],
+            'rows': []
+        };
+        $scope.result = {
+            subjectColumnPositions: {
+                index: 0
+            },
+            headerAnnotations: {},
+            cellAnnotations: {}
+        };
+        //endregion
 
         //region Loading data from server
-
         (function () {
 
             // Initialization
@@ -115,7 +113,7 @@
             })();
 
             //region Download the input CSV file in a JSON format directly
-            rest.tasks.name(TaskID).input.retrieve.exec(
+            rest.tasks.name($scope.taskID).input.retrieve.exec(
                 // Success, inject into the scope
                 function (response) {
                     $scope.inputFile = {
@@ -139,7 +137,7 @@
             //endregion
 
             //region Load the result
-            rest.tasks.name(TaskID).result.retrieve.exec(
+            rest.tasks.name($scope.taskID).result.retrieve.exec(
                 // Success
                 function (response) {
                     $scope.result = response;
@@ -161,7 +159,7 @@
             //endregion
 
             //region Set knowledge bases
-            rest.tasks.name(TaskID).retrieve.exec(
+            rest.tasks.name($scope.taskID).retrieve.exec(
                 // Success
                 function (response) {
                     $scope.primaryKB = response['configuration']['primaryBase']['name'];
@@ -177,8 +175,6 @@
                 }
             );
             //endregion
-
-
         })();
 
 
@@ -201,8 +197,8 @@
                         objRecurAccess($scope.result, column1, column2, 'chosen')['other'] = [
                             {
                                 "entity": {
-                                    "resource" : "",
-                                    "label" : ""
+                                    "resource": "",
+                                    "label": ""
                                 },
                                 "score": 1
                             }
@@ -214,16 +210,16 @@
                 loadGraphVis();
 
                 // Another data loaded
-                $scope.loadedData ++;
+                $scope.loadedData++;
             };
 
 
             getFeedback = function () {
-                rest.tasks.name(TaskID).feedback.retrieve.exec(
+                rest.tasks.name($scope.taskID).feedback.retrieve.exec(
                     function (response) {
                         $scope.serverFeedback = response
                         console.log("------------------------------------------------------------------------")
-                        console.log('server feedback: \n '+JSON.stringify( $scope.serverFeedback,null, 4));
+                        console.log('server feedback: \n ' + JSON.stringify($scope.serverFeedback, null, 4));
                         //alert("Feedback was saved")
                         setLockedFlags();
                         setIgnoreThings();
@@ -236,8 +232,7 @@
 
 
             }
-            setIgnoreThings = function()
-            {
+            setIgnoreThings = function () {
                 // for (var index in $scope.serverFeedback.columnIgnores) {
                 //     $scope.ignoredColumn[$scope.serverFeedback.columnIgnores[index].position.index] = 1;
                 // }
@@ -251,7 +246,7 @@
                 //     var column =$scope.serverFeedback.columnIgnores[index].columnPosition.index;
                 //     $scope.noDisambiguationCell[row][column] = 1;
                 // }
-                $scope.loadedData ++;
+                $scope.loadedData++;
 
             };
 
@@ -270,8 +265,7 @@
                     $scope.locked.tableCells[-1][c] = 0;
                 }
                 //classification locking from server feedback
-                for (var index in  $scope.serverFeedback.classifications)
-                {
+                for (var index in  $scope.serverFeedback.classifications) {
                     var column = $scope.serverFeedback.classifications[index].position.index;
                     $scope.locked.tableCells[-1][column] = 1;
                 }
@@ -286,8 +280,7 @@
                     }
                 }
                 //disambiguation locking from server feedback
-                for (var index in  $scope.serverFeedback.disambiguations)
-                {
+                for (var index in  $scope.serverFeedback.disambiguations) {
                     var row = $scope.serverFeedback.disambiguations[index].position.rowPosition.index;
                     var column = $scope.serverFeedback.disambiguations[index].position.columnPosition.index;
                     $scope.locked.tableCells[row][column] = 1;
@@ -303,13 +296,11 @@
                         if ($scope.serverFeedback.subjectColumnPositions.hasOwnProperty(kb) && $scope.serverFeedback.subjectColumnPositions[kb].index == c) {
                             $scope.locked.subjectColumns[kb][c] = 1;
                         }
-                        else
-                        {
+                        else {
                             $scope.locked.subjectColumns[kb][c] = 0;
                         }
                     }
                 }
-
 
 
                 //TODO isty : mozna predelat nevim jestli mam spravne poradi, predpokladam ze column1 je mensi nez column2
@@ -322,16 +313,15 @@
                 }
 
 
-                for (var index in  $scope.serverFeedback.columnRelations)
-                {
+                for (var index in  $scope.serverFeedback.columnRelations) {
                     var column1 = $scope.serverFeedback.columnRelations[index].position.first.index;
                     var column2 = $scope.serverFeedback.columnRelations[index].position.second.index;
                     $scope.locked.graphEdges[column1][column2] = 1;
                 }
 
-               // $scope.loadedData = true;
+                // $scope.loadedData = true;
 
-                $scope.loadedData ++;
+                $scope.loadedData++;
 
             }
             //endregion
@@ -339,435 +329,53 @@
             // Loading of the necessary resources finishes here
             //endregion4
 
-            $scope.lockCell = function()
-            {
-                $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-            };
+        //TODO dat nekam do direktivy az se vyjasni own relace
+        $scope.lockRelation = function () {
+            $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+        };
 
-            //region proposal settings
-            $scope.setProposal = function (proposal) {
-
-                //TOTO prefix ?????
-                var prefixUrl = "";
-                var url = proposal.suffixUrl;
-                var alternativeLabels = [];
-                if (proposal.alternativeLabel != null) {
-                    alternativeLabels.push(proposal.alternativeLabel)
-                }
-                if (proposal.alternativeLabel2 != null) {
-                    alternativeLabels.push(proposal.alternativeLabel2)
-                }
-
-
-                var newObj = {
-                    "entity": {"resource": url, "label": proposal.label},
-                    "score": {"value": 0}
-                };
-                // alert(JSON.stringify(newObj));
-                //TODO spis dve funkce + opakujici se kod s sugestion
-                if ($scope.state == 2) {
-                    $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
-
-
-                    $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].candidates[$scope.primaryKB].push(newObj);
-                    // $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[$scope.primaryKB] = [newObj]
-                    $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][$scope.primaryKB].push(newObj.entity)
-
-                    var obj = {
-                        "label": proposal.label,
-                        "alternativeLabels": alternativeLabels,
-                        "suffix": url,
-                        "superClass": null
-                        // "superClass": proposal.superClass
-                    }
-                    classes(obj)
-                }
-                else {
-                    $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-                    if ($scope.selectedPosition.row == -1) {
-
-                        $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                        $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB].push(newObj);
-
-                        var obj = {
-                            "label": proposal.label,
-                            "alternativeLabels": alternativeLabels,
-                            "suffix": url,
-                            "superClass": null
-                            // "superClass": proposal.superClass
-                        }
-                        classes(obj)
-                    }
-                    else {
-                        //http://example.com/base/entities/classes
-                        // rest.base($scope.primaryKB).entities.
-
-                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
-
-                        var obj = {
-                            "label": proposal.label,
-                            "alternativeLabels": alternativeLabels,
-                            "suffix": url,
-                            "classes": []
-                            // "superClass": $scope.result.headerAnnotations[selectedPosition.column]
-                        }
-                        resources(obj)
-
-                    }
-                }
-
-                // {  "classes" : [{"resource" : "https://www.wikidata.org/wiki/Class:C1080", "label" : "City" }, ...]}
-            }
-            //endregion
-            var classes = function (obj) {
-
-                // alert(JSON.stringify(obj));
-                //console.log(JSON.stringify(obj));
-                rest.base($scope.primaryKB).entities.classes.update(obj).exec(
-                    // Success, inject into the scope
-                    function (response) {
-                    },
-                    // Error
-                    function (response) {
-                        alert("Something is wrong. Please, try to again.")
-                    }
-                );
-            };
-            var resources = function (obj) {
-                //console.log(JSON.stringify(obj));
-                rest.base($scope.primaryKB).entities.resources.update(obj).exec(
-                    // Success, inject into the scope
-                    function (response) {
-                    },
-                    // Error
-                    function (response) {
-                        alert("Something is wrong. Please, try to again.")
-                    }
-                );
-            };
-
-            //region suggestion from primaryKB
-            $scope.suggestions = {};
-
-            $scope.addSuggestions = function (suggestion) {
-
-                $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-
-                var newObj = {
-                    "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                    "score": {"value": 0}
-                };
-
-                if ($scope.selectedPosition.row == -1) {
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB].push(newObj);
-                }
-                else {
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
-                }
-            }
-            $scope.addRelationSuggestions = function (suggestion) {
-
-                $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
-
-                var newObj = {
-                    "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                    "score": {"value": 0}
-                };
-
-                $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].candidates[$scope.primaryKB].push(newObj);
-                // $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[$scope.primaryKB] = [newObj]
-                $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][$scope.primaryKB].push(newObj.entity)
-
+        // region Handling graphvis directive
+        // **************************************
+        function loadGraphVis() {
+            // Initialization
+            if (!$scope.gvdata) {
+                $scope.gvdata = {};
             }
 
-            $scope.waitForSuggestions = false;
-            $scope.getSuggestions = function (string, limit) {
-                $scope.waitForSuggestions = true;
-                rest.base($scope.primaryKB).entities.query(string).limit(limit).retrieve.exec(
-                    // Success, inject into the scope
-                    function (response) {
-                        $scope.suggestions = response;
-                        
-                        // TODO: Works only once. As soon as you add the result,
-                        // it breaks.
-                        if ($scope.suggestions.length > 0) {
-                            $scope.suggestion = $scope.suggestions[0];
-                        }
-
-                        $scope.waitForSuggestions = false;
-                        //alert("Result is available")
-
-                        // if (!$scope.$$phase) {
-                        //     $scope.$apply();
-                        // }
-
-                        // Phase complete
-                        // phases.input.complete = true;
-                    },
-
-                    // Error
-                    function (response) {
-                        alert("Something is wrong. Please, try to again.")
-                    }
-                );
-            }
-            //endregion
-
-            // TODO: [critical] Feedback saving not working when a user actually makes a change.
-            var feedbackFunctions = {
-                //region sendFeedback
-                sendFeedback: function (success, error) {
-
-                    //region subjectsColumns
-                    $scope.feedback.subjectColumnPositions = {};
-                    for (var KB in  $scope.locked.subjectColumns) {
-                        for (var columnIndex in $scope.locked.subjectColumns[KB]) {
-                            if ($scope.locked.subjectColumns[KB][columnIndex] == 1) {
-                                $scope.feedback.subjectColumnPositions[KB] = {};
-                                $scope.feedback.subjectColumnPositions[KB] = {index: columnIndex}
-                            }
-
-                        }
-                    }
-                    //endregion
-
-                    //region columnIgnores- sets ignored columns
-                    //"columnIgnores": [ { position: { index: 6 } },...]
-                    $scope.feedback.columnIgnores = [];
-                    for (var columnNumber in $scope.ignoredColumn) {
-                        if ($scope.ignoredColumn[columnNumber] == true) {
-                            $scope.feedback.columnIgnores.push({position: {index: columnNumber}});
-                        }
-                    }
-                    //endregion
-
-                    //region classification
-                    $scope.feedback.classifications = [];
-                    for (var columnIndex in $scope.locked.tableCells[-1]) {
-                        if ($scope.locked.tableCells[-1][columnIndex] == 1) {
-                            var obj = {
-                                "position": {"index": columnIndex},
-                                "annotation": $scope.result.headerAnnotations[columnIndex]
-                            };
-                            $scope.feedback.classifications.push(obj);
-                        }
-                    }
-                    //endregion
-
-                    //region disambiguation
-                    $scope.feedback.disambiguations = [];
-                    for (var rowIndex in $scope.locked.tableCells) {
-                        if (rowIndex != -1) {
-                            for (var columnIndex in $scope.locked.tableCells[rowIndex]) {
-                                if ($scope.locked.tableCells[rowIndex][columnIndex] == 1) {
-                                    var obj = {
-                                        "position": {
-                                            "rowPosition": {"index": rowIndex},
-                                            "columnPosition": {"index": columnIndex}
-                                        },
-                                        "annotation": $scope.result.cellAnnotations[rowIndex][columnIndex]
-                                    };
-                                    $scope.feedback.disambiguations.push(obj);
-                                }
-
-                            }
-                        }
-                    }
-                    //endregion
-
-                    //region columnAmbiguities-sets the skipped column -disambiguations
-                    //"columnAmbiguities": [{ position: { index: 6 } },...],
-                    $scope.feedback.columnAmbiguities = [];
-                    for (var columnNumber in $scope.noDisambiguationColumn) {
-                        if ($scope.noDisambiguationColumn[columnNumber] == true) {
-                            $scope.feedback.columnAmbiguities.push({position: {index: columnNumber}});
-                        }
-
-                    }
-                    //endregion
-
-                    //region ambiguities-sets the skipped cell disambiguations
-                    //"ambiguities": [{ position: { rowPosition: { index: 6 }, columnPosition: { index: 6 } } }, ...],
-                    $scope.feedback.ambiguities = [];
-                    for (var rowNumber in $scope.noDisambiguationCell) {
-                        for (var columnNumber in $scope.noDisambiguationCell[rowNumber]) {
-                            if ($scope.noDisambiguationCell[rowNumber][columnNumber] == true) {
-                                $scope.feedback.ambiguities.push({
-                                    position: {
-                                        rowPosition: {index: rowNumber},
-                                        columnPosition: {index: columnNumber}
-                                    }
-                                });
-                            }
-
-                        }
-                    }
-                    //endregion
-
-                    //region relations
-                    $scope.feedback.columnRelations = [];
-                    for (var column1Index in $scope.locked.graphEdges) {
-                        for (var column2Index in $scope.locked.graphEdges[column1Index]) {
-                            if ($scope.locked.graphEdges[column1Index][column2Index] == 1) {
-                                var obj = {
-                                    "position": {
-                                        "first": {"index": column1Index},
-                                        "second": {"index": column2Index}
-                                    },
-                                    "annotation": $scope.result.columnRelationAnnotations[column1Index][column2Index]
-                                };
-                                $scope.feedback.columnRelations.push(obj);
-                            }
-                        }
-                    }
-                    //endregion
-
-                    //region sends feedback to server
-                    rest.tasks.name(TaskID).feedback.store($scope.feedback).exec(success, error);
-                    //endregion
-                }
-                //endregion
-            };
-
-            //region feedback
-            $scope.userFeedback = function () {
-                feedbackFunctions.sendFeedback(
-                    // Success
-                    function (response) {
-                        console.log("*************************************************************")
-                        console.log('user feedback :\n'+JSON.stringify($scope.feedback,null, 4));
-                    },
-
-                    // Failure
-                    function (response) {
-                        alert("Error.");
-                    }
-                );
-            };
-            //endregion
-
-            //region reexecute
-            $scope.reexecute = function () {
-                // TODO: Error reporting should be improved.
-
-                // Send feedback
-                feedbackFunctions.sendFeedback(
-                    // Feedback sent successfully
-                    function (response) {
-                        console.log("*************************************************************")
-                        console.log('user feedback :\n'+JSON.stringify($scope.feedback,null, 4));
-                        // Start the task
-                        rest.tasks.name(TaskID).execute.exec(
-                            // Execution started successfully
-                            function (response) {
-                                window.location.href = '#/taskconfigs/' + TaskID;
-                            },
-
-                            // Error while starting the execution
-                            function (response) {
-                                throw new Error('Error while trying to run the task; cannot continue.');
-                            }
-                        );
-                    },
-
-                    // Failure while sending feedback
-                    function (response) {
-                        throw new Error('Error while saving feedback; cannot continue.');
-                    }
-                );
-            };
-            //endregion
-
-            //region state of page
-            $scope.state = 1;                       // Default VIEW
-            $scope.previousState = function () {
-                $scope.state--;
-            };
-
-            $scope.nextState = function () {
-                $scope.state++;
-            };
-            //endregion
-
-            //region Relation ui-selectbox functions
-            //TODO isty : stara struktura
-            $scope.switchRelation = function (newSelection, knowledgeBase) {
-                // TODO: remove, when bug corrected.
-                console.log($scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2]);
-            };
-
-            $scope.lockRelation = function () {
-                $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
-            };
-
-            //endregion
-
-            // region Handling graphvis directive
-            // **************************************
-            function loadGraphVis() {
-                // Initialization
-                if (!$scope.gvdata) {
-                    $scope.gvdata= {};
-                }
-
-                // Set the necessary data
-                $scope.gvdata.vertices = $scope['inputFile']['columns'];
-                $scope.gvdata.result = $scope['result'];
-                $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
-                $scope.gvdata.edgeClick = function (c1, c2) {
-                    with ($scope.selectedRelation) {
-                        column1 = c1;
-                        column2 = c2;
-                    };
-                    if (!$scope.$$phase) {
-                        $scope.$apply();
-                    }
-                    $("#modalPredicates").modal();
+            // Set the necessary data
+            $scope.gvdata.vertices = $scope['inputFile']['columns'];
+            $scope.gvdata.result = $scope['result'];
+            $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
+            $scope.gvdata.edgeClick = function (c1, c2) {
+                with ($scope.selectedRelation) {
+                    column1 = c1;
+                    column2 = c2;
                 };
+                if (!$scope.$$phase) {
+                    $scope.$apply();
+                }
+                $("#modalPredicates").modal();
+            };
 
-                // TODO: $scope.locked.graphEdges is not initialized at this point! Is this pattern OK?
-                timed.ready(
-                    function () {
-                        return (!!$scope['locked'] && !!$scope['locked']['graphEdges'])
-                    },
-                    function () {
-                        console.warn('lockobj set. check the used pattern');
-                        $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
-                    }
-                );
-
-                // Calls modelChanged on the currently selected relation.
-                $scope.gvdata.mc = function () {
-                    $scope.gvdata.modelChanged(
-                        $scope.selectedRelation.column1,
-                        $scope.selectedRelation.column2
-                    );
-                };
-            }
-            // endregion
-
-            // region Exporting to JSON / CSV / RDF
-            // **************************************
-            $scope.exporting = {
-                json: function () {
-                    window.open(rest.tasks.name(TaskID).result.export.json.address());
+            // TODO: $scope.locked.graphEdges is not initialized at this point! Is this pattern OK?
+            timed.ready(
+                function () {
+                    return (!!$scope['locked'] && !!$scope['locked']['graphEdges'])
                 },
-                csv: function () {
-                    window.open(rest.tasks.name(TaskID).result.export.csv.address());
-                },
-                turtle: function () {
-                    window.open(rest.tasks.name(TaskID).result.export.turtle.address());
-                },
-                jsonld: function () {
-                    window.open(rest.tasks.name(TaskID).result.export.jsonld.address());
+                function () {
+                    console.warn('lockobj set. check the used pattern');
+                    $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
                 }
+            );
+
+            // Calls modelChanged on the currently selected relation.
+            $scope.gvdata.mc = function () {
+                $scope.gvdata.modelChanged(
+                    $scope.selectedRelation.column1,
+                    $scope.selectedRelation.column2
+                );
             };
-            // endregion
         }
-    );
-
-})
-();
+        // endregion
+    });
+})();

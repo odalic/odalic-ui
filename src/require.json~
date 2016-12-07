@@ -11,10 +11,16 @@
   "directives/alert/alert.js",
   "directives/tooltip/tooltip.js",
   "directives/injector/injector.js",
+<<<<<<< HEAD
   "directives/modal/modal.js",
   "directives/loadico/loadico.js",
+  "directives/lock/lock.js",
+  "directives/rowsofclassificationtable/rowsofclassificationtable.js",
+  "directives/modalhead/modalhead.js",
+  "directives/selectbox/selectbox.js",
+  "directives/subjectcolumntables/subjectcolumntables.js",
+=======
   "directives/include/include.js",
-
   "templates/taskresult/view/classdisam/cdlock/cdlock.js",
   "templates/taskresult/view/classdisam/cdmodalproposal/cdproposalcontent/cdproposalcontent.js",
   "templates/taskresult/view/classdisam/cdmodalselection/cdsuggestions/cdsuggestions.js",
@@ -31,7 +37,8 @@
   "templates/taskresult/view/relations/rmodalselection/rselectbox/rselectbox.js",
   "templates/taskresult/view/subjectcolumn/sclock/sclock.js",
   "templates/taskresult/view/subjectcolumn/subjectcolumntables/subjectcolumntables.js",
-  
+  "directives/modal/modal.js",
+>>>>>>> refactoring
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",

@@ -5,23 +5,21 @@
 
     // lock directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('selectBox', function () {
+    app.directive('cDSelectBox', function () {
         return {
 
-
             restrict: 'E',
-            // scope:
-            // {
-            //     data : '=',
-            //     column: '=',
-            //     kb :'=',
-            //     locked :'='
-            // },
+             scope:
+            {
+                selectedPosition: '=',
+                locked: '=',
+                knowledgeBase: '@',
+                result: '='
+            },
 
 
-            templateUrl: currentFolder + 'selectbox.html',
+            templateUrl: currentFolder + 'cdselectbox.html',
             link: function ($scope, iElement, iAttrs) {
-                $scope.knowledgeBase = $scope.$eval(iAttrs.knowledgeBase);
 
                 $scope.lodLiveBrowserIcon = "graphics/link.png";
 

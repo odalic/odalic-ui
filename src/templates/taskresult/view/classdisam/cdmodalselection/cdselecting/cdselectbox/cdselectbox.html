@@ -1,28 +1,4 @@
-<!--<ui-select-->
-        <!--ng-model="data[column].chosen[kb]"-->
-        <!--multiple theme="bootstrap" search-enabled="true" width="100"-->
-        <!--ng-change="change()">-->
-    <!--<ui-select-match placeholder="Pick one...">-->
-        <!--<img ng-click="createIframe($item.entity,kb,$event)"-->
-             <!--title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}"-->
-             <!--ng-class="'selectBoxIcon'"/>-->
-        <!--&nbsp-->
-        <!--{{$item.entity.label}}<br> ({{$item.entity.resource}})-->
-    <!--</ui-select-match>-->
-    <!--<ui-select-choices-->
-            <!--repeat="opt in data[column].candidates[kb]  | propsFilter : {'entity.resource': $select.search, 'entity.label': $select.search}">-->
-        <!--<img ng-click="createIframe(opt.entity,kb,$event)"-->
-             <!--title="lodlive browser" ng-src="{{lodLiveBrowserIcon}}"-->
-             <!--ng-class="'selectBoxIcon'"/>-->
-        <!--&nbsp-->
-        <!--<span title={{opt.entity.resource}}-->
-              <!--ng-bind-html="opt.entity.label| highlight: $select.search"></span>-->
-        <!--<div title={{opt.entity.resource}}-->
-             <!--ng-bind-html="' ('+opt.entity.resource + ')'| highlight: $select.search"></div>-->
-    <!--</ui-select-choices>-->
-
-<!--</ui-select>-->
-
+<!--multi select box-->
 <div ng-if="(selectedPosition.row == -1)">
 
     <ui-select
@@ -50,6 +26,7 @@
 
     </ui-select>
 </div>
+<!--selectbox with only one possibility to choise-->
 <div ng-if="(selectedPosition.row != -1)">
     <ui-select
             ng-model="result.cellAnnotations[selectedPosition.row][selectedPosition.column].chosen[knowledgeBase]"

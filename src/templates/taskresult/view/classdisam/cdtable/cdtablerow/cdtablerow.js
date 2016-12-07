@@ -5,21 +5,23 @@
 
     // lock directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('rowsOfClassificationTable', function () {
+    app.directive('cDTableRow', function () {
         return {
             restrict: 'A',
-            templateUrl: currentFolder + 'rowsofclassificationtable.html',
+            scope: {
+                row: '=',
+                rowIndex: '=',
+                concreteData: '=',
+                selectedPosition: '=',
+                lockedTableCells: '=',
+                chosenKBs: '=',
+                primaryKB:'@'
+            },
+            templateUrl: currentFolder + 'cDTableRow.html',
             link: function (scope, iElement, iAttrs) {
-                scope.row = scope.$eval(iAttrs.row);
-                scope.rowIndex = scope.$eval(iAttrs.rowIndex);
-                scope.concreteData = scope.$eval(iAttrs.data);
-                // iAttrs.$observe('data', function(data) {
-                //     scope.data = data;
-                // });
 
-                //
+
                 scope.selectPosition = function (row, column) {
-                    // alert("dd");
                     scope.selectedPosition.column = column;
                     scope.selectedPosition.row = row;
                 };
@@ -30,7 +32,7 @@
                     //console.log( scope.rowIndex + " " + columnIndex +" "+ itemIndex +" "+ JSON.stringify(data));
 
                     data.splice(itemIndex, 1);
-                    scope.locked.tableCells[scope.rowIndex][columnIndex] = 1;
+                    scope.lockedTableCells[scope.rowIndex][columnIndex] = 1;
 
                 }
 
