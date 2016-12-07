@@ -1,58 +1,37 @@
-<div class="container-fluid">
-
-
 <div class="form-group">
-    <label class="col-md-12 control-label">Search: </label>
-    <div class="col-md-10">
+    <div class="col-md-12">
+        <!--<label class="control-label">Search: </label>-->
+        <h3>Search:</h3>
+    </div>
 
+    <!-- Find -->
+    <div class="col-md-9">
         <input type="text" class="form-control"
                ng-model="string">
     </div>
-
-    <!--TODO spojit to do jednoho elementu-->
-    <div class="col-md-2 text-center">
+    <div class="col-md-3">
         <button ng-hide="waitForSuggestions" type="button" class="form-control"
                 ng-click="getSuggestions(string,'10')">
             Find
         </button>
         <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
     </div>
-</div>
 
-<div class="form-group">
-    <div class="col-md-10">
+    <!-- Blank space -->
+    <div class="col-md-12 odalic-hstyle-small"></div>
+
+    <!-- Add -->
+    <div class="col-md-9">
         <select class="form-control" style="width: 100%"
                 ng-model="suggestion"
                 ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
-
         </select>
-
-        <!--<ui-select-->
-        <!--ng-model="suggestion"-->
-        <!--theme="bootstrap"-->
-        <!--search-enabled="true"-->
-        <!--width="100"">-->
-        <!--&lt;!&ndash;  ng-change="getSuggestions($select.search,'10')"&ndash;&gt;-->
-        <!--<ui-select-match ng-init = "bla = $select.search" placeholder="Write...">-->
-        <!--{{$select.selected.label}}-->
-        <!--+ '\n'+-->
-        <!--({{$select.selected.resource}})-->
-        <!--</ui-select-match>-->
-        <!--<ui-select-choices repeat="opt in suggestions ">-->
-        <!--<span ng-bind-html="opt.label"></span>-->
-        <!--<div ng-bind-html="' ('+opt.resource + ')'"></div>-->
-        <!--</ui-select-choices>-->
-
-        <!--</ui-select>-->
     </div>
-
-    <div class="col-md-2 text-center">
+    <div class="col-md-3">
         <button type="button" class="form-control"
                 ng-click="addSuggestions(suggestion)">
             Add
         </button>
-        <!-- Icon 'loading' -->
-
+        <!-- TODO: Is this todo? Previous comment was: "Icon 'loading'" -->
     </div>
 </div>
-    </div>

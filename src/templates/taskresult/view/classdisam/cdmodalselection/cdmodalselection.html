@@ -1,35 +1,40 @@
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog lg">
-
         <div class="modal-content">
             <div class="container-fluid">
-                <!-- Column classification -->
+                <!-- Head -->
                 <div class="modal-head">
                     <c-d-modal-head/>
-
                 </div>
-                <div class="modal-body">
 
+                <!-- Body -->
+                <div class="modal-body">
                     <c-d-selecting
                             primary-k-b="{{primaryKB}}"
                             selected-position="selectedPosition" ,
                             locked="locked" ,
                             result="result"/>
 
-                    <br>
+                    <!-- Blank space -->
+                    <div class="col-md-12 odalic-hstyle-small"></div>
 
-                    <button class="btn pull-right" data-toggle="modal"
-                            data-target="#newEntities">
-                        Proposal
-                    </button>
-                    <br>
+                    <div class="form-group">
+                        <div class="col-md-3 col-md-offset-9">
+                            <button class="form-control" data-toggle="modal"
+                                    data-target="#newEntities">
+                                Proposal
+                            </button>
+                        </div>
+                    </div>
 
+                    <!-- Suggestions -->
                     <c-d-suggestions selected-position="selectedPosition" ,
                                      locked="locked" ,
                                      primary-k-b="{{primaryKB}}" ,
                                      result="result"/>
 
-                    <br>
+                    <!-- Blank space -->
+                    <div class="col-md-12 odalic-hstyle-medium"></div>
 
                     <c-d-check-boxes selected-position="selectedPosition"
                                      locked="locked"
@@ -39,8 +44,6 @@
 
                 </div>
             </div>
-
         </div>
     </div>
-</div>
 </div>
