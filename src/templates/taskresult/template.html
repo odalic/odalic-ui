@@ -7,42 +7,50 @@
 
     <div class="container-fluid">
         <loadico bind="dataload" size="5">
-            <!-- VIEW -->
-            <div ng-switch="state" ng-init="state = 0">
+            <div ng-switch="resview">
+                <!-- Result display -->
+                <div ng-switch-when="view">
+                    <!-- VIEW -->
+                    <div ng-switch="state" ng-init="state = 0">
 
-                <!-- VIEW: Sets subject column  -->
-                <div ng-switch-when="0">
-                    <include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include>
+                        <!-- VIEW: Sets subject column  -->
+                        <div ng-switch-when="0">
+                            <include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include>
 
-                    <include src="src/templates/taskresult/view/classdisam/cdmodalselection/cdmodalselection.html"></include>
+                            <include src="src/templates/taskresult/view/classdisam/cdmodalselection/cdmodalselection.html"></include>
 
-                    <include src="src/templates/taskresult/view/classdisam/cdmodalproposal/cdmodalproposal.html"></include>
+                            <include src="src/templates/taskresult/view/classdisam/cdmodalproposal/cdmodalproposal.html"></include>
+                        </div>
+
+                        <!-- VIEW: Sets classifications and disambiguations -->
+                        <div ng-switch-when="1">
+                            <subject-column-tables/>
+                        </div>
+
+                        <!-- VIEW: Relations -->
+                        <div ng-switch-when="2">
+                            <h2>Choosing of predicates</h2>
+
+                            <!-- Modal -->
+                            <include src="src/templates/taskresult/view/relations/rmodalselection/rmodalselection.html"></include>
+
+                            <!-- Graph visualiser -->
+                            <graphvis bind="gvdata"></graphvis>
+                        </div>
+
+                    </div>
+
+                    <!-- Buttons: send feedback, reexecute, previous step, next step -->
+                    <control-buttons/>
+
+                    <export/>
                 </div>
 
-                <!-- VIEW: Sets classifications and disambiguations -->
-                <div ng-switch-when="1">
-                    <subject-column-tables/>
+                <!-- Failed task display -->
+                <div ng-switch-when="failure">
+                    <include src="src/templates/taskresult/failure/fdisplay.html"/>
                 </div>
-
-                <!-- VIEW: Relations -->
-                <div ng-switch-when="2">
-                    <h2>Choosing of predicates</h2>
-
-                    <!-- Modal -->
-                    <include src="src/templates/taskresult/view/relations/rmodalselection/rmodalselection.html"></include>
-
-                    <!-- Graph visualiser -->
-                    <graphvis bind="gvdata"></graphvis>
-                </div>
-
             </div>
-
-            <!--buttons: start from beggining, send feedback, reexecute, previous step, next step-->
-            <control-buttons/>
-
-            <export/>
-
-            <br><br>
         </loadico>
     </div>
 </main-cnt>

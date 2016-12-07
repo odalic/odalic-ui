@@ -14,6 +14,7 @@
   "directives/modal/modal.js",
   "directives/loadico/loadico.js",
   "directives/include/include.js",
+  "directives/shortened/shortened.js",
 
   "templates/taskresult/view/classdisam/cdlock/cdlock.js",
   "templates/taskresult/view/classdisam/cdmodalproposal/cdproposalcontent/cdproposalcontent.js",
@@ -39,5 +40,6 @@
   "services/rest/rest.js",
   "services/persist/persist.js",
   "services/report/report.js",
+  "services/responsep/responsep.js",
   "templates/templates.js"
 ]

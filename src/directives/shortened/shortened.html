@@ -1,0 +1,8 @@
+<span ng-if="!expanded" ng-class="sclass1">
+    {{ shtext }}
+    <a ng-click="expand()" class="odalic-cursor-pointer">(Show more...)</a>
+</span>
+<span ng-if="expanded" ng-class="sclass2">
+    {{ text }} <br/>
+    <a ng-click="trim()" class="odalic-cursor-pointer">Show less...</a>
+</span>

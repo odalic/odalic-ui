@@ -41,7 +41,7 @@
     //endregion
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest) {
+    app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest, responsep) {
 
         // The task's ID
         var TaskID = $routeParams['taskid'];
@@ -82,6 +82,7 @@
 
             // Initialization
             $scope.dataload = {};
+            $scope.resview = 'undefined';
 
             // Phases enum
             var phases = {
@@ -115,8 +116,33 @@
                             f();
                         });
 
+                        $scope.resview = 'view';
                         $scope.dataload.show = true;
                     }
+                };
+            })();
+
+            // To call when a certain phase fails
+            var dataLoadFail = (function () {
+                var called = false;
+
+                return function (response) {
+                    // May be called only once
+                    if (called) {
+                        return;
+                    }
+                    called = true;
+
+                    // Prepare data to display
+                    var ro = $scope.failurev = responsep(response);
+                    ro.description = text.safe(ro.description, '(not defined)');
+                    ro.message = text.safe(ro.message, '(not defined)');
+
+                    // Switch to 'Failure' display
+                    $scope.resview = 'failure';
+
+                    // Show
+                    $scope.dataload.show = true;
                 };
             })();
 
@@ -139,7 +165,7 @@
 
                 // Error
                 function (response) {
-                    // TODO: Deal with this somehow.
+                    dataLoadFail(response);
                 }
             );
             //endregion
@@ -159,7 +185,7 @@
 
                 // Fatal error, result not loaded or task resulted in an error
                 function (response) {
-                    throw new Error('Task result could not have been loaded.');
+                    dataLoadFail(response);
                 }
             );
             //endregion
@@ -176,7 +202,6 @@
 
                 // Error
                 function (response) {
-                    // TODO
                     throw new Error('Task configuration could not have been loaded.');
                 }
             );
