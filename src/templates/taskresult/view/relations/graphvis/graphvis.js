@@ -159,37 +159,15 @@
                             // Locks
                             setLock: function (node1, node2, locked) {
                                 applyOnColIdcs(node1, node2, function (column1, column2) {
-                                    try {
-                                        // TODO: The data structure seems to be illogical. Why negate?
-                                        scope.bind.lockobj[column1][column2] = !locked;
-                                    } catch (e) {
-                                        // TODO: Catching this exception should not be necessary.
-                                        console.warn('locks data structure does not allow locking for these columns:' + column1 + ' ' + column2);
-                                        // TODO: Just a temporary bug-fix. Must be removed.
-                                        if (!scope.bind.lockobj) {
-                                            scope.bind.lockobj = {};
-                                        }
-                                        scope.bind.lockobj[column1] = {};
-                                        scope.bind.lockobj[column1][column2] = false;
-                                    }
+                                    // TODO: The data structure seems to be illogical. Why negate?
+                                    scope.bind.lockobj[column1][column2] = !locked;
                                 });
                             },
                             getLock:  function (node1, node2) {
                                 var result = null;
                                 applyOnColIdcs(node1, node2, function (column1, column2) {
-                                    try {
-                                        // TODO: The data structure seems to be illogical. Why negate?
-                                        result = !scope.bind.lockobj[column1][column2];
-                                    } catch (e) {
-                                        // TODO: Catching this exception should not be necessary.
-                                        console.warn('locks data structure does not allow locking for these columns:' + column1 + ' ' + column2);
-                                        // TODO: Just a temporary bug-fix. Must be removed.
-                                        if (!scope.bind.lockobj) {
-                                            scope.bind.lockobj = {};
-                                        }
-                                        scope.bind.lockobj[column1] = {};
-                                        scope.bind.lockobj[column1][column2] = false;
-                                    }
+                                    // TODO: The data structure seems to be illogical. Why negate?
+                                    result = !scope.bind.lockobj[column1][column2];
                                 });
                                 return result;
                             },

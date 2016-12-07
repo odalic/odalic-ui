@@ -13,9 +13,8 @@
 
                 // TODO: [critical] Feedback saving not working when a user actually makes a change.
                 var feedbackFunctions = {
-                    //region sendFeedback
                     sendFeedback: function (success, error) {
-
+                        // Set the feedback according to UI
                         //region subjectsColumns
                         $scope.feedback.subjectColumnPositions = {};
                         for (var KB in  $scope.locked.subjectColumns) {
@@ -67,7 +66,6 @@
                                         };
                                         $scope.feedback.disambiguations.push(obj);
                                     }
-
                                 }
                             }
                         }
@@ -120,31 +118,25 @@
                         }
                         //endregion
 
-                        //region sends feedback to server
+                        // Send the feedback
                         rest.tasks.name($scope.taskID).feedback.store($scope.feedback).exec(success, error);
-                        //endregion
                     }
-                    //endregion
                 };
 
-                //region feedback
                 $scope.userFeedback = function () {
                     feedbackFunctions.sendFeedback(
                         // Success
                         function (response) {
-                            console.log("*************************************************************")
-                            console.log('user feedback :\n'+JSON.stringify($scope.feedback,null, 4));
+                            // Feedback successfully sent.
                         },
 
                         // Failure
                         function (response) {
-                            alert("Error.");
+                            throw new Error('Error while trying to send the feedback.');
                         }
                     );
                 };
-                //endregion
 
-                //region reexecute
                 $scope.reexecute = function () {
                     // TODO: Error reporting should be improved.
 
@@ -152,8 +144,6 @@
                     feedbackFunctions.sendFeedback(
                         // Feedback sent successfully
                         function (response) {
-                            console.log("*************************************************************")
-                            console.log('user feedback :\n'+JSON.stringify($scope.feedback,null, 4));
                             // Start the task
                             rest.tasks.name($scope.taskID).execute.exec(
                                 // Execution started successfully
@@ -174,9 +164,7 @@
                         }
                     );
                 };
-                //endregion
 
-                //region state of page
                 //$scope.state = 0;                       // Default VIEW
                 $scope.previousState = function () {
                     $scope.state--;
@@ -185,7 +173,6 @@
                 $scope.nextState = function () {
                     $scope.state++;
                 };
-                //endregion
             }
         }
     }]);

@@ -204,10 +204,27 @@ var edgelabel = function (d3sel) {
         };
     })(_ref.changeText);
     this.changeText = (function (f) {
+        //region Workaround
+        var _labelobj = {
+            label : null,
+            isset: false
+        };
+        //endregion
+
         return function (text, invoker) {
             f.call(_ref, text);
             _btext = text;
-            _bwidth = _ref.width;
+
+            //region Workaround
+            // This is so far the most WTF error I've ever come across. (NS_ERROR_FAILURE)
+            // _bwidth = _ref.width;
+            if (!_labelobj.isset) {
+                if (_label = _ref.label) {
+                    _labelobj.isset = true;
+                }
+            }
+            _bwidth = _label.node().getBBox().width;
+            //endregion
 
             if (invoker !== 'arrows') {
                 _arrows.text = text;

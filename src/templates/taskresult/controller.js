@@ -87,8 +87,12 @@
             var phases = {
                 input: 1,
                 result: 2,
-                kb: 3
+                kb: 3,
+                fb: 4
             };
+
+            // Additional actions to take upon complete data load
+            var actions = [];
 
             // To call when a certain phase is loaded
             var dataLoaded = (function () {
@@ -105,8 +109,12 @@
                         }
                     });
 
-                    // Everything was loaded => show the data
+                    // Everything was loaded => handle and then show the data
                     if (empty) {
+                        actions.forEach(function (f) {
+                            f();
+                        });
+
                         $scope.dataload.show = true;
                     }
                 };
@@ -142,9 +150,8 @@
                 function (response) {
                     $scope.result = response;
 
-                    // ...
-                    setsData();
-                    getFeedback();
+                    // Prepare data for graphvis component
+                    actions.push(setsData);
 
                     // Phase complete
                     dataLoaded(phases.result);
@@ -152,7 +159,6 @@
 
                 // Fatal error, result not loaded or task resulted in an error
                 function (response) {
-                    // TODO
                     throw new Error('Task result could not have been loaded.');
                 }
             );
@@ -175,159 +181,152 @@
                 }
             );
             //endregion
+
+            //region Load the last feedback
+            rest.tasks.name($scope.taskID).feedback.retrieve.exec(
+                function (response) {
+                    $scope.serverFeedback = response;
+
+                    // Feedback from server retrieved. Set the UI accordingly.
+                    actions.push(function () {
+                        setLockedFlags();
+                        setIgnoreThings();
+                    });
+
+                    // Phase complete
+                    dataLoaded(phases.fb);
+                },
+                // Error
+                function (response) {
+                    throw new Error('Error loading server feedback. Cannot continue.');
+                }
+            );
+            //endregion
         })();
 
-
-
-        $scope.loadedData = 0;
         $scope.serverFeedback= {};
 
 
-            // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
-            $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
-            //region dependent on data from server
-            //sets data for graph component
-            $scope.currentRelations = {};
-            setsData = function () {
-                // TODO: Own relation? Takto?
-                objForEach($scope.result.columnRelationAnnotations, function (column1, collect1) {
-                    objForEach(collect1, function (column2, collect2) {
+        // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
+        $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
+        //region dependent on data from server
+        //sets data for graph component
+        $scope.currentRelations = {};
+        setsData = function () {
+            // TODO: Own relation? Takto?
+            objForEach($scope.result.columnRelationAnnotations, function (column1, collect1) {
+                objForEach(collect1, function (column2, collect2) {
 
-                        // Create a fake candidate for custom relations
-                        objRecurAccess($scope.result, column1, column2, 'chosen')['other'] = [
-                            {
-                                "entity": {
-                                    "resource": "",
-                                    "label": ""
-                                },
-                                "score": 1
-                            }
-                        ];
-                    });
+                    // Create a fake candidate for custom relations
+                    objRecurAccess($scope.result, column1, column2, 'chosen')['other'] = [
+                        {
+                            "entity": {
+                                "resource": "",
+                                "label": ""
+                            },
+                            "score": 1
+                        }
+                    ];
                 });
+            });
 
-                // Load the graphvis directive when the data is ready
-                loadGraphVis();
+            // Load the graphvis directive when the data is ready
+            loadGraphVis();
+        };
 
-                // Another data loaded
-                $scope.loadedData++;
-            };
+        setIgnoreThings = function () {
+            // Column ignores
+            var fbcignores = $scope.serverFeedback.columnIgnores;
+            fbcignores.forEach(function (c) {
+                $scope.ignoredColumn[c.position.index] = true;
+            });
 
+            // Column ambiguities
+            var fbcambigs = $scope.serverFeedback.columnAmbiguities;
+            fbcambigs.forEach(function (c) {
+                $scope.noDisambiguationColumn[c.position.index] = true;
+            });
 
-            getFeedback = function () {
-                rest.tasks.name($scope.taskID).feedback.retrieve.exec(
-                    function (response) {
-                        $scope.serverFeedback = response
-                        console.log("------------------------------------------------------------------------")
-                        console.log('server feedback: \n ' + JSON.stringify($scope.serverFeedback, null, 4));
-                        //alert("Feedback was saved")
-                        setLockedFlags();
-                        setIgnoreThings();
-                    },
-                    // Error
-                    function (response) {
-                        alert("Something is wrong. Please, try to again.")
-                    }
-                )
+            // Cell ambiguities
+            var fblambigs = $scope.serverFeedback.ambiguities;
+            fblambigs.forEach(function (l) {
+                var r = l.position.rowPosition.index;
+                var c = l.position.columnPosition.index;
+                objRecurAccess($scope.noDisambiguationCell, r)[c] = true;
+            });
+        };
 
+        setLockedFlags = function () {
+            var columnCount = $scope.result.cellAnnotations[0].length;
+            var rowCount = $scope.result.cellAnnotations.length;
 
+            //default classification locking (set to 'no-lock')
+            $scope.locked.tableCells = {};
+            $scope.locked.tableCells[-1] = {};
+            for (var c = 0; c < columnCount; c++) {
+                $scope.locked.tableCells[-1][c] = 0;
             }
-            setIgnoreThings = function () {
-                // for (var index in $scope.serverFeedback.columnIgnores) {
-                //     $scope.ignoredColumn[$scope.serverFeedback.columnIgnores[index].position.index] = 1;
-                // }
-                //
-                // for (var index in $scope.serverFeedback.columnAmbiguities) {
-                //    $scope.noDisambiguationColumn[$scope.serverFeedback.columnAmbiguities[index].position.index] = 1;
-                // }
-                //
-                // for (var index in $scope.serverFeedback.columnIgnores) {
-                //     var row =$scope.serverFeedback.columnIgnores[index].rowPosition.index;
-                //     var column =$scope.serverFeedback.columnIgnores[index].columnPosition.index;
-                //     $scope.noDisambiguationCell[row][column] = 1;
-                // }
-                $scope.loadedData++;
 
-            };
+            //classification locking from server feedback
+            for (var index in $scope.serverFeedback.classifications) {
+                var column = $scope.serverFeedback.classifications[index].position.index;
+                $scope.locked.tableCells[-1][column] = 1;
+            }
 
-            setLockedFlags = function () {
-
-
-                var columnCount = $scope.result.cellAnnotations[0].length;
-                var rowCount = $scope.result.cellAnnotations.length;
-
-
-                //default classification locking
-                $scope.locked.tableCells = {};
-                $scope.locked.tableCells[-1] = {};
+            //default disambiguation locking (set to 'no-lock')
+            for (var r = 0; r < rowCount; r++) {
+                $scope.locked.tableCells[r] = {};
                 for (var c = 0; c < columnCount; c++) {
-
-                    $scope.locked.tableCells[-1][c] = 0;
+                    $scope.locked.tableCells[r][c] = 0;
                 }
-                //classification locking from server feedback
-                for (var index in  $scope.serverFeedback.classifications) {
-                    var column = $scope.serverFeedback.classifications[index].position.index;
-                    $scope.locked.tableCells[-1][column] = 1;
-                }
-
-
-                //default disambiguation locking
-                for (var r = 0; r < rowCount; r++) {
-                    $scope.locked.tableCells[r] = {};
-                    for (var c = 0; c < columnCount; c++) {
-                        $scope.locked.tableCells[r][c] = 0;
-
-                    }
-                }
-                //disambiguation locking from server feedback
-                for (var index in  $scope.serverFeedback.disambiguations) {
-                    var row = $scope.serverFeedback.disambiguations[index].position.rowPosition.index;
-                    var column = $scope.serverFeedback.disambiguations[index].position.columnPosition.index;
-                    $scope.locked.tableCells[row][column] = 1;
-                }
-
-
-                //subject column server locking
-                $scope.locked.subjectColumns = {};
-                for (var i in $scope.chosenKBs) {
-                    var kb = $scope.chosenKBs[i];
-                    $scope.locked.subjectColumns[kb] = {};
-                    for (var c = 0; c < columnCount; c++) {
-                        if ($scope.serverFeedback.subjectColumnPositions.hasOwnProperty(kb) && $scope.serverFeedback.subjectColumnPositions[kb].index == c) {
-                            $scope.locked.subjectColumns[kb][c] = 1;
-                        }
-                        else {
-                            $scope.locked.subjectColumns[kb][c] = 0;
-                        }
-                    }
-                }
-
-
-                //TODO isty : mozna predelat nevim jestli mam spravne poradi, predpokladam ze column1 je mensi nez column2
-                $scope.locked.graphEdges = {};
-                for (var r = 0; r < columnCount - 1; r++) {
-                    $scope.locked.graphEdges[r] = {};
-                    for (var c = r + 1; c < columnCount; c++) {
-                        $scope.locked.graphEdges[r][c] = 0;
-                    }
-                }
-
-
-                for (var index in  $scope.serverFeedback.columnRelations) {
-                    var column1 = $scope.serverFeedback.columnRelations[index].position.first.index;
-                    var column2 = $scope.serverFeedback.columnRelations[index].position.second.index;
-                    $scope.locked.graphEdges[column1][column2] = 1;
-                }
-
-                // $scope.loadedData = true;
-
-                $scope.loadedData++;
-
             }
-            //endregion
-            // ****************************************
-            // Loading of the necessary resources finishes here
-            //endregion4
+
+            //disambiguation locking from server feedback
+            for (var index in  $scope.serverFeedback.disambiguations) {
+                var row = $scope.serverFeedback.disambiguations[index].position.rowPosition.index;
+                var column = $scope.serverFeedback.disambiguations[index].position.columnPosition.index;
+                $scope.locked.tableCells[row][column] = 1;
+            }
+
+            //subject column server locking
+            $scope.locked.subjectColumns = {};
+            for (var i in $scope.chosenKBs) {
+                var kb = $scope.chosenKBs[i];
+                $scope.locked.subjectColumns[kb] = {};
+                for (var c = 0; c < columnCount; c++) {
+                    var scp = $scope.serverFeedback.subjectColumnPositions;
+                    if (scp.hasOwnProperty(kb) && scp[kb].index == c) {
+                        $scope.locked.subjectColumns[kb][c] = 1;
+                    }
+                    else {
+                        $scope.locked.subjectColumns[kb][c] = 0;
+                    }
+                }
+            }
+
+            //default relations locking (set to 'no-lock')
+            $scope.locked.graphEdges = {};
+            for (var c1 = 0; c1 < columnCount; c1++) {
+                $scope.locked.graphEdges[c1] = {};
+                for (var c2 = 0; c2 < columnCount; c2++) {
+                    if (c1 != c2) {
+                        $scope.locked.graphEdges[c1][c2] = 0;
+                    }
+                }
+            }
+
+            //relations locking from server feedback
+            var fbrel = $scope.serverFeedback.columnRelations;
+            for (var index in fbrel) {
+                var column1 = fbrel[index].position.first.index;
+                var column2 = fbrel[index].position.second.index;
+                $scope.locked.graphEdges[column1][column2] = 1;
+            }
+        };
+        //endregion
+        // ****************************************
+        // Loading of the necessary resources finishes here
+        //endregion4
 
         //TODO dat nekam do direktivy az se vyjasni own relace
         $scope.lockRelation = function () {
