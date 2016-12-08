@@ -3,6 +3,9 @@
     // Main module
     var app = angular.module('odalic-app');
 
+    // Load submodules
+    loadhelp.loadDefault();
+
     //region filter for a string matching in the select boxes
     //works only for two hierarchy of json
     app.filter('propsFilter', function () {
