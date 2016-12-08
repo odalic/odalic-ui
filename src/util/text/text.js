@@ -181,22 +181,31 @@ var text = {
     },
 
     /** Converts a variable to string if defined.
-     *  If undefined, returns the given placeholder.
-     *  If placeholder is undefined as well, an empty string is returned.
+     *  If undefined, returns an empty string.
+     *
+     * @param variable      A variable to convert to string.
+     * @returns {string}    A string created from the passed variable.
+     */
+    safe: function (variable) {
+        if (variable) {
+            return String(variable);
+        } else {
+            return String();
+        }
+    },
+
+    /** Converts a variable to string if defined.
+     *  If undefined, returns the given placeholder string.
      *
      * @param variable      A variable to convert to string.
      * @param placeholder   A fallback string if the variable is undefined.
      * @returns {string}    A string created from the passed variable.
      */
-    safe: function (variable, placeholder) {
+    safe2: function (variable, placeholder) {
         if (variable) {
             return String(variable);
         } else {
-            if (placeholder) {
-                return String(placeholder);
-            } else {
-                return String();
-            }
+            return String(placeholder);
         }
     }
 };
