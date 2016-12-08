@@ -138,8 +138,8 @@
 
                     // Prepare data to display
                     var ro = $scope.failurev = responsep(response);
-                    ro.description = text.safe2(ro.description, '(not defined)');
-                    ro.message = text.safe2(ro.message, '(not defined)');
+                    ro.description = text.safe2(ro.description, '-');
+                    ro.message = text.safe2(ro.message, '-');
 
                     // Switch to 'Failure' display
                     $scope.resview = 'failure';

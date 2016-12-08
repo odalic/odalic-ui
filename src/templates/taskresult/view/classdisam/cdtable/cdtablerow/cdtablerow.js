@@ -20,29 +20,21 @@
             templateUrl: currentFolder + 'cDTableRow.html',
             link: function (scope, iElement, iAttrs) {
 
-
                 scope.selectPosition = function (row, column) {
                     scope.selectedPosition.column = column;
                     scope.selectedPosition.row = row;
                 };
 
-                scope.removeClass = function(data, columnIndex, itemIndex)
-                {
-                    //console.log( scope.selectedPosition.row+ " " + scope.selectedPosition.column +" "+ itemIndex +" "+ JSON.stringify(data));
-                    //console.log( scope.rowIndex + " " + columnIndex +" "+ itemIndex +" "+ JSON.stringify(data));
-
+                scope.removeClass = function(data, columnIndex, itemIndex) {
                     data.splice(itemIndex, 1);
                     scope.lockedTableCells[scope.rowIndex][columnIndex] = 1;
-
-                }
+                };
 
                 scope.backgroundColor = function (KB) {
                     var index = scope.chosenKBs.indexOf(KB);
-                    var color = KBconstants.colorsArray[index];
+                    var color = constants.kbColorsArray[index];
                     return {"background-color": color, "border-radius": "5px", "opacity": "1"};
                 };
-
-
             }
         }
     });
