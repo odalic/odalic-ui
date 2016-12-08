@@ -62,7 +62,7 @@
                 var modHead = 'title';
                 var headlineText = null;
                 scope.$watch('bind.title', function(newValue, oldValue) {
-                    setTitle(getFirstArg(scope.bind[modHead], iAttrs[modHead]));
+                    setTitle(objhelp.getFirstArg(scope.bind[modHead], iAttrs[modHead]));
                 });
 
                 // The content of the modal

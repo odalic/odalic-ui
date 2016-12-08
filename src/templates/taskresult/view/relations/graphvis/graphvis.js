@@ -46,7 +46,7 @@
                 if (!scope.bind) {
                     scope.bind = {};
                 }
-                objCopy(pif, scope.bind);
+                objhelp.objCopy(pif, scope.bind);
 
 
                 // Private
@@ -261,7 +261,7 @@
                         };
 
                         // Retrieve selected predicate labels
-                        objForEach(selection, function (kb, scArr) {
+                        objhelp.objForEach(selection, function (kb, scArr) {
                             if (kb === 'other') {
                                 if (scArr && scArr[0]['entity']['resource']) {
                                     handleCandidate(kb, scArr[0]['entity']);
@@ -298,8 +298,8 @@
                     };
 
                     // Generate first edges the similar way
-                    objForEach(scope.bind.result['columnRelationAnnotations'], function (column1, cl1) {
-                        objForEach(cl1, function (column2, cl2) {
+                    objhelp.objForEach(scope.bind.result['columnRelationAnnotations'], function (column1, cl1) {
+                        objhelp.objForEach(cl1, function (column2, cl2) {
                             modelChanged(parseInt(column1), parseInt(column2));
                         });
                     });

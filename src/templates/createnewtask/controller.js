@@ -229,7 +229,7 @@
                 var valid = true;
 
                 // Task name set?
-                if (!objRecurAccess($scope, 'taskCreation')['identifier']) {
+                if (!objhelp.objRecurAccess($scope, 'taskCreation')['identifier']) {
                     valid = false;
                     $scope.alerts.taskCreation.identifier.visible = true;
                 }
@@ -237,13 +237,13 @@
                 // File selected?
                 switch ($scope.fileProvision) {
                     case 'local':
-                        if (!objRecurAccess($scope, 'files', 'selectedFile')['id']) {
+                        if (!objhelp.objRecurAccess($scope, 'files', 'selectedFile')['id']) {
                             valid = false;
                             $scope.alerts.files.selectedFile.visible = true;
                         }
                         break;
                     case 'remote':
-                        if (!objRecurAccess($scope, 'remoteFile')['location']) {
+                        if (!objhelp.objRecurAccess($scope, 'remoteFile')['location']) {
                             valid = false;
                             this.pushAlert('error', 'No remote file specified.');
                         }
@@ -393,7 +393,7 @@
                         }
 
                         // Fill the controls
-                        objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
+                        objhelp.objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
                         $scope.fileProvision = 'local';
                         $scope.files.selectedFile = $scope.fileUpload.uploaded[selectedFile];
                         $scope.taskCreation.description = response.description;

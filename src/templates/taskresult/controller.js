@@ -107,7 +107,7 @@
 
                     // Are there any additional phases, or was everything already loaded?
                     var empty = true;
-                    objForEach(phases, function (key, value) {
+                    objhelp.objForEach(phases, function (key, value) {
                         if (!(value in loads)) {
                             empty = false;
                         }
@@ -242,11 +242,11 @@
         $scope.currentRelations = {};
         setsData = function () {
             // TODO: Own relation? Takto?
-            objForEach($scope.result.columnRelationAnnotations, function (column1, collect1) {
-                objForEach(collect1, function (column2, collect2) {
+            objhelp.objForEach($scope.result.columnRelationAnnotations, function (column1, collect1) {
+                objhelp.objForEach(collect1, function (column2, collect2) {
 
                     // Create a fake candidate for custom relations
-                    objRecurAccess($scope.result, column1, column2, 'chosen')['other'] = [
+                    objhelp.objRecurAccess($scope.result, column1, column2, 'chosen')['other'] = [
                         {
                             "entity": {
                                 "resource": "",
@@ -280,7 +280,7 @@
             fblambigs.forEach(function (l) {
                 var r = l.position.rowPosition.index;
                 var c = l.position.columnPosition.index;
-                objRecurAccess($scope.noDisambiguationCell, r)[c] = true;
+                objhelp.objRecurAccess($scope.noDisambiguationCell, r)[c] = true;
             });
         };
 

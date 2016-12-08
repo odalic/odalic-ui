@@ -23,7 +23,7 @@ $.defineModule(function () {
         var statem = {};
         $.getJSONSync('./test/samples/responses/get-state.json', function (response) {
             statem = response;
-            objForEach(statem, function (key, value) {
+            objhelp.objForEach(statem, function (key, value) {
                 value['current'] = value['begin'];
                 value['fallback'] = value['begin'];
             });

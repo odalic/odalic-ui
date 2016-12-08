@@ -39,7 +39,7 @@
                     type: 'neutral',
                     visible: true
                 };
-                objForEach(defaults, function (key, value) {
+                objhelp.objForEach(defaults, function (key, value) {
                     if (!(key in scope.bind)) {
                         scope.bind[key] = value;
                     }

@@ -2,7 +2,7 @@
   "util/constants/constants.js",
   "util/unorderedarr/unorderedarr.js",
   "util/eucgeom/eucgeom.js",
-  "util/objforeach/objforeach.js",
+  "util/objhelp/objhelp.js",
   "util/text/text.js",
   "util/timed/timed.js",
   "util/loadhelp/loadhelp.js",

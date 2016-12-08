@@ -84,7 +84,7 @@ var pollerComponent = function (rest) {
         }
 
         handled = 0;
-        objForEach(states, function (taskId, obj) {
+        objhelp.objForEach(states, function (taskId, obj) {
             pollsingle(taskId);
         });
     };
