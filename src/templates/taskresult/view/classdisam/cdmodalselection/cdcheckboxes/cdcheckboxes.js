@@ -7,7 +7,6 @@
     var currentFolder = $.getPathForRelativePath('');
     app.directive('cDCheckBoxes', function () {
         return {
-
             restrict: 'E',
             scope: {
                 selectedPosition: '=',
@@ -16,14 +15,13 @@
                 noDisambiguationColumn: '=',
                 noDisambiguationCell: '=',
             },
-
-
             templateUrl: currentFolder + 'cdcheckboxes.html',
             link: function ($scope, iElement, iAttrs) {
 
-                $scope.lockCell = function()
-                {
+                // On checkbox check changed
+                $scope.lockCell = function() {
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+                    console.log($scope.ignoredColumn);
                 };
             }
         }

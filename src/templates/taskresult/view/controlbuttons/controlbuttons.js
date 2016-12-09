@@ -17,7 +17,7 @@
                         // Set the feedback according to UI
                         //region subjectsColumns
                         $scope.feedback.subjectColumnPositions = {};
-                        for (var KB in  $scope.locked.subjectColumns) {
+                        for (var KB in $scope.locked.subjectColumns) {
                             for (var columnIndex in $scope.locked.subjectColumns[KB]) {
                                 if ($scope.locked.subjectColumns[KB][columnIndex] == 1) {
                                     $scope.feedback.subjectColumnPositions[KB] = {};
