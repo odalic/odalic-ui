@@ -304,6 +304,11 @@
                         });
                     });
                 })();
+
+                // Stop simulation on the directive destruction
+                iElement.on('$destroy', function() {
+                    g.destroy();
+                });
             }
         }
     });

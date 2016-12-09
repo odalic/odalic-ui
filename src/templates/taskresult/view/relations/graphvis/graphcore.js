@@ -185,10 +185,6 @@ var graph = function(svgSelection, graphSettings) {
     /* Construction */
     /* ************ */
     simulation
-        //.force('center', d3.forceCenter(
-        //    properties.width / 2,
-        //    properties.height / 2)
-        //)
         .force('collide', d3.forceCollide()
             .radius(graphSettings.collision.radius)
             .strength(graphSettings.collision.strength)
@@ -307,5 +303,10 @@ var graph = function(svgSelection, graphSettings) {
     // Define forceUpdate method
     this.forceUpdate = function () {
         tickFunction();
-    }
+    };
+
+    // Stopping simulation
+    this.destroy = function () {
+        simulation.stop();
+    };
 };
