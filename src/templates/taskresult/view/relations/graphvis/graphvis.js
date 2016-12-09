@@ -40,6 +40,9 @@
 
                     /** Signalling a model change to graphvis. */
                     modelChanged: function (column1, column2) {},
+
+                    /** Forcing an update from outside, presumably on a modal close. */
+                    update: function () {}
                 };
 
                 // Copy the interface into 'bind'
@@ -304,6 +307,11 @@
                         });
                     });
                 })();
+
+                // Forced update
+                scope.bind.update = function () {
+                    g.forceUpdate();
+                };
 
                 // Stop simulation on the directive destruction
                 iElement.on('$destroy', function() {

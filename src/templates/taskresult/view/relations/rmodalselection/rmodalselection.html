@@ -6,7 +6,9 @@
                 <div class="row">
                     <h2 class="col-md-11">Relations</h2>
                     <h2 class="col-md-1">
-                        <r-lock locked="locked.graphEdges"
+                        <r-lock
+                              click="gvdata.update"
+                              locked="locked.graphEdges"
                               column1="{{ selectedRelation.column1 }}"
                               column2="{{ selectedRelation.column2 }}"/>
                     </h2>
