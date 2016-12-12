@@ -1,8 +1,7 @@
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="1"
-            lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
+    <navbar selected="1" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <div class="container-fluid">
         <!-- Headline -->
@@ -10,7 +9,6 @@
         <h2 ng-show="!templFormat.creating">Modification of a task configuration</h2>
 
         <form class="form-horizontal" role="form" name="taskCreationForm">
-
             <!-- Basic settings -->
             <fieldset>
                 <legend>Basic settings</legend>
@@ -215,20 +213,31 @@
                     {{ obj.text }}
                 </alert>
             </div>
-
-            <!-- Submit -->
-            <div ng-show="templFormat.creating">
-                <button type="button" class="btn btn-lg pull-right" ng-click="templFormat.createTask()">Create</button>
-                <button type="button" class="btn btn-lg pull-right" ng-click="templFormat.createAndRun()">Create and run</button>
-            </div>
-
-            <div ng-show="!templFormat.creating">
-                <button type="button" class="btn btn-lg pull-right" ng-click="templFormat.saveTask()">Save</button>
-            </div>
-
         </form>
-    </div>
 
+        <!-- Submit -->
+        <div class="col-md-offset-10 col-md-2">
+            <!-- When creating a new task -->
+            <div ng-if="templFormat.creating">
+                <div class="col-md-8">
+                    <button type="button" class="btn btn-lg" ng-click="templFormat.createAndRun()">Create and run</button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-lg" ng-click="templFormat.createTask()">Create</button>
+                </div>
+            </div>
+
+            <!-- When editing an existing task -->
+            <div ng-if="!templFormat.creating">
+                <div class="col-md-offset-8 col-md-4">
+                    <button type="button" class="btn btn-lg" ng-click="templFormat.saveTask()">Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+    </div>
 </main-cnt>
 
 <!-- Footer -->

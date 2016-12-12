@@ -1,7 +1,7 @@
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
+    <navbar selected="1" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <!-- Content -->
     <div class="container-fluid">
@@ -19,8 +19,8 @@
         <injector for="actiontext.configure">Configure the task</injector>
         <injector for="actiontext.remove">Remove the task</injector>
 
-        <!-- TODO: Unknown bug forcing me to write a first useless tooltip-->
-        <tooltip msg=""/>
+        <!-- TODO: Unknown bug forcing me to write a first useless tooltip -->
+        <tooltip msg="bug-fixer" />
 
         <!-- The table of tasks -->
         <table class="table table-bordered table-hover">
@@ -103,11 +103,13 @@
         </table>
 
         <!-- Additional content below the table -->
-        <div>
-            <button type="button" class="btn btn-lg pull-right" ng-click="misc.gotocnt()">Create a new</button>
+        <div class="col-md-offset-11 col-md-1">
+            <button type="button" class="btn btn-lg" ng-click="misc.gotocnt()">Create a new</button>
         </div>
-    </div>
 
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+    </div>
 </main-cnt>
 
 <!-- Footer -->

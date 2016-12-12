@@ -3,16 +3,17 @@
 
 <!-- Export buttons-->
 <fieldset ng-disabled="feedbackChanged">
-    <legend>Export</legend>
+    <legend class="col-md-12">Export</legend>
 
-    <div class="col-md-3">
-        <button class="btn" ng-click="exporting.json()">Table annotations</button>
-        <button class="btn" ng-click="exporting.csv()">Extended table</button>
-    </div>
-
-    <div class="col-md-9">
-        <button class="btn" ng-click="exporting.turtle()">Turtle</button>
-        <button class="btn" ng-click="exporting.jsonld()">JSON-LD</button>
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <button class="btn col-md-5" ng-click="exporting.json()">Table annotations</button>
+            <button class="btn col-md-offset-1 col-md-5" ng-click="exporting.csv()">Extended table</button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn col-md-5" ng-click="exporting.turtle()">Turtle</button>
+            <button class="btn col-md-offset-1 col-md-5" ng-click="exporting.jsonld()">JSON-LD</button>
+        </div>
     </div>
 </fieldset>
 
