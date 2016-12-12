@@ -3,18 +3,19 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // lock directive
+    // directive represets ui-select box for classification and disambiguation
+    //data - contains data related to cell of table, it means a classifications and disambiguations from result
+
     var currentFolder = $.getPathForRelativePath('');
     app.directive('cDSelectBox', function () {
         return {
 
             restrict: 'E',
-             scope:
-            {
+            scope: {
                 selectedPosition: '=',
                 locked: '=',
                 knowledgeBase: '@',
-                result: '='
+                data: '='
             },
 
 
@@ -24,13 +25,15 @@
                 $scope.lodLiveBrowserIcon = "graphics/link.png";
 
 
-                // locks cell after change
+                // locks cell after  user change
                 $scope.lockCell = function () {
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
                 };
 
+                // Changes the selected item, if the user selects a different item. It stimulates one selected item in a multiple select box.
+                // Multiple select box has better features
                 $scope.switchChosen = function (newSelection, knowledgeBase) {
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[knowledgeBase] = [newSelection];
+                    $scope.data.chosen[knowledgeBase] = [newSelection];
 
                 }
 
@@ -69,35 +72,26 @@
 
                     // json result sends from lodlive: {action: close/returnUrl, data: "www.dbpedia..."}
                     if (event.data.action != 'close') {
-                        var candidates;
-                        //gets the current header or cell candidates by position
-                        if ($scope.selectedPosition.row == -1) {
-                            candidates = $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[selectedKB]
-                        }
-                        else {
-                            candidates = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[selectedKB]
-                        }
+                        //candidates from the concrete cell of table
+                        var candidates = $scope.data.candidates[selectedKB];
 
+                        //gets from candidates only  array of URLs
                         var urlList = candidates.map(function (candidate) {
                             return candidate.entity.resource;
                         });
-                        //adds new concept
+
+
+                        //adds new concept if is not included
                         if (!urlList.includes(event.data.data)) {
+                            //new concept
                             var newObj = {
                                 "entity": {"resource": event.data.data, "label": ""},
                                 "score": {"value": 0}
                             };
-                            candidates.push(newObj);
 
-                            //sets selected urls in select boxes
-                            if ($scope.selectedPosition.row == -1) {
-                                //classification - multi choice is possible
-                                $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[selectedKB].push(newObj)
-                            }
-                            else {
-                                //disambiguation - only one choice is possible
-                                $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[selectedKB] = [newObj]
-                            }
+                            //adds new concept to others results
+                            candidates.push(newObj);
+                            $scope.data.chosen[selectedKB] = [newObj]
                             //TODO hlaska o pridani vlevy dolni rohu viz cvut angular
                         }
                         //TODO  hezci hlaska - o existenci vlevy dolni rohu viz cvut angular
