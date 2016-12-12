@@ -21,14 +21,12 @@
             link: function (scope, iElement, iAttrs) {
 
                 // returns the state of lock
-                scope.isLocked = function()
-                {
-                    return  scope.locked[scope.row][scope.column];
-                }
+                scope.isLocked = function() {
+                    return scope.locked[scope.row][scope.column];
+                };
 
                 // switchs lock/unlock
-                scope.changeLocking = function($event)
-                {
+                scope.changeLocking = function($event) {
                     // TODO nefunguje ven
                     $event.stopPropagation();
                     scope.locked[scope.row][scope.column] ^= 1;

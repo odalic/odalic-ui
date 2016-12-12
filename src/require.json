@@ -6,6 +6,7 @@
   "util/text/text.js",
   "util/timed/timed.js",
   "util/loadhelp/loadhelp.js",
+  "util/eventbuilder/eventbuilder.js",
   "directives/maincnt/maincnt.js",
   "directives/navbar/navbar.js",
   "directives/footer/footer.js",

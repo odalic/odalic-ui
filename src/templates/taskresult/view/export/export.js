@@ -8,10 +8,47 @@
     app.directive('export', ['rest',function (rest) {
         return {
             restrict: 'E',
-
             templateUrl: currentFolder + 'export.html',
             link: function ($scope, iElement, iAttrs) {
-                //Exporting to JSON / CSV / RDF
+                // Initialization
+                $scope.feedbackChanged = false;
+
+                // Watch for any feedback changes
+                (function () {
+                    var rowCount = $scope.result.cellAnnotations.length;
+                    var columnCount = $scope.result.cellAnnotations[0].length;
+
+                    var watcharr = [
+                        {
+                            ilength: rowCount,
+                            jlength: columnCount,
+                            lockedstr: $scope.locked.tableCells
+                        },
+                        {
+                            ilength: columnCount,
+                            jlength: columnCount,
+                            lockedstr: $scope.locked.graphEdges
+                        }
+                    ];
+
+                    watcharr.forEach(function (wobj) {
+                        for (var i = 0; i < wobj.ilength; i++) {
+                            for (var j = 0; j < wobj.jlength; j++) {
+                                // Defined lock at [i, j]?
+                                if (typeof(wobj.lockedstr[i][j]) !== 'undefined') {
+                                    (function (_i, _j) {
+                                        var wexpr = String(wobj.lockedstr[_i][_j]);
+                                        $scope.$watch(wexpr, function(newValue, oldValue) {
+                                            $scope.feedbackChanged = true;
+                                        });
+                                    })(i, j);
+                                }
+                            }
+                        }
+                    });
+                });
+
+                // Button actions: exporting to JSON / CSV / RDF
                 $scope.exporting = {
                     json: function () {
                         window.open(rest.tasks.name($scope.taskID).result.export.json.address());
