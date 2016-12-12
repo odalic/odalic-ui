@@ -44,7 +44,7 @@
     //endregion
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest, responsep) {
+    app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest, responsep, $uibModal) {
 
         // The task's ID
         var TaskID = $routeParams['taskid'];
@@ -232,7 +232,7 @@
             //endregion
         })();
 
-        $scope.serverFeedback= {};
+        $scope.serverFeedback = {};
 
 
         // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
@@ -377,7 +377,8 @@
                 with ($scope.selectedRelation) {
                     column1 = c1;
                     column2 = c2;
-                };
+                }
+                ;
                 if (!$scope.$$phase) {
                     $scope.$apply();
                 }
@@ -403,6 +404,28 @@
                 );
             };
         }
-        // endregion
+
+
+        //calls cd proposal modal window
+        $scope.openCDProposal = function () {
+            $uibModal.open({
+                templateUrl: "src/templates/taskresult/view/classdisam/cdmodalproposal/cdproposalcontent/cdproposalcontent.html",
+                controller: 'cDProposeController',
+                resolve: {
+                    data: function () {
+                        return {
+                            selectedPosition: $scope.selectedPosition,
+                            result: $scope.result,
+                            locked: $scope.locked,
+                            primaryKB: $scope.primaryKB
+
+                        }
+                    }
+                }
+
+            });
+        }
+
     });
+
 })();

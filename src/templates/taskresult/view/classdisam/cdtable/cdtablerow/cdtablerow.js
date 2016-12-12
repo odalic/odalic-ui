@@ -15,6 +15,7 @@
                 selectedPosition: '=',
                 lockedTableCells: '=',
                 chosenKBs: '=',
+                proposal:'=',
                 primaryKB:'@'
             },
             templateUrl: currentFolder + 'cDTableRow.html',

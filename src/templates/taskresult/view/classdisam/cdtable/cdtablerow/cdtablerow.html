@@ -4,20 +4,11 @@
     ng-mouseover="selectPosition( rowIndex,$index)"
 >
 
-
     <span>{{ cell }}</span>
-
-    <!--<pre>{{row}} </pre>-->
-    <!--<pre>{{rowIndex}} </pre>-->
-    <!--<pre>{{ concreteData}} </pre>-->
-    <!--<pre>{{selectedPosition}} </pre>-->
-    <!--<pre>{{chosenKBs}} </pre>-->
-    <!--<pre>{{primaryKB}} </pre>-->
-    <!--<pre>{{lockedTableCells}} </pre>-->
 
     <div class="pull-right">
         <!-- Propose icon -->
-        <a data-toggle="modal" data-target="#newEntities" class="odalic-cursor-pointer">
+        <a ng-click="proposal()" class="odalic-cursor-pointer">
             <span class="fa fa-plus-square-o"></span>
         </a>
 
@@ -31,7 +22,7 @@
     </div>
 
 
-    <!-- primary knowledge base disambiguation -->
+    <!--  Primary knowledge base disambiguation -->
     <!--<div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-repeat="disam in currentItems[$parent.$index][$index][primaryKB]">-->
     <div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
          ng-repeat="disam in concreteData[columnIndex].chosen[primaryKB]">
