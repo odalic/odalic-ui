@@ -66,7 +66,7 @@
 
                         //adds classification into rusult
                         $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                        $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB].push(newObj);
+                        $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB]= [newObj];
 
                         //object in restapi format for classes
                         var obj = {
@@ -83,7 +83,7 @@
 
                         //adds disambiguation into result
                         $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
+                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
 
                         //object in restapi format for resources
                         var obj = {

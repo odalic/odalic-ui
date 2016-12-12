@@ -35,7 +35,7 @@
                     if ($scope.selectedPosition.row == -1) {
                         //adds classification  into result
                         $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                        $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB].push(newObj);
+                        $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB]= [newObj];
                     }
                     else {
                         //adds dissabmbiguation into result
