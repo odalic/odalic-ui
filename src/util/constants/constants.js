@@ -55,6 +55,13 @@ var constants = {
             }
         };
     },
+    get formats() {
+        return {
+            get date() {
+                return String('yyyy-MM-dd HH:mm');
+            }
+        }
+    },
     get kbColorsArray() {
         var alpha = 0.5;
         return [

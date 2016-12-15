@@ -35,6 +35,7 @@
             <!--Uploading input file -->
             <fieldset>
                 <legend>Input file</legend>
+
                 <!-- Specifying a source -->
                 <div class="form-group">
                     <label class="control-label col-md-2">
@@ -48,16 +49,16 @@
                     </div>
                     <div class="col-md-5">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="fileProvision" value="remote" disabled="true"/>
+                            <input type="radio" ng-model="fileProvision" value="remote"/>
                             Remote file
                         </label>
                     </div>
                 </div>
 
                 <div ng-switch="fileProvision">
-                    <!-- When a file that was already uploaded is to be selected -->
-                    <div ng-switch-when="local">
 
+                    <!-- Local file -->
+                    <div ng-switch-when="local">
                         <!-- Upload a new local file -->
                         <div class="form-group">
                             <label class="col-md-2 control-label">Upload a new file:</label>
@@ -104,12 +105,17 @@
                         </alert>
                     </div>
 
-                    <!-- When a remote file is to be specified -->
+                    <!-- Remote file -->
                     <div ng-switch-when="remote">
                         <div class="form-group">
-                            <label class="col-md-2 control-label">specify a location:</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="remoteFile.location" \>
+                            <label class="col-md-2 control-label">Specify a location:</label>
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" ng-model="remoteFile.location" />
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <button type="button" class="form-control" ng-click="sendTest()">
+                                    Attach
+                                </button>
                             </div>
                         </div>
                     </div>

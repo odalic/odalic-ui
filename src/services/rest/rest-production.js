@@ -26,27 +26,47 @@ $.defineModule(function () {
             files: {
                 name: function (identifier) {
                     return {
-                        create: function (data) {
-                            return {
-                                exec: function (success, failure) {
-                                    var url = text.urlConcat(root, 'files', identifier);
-                                    requests.reqMFD({
-                                        method: 'PUT',
-                                        address: url,
-                                        formData: requests.prepareMFD()
-                                            .attachJSON('file', {
-                                                id: String(identifier),
-                                                uploaded: '2000-01-01 00:00',
+                        create: {
+                            upload: function (data) {
+                                return {
+                                    exec: function (success, failure) {
+                                        var url = text.urlConcat(root, 'files', identifier);
+                                        requests.reqMFD({
+                                            method: 'PUT',
+                                            address: url,
+                                            formData: requests.prepareMFD()
+                                                .attachJSON('file', {
+                                                    id: String(identifier),
+                                                    uploaded: (new Date()).toString(constants.formats.date),
+                                                    owner: 'default',
+                                                    location: url
+                                                })
+                                                .attachGeneric('input', data)
+                                                .get(),
+                                            success: successf(success),
+                                            failure: failure
+                                        });
+                                    }
+                                };
+                            },
+                            remote: function (location) {
+                                return {
+                                    exec: function (success, failure) {
+                                        requests.reqJSON({
+                                            method: 'PUT',
+                                            address: text.urlConcat(root, 'files', identifier),
+                                            formData: {
+                                                id: 'anything', //String(identifier),
+                                                uploaded: (new Date()).toString(constants.formats.date),
                                                 owner: 'default',
-                                                location: url
-                                            })
-                                            .attachGeneric('input', /*document.getElementById("concreteFile").files[0]*/ data)
-                                            .get(),
-                                        success: successf(success),
-                                        failure: failure
-                                    });
+                                                location: location
+                                            },
+                                            success: successf(success),
+                                            failure: failure
+                                        });
+                                    }
                                 }
-                            };
+                            }
                         },
                         remove: {
                             exec: function (success, failure) {

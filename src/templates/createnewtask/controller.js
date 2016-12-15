@@ -158,13 +158,11 @@
 
                 // Uploading the file asynchronously
                 sendData = function (fileData) {
-                    rest.files.name(_ref.identifier).create(filedata.fileObject(_ref.inputFileId)).exec(
+                    rest.files.name(_ref.identifier).create.upload(filedata.fileObject(_ref.inputFileId)).exec(
                         // Success
                         function () {
                             // The file has been uploaded successfully => refresh the list of available files
                             _ref.refreshUploaded(function (succes) {
-                                // Succes parameter ignored.
-
                                 // Display a success message
                                 _ref.pushAlert('success', 'The file has been successfully uploaded.');
 
@@ -270,7 +268,7 @@
             // Insert the task
             rest.tasks.name(taskId).create({
                 id: String(taskId),
-                created: (new Date()).toString("yyyy-MM-dd HH:mm"),
+                created: (new Date()).toString(constants.formats.date),
                 configuration: {
                     input: fileId,
                     feedback: {
@@ -407,6 +405,20 @@
                 );
             }
         })();
+
+
+        $scope.sendTest = function () {
+            rest.files.name($scope.fileUpload.identifier).create.remote($scope.remoteFile.location).exec(
+                // Success
+                function (response) {
+                    console.log(response);
+                },
+                // Failure
+                function (response) {
+                    console.log(response);
+                }
+            );
+        };
 
     });
 
