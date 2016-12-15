@@ -55,8 +55,8 @@
                     </div>
                 </div>
 
+                <!-- Local or Remote file -->
                 <div ng-switch="fileProvision">
-
                     <!-- Local file -->
                     <div ng-switch-when="local">
                         <!-- Upload a new local file -->
@@ -83,26 +83,6 @@
                                 <i ng-hide="!fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                             </div>
                         </div>
-
-                        <!--  Alerts displaying notifications for a user -->
-                        <div ng-repeat="obj in fileUpload.alerts">
-                            <alert bind="obj">
-                                {{ obj.text }}
-                            </alert>
-                        </div>
-
-                        <!-- Select from the already uploaded ones -->
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Selected file:</label>
-                            <div class="col-md-10">
-                                <select class="form-control" ng-model="files.selectedFile"
-                                        ng-options="file.id for file in fileUpload.uploaded"></select>
-                            </div>
-                        </div>
-
-                        <alert bind="alerts.files.selectedFile">
-                            No file selected.
-                        </alert>
                     </div>
 
                     <!-- Remote file -->
@@ -113,13 +93,37 @@
                                 <input class="form-control" type="text" ng-model="remoteFile.location" />
                             </div>
                             <div class="col-md-2 text-center">
-                                <button type="button" class="form-control" ng-click="sendTest()">
+                                <!-- Button 'upload' -->
+                                <button ng-hide="fileUpload.attachingFile" type="button" class="form-control"
+                                        ng-click="fileUpload.uploadFile()" ng-disabled="fileUpload.isAttachDisabled">
                                     Attach
                                 </button>
+                                <!-- Icon 'loading' -->
+                                <i ng-show="fileUpload.attachingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Select from the list -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Selected file:</label>
+                    <div class="col-md-10">
+                        <select class="form-control" ng-model="files.selectedFile"
+                                ng-options="file.id for file in fileUpload.uploaded"></select>
+                    </div>
+                </div>
+
+                <!--  Alerts displaying notifications to a user -->
+                <div ng-repeat="obj in fileUpload.alerts">
+                    <alert bind="obj">
+                        {{ obj.text }}
+                    </alert>
+                </div>
+                <alert bind="alerts.files.selectedFile">
+                    No file selected.
+                </alert>
+
             </fieldset>
 
             <!-- File settings -->

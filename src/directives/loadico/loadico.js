@@ -15,6 +15,9 @@
      *  Option 2:
      *  PerformAjaxRequest(function() { $scope.myvar.show = true; }, function() { ...error... });
      *
+     *  Styling:
+     *  <loadico bind="myvar" size="2" center="true" showtxt="false">Content</loadico>
+     *
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('loadico', function () {
@@ -59,6 +62,19 @@
 
                     return ('fa-' + val + 'x');
                 };
+
+                // Additional styling (true/false attributes)
+                var attribs = [
+                    { name: 'center', sname: 'toCenter' },
+                    { name: 'showtxt', sname: 'textShown' }
+                ];
+                attribs.forEach(function (i) {
+                    if (i.name in iAttrs) {
+                        scope[i.sname] = iAttrs[i.name];
+                    } else {
+                        scope[i.sname] = false;
+                    }
+                });
 
                 // Visibility
                 scope.loaded = false;

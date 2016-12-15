@@ -56,9 +56,6 @@ $.defineModule(function () {
                                             method: 'PUT',
                                             address: text.urlConcat(root, 'files', identifier),
                                             formData: {
-                                                id: 'anything', //String(identifier),
-                                                uploaded: (new Date()).toString(constants.formats.date),
-                                                owner: 'default',
                                                 location: location
                                             },
                                             success: successf(success),
