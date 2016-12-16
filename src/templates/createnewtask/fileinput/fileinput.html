@@ -1,0 +1,97 @@
+<!-- Specifying a source (upload/remote) -->
+<div class="form-group">
+    <label class="control-label col-md-2">
+        Source:
+    </label>
+    <div class="col-md-5">
+        <label class="radio-inline">
+            <input type="radio" ng-model="fileProvision" value="local" />
+            Uploaded or selected file
+        </label>
+    </div>
+    <div class="col-md-5">
+        <label class="radio-inline">
+            <input type="radio" ng-model="fileProvision" value="remote"/>
+            Remote file
+        </label>
+    </div>
+</div>
+
+<!-- Remote location placeholder -->
+<injector for="deflocation">http://</injector>
+
+<div ng-switch="fileProvision" ng-init="fileProvision = 'local'">
+    <!-- Local file -->
+    <div ng-switch-when="local">
+        <div class="form-group">
+            <label class="col-md-2 control-label">Upload a new file:</label>
+            <div class="col-md-8">
+                <input type="file" id="concreteFile" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
+                <!--<input type="file" id="concreteFile" ng-change="fileUpload.fillIdentifier()" />-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Identifier:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" />
+            </div>
+            <div class="col-md-2 text-center">
+                <!-- Button 'upload' -->
+                <button ng-hide="fileUpload.uploadingFile" type="button" class="form-control"
+                        ng-click="fileUpload.uploadFile()" ng-disabled="fileUpload.isUploadDisabled">
+                    Upload
+                </button>
+                <!-- Icon 'loading' -->
+                <i ng-show="fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remote file -->
+    <div ng-switch-when="remote">
+        <div class="form-group">
+            <label class="col-md-2 control-label">Location:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="text" ng-model="fileAttach.location" ng-init="fileAttach.location = deflocation" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Identifier:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" ng-model="fileAttach.identifier" />
+            </div>
+            <div class="col-md-2 text-center">
+                <!-- Button 'attach' -->
+                <button ng-hide="fileAttach.attachingFile" type="button" class="form-control"
+                        ng-click="fileAttach.attachFile()" ng-disabled="!fileAttach.location || !fileAttach.identifier">
+                    Attach
+                </button>
+                <!-- Icon 'loading' -->
+                <i ng-show="fileAttach.attachingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Selecting file from the list -->
+<div class="form-group">
+    <label class="col-md-2 control-label">Selected file:</label>
+    <div class="col-md-10">
+        <select class="form-control" ng-model="fileList.selectedFile" ng-options="file.id for file in fileList.identifiers" />
+    </div>
+</div>
+
+<!--  Alerts displaying notifications to a user -->
+<injector for="msgtxt.noLocalFile">No local file selected for the upload.</injector>
+<injector for="msgtxt.emptyIdentifier">Identifier must not be empty.</injector>
+<injector for="msgtxt.uploadSuccessful">The file has been successfully uploaded.</injector>
+<injector for="msgtxt.attachSuccessful">The file has been successfully attached.</injector>
+<injector for="msgtxt.uploadFailure">An error occured while uploading the file.</injector>
+<injector for="msgtxt.attachFailure">An error occured while attaching the file.</injector>
+<injector for="msgtxt.errorDescription">Error details:</injector>
+
+<div ng-repeat="obj in messages.alerts">
+    <alert bind="obj">
+        {{ obj.text }}
+    </alert>
+</div>
