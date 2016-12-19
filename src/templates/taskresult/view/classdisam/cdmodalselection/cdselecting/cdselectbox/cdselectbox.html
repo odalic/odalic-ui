@@ -1,31 +1,36 @@
-<!--selectbox with only one possibility to choise-->
-    <ui-select
-            ng-model="data.chosen[knowledgeBase]"
-            multiple limit="1" theme="bootstrap"
-            search-enabled="true"
-            on-select="switchChosen($item, knowledgeBase)"
-            ng-change="lockCell()">
-        <ui-select-match placeholder="">
-            <img ng-click="createIframe($item.entity,knowledgeBase,$event)"
-                 title="lodlive browser"
-                 ng-src="{{lodLiveBrowserIcon}}"
-                 ng-class="'selectBoxIcon'"/>
-            &nbsp
-            {{$item.entity.label}} <br>
-            ({{$item.entity.resource}})
-        </ui-select-match>
-        <ui-select-choices
-                repeat="opt in data.candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search, 'entity.label': $select.search}">
-            <img ng-click="createIframe(opt,knowledgeBase,$event)"
-                 title="lodlive browser"
-                 ng-src="{{lodLiveBrowserIcon}}"
-                 ng-class="'selectBoxIcon'"/>
-            &nbsp
-            &nbsp
-            <span title={{opt.entity.resource}}
-                  ng-bind-html="opt.entity.label| highlight: $select.search"></span>
-            <div title={{opt.entity.resource}}
-                 ng-bind-html="' ('+opt.entity.resource + ')'| highlight: $select.search"></div>
-        </ui-select-choices>
-    </ui-select>
+<!-- SelectBox with only one possibility to choose from -->
+<ui-select
+        ng-model="data.chosen[knowledgeBase]"
+        multiple limit="1" theme="bootstrap"
+        search-enabled="true"
+        on-select="switchChosen($item, knowledgeBase)"
+        ng-change="lockCell()"
+        class="uis-wrapper">
+
+    <!-- Currently selected concept -->
+    <ui-select-match placeholder="">
+        <img ng-click="createIframe($item.entity,knowledgeBase,$event)"
+             title="lodlive browser"
+             ng-src="{{ lodLiveBrowserIcon }}"
+             class="selectBoxIcon uism-wrapper"/>
+        &nbsp
+        {{ $item.entity.label | shortstr: maxlen }}<br/>
+        ({{ $item.entity.resource | shortstr: maxlen }})
+    </ui-select-match>
+
+    <!-- Menu to choose the concept from (basically a ComboBox) -->
+    <ui-select-choices
+            repeat="opt in data.candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search, 'entity.label': $select.search}">
+        <img ng-click="createIframe(opt,knowledgeBase,$event)"
+             title="lodlive browser"
+             ng-src="{{ lodLiveBrowserIcon }}"
+             ng-class="'selectBoxIcon'"/>
+        &nbsp
+        &nbsp
+        <span title={{ opt.entity.resource }}
+              ng-bind-html="opt.entity.label | highlight: $select.search"></span>
+        <div title={{ opt.entity.resource }}
+             ng-bind-html="'(' + opt.entity.resource + ')' | highlight: $select.search"></div>
+    </ui-select-choices>
+</ui-select>
 

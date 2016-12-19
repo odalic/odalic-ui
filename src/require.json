@@ -25,5 +25,6 @@
   "services/persist/persist.js",
   "services/report/report.js",
   "services/responsep/responsep.js",
+  "filters/shortstr/filter.js",
   "templates/templates.js"
 ]

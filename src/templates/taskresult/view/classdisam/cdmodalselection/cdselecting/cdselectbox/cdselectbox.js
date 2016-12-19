@@ -4,12 +4,10 @@
     var app = angular.module('odalic-app');
 
     // directive represets ui-select box for classification and disambiguation
-    //data - contains data related to cell of table, it means a classifications and disambiguations from result
-
+    // attribute 'data' has to contain data related to cell of table (classifications and disambiguations from result)
     var currentFolder = $.getPathForRelativePath('');
     app.directive('cDSelectBox', function () {
         return {
-
             restrict: 'E',
             scope: {
                 selectedPosition: '=',
@@ -18,25 +16,62 @@
                 data: '='
             },
 
-
             templateUrl: currentFolder + 'cdselectbox.html',
             link: function ($scope, iElement, iAttrs) {
 
+                // Icon image
                 $scope.lodLiveBrowserIcon = "graphics/link.png";
 
-
-                // locks cell after  user change
+                // Locks cell after user change
                 $scope.lockCell = function () {
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
                 };
 
-                // Changes the selected item, if the user selects a different item. It stimulates one selected item in a multiple select box.
+                // Changes the selected item, if the user selects a different item. It simulates one selected item in a multiple select box.
                 // Multiple select box has better features
                 $scope.switchChosen = function (newSelection, knowledgeBase) {
                     $scope.data.chosen[knowledgeBase] = [newSelection];
+                };
 
-                }
+                // Maximal length for the <ui-select-match> according to screen size
+                (function () {
 
+                    //region Manual constants (cannot be extracted exactly, so use trial-and-error method)
+                    // Borders
+                    var uisBorders = 30;
+
+                    // Maximal font character width
+                    var charWidth = 6;
+
+                    // Default maximal length
+                    var defLength = 70;
+                    //endregion
+
+                    // The UI-Select element
+                    var getUisElement = function () {
+                        return $('.uis-wrapper', iElement.get(0)).get(0);
+                    };
+
+                    // What should happen on the element resize
+                    var uiseResized = function () {
+                        var uisWidth = getUisElement().offsetWidth;
+                        $scope.maxlen = uisWidth ? ((uisWidth - uisBorders) / charWidth) : defLength;
+                    };
+                    uiseResized();
+
+                    // Attach to window.onresize
+                    var uiseResize = function () {
+                        var uisElement = getUisElement();
+                        if (!uisElement) {
+                            window.removeEventListener('resize', uiseResize);
+                            return;
+                        }
+
+                        uiseResized();
+                    };
+                    window.addEventListener('resize', uiseResize);
+
+                })();
 
                 //region LODLIVE communication
                 // **************************************************
@@ -91,7 +126,7 @@
 
                             //adds new concept to others results
                             candidates.push(newObj);
-                            $scope.data.chosen[selectedKB] = [newObj]
+                            $scope.data.chosen[selectedKB] = [newObj];
                             //TODO hlaska o pridani vlevy dolni rohu viz cvut angular
                         }
                         //TODO  hezci hlaska - o existenci vlevy dolni rohu viz cvut angular
@@ -106,10 +141,7 @@
                     document.body.removeChild(lodLiveIframe);
 
                 }
-
                 //endregion
-
-
             }
         }
     });
