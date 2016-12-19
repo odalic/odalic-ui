@@ -237,8 +237,8 @@ $.defineModule(function () {
                                     return {
                                         retrieve: {
                                             exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities')+ '?query=' + string + '&limit=' + countLimit, 'GET');
-                                                requests.quickRequest(text.urlConcat(root, kb, 'entities')+ '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
+                                                console.log(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET');
+                                                requests.quickRequest(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
                                             },
                                         },
                                     };
@@ -246,33 +246,41 @@ $.defineModule(function () {
                             };
                         },
                         classes: {
-                            update: function (data) {
+                            stamp: function (timeStamp) {
                                 return {
-                                    exec: function (success, failure) {
-                                        console.log( text.urlConcat(root, kb, 'entities', 'classes'));
-                                        requests.reqJSON({
-                                            method: 'POST',
-                                            address: text.urlConcat(root, kb, 'entities', 'classes'),
-                                            formData: data,
-                                            success: successf(success),
-                                            failure: failure
-                                        });
+                                    update: function (data) {
+                                        return {
+                                            exec: function (success, failure) {
+                                                console.log(text.urlConcat(root, kb, 'entities', 'classes')+ '?stamp=' + timeStamp);
+                                                requests.reqJSON({
+                                                    method: 'POST',
+                                                    address: text.urlConcat(root, kb, 'entities', 'classes') + '?stamp=' + timeStamp,
+                                                    formData: data,
+                                                    success: successf(success),
+                                                    failure: failure
+                                                });
+                                            },
+                                        };
                                     },
                                 };
                             },
                         },
                         resources: {
-                            update: function (data) {
+                            stamp: function (timeStamp) {
                                 return {
-                                    exec: function (success, failure) {
-                                        console.log( text.urlConcat(root, kb, 'entities', 'resources'));
-                                        requests.reqJSON({
-                                            method: 'POST',
-                                            address: text.urlConcat(root, kb, 'entities', 'resources'),
-                                            formData: data,
-                                            success: successf(success),
-                                            failure: failure
-                                        });
+                                    update: function (data) {
+                                        return {
+                                            exec: function (success, failure) {
+                                                console.log(text.urlConcat(root, kb, 'entities', 'resources')+ '?stamp=' + timeStamp);
+                                                requests.reqJSON({
+                                                    method: 'POST',
+                                                    address: text.urlConcat(root, kb, 'entities', 'resources')+ '?stamp=' + timeStamp,
+                                                    formData: data,
+                                                    success: successf(success),
+                                                    failure: failure
+                                                });
+                                            },
+                                        };
                                     },
                                 };
                             },
@@ -280,6 +288,66 @@ $.defineModule(function () {
                     },
                 };
             },
+// GET http://example.com/base/entities?query=Pra&limit=20
+            base: function (kb) {
+                return {
+                    entities: {
+                        query: function (string) {
+                            return {
+                                limit: function (countLimit) {
+                                    return {
+                                        retrieve: {
+                                            exec: function (success, failure) {
+                                                console.log(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET');
+                                                requests.quickRequest(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
+                                            },
+                                        },
+                                    };
+                                },
+                            };
+                        },
+                        classes: {
+                            stamp: function (timeStamp) {
+                                return {
+                                    update: function (data) {
+                                        return {
+                                            exec: function (success, failure) {
+                                                requests.reqJSON({
+                                                    method: 'POST',
+                                                    address: text.urlConcat(root, kb, 'entities', 'classes') + '?stamp=' + timeStamp,
+                                                    formData: data,
+                                                    success:  success,
+                                                    failure: failure
+                                                });
+                                            },
+                                        };
+                                    },
+                                };
+                            },
+                        },
+                        resources: {
+                            stamp: function (timeStamp) {
+                                return {
+                                    update: function (data) {
+                                        return {
+                                            exec: function (success, failure) {
+                                                requests.reqJSON({
+                                                    method: 'POST',
+                                                    address: text.urlConcat(root, kb, 'entities', 'resources')+ '?stamp=' + timeStamp,
+                                                    formData: data,
+                                                    success: success,
+                                                    failure: failure
+                                                });
+                                            },
+                                        };
+                                    },
+                                };
+                            },
+                        },
+                    },
+                };
+            },
+
         };
     };
 })

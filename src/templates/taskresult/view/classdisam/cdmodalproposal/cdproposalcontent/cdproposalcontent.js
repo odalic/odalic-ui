@@ -9,6 +9,7 @@
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
 
+        $scope.proposal;
         //region proposal settings
         $scope.setProposal = function (proposal) {
 
@@ -27,19 +28,14 @@
                 alternativeLabels.push(proposal.alternativeLabel2)
             }
 
-            //object in result format
-            var newObj = {
+
+            $scope.newObj = {
                 "entity": {"resource": url, "label": proposal.label},
                 "score": {"value": 0}
             };
-
             $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
             if ($scope.selectedPosition.row == -1) {
-
-                //adds classification into rusult
-                $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB].push(newObj);
 
                 //object in restapi format for classes
                 var obj = {
@@ -52,9 +48,7 @@
                 classes(obj)
             }
             else {
-                //adds disambiguation into result
-                $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
+
 
                 //object in restapi format for resources
                 var obj = {
@@ -70,27 +64,59 @@
 
         }
         //endregion
+
+        //saves new propose class
         var classes = function (obj) {
-            console.log("sends classes" + JSON.stringify(obj, null, 4));
-            rest.base($scope.primaryKB).entities.classes.update(obj).exec(
+
+            //compatability with IE8
+            if (!Date.now) {
+                Date.now = function () {
+                    return new Date().getTime();
+                }
+            }
+            $scope.currentTimeStamp = Date.now();
+            rest.base($scope.primaryKB).entities.classes.stamp($scope.currentTimeStamp).update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
+
+                    //adds classification into rusult
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
                 },
                 // Error
                 function (response) {
-                    alert("Something is wrong. Please, try to again.")
+                    if ($scope.currentTimeStamp == response.data.stamp) {
+                        alert('response:\n' + JSON.stringify(response, null, 4))
+                    }
+
                 }
             );
         };
+
+        //saves new propose resource
         var resources = function (obj) {
-            console.log("sends resource" + JSON.stringify(obj, null, 4));
-            rest.base($scope.primaryKB).entities.resources.update(obj).exec(
+            //compatability with IE8
+            if (!Date.now) {
+                Date.now = function () {
+                    return new Date().getTime();
+                }
+            }
+            $scope.currentTimeStamp = Date.now();
+            rest.base($scope.primaryKB).entities.resources.stamp($scope.currentTimeStamp).update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
+
+
+                    //adds disambiguation into result
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
+
                 },
                 // Error
                 function (response) {
-                    alert("Something is wrong. Please, try to again.")
+                    if ($scope.currentTimeStamp == response.data.stamp) {
+                        alert('response:\n' + JSON.stringify(response, null, 4))
+                    }
                 }
             );
         };
