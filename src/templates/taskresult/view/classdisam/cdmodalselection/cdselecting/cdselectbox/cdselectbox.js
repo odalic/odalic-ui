@@ -49,7 +49,7 @@
 
                     // The UI-Select element
                     var getUisElement = function () {
-                        return $('.uis-wrapper', iElement.get(0)).get(0);
+                        return $('.uis-aclass', iElement.get(0)).get(0);
                     };
 
                     // What should happen on the element resize

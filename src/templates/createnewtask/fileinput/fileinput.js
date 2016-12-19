@@ -79,9 +79,19 @@
                         return index;
                     },
 
+                    getID: function (index) {
+                        return this.identifiers[index].id;
+                    },
+
                     setSelected: function (index) {
                         this.selectedFile = this.identifiers[index];
-                        // scope.$apply();
+
+                        // // Due to the errors with scope.$apply(), a workaround:
+                        // console.log(this.selectedFile);
+                        // console.log(this.identifiers);
+                        //
+                        // var elem = $('.fs-aclass', iElement.get(0));
+                        // elem.val(elem[0][index].value);
                     }
                 };
 
@@ -156,10 +166,7 @@
                                         scope.messages.push('success', scope['msgtxt.uploadSuccessful']);
 
                                         // Sets the newly uploaded file as the selected one
-                                        var uploadedFileIndex = scope.fileList.identifiers.map(function (file) {
-                                            return file.id;
-                                        }).indexOf(_ref.identifier);
-                                        scope.fileList.selectedFile = scope.fileList.identifiers[uploadedFileIndex];
+                                        scope.fileList.setSelected(scope.fileList.getIndex(_ref.identifier));
 
                                         // Clear the fields
                                         _ref.identifier = String();
@@ -244,10 +251,7 @@
                                     scope.messages.push('success', scope['msgtxt.attachSuccessful']);
 
                                     // Sets the newly attached file as the selected one
-                                    var attachedFileIndex = scope.fileList.identifiers.map(function (file) {
-                                        return file.id;
-                                    }).indexOf(_ref.identifier);
-                                    scope.fileList.selectedFile = scope.fileList.identifiers[attachedFileIndex];
+                                    scope.fileList.setSelected(scope.fileList.getIndex(_ref.identifier));
 
                                     // Clear the fields
                                     _ref.identifier = String();
@@ -290,9 +294,12 @@
                 };
 
                 scope.bind.setSelectedFile = function (id) {
+                    var fl = scope.fileList;
                     if (typeof(id) === 'string') {
-                        var index = scope.fileList.getIndex(id);
-                        scope.fileList.setSelected(index);
+                        timed.ready(function () { return !!fl.identifiers && (fl.identifiers.length > 0); }, function () {
+                            fl.setSelected(fl.getIndex(id));
+                            scope.$apply();
+                        });
                     } else {
                         throw new Error('fileinput component: Unsupported argument id.');
                     }
