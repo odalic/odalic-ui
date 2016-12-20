@@ -7,6 +7,27 @@
                         locked="locked" ,
                         data="data()">
         </c-d-select-box>
+
+        <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse Vertically</button>
+        <hr>
+        <div uib-collapse="isCollapsed">
+            <div class="well well-lg">Some content</div>
+        </div>
+
+        <div class="col-md-3 col-md-offset-9">
+            <button class="form-control" ng-click="openCDProposal()">
+                Proposal
+            </button>
+        </div>
+        <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse Vertically</button>
+        <div uib-collapse="isCollapsed">
+            <div class="well well-lg"><c-d-suggestions selected-position="selectedPosition" ,
+                                                       locked="locked" ,
+                                                       knowledge-base="{{primaryKB}}" ,
+                                                       result="result"/></div>
+        </div>
+
+
     </div>
 
     <!-- Blank space -->
@@ -29,6 +50,10 @@
                                 locked="locked" ,
                                 data="data()">
                 </c-d-select-box>
+                <c-d-suggestions selected-position="selectedPosition" ,
+                                 locked="locked" ,
+                                 knowledge-base="{{knowledgeBase}}" ,
+                                 result="result"/>
             </div>
         </div>
     </div>
