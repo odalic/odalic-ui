@@ -9,14 +9,29 @@
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
 
-        $scope.proposal;
+        $scope.serverResponse= {
+            type: 'success',
+             visible: false
+         };
+
+
         //region proposal settings
         $scope.setProposal = function (proposal) {
 
+            if(proposal.suffixUrl == "" )
+            {
+
+            }
+            if(proposal.label)
+            {
+
+            }
             //TOTO prefix kde ho vezmu co s nim?????
             var prefixUrl = "";
 
             var url = proposal.suffixUrl;
+
+
 
             //joins alternative labels
             var alternativeLabels = [];
@@ -43,8 +58,8 @@
                     "alternativeLabels": alternativeLabels,
                     "suffix": url,
                     "superClass": null
-                    // "superClass": proposal.superClass
-                }
+                     // "superClass": proposal.superClass
+                };
                 classes(obj)
             }
             else {
@@ -57,56 +72,51 @@
                     "suffix": url,
                     "classes": []
                     // "superClass": $scope.result.headerAnnotations[selectedPosition.column]
-                }
+                };
                 resources(obj)
 
             }
 
-        }
+        };
         //endregion
 
         //saves new propose class
         var classes = function (obj) {
-
-            //compatability with IE8
-            if (!Date.now) {
-                Date.now = function () {
-                    return new Date().getTime();
-                }
-            }
-            $scope.currentTimeStamp = Date.now();
-            rest.base($scope.primaryKB).entities.classes.stamp($scope.currentTimeStamp).update(obj).exec(
+            var currentTimeStamp =  new Date().getTime();
+            rest.base($scope.primaryKB).entities.classes.stamp(currentTimeStamp).update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
 
                     //adds classification into rusult
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
+
+                    $scope.serverResponse.type = 'success';
+                    $scope.serverResponse.visible = true;
+                    $scope.messege = "Propose was saved"
                 },
                 // Error
                 function (response) {
-                    if ($scope.currentTimeStamp == response.data.stamp) {
-                        alert('response:\n' + JSON.stringify(response, null, 4))
-                    }
-
+                    var info = JSON.parse(response.data);
+                    if (currentTimeStamp.toString()==  info.stamp) {
+                        $scope.serverResponse.type = 'error';
+                        $scope.serverResponse.visible = true;
+                        $scope.messege = info.payload.text;
+                     }
                 }
             );
         };
 
         //saves new propose resource
         var resources = function (obj) {
-            //compatability with IE8
-            if (!Date.now) {
-                Date.now = function () {
-                    return new Date().getTime();
-                }
-            }
-            $scope.currentTimeStamp = Date.now();
-            rest.base($scope.primaryKB).entities.resources.stamp($scope.currentTimeStamp).update(obj).exec(
-                // Success, inject into the scope
+            var currentTimeStamp =  new Date().getTime();
+            rest.base($scope.primaryKB).entities.resources.stamp(currentTimeStamp).update(obj).exec(
                 function (response) {
 
 
+                    $scope.serverResponse.type = 'success';
+                    $scope.serverResponse.visible = true;
+                    $scope.messege = "Propose was saved";
                     //adds disambiguation into result
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
@@ -114,8 +124,11 @@
                 },
                 // Error
                 function (response) {
-                    if ($scope.currentTimeStamp == response.data.stamp) {
-                        alert('response:\n' + JSON.stringify(response, null, 4))
+                    var info = JSON.parse(response.data);
+                    if (currentTimeStamp.toString()==  info.stamp) {
+                        $scope.serverResponse.type = 'error';
+                        $scope.serverResponse.visible = true;
+                        $scope.messege = info.payload.text;
                     }
                 }
             );
