@@ -15,33 +15,7 @@
                 // Initialization
                 scope.files = {};
                 scope.remoteFile = {};
-
-                // Alerts (messages for a user)
-                scope.messages = {
-                    // Messages to display
-                    alerts: [],
-
-                    // Text messages injected from template
-                    txt: {},
-
-                    // Pushing an alert message
-                    push: function (type, text) {
-                        var _ref = this;
-                        _ref.alerts.push({
-                            type: type,
-                            visible: true,
-                            text: text,
-                            close: function () {
-                                _ref.alerts.splice(_ref.alerts.indexOf(this), 1);
-                            }
-                        });
-                    },
-
-                    // Clear any previous alerts
-                    clear: function () {
-                        this.alerts = [];
-                    }
-                };
+                scope.messages = {};
 
                 // File list
                 scope.fileList = {

@@ -11,6 +11,7 @@
   "directives/navbar/navbar.js",
   "directives/footer/footer.js",
   "directives/alert/alert.js",
+  "directives/alertgroup/alertgroup.js",
   "directives/tooltip/tooltip.js",
   "directives/injector/injector.js",
   "directives/modal/modal.js",
