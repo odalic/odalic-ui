@@ -19,7 +19,7 @@
 
                     for (var i = 0; i < keys.length; i++) {
                         var prop = keys[i].split('.');
-                        ;
+
                         var text = props[keys[i]].toLowerCase();
 
                         // lower Case nebezpecne
@@ -418,11 +418,9 @@
                             result: $scope.result,
                             locked: $scope.locked,
                             primaryKB: $scope.primaryKB
-
                         }
                     }
                 }
-
             });
         }
 

@@ -85,13 +85,6 @@
 
                     setSelected: function (index) {
                         this.selectedFile = this.identifiers[index];
-
-                        // // Due to the errors with scope.$apply(), a workaround:
-                        // console.log(this.selectedFile);
-                        // console.log(this.identifiers);
-                        //
-                        // var elem = $('.fs-aclass', iElement.get(0));
-                        // elem.val(elem[0][index].value);
                     }
                 };
 
