@@ -9,6 +9,13 @@
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
 
+        //sets parameters for the alert directive
+        $scope.serverResponse= {
+            type: 'success',
+             visible: false
+         };
+
+
         //region proposal settings
         $scope.setProposal = function (proposal) {
 
@@ -27,73 +34,107 @@
                 alternativeLabels.push(proposal.alternativeLabel2)
             }
 
-            //object in result format
-            var newObj = {
+
+            $scope.newObj = {
                 "entity": {"resource": url, "label": proposal.label},
                 "score": {"value": 0}
             };
-
             $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
             if ($scope.selectedPosition.row == -1) {
 
-                //adds classification into rusult
-                $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB].push(newObj);
-
-                //object in restapi format for classes
+                //object in rest api format for classes
                 var obj = {
                     "label": proposal.label,
                     "alternativeLabels": alternativeLabels,
                     "suffix": url,
                     "superClass": null
-                    // "superClass": proposal.superClass
-                }
+                     // "superClass": proposal.superClass
+                };
                 classes(obj)
             }
             else {
-                //adds disambiguation into result
-                $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
 
-                //object in restapi format for resources
+
+                //object in rest api format for resources
                 var obj = {
                     "label": proposal.label,
                     "alternativeLabels": alternativeLabels,
                     "suffix": url,
-                    "classes": []
-                    // "superClass": $scope.result.headerAnnotations[selectedPosition.column]
-                }
+                    "classes": [$scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB][0].entity]
+                };
                 resources(obj)
 
             }
 
-        }
+        };
         //endregion
+
+        //saves new propose class
         var classes = function (obj) {
-            console.log("sends classes" + JSON.stringify(obj, null, 4));
-            rest.base($scope.primaryKB).entities.classes.update(obj).exec(
+            var currentTimeStamp =  new Date().getTime();
+            rest.base($scope.primaryKB).entities.classes.stamp(currentTimeStamp).update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
+
+                    //adds classification into rusult
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
+
+                    //success message
+                    success();
+
                 },
                 // Error
                 function (response) {
-                    alert("Something is wrong. Please, try to again.")
+                    //because of a delayed response server
+                    var info = JSON.parse(response.data);
+                    if (currentTimeStamp.toString()==  info.stamp) {
+                       fail(info);
+                     }
                 }
             );
         };
+
+        //saves new propose resource
         var resources = function (obj) {
-            console.log("sends resource" + JSON.stringify(obj, null, 4));
-            rest.base($scope.primaryKB).entities.resources.update(obj).exec(
-                // Success, inject into the scope
+            var currentTimeStamp =  new Date().getTime();
+            rest.base($scope.primaryKB).entities.resources.stamp(currentTimeStamp).update(obj).exec(
                 function (response) {
+                    //adds disambiguation into result
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
+
+                    //success message
+                    success();
                 },
                 // Error
                 function (response) {
-                    alert("Something is wrong. Please, try to again.")
+                    var info = JSON.parse(response.data);
+                    //because of a delayed response server
+                    if (currentTimeStamp.toString()==  info.stamp) {
+                        //fail message
+                        fail(info);
+                    }
                 }
             );
         };
+
+        //sets parameters for the alert directive
+        var success = function()
+        {
+            $scope.serverResponse.type = 'success';
+            $scope.serverResponse.visible = true;
+            $scope.messege = "Propose was saved";
+        }
+        //sets parameters for the alert directive
+        var fail = function(info)
+        {
+            $scope.serverResponse.type = 'error';
+            $scope.serverResponse.visible = true;
+            $scope.messege = info.payload.text;
+        }
+
     });
 
 
