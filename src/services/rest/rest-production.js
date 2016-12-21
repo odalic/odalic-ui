@@ -288,7 +288,8 @@ $.defineModule(function () {
                     },
                 };
             },
-// GET http://example.com/base/entities?query=Pra&limit=20
+
+            // GET http://example.com/base/entities?query=Pra&limit=20
             base: function (kb) {
                 return {
                     entities: {
@@ -350,5 +351,4 @@ $.defineModule(function () {
 
         };
     };
-})
-;
+});
