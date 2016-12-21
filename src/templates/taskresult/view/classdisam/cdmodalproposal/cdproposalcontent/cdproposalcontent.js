@@ -9,6 +9,7 @@
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
 
+        //sets parameters for the alert directive
         $scope.serverResponse= {
             type: 'success',
              visible: false
@@ -18,20 +19,10 @@
         //region proposal settings
         $scope.setProposal = function (proposal) {
 
-            if(proposal.suffixUrl == "" )
-            {
-
-            }
-            if(proposal.label)
-            {
-
-            }
             //TOTO prefix kde ho vezmu co s nim?????
             var prefixUrl = "";
 
             var url = proposal.suffixUrl;
-
-
 
             //joins alternative labels
             var alternativeLabels = [];
@@ -52,7 +43,7 @@
 
             if ($scope.selectedPosition.row == -1) {
 
-                //object in restapi format for classes
+                //object in rest api format for classes
                 var obj = {
                     "label": proposal.label,
                     "alternativeLabels": alternativeLabels,
@@ -65,13 +56,12 @@
             else {
 
 
-                //object in restapi format for resources
+                //object in rest api format for resources
                 var obj = {
                     "label": proposal.label,
                     "alternativeLabels": alternativeLabels,
                     "suffix": url,
-                    "classes": []
-                    // "superClass": $scope.result.headerAnnotations[selectedPosition.column]
+                    "classes": [$scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB][0].entity]
                 };
                 resources(obj)
 
@@ -91,17 +81,16 @@
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
 
-                    $scope.serverResponse.type = 'success';
-                    $scope.serverResponse.visible = true;
-                    $scope.messege = "Propose was saved"
+                    //success message
+                    success();
+
                 },
                 // Error
                 function (response) {
+                    //because of a delayed response server
                     var info = JSON.parse(response.data);
                     if (currentTimeStamp.toString()==  info.stamp) {
-                        $scope.serverResponse.type = 'error';
-                        $scope.serverResponse.visible = true;
-                        $scope.messege = info.payload.text;
+                       fail(info);
                      }
                 }
             );
@@ -112,27 +101,40 @@
             var currentTimeStamp =  new Date().getTime();
             rest.base($scope.primaryKB).entities.resources.stamp(currentTimeStamp).update(obj).exec(
                 function (response) {
-
-
-                    $scope.serverResponse.type = 'success';
-                    $scope.serverResponse.visible = true;
-                    $scope.messege = "Propose was saved";
                     //adds disambiguation into result
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
 
+                    //success message
+                    success();
                 },
                 // Error
                 function (response) {
                     var info = JSON.parse(response.data);
+                    //because of a delayed response server
                     if (currentTimeStamp.toString()==  info.stamp) {
-                        $scope.serverResponse.type = 'error';
-                        $scope.serverResponse.visible = true;
-                        $scope.messege = info.payload.text;
+                        //fail message
+                        fail(info);
                     }
                 }
             );
         };
+
+        //sets parameters for the alert directive
+        var success = function()
+        {
+            $scope.serverResponse.type = 'success';
+            $scope.serverResponse.visible = true;
+            $scope.messege = "Propose was saved";
+        }
+        //sets parameters for the alert directive
+        var fail = function(info)
+        {
+            $scope.serverResponse.type = 'error';
+            $scope.serverResponse.visible = true;
+            $scope.messege = info.payload.text;
+        }
+
     });
 
 
