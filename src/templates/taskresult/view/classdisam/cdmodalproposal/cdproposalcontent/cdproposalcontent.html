@@ -1,4 +1,4 @@
-<form  name="cDProposeForm"  novalidate class="form-horizontal" role="form">
+<form name="cDProposeForm" novalidate class="form-horizontal" role="form">
     <div class="container-fluid">
         <div class="form-group">
             <label class="col-md-4 control-label">Label:</label>
@@ -7,14 +7,11 @@
             </div>
 
             <div class="col-md-8 col-md-offset-4" ng-messages="cDProposeForm.label.$error" style="color:red" role="alert">
-            <div ng-message="required">You did not enter a field</div>
+                <div ng-message="required">You did not enter a field</div>
+            </div>
         </div>
-        </div>
 
-
-
-
-        <br>
+        <br/>
 
         <div class="form-group">
             <label class="col-md-4 control-label">Alternative label:</label>
@@ -89,8 +86,8 @@
             <!--</div>-->
         </div>
 
+        <br/>
 
-        <br>
         <button type="submit" ng-disabled="!cDProposeForm.$valid" class="btn btn-lg" ng-click="setProposal(proposal)">
             OK
         </button>
