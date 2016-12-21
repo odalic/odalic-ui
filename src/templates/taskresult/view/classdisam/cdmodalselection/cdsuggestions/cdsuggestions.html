@@ -1,4 +1,4 @@
-<div name = "search" class="form-group">
+<div name="search" class="form-group">
     <div class="col-md-12">
         <!--<label class="control-label">Search: </label>-->
         <h3>Search:</h3>
@@ -11,10 +11,17 @@
     </div>
     <div class="col-md-3">
         <button ng-hide="waitForSuggestions" type="button" class="form-control"
-                ng-click="getSuggestions(string,'10')">
+                ng-click="getSuggestions(string,'100')">
             Find
         </button>
         <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+    </div>
+
+    <!--alert messege-->
+    <div class="col-md-12">
+        <alert bind="serverResponse">
+            {{messege}}
+        </alert>
     </div>
 
     <!-- Blank space -->

@@ -16,6 +16,7 @@
                 lockedTableCells: '=',
                 chosenKBs: '=',
                 proposal:'=',
+                suggestion:'=',
                 primaryKB:'@'
             },
             templateUrl: currentFolder + 'cDTableRow.html',
@@ -36,6 +37,8 @@
                     var color = constants.kbColorsArray[index];
                     return {"background-color": color, "border-radius": "5px", "opacity": "1"};
                 };
+
+
             }
         }
     });

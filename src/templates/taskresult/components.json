@@ -5,6 +5,7 @@
   "view/classdisam/cdmodalselection/cdmodalhead/cdmodalhead.js",
   "view/classdisam/cdmodalselection/cdselecting/cdselecting.js",
   "view/classdisam/cdmodalselection/cdselecting/cdselectbox/cdselectbox.js",
+  "view/classdisam/cdmodalselection/cdmodalselection.js",
   "view/classdisam/cdmodalselection/cdcheckboxes/cdcheckboxes.js",
   "view/classdisam/cdtable/cdtablerow/cdtablerow.js",
   "view/controlbuttons/controlbuttons.js",

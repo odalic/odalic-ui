@@ -12,7 +12,7 @@
             scope: {
                 selectedPosition: '=',
                 locked: '=',
-                primaryKB: '@',
+                knowledgeBase: '@',
                 result: '='
             },
             templateUrl: currentFolder + 'cdsuggestions.html',
@@ -20,6 +20,11 @@
 
                 //region suggestion from primaryKB
                 $scope.suggestions = {};
+                //sets parameters for the alert directive
+                $scope.serverResponse= {
+                    type: 'success',
+                    visible: false
+                };
 
                 //sets parameters for the alert directive
                 $scope.serverResponse= {
@@ -41,13 +46,13 @@
 
                     if ($scope.selectedPosition.row == -1) {
                         //adds classification  into result
-                        $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                        $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB]= [newObj];
+                        $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.knowledgeBase].push(newObj);
+                        $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.knowledgeBase]= [newObj];
                     }
                     else {
                         //adds dissabmbiguation into result
-                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
+                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope. knowledgeBase].push(newObj);
+                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.knowledgeBase] = [newObj]
                     }
                 }
 
@@ -59,18 +64,27 @@
                 //gets suggestions from server based on user string input
                 $scope.getSuggestions = function (string, limit) {
                     $scope.waitForSuggestions = true;
+
+                    setTimeout(function(){
+                        //do what you need here
+
                     var currentTimeStamp =  new Date().getTime();
-                    rest.base($scope.primaryKB).entities.query(string).limit(limit).stamp(currentTimeStamp).retrieve.exec(
+                    rest.base($scope.knowledgeBase).entities.query(string).limit(limit).stamp(currentTimeStamp).retrieve.exec(
                         // Success, inject into the scope
                         function (response) {
+                            var info =response.data;
+                            //because of a delayed response server
+                            if (currentTimeStamp.toString()==  info.stamp) {
+                                alert("ok");
+                            }
+                            //success message
+                            success();
+
+                            $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
                             $scope.waitForSuggestions = false;
 
-                            alert(response);
-
-                            console.log('suggestings from server: '+JSON.stringify(response,null, 4));
                             $scope.suggestions = response;
-
-
 
                             // TODO: Works only once. As soon as you add the result,
                             // it breaks.
@@ -81,13 +95,32 @@
 
                         // Error
                         function (response) {
-                            alert(response);
-                            $scope.waitForSuggestions = false;
+                            alert("spatne");
+                            var info = JSON.parse(response.data);
+                            //because of a delayed response server
+                            if (currentTimeStamp.toString()==  info.stamp) {
+                                //fail message
+                                fail(info);
+                            }
                         }
                     );
+                    }, 4000);
                 }
                 //endregion
-
+                //sets parameters for the alert directive
+                var success = function()
+                {
+                    $scope.serverResponse.type = 'success';
+                    $scope.serverResponse.visible = true;
+                    $scope.messege = "Propose was saved";
+                }
+                //sets parameters for the alert directive
+                var fail = function(info)
+                {
+                    $scope.serverResponse.type = 'error';
+                    $scope.serverResponse.visible = true;
+                    $scope.messege = info.payload.text;
+                }
 
 
             }

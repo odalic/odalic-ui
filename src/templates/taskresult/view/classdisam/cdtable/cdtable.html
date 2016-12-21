@@ -20,7 +20,8 @@
         <tr ng-class="'headerRow'"
             c-d-table-row row="inputFile.columns" row-index="-1"
             concrete-data="result.headerAnnotations" selected-position="selectedPosition"
-            locked-table-cells = "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{primaryKB}}" proposal = "openCDProposal" >
+            locked-table-cells = "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{primaryKB}}" proposal = "openCDProposal"
+            suggestion ="openCDSuggestion">
         </tr>
         </thead>
         <tbody>
@@ -30,7 +31,10 @@
             ng-repeat="row in inputFile.rows"
             c-d-table-row row="row" row-index="$index"
             concrete-data="result.cellAnnotations[$index]"  selected-position="selectedPosition"
-            locked-table-cells= "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{primaryKB}}" proposal = "openCDProposal">
+            locked-table-cells= "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{primaryKB}}" proposal = "openCDProposal"
+            suggestion ="openCDSuggestion"
+
+        >
         </tr>
         </tbody>
     </table>

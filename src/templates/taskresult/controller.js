@@ -426,6 +426,31 @@
             });
         }
 
+        //calls cd proposal modal window
+        $scope.openCDSuggestion = function () {
+            $uibModal.open({
+                templateUrl: "src/templates/taskresult/view/classdisam/cdmodalselection/cdmodalselection.html",
+                controller: 'cDSelectionController',
+                resolve: {
+                    data: function () {
+                        return {
+                            selectedPosition: $scope.selectedPosition,
+                            result: $scope.result,
+                            locked: $scope.locked,
+                            primaryKB: $scope.primaryKB,
+                            proposal:$scope.proposal,
+                            ignoredColumn:$scope.ignoredColumn,
+                            noDisambiguationCell:$scope.noDisambiguationCell,
+                            noDisambiguationColumn:$scope.noDisambiguationColumn
+
+                        }
+                    }
+                }
+
+            });
+        }
+
+
     });
 
 })();
