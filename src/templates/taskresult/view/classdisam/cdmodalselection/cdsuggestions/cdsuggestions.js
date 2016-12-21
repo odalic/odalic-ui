@@ -1,5 +1,6 @@
 (function () {
 
+
     // Main module
     var app = angular.module('odalic-app');
 
@@ -19,6 +20,12 @@
 
                 //region suggestion from primaryKB
                 $scope.suggestions = {};
+
+                //sets parameters for the alert directive
+                $scope.serverResponse= {
+                    type: 'success',
+                    visible: false
+                };
 
                 //adds new suggestion into ruesult
                 $scope.addSuggestions = function (suggestion) {
@@ -44,20 +51,7 @@
                     }
                 }
 
-                // $scope.addRelationSuggestions = function (suggestion) {
-                //
-                //     $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
-                //
-                //     var newObj = {
-                //         "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                //         "score": {"value": 0}
-                //     };
-                //
-                //     $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].candidates[$scope.primaryKB].push(newObj);
-                //     // $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[$scope.primaryKB] = [newObj]
-                //     $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][$scope.primaryKB].push(newObj.entity)
-                //
-                // }
+
 
                 //for server data waiting
                 $scope.waitForSuggestions = false;
@@ -65,13 +59,18 @@
                 //gets suggestions from server based on user string input
                 $scope.getSuggestions = function (string, limit) {
                     $scope.waitForSuggestions = true;
-                    rest.base($scope.primaryKB).entities.query(string).limit(limit).retrieve.exec(
+                    var currentTimeStamp =  new Date().getTime();
+                    rest.base($scope.primaryKB).entities.query(string).limit(limit).stamp(currentTimeStamp).retrieve.exec(
                         // Success, inject into the scope
                         function (response) {
                             $scope.waitForSuggestions = false;
 
+                            alert(response);
+
                             console.log('suggestings from server: '+JSON.stringify(response,null, 4));
                             $scope.suggestions = response;
+
+
 
                             // TODO: Works only once. As soon as you add the result,
                             // it breaks.
@@ -82,7 +81,7 @@
 
                         // Error
                         function (response) {
-                            alert("Something is wrong. Please, try to again.")
+                            alert(response);
                             $scope.waitForSuggestions = false;
                         }
                     );

@@ -235,11 +235,15 @@ $.defineModule(function () {
                             return {
                                 limit: function (countLimit) {
                                     return {
-                                        retrieve: {
-                                            exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities')+ '?query=' + string + '&limit=' + countLimit, 'GET');
-                                                requests.quickRequest(text.urlConcat(root, kb, 'entities')+ '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
-                                            },
+                                       stamp: function (stamp) {
+                                            return {
+                                                retrieve: {
+                                                    exec: function (success, failure) {
+                                                        console.log(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit+'&stamp='+stamp, 'GET');
+                                                        requests.quickRequest(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit+'&stamp='+stamp, 'GET', successf(success), failure);
+                                                    },
+                                                },
+                                            };
                                         },
                                     };
                                 },
