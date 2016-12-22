@@ -12,61 +12,66 @@
         //sets parameters for the alert directive
         $scope.serverResponse= {
             type: 'success',
-             visible: false
-         };
-
+            visible: false
+        };
 
         //region proposal settings
         $scope.setProposal = function (proposal) {
 
-            //TOTO prefix kde ho vezmu co s nim?????
-            var prefixUrl = "";
+            // Is proposal defined?
+            if (proposal) {
+                //TOTO prefix kde ho vezmu co s nim?????
+                var prefixUrl = "";
 
-            var url = proposal.suffixUrl;
+                var url = proposal.suffixUrl;
 
-            //joins alternative labels
-            var alternativeLabels = [];
+                //joins alternative labels
+                var alternativeLabels = [];
 
-            if (proposal.alternativeLabel != null) {
-                alternativeLabels.push(proposal.alternativeLabel)
-            }
-            if (proposal.alternativeLabel2 != null) {
-                alternativeLabels.push(proposal.alternativeLabel2)
-            }
+                if (proposal.alternativeLabel != null) {
+                    alternativeLabels.push(proposal.alternativeLabel);
+                }
+                if (proposal.alternativeLabel2 != null) {
+                    alternativeLabels.push(proposal.alternativeLabel2);
+                }
 
-
-            $scope.newObj = {
-                "entity": {"resource": url, "label": proposal.label},
-                "score": {"value": 0}
-            };
-            $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-
-            if ($scope.selectedPosition.row == -1) {
-
-                //object in rest api format for classes
-                var obj = {
-                    "label": proposal.label,
-                    "alternativeLabels": alternativeLabels,
-                    "suffix": url,
-                    "superClass": null
-                     // "superClass": proposal.superClass
+                $scope.newObj = {
+                    "entity": {
+                        "resource": url,
+                        "label": proposal.label
+                    },
+                    "score": {
+                        "value": 0
+                    }
                 };
-                classes(obj)
+                $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
+                if ($scope.selectedPosition.row == -1) {
+
+                    //object in rest api format for classes
+                    var obj = {
+                        "label": proposal.label,
+                        "alternativeLabels": alternativeLabels,
+                        "suffix": url,
+                        "superClass": null
+                        // "superClass": proposal.superClass
+                    };
+                    classes(obj);
+                }
+                else {
+                    //object in rest api format for resources
+                    var obj = {
+                        "label": proposal.label,
+                        "alternativeLabels": alternativeLabels,
+                        "suffix": url,
+                        "classes": [$scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB][0].entity]
+                    };
+                    resources(obj);
+                }
             }
-            else {
 
-
-                //object in rest api format for resources
-                var obj = {
-                    "label": proposal.label,
-                    "alternativeLabels": alternativeLabels,
-                    "suffix": url,
-                    "classes": [$scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB][0].entity]
-                };
-                resources(obj)
-
-            }
-
+            // Either way we close the modal upon the click
+            $uibModalInstance.close();
         };
         //endregion
 

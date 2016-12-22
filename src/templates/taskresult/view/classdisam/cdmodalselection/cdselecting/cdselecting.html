@@ -14,7 +14,7 @@
 
     <!-- Proposal button -->
     <div class="col-md-3 col-md-offset-9">
-        <button class="form-control" ng-click="openCDProposal()">
+        <button class="form-control" ng-click="openModal()">
             Proposal
         </button>
     </div>
@@ -24,9 +24,9 @@
         <div ng-if="knowledgeBase != primaryKB">
             <div class="col-md-12">
                 <h3>{{ knowledgeBase }}</h3>
-                <c-d-select-box knowledge-base="{{knowledgeBase}}"
-                                selected-position="selectedPosition" ,
-                                locked="locked" ,
+                <c-d-select-box knowledge-base="{{ knowledgeBase }}"
+                                selected-position="selectedPosition",
+                                locked="locked",
                                 data="data()">
                 </c-d-select-box>
             </div>

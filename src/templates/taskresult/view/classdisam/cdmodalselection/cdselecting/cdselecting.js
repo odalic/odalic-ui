@@ -7,19 +7,16 @@
     var currentFolder = $.getPathForRelativePath('');
     app.directive('cDSelecting', function () {
         return {
-
             restrict: 'E',
             scope: {
                 selectedPosition: '=',
                 locked: '=',
                 primaryKB: '@',
-                result: '='
+                result: '=',
+                openModal: '='
             },
-
-
             templateUrl: currentFolder + 'cdselecting.html',
             link: function ($scope, iElement, iAttrs) {
-
 
                 //returns a correct data for select boxes
                 $scope.data = function() {

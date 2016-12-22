@@ -15,8 +15,8 @@
                 selectedPosition: '=',
                 lockedTableCells: '=',
                 chosenKBs: '=',
-                proposal:'=',
-                primaryKB:'@'
+                proposal: '=',
+                primaryKB: '@'
             },
             templateUrl: currentFolder + 'cDTableRow.html',
             link: function (scope, iElement, iAttrs) {
