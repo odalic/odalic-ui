@@ -1,6 +1,11 @@
 /*
  * Row color styles
  */
+.odalic-trstyle-darkorange {
+    color: @odalic-color-white;
+    background-color: @odalic-color-darkorange;
+}
+
 .odalic-trstyle-lightorange {
     color: @odalic-color-black;
     background-color: @odalic-color-lightorange;
@@ -45,6 +50,11 @@
 /*
  * Box color styles
  */
+.odalic-bstyle-darkorange {
+    .odalic-trstyle-darkorange;
+    border-color: @odalic-color-darkorange;
+}
+
 .odalic-bstyle-lightorange {
     .odalic-trstyle-lightorange;
     border-color: @odalic-color-lightorange;

@@ -4,10 +4,9 @@
             <label class="col-md-4 control-label">Label:</label>
             <div class="col-md-8">
                 <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
-            </div>
-
-            <div class="col-md-8 col-md-offset-4" ng-messages="cDProposeForm.label.$error" style="color:red" role="alert">
-                <div ng-message="required">You did not enter a field</div>
+                <div ng-messages="cDProposeForm.label.$error" role="alert">
+                    <error-msg ngmsg="required">You did not enter a field</error-msg>
+                </div>
             </div>
         </div>
 
@@ -33,8 +32,8 @@
             <label class="col-md-4 control-label">Custom URL suffix:</label>
             <div class="col-md-8">
                 <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
-                <div ng-messages="cDProposeForm.suffixUri.$error" style="color:red" role="alert">
-                    <div ng-message="required">You did not enter a field</div>
+                <div ng-messages="cDProposeForm.suffixUri.$error" role="alert">
+                    <error-msg ngmsg="required">You did not enter a field</error-msg>
                 </div>
             </div>
 
@@ -69,8 +68,8 @@
                 <input name="classification" class="form-control" type="text"
                        ng-disabled="true"
                        ng-model="result.headerAnnotations[selectedPosition.column].chosen[primaryKB][0].entity.resource" required>
-                <div ng-messages="cDProposeForm.classification.$error" style="color:red" role="alert">
-                    <div ng-message="required">This column doesn't have a chosen classification. You can't add a propose.</div>
+                <div ng-messages="cDProposeForm.classification.$error" role="alert">
+                    <error-msg ngmsg="required">This column doesn't have a chosen classification. You can't add a propose.</error-msg>
                 </div>
             </div>
 

@@ -18,6 +18,7 @@
   "directives/loadico/loadico.js",
   "directives/include/include.js",
   "directives/shortened/shortened.js",
+  "directives/errormsg/errormsg.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",
