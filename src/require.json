@@ -29,6 +29,7 @@
   "services/report/report.js",
   "services/responsep/responsep.js",
   "services/formsval/formsval.js",
+  "services/reporth/reporth.js",
   "filters/shortstr/filter.js",
   "templates/templates.js"
 ]

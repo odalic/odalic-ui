@@ -5,14 +5,11 @@
 
     // Create a controller for taskconfigs
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-taskconfigs-ctrl', function ($scope, $routeParams, rest, persist, report) {
-
-        // Reporting service
-        var reporting = report($scope);
+    app.controller('odalic-taskconfigs-ctrl', function ($scope, $routeParams, rest, persist, reporth) {
 
         // Dealing with the table
         $.getScriptSync(currentFolder + 'table/table.js', function () {});
-        var table = tableComponent($scope, rest, reporting);
+        var table = tableComponent($scope, rest, reporth);
 
         // Dealing with the state updates
         $.getScriptSync(currentFolder + 'table/statepoll.js', function () {});
@@ -20,6 +17,7 @@
 
         // Initialize
         $scope.taskconfigs = [];
+        $scope.messages = {};
         table.refreshList(statepoll.setPolling);
 
         // Table button functions
@@ -32,7 +30,7 @@
                 },
                 // Error while starting the execution
                 function (response) {
-                    reporting.error(response);
+                    $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.startFailure'], response.data));
                 }
             );
         };
@@ -45,7 +43,7 @@
                 },
                 // Error while stopping the execution
                 function (response) {
-                    reporting.error(response);
+                    $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.stopFailure'], response.data));
                 }
             );
         };
@@ -66,7 +64,7 @@
                 },
                 // Error while removing the task
                 function (response) {
-                    reporting.error(response);
+                    $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.removeFailure'], response.data));
                 }
             );
         };

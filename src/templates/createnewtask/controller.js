@@ -7,7 +7,7 @@
     loadhelp.loadDefault();
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, formsval) {
+    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
 
         // Template initialization
         $scope['taskCreation'] = {};
@@ -92,9 +92,7 @@
                 },
                 // Failure
                 function (response) {
-                    $scope.wholeForm.alerts.push('error', String.concat(
-                        $scope['msgtxt.createFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
-                    ));
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
                 }
             );
         };
@@ -117,9 +115,7 @@
                     },
                     // Error while starting the execution
                     function (response) {
-                        $scope.wholeForm.alerts.push('error', String.concat(
-                            $scope['msgtxt.startFailure'] , ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
-                        ));
+                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.startFailure'], response.data));
                     }
                 );
             });
@@ -165,9 +161,7 @@
                 },
                 // Failure
                 function (response) {
-                    $scope.wholeForm.alerts.push('error', String.concat(
-                        $scope['msgtxt.saveFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
-                    ));
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
                 }
             );
         };
@@ -194,9 +188,7 @@
 
                     // Failure to load the task's config
                     function (response) {
-                        $scope.wholeForm.alerts.push('error', String.concat(
-                            $scope['msgtxt.loadFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
-                        ));
+                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
                     }
                 );
             }

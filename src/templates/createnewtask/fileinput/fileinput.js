@@ -4,7 +4,7 @@
     var app = angular.module('odalic-app');
 
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('fileinput', function (rest, filedata) {
+    app.directive('fileinput', function (rest, filedata, reporth) {
         return {
             restrict: 'E',
             scope: {
@@ -129,9 +129,7 @@
                                 // Failure
                                 function (response) {
                                     // The file has not been uploaded => display an error message
-                                    scope.messages.push('error', String.concat(
-                                        scope['msgtxt.uploadFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
-                                    ));
+                                    scope.messages.push('error', reporth.constrErrorMsg(scope['msgtxt.uploadFailure'], response.data));
 
                                     // A file may be uploaded again
                                     _ref.uploadingFile = false;
@@ -187,9 +185,7 @@
                             // Failure
                             function (response) {
                                 // The file has not been attached => display an error message
-                                scope.messages.push('error', String.concat(
-                                    scope['msgtxt.attachFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
-                                ));
+                                scope.messages.push('error', reporth.constrErrorMsg(scope['msgtxt.attachFailure'], response.data));
 
                                 // A file may be uploaded again
                                 _ref.attachingFile = false;

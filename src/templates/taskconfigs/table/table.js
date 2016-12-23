@@ -1,5 +1,5 @@
 // Deals with the table updates with an exception of state polling
-var tableComponent = function (scope, rest, reporting) {
+var tableComponent = function (scope, rest, reporth) {
 
     var mirror = {};
     var updateMirror = function () {
@@ -57,9 +57,9 @@ var tableComponent = function (scope, rest, reporting) {
                         }
                     },
 
-                    // Error
+                    // Error while updating the task
                     function (response) {
-                        reporting.error(response);
+                        scope.messages.push('error', reporth.constrErrorMsg(scope['msgtxt.taskdataFailure'], response.data));
                     }
                 );
             }
