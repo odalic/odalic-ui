@@ -7,7 +7,7 @@
     loadhelp.loadDefault();
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, report) {
+    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, report, formsval) {
 
         // Template initialization
         $scope['taskCreation'] = {};
@@ -23,14 +23,7 @@
 
         $scope.fileinput = {};
 
-        $scope.alerts = {
-            taskCreation: {
-                identifier: {
-                    type: 'error',
-                    visible: false
-                }
-            }
-        };
+        formsval.toScope($scope);
 
         //TODO smazat az bude na vyber,tj.
         //az to bude server umet, tak se dostupne kbs nastavi ze serveru
@@ -47,50 +40,11 @@
 
         $scope.wholeForm = {
             // Messages for a user
-            alerts: [],
-
-            // Pushing an alert message for 'the whole form'
-            pushAlert: function (type, text) {
-                var _ref = this;
-                _ref.alerts.push({
-                    type: type,
-                    visible: true,
-                    text: text,
-                    close: function () {
-                        _ref.alerts.splice(_ref.alerts.indexOf(this), 1);
-                    }
-                });
-            },
+            alerts: {},
 
             // Validation of the form, whether everything is correctly filled; returns true, if it is safe to proceed
             validate: function () {
-                // Clear previous alerts
-                this.alerts = [];
-                var valid = true;
-
-                // Task name set?
-                if (!objhelp.objRecurAccess($scope, 'taskCreation')['identifier']) {
-                    valid = false;
-                    $scope.alerts.taskCreation.identifier.visible = true;
-                }
-
-                // File selected?
-                switch ($scope.fileProvision) {
-                    case 'local':
-                        if (!$scope.fileinput.isFileSelected()) {
-                            valid = false;
-                            $scope.fileinput.pushAlert('error', 'No file selected.');
-                        }
-                        break;
-                    case 'remote':
-                        if (!objhelp.objRecurAccess($scope, 'remoteFile')['location']) {
-                            valid = false;
-                            this.pushAlert('error', 'No remote file specified.');
-                        }
-                        break;
-                }
-
-                return valid;
+                return formsval.validateNonNested($scope.taskCreationForm);
             }
         };
 
@@ -144,7 +98,7 @@
                 }
             );
         };
-        
+
         // Task creation + run
         $scope.templFormat.createAndRun = function () {
             $scope.templFormat.createTask(function () {

@@ -19,6 +19,7 @@
   "directives/include/include.js",
   "directives/shortened/shortened.js",
   "directives/errormsg/errormsg.js",
+  "directives/frankctive/frankctive.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",
@@ -27,6 +28,7 @@
   "services/persist/persist.js",
   "services/report/report.js",
   "services/responsep/responsep.js",
+  "services/formsval/formsval.js",
   "filters/shortstr/filter.js",
   "templates/templates.js"
 ]

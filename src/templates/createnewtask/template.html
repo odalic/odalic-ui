@@ -8,7 +8,7 @@
         <h2 ng-show="templFormat.creating">Creation of new task</h2>
         <h2 ng-show="!templFormat.creating">Modification of a task configuration</h2>
 
-        <form class="form-horizontal" role="form" name="taskCreationForm">
+        <form class="form-horizontal" role="form" name="taskCreationForm" ng-init="setForm(this, 'taskCreationForm')">
             <!-- Basic settings -->
             <fieldset>
                 <legend>Basic settings</legend>
@@ -16,13 +16,13 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
-                        <input class="form-control" type="text" ng-model="taskCreation.identifier"
+                        <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
                                ng-disabled="!templFormat.creating" required>
+                        <div ng-messages="taskCreationForm.taskIdentifier.$error" ng-if='taskCreationForm.taskIdentifier.$dirty' role="alert">
+                            <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
+                        </div>
                     </div>
                 </div>
-                <alert bind="alerts.taskCreation.identifier">
-                    Task name not set.
-                </alert>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label">Description:</label>
@@ -35,7 +35,7 @@
             <!-- Input file -->
             <fieldset>
                 <legend>Input file</legend>
-                <fileinput bind="fileinput"/>
+                <fileinput bind="fileinput" form="taskCreationForm" />
             </fieldset>
 
             <!-- File settings -->
@@ -102,7 +102,7 @@
 
             <!-- Knowledge base settings -->
             <fieldset>
-                <legend> Knowledge base settings</legend>
+                <legend>Knowledge base settings</legend>
                 <!-- setting of knowledge bases -->
                 <!-- TODO mozna jinak -->
                 <div class="form-group">
@@ -130,11 +130,10 @@
             </fieldset>
 
             <!--  Alerts displaying notifications for a user regarding the whole form -->
-            <div ng-repeat="obj in wholeForm.alerts">
-                <alert bind="obj">
-                    {{ obj.text }}
-                </alert>
-            </div>
+            <injector for="msgtxt.saveFailure">An error occured while saving the task.</injector>
+            <injector for="msgtxt.createFailure">An error occured while creating the task.</injector>
+            <injector for="msgtxt.errorDescription">Error details:</injector>
+            <alert-group bind="wholeForm.alerts" />
         </form>
 
         <!-- Submit -->

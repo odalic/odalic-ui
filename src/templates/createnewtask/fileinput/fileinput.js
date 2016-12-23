@@ -8,10 +8,15 @@
         return {
             restrict: 'E',
             scope: {
-                bind: '='
+                bind: '=',
+                form: '='
             },
             templateUrl: currentFolder + 'fileinput.html',
             link: function (scope, iElement, iAttrs) {
+                scope.taskCreationFormReady = function () {
+                    return !!scope.form;
+                };
+
                 // Initialization
                 scope.files = {};
                 scope.remoteFile = {};
@@ -88,34 +93,8 @@
                         scope.$apply();
                     },
 
-                    // Validates the file uploading part of the form; returns true, if it is safe to proceed with the file upload
-                    validate: function () {
-                        // Clear previous alerts
-                        scope.messages.clear();
-                        var valid = true;
-
-                        // Local file selected?
-                        if (!filedata.filePresent(this.inputFileId)) {
-                            scope.messages.push('error', scope['msgtxt.noLocalFile']);
-                            valid = false;
-                        }
-
-                        // Identifier set?
-                        if (!this.identifier) {
-                            scope.messages.push('error', scope['msgtxt.emptyIdentifier']);
-                            valid = false;
-                        }
-
-                        return valid;
-                    },
-
                     // Upload the selected file
                     uploadFile: function () {
-                        // Validate
-                        if (!this.validate()) {
-                            return;
-                        }
-
                         // Reference to self
                         var _ref = this;
 
@@ -179,29 +158,8 @@
 
                     // Location of the file to be attached
                     location: String(),
-
-                    // Validates the file attaching part of the form; returns true, if it is safe to proceed with the file attach
-                    validate: function () {
-                        // Clear previous alerts
-                        scope.messages.clear();
-                        var valid = true;
-
-                        // Identifier set?
-                        if (!this.identifier) {
-                            scope.messages.push('error', scope['msgtxt.emptyIdentifier']);
-                            valid = false;
-                        }
-
-                        return valid;
-                    },
-
                     // Attach the selected file
                     attachFile: function () {
-                        // Validate
-                        if (!this.validate()) {
-                            return;
-                        }
-
                         // Reference to self
                         var _ref = this;
 

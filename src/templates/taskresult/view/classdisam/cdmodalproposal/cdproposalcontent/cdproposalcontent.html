@@ -5,7 +5,7 @@
             <div class="col-md-8">
                 <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
                 <div ng-messages="cDProposeForm.label.$error" role="alert">
-                    <error-msg ngmsg="required">You did not enter a field</error-msg>
+                    <div ng-message="required"><error-msg>You did not enter a field</error-msg></div>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <div class="col-md-8">
                 <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
                 <div ng-messages="cDProposeForm.suffixUri.$error" role="alert">
-                    <error-msg ngmsg="required">You did not enter a field</error-msg>
+                    <div ng-message="required"><error-msg>You did not enter a field</error-msg></div>
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                        ng-disabled="true"
                        ng-model="result.headerAnnotations[selectedPosition.column].chosen[primaryKB][0].entity.resource" required>
                 <div ng-messages="cDProposeForm.classification.$error" role="alert">
-                    <error-msg ngmsg="required">This column doesn't have a chosen classification. You can't add a propose.</error-msg>
+                    <div ng-message="required"><error-msg>This column doesn't have a chosen classification. You can't add a propose.</error-msg></div>
                 </div>
             </div>
 
