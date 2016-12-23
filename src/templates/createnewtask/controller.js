@@ -7,14 +7,12 @@
     loadhelp.loadDefault();
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, report, formsval) {
+    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, formsval) {
 
         // Template initialization
         $scope['taskCreation'] = {};
 
         // Initialization
-        var reporting = report($scope);
-
         $scope.templFormat = {
             createTask: null,
             saveTask: null,
@@ -79,7 +77,7 @@
                         name: $scope.primaryKB
                     }
                 },
-				description: text.safe($scope.taskCreation.description)
+                description: text.safe($scope.taskCreation.description)
             }).exec(
                 // Success
                 function (response) {
@@ -94,7 +92,9 @@
                 },
                 // Failure
                 function (response) {
-                    reporting.error(response);
+                    $scope.wholeForm.alerts.push('error', String.concat(
+                        $scope['msgtxt.createFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
+                    ));
                 }
             );
         };
@@ -117,8 +117,9 @@
                     },
                     // Error while starting the execution
                     function (response) {
-                        reporting.error(response);
-                        handler();
+                        $scope.wholeForm.alerts.push('error', String.concat(
+                            $scope['msgtxt.startFailure'] , ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
+                        ));
                     }
                 );
             });
@@ -133,13 +134,13 @@
 
             // Generic preparations
             var fileId = $scope.fileinput.getSelectedFile();
-			var taskid = $scope.taskCreation.identifier;
+            var taskid = $scope.taskCreation.identifier;
 
             // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
             // Insert the task
-			rest.tasks.name(taskid).create({
-				id: String(taskid),
+            rest.tasks.name(taskid).create({
+                id: String(taskid),
                 created: (new Date()).toString("yyyy-MM-dd HH:mm"),
                 configuration: {
                     input: fileId,
@@ -155,7 +156,7 @@
                         name: $scope.primaryKB
                     }
                 },
-				description: text.safe($scope.taskCreation.description)
+                description: text.safe($scope.taskCreation.description)
             }).exec(
                 // Success
                 function (response) {
@@ -164,7 +165,9 @@
                 },
                 // Failure
                 function (response) {
-                    reporting.error(response);
+                    $scope.wholeForm.alerts.push('error', String.concat(
+                        $scope['msgtxt.saveFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
+                    ));
                 }
             );
         };
@@ -177,7 +180,9 @@
                     // Success
                     function (response) {
                         // Find the previously chosen file for the current task
-                        timed.ready(function () { return !!$scope.fileinput.setSelectedFile; }, function () {
+                        timed.ready(function () {
+                            return !!$scope.fileinput.setSelectedFile;
+                        }, function () {
                             $scope.fileinput.setSelectedFile(response.configuration.input);
                         });
 
@@ -189,7 +194,9 @@
 
                     // Failure to load the task's config
                     function (response) {
-                        reporting.error(response);
+                        $scope.wholeForm.alerts.push('error', String.concat(
+                            $scope['msgtxt.loadFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
+                        ));
                     }
                 );
             }

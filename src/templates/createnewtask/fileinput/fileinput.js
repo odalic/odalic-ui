@@ -130,9 +130,7 @@
                                 function (response) {
                                     // The file has not been uploaded => display an error message
                                     scope.messages.push('error', String.concat(
-                                        scope['msgtxt.uploadFailure'], ' ',
-                                        scope['msgtxt.errorDescription'], ' ',
-                                        text.dotted(JSON.parse(response.data).payload.text, 50)
+                                        scope['msgtxt.uploadFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
                                     ));
 
                                     // A file may be uploaded again
@@ -190,9 +188,7 @@
                             function (response) {
                                 // The file has not been attached => display an error message
                                 scope.messages.push('error', String.concat(
-                                    scope['msgtxt.attachFailure'], ' ',
-                                    scope['msgtxt.errorDescription'], ' ',
-                                    text.dotted(JSON.parse(response.data).payload.text, 50)
+                                    scope['msgtxt.attachFailure'], ' ', text.dotted(JSON.parse(response.data).payload.text, 50)
                                 ));
 
                                 // A file may be uploaded again
