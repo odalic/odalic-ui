@@ -1,32 +1,26 @@
-<div name="search" class="form-group">
-    <div class="col-md-12">
-        <!--<label class="control-label">Search: </label>-->
-        <h3>Search:</h3>
-    </div>
 
+<div class="row">
     <!-- Find -->
     <div class="col-md-9">
         <input type="text" class="form-control"
                ng-model="string">
     </div>
     <div class="col-md-3">
+        <div ng-if="waitForSuggestions == false">
         <button ng-hide="waitForSuggestions" type="button" class="form-control"
-                ng-click="getSuggestions(string,'100')">
+                ng-click="getSuggestions(string,'10')">
             Find
         </button>
+            </div>
+        <div ng-if="waitForSuggestions == true">
         <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+            </div>
     </div>
+</div>
 
-    <!--alert messege-->
-    <div class="col-md-12">
-        <alert bind="serverResponse">
-            {{messege}}
-        </alert>
-    </div>
 
-    <!-- Blank space -->
-    <div class="col-md-12 odalic-hstyle-small"></div>
 
+<div class="row">
     <!-- Add -->
     <div class="col-md-9">
         <select class="form-control" style="width: 100%"
@@ -40,5 +34,14 @@
             Add
         </button>
         <!-- TODO: Is this todo? Previous comment was: "Icon 'loading'" -->
+    </div>
+</div>
+
+<div class="row">
+    <!--alert messege-->
+    <div class="col-md-12">
+        <alert bind="serverResponse">
+            {{messege}}
+        </alert>
     </div>
 </div>

@@ -1,60 +1,77 @@
-<div class="form-group">
+<div class="row">
     <!-- Selection of a candidate(s) for the primary knowledge base -->
-    <div>
     <div class="col-md-12">
         <h3 ng-class="'boldPrimaryKB'">{{primaryKB + " (Primary KB)" }}</h3>
+    </div>
+    <div class="col-md-12">
         <c-d-select-box knowledge-base="{{primaryKB}}"
                         selected-position="selectedPosition" ,
                         locked="locked" ,
                         data="data()">
         </c-d-select-box>
-
-        <i ng-init="isCollapsedPKB = false" ng-click="isCollapsedPKB = !isCollapsedPKB" class="fa fa-angle-down "  > search</i>
-
-        <div uib-collapse="isCollapsedPKB">
-            <c-d-suggestions selected-position="selectedPosition" ,
-                             locked="locked" ,
-                             knowledge-base="{{primaryKB}}" ,
-                             result="result"/>
-
-        </div>
-
     </div>
 </div>
 
+<!--collapse label-->
+<div class="row">
+    <div class="col-md-12">
+        <i ng-init="isCollapsedPKB = true" ng-click="isCollapsedPKB = !isCollapsedPKB"
+           class="odalic-cursor-pointer fa fa-angle-down "> search</i>
+    </div>
+</div>
 
-    <!-- Blank space -->
-    <div class="col-md-12 odalic-hstyle-small"></div>
+<!-- search for the primary knowledge base -->
+<div uib-collapse="isCollapsedPKB">
+    <c-d-suggestions selected-position="selectedPosition" ,
+                     locked="locked" ,
+                     knowledge-base="{{primaryKB}}" ,
+                     result="result"/>
+</div>
 
-    <!-- Proposal button -->
+<!--Blank space-->
+<div class="col-md-12 odalic-hstyle-medium"></div>
+<!-- Proposal button -->
+<div class="row">
     <div class="col-md-3 col-md-offset-9">
         <button class="form-control" ng-click="openCDProposal()">
             Proposal
         </button>
     </div>
+</div>
 
-    <!-- Separate div for each knowledge base -->
-    <div ng-repeat="(knowledgeBase, candidates) in data().candidates">
-        <div ng-if="knowledgeBase != primaryKB">
+<!-- Separate div for each knowledge base -->
+<div ng-repeat="(knowledgeBase, candidates) in data().candidates">
+    <!--all non-primary knowledge bases-->
+    <div ng-if="knowledgeBase != primaryKB">
+        <!-- Selection of a candidate(s) for the non-primary knowledge base -->
+        <div class="row">
             <div class="col-md-12">
                 <h3>{{ knowledgeBase }}</h3>
+            </div>
+            <div class="col-md-12">
                 <c-d-select-box knowledge-base="{{knowledgeBase}}"
                                 selected-position="selectedPosition" ,
                                 locked="locked" ,
                                 data="data()">
                 </c-d-select-box>
-
-                <i ng-init="isCollapsedKB = true" ng-click="isCollapsedKB = !isCollapsedKB" class="fa fa-angle-down "> search</i>
-
-                <div uib-collapse="isCollapsedKB">
-                    <c-d-suggestions selected-position="selectedPosition" ,
-                                     locked="locked" ,
-                                     knowledge-base="{{knowledgeBase}}" ,
-                                     result="result"/>
-
-
-                </div>
             </div>
+        </div>
+
+        <!--collapse label-->
+        <div class="row">
+            <div class="col-md-12">
+                <i ng-init="isCollapsedKB = true" ng-click="isCollapsedKB = !isCollapsedKB"
+                   class="odalic-cursor-pointer fa fa-angle-down "> search</i>
+            </div>
+        </div>
+
+        <!-- search for the non-primary knowledge base -->
+        <div uib-collapse="isCollapsedKB">
+            <c-d-suggestions selected-position="selectedPosition" ,
+                             locked="locked" ,
+                             knowledge-base="{{knowledgeBase}}" ,
+                             result="result"/>
         </div>
     </div>
 </div>
+

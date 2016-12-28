@@ -239,9 +239,7 @@ $.defineModule(function () {
                                             return {
                                                 retrieve: {
                                                     exec: function (success, failure) {
-                                                        console.log(kb);
-                                                        console.log(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit+'&stamp='+stamp, 'GET');
-                                                        requests.quickRequest(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit+'&stamp='+stamp, 'GET', success, failure);
+                                                        requests.quickRequest(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit+'&stamp='+stamp, 'GET', successf(success), failure);
                                                     },
                                                 },
                                             };

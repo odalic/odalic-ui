@@ -3,8 +3,8 @@
         ng-model="data.chosen[knowledgeBase]"
         multiple limit="1" theme="bootstrap"
         search-enabled="true"
-        on-select="switchChosen($item, knowledgeBase)"
         ng-change="lockCell()"
+        on-select="switchChosen($item, knowledgeBase);lockCell() "
         class="uis-wrapper">
 
     <!-- Currently selected concept -->

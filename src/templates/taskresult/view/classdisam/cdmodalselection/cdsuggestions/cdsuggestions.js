@@ -13,28 +13,26 @@
                 selectedPosition: '=',
                 locked: '=',
                 knowledgeBase: '@',
-                result: '='
+                result: '=',
             },
             templateUrl: currentFolder + 'cdsuggestions.html',
             link: function ($scope, iElement, iAttrs) {
 
+                //for server data waiting
+                $scope.waitForSuggestions = false;
+
                 //region suggestion from primaryKB
                 $scope.suggestions = {};
-                //sets parameters for the alert directive
-                $scope.serverResponse= {
-                    type: 'success',
-                    visible: false
-                };
 
                 //sets parameters for the alert directive
                 $scope.serverResponse= {
                     type: 'success',
                     visible: false
                 };
+
 
                 //adds new suggestion into ruesult
                 $scope.addSuggestions = function (suggestion) {
-
                     //locks concreate cell
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
@@ -58,62 +56,46 @@
 
 
 
-                //for server data waiting
-                $scope.waitForSuggestions = false;
-
                 //gets suggestions from server based on user string input
                 $scope.getSuggestions = function (string, limit) {
-                    $scope.waitForSuggestions = true;
+                    $scope.suggestions = {};
+                    $scope.serverResponse.visible= false;
 
-                    setTimeout(function(){
-                        //do what you need here
+                    $scope.waitForSuggestions = true;
 
                     var currentTimeStamp =  new Date().getTime();
                     rest.base($scope.knowledgeBase).entities.query(string).limit(limit).stamp(currentTimeStamp).retrieve.exec(
                         // Success, inject into the scope
                         function (response) {
-                            var info =response.data;
-                            //because of a delayed response server
-                            if (currentTimeStamp.toString()==  info.stamp) {
-                                alert("ok");
-                            }
-                            //success message
-                            success();
-
-                            $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-
                             $scope.waitForSuggestions = false;
-
                             $scope.suggestions = response;
-
                             // TODO: Works only once. As soon as you add the result,
                             // it breaks.
                             if ($scope.suggestions.length > 0) {
                                 $scope.suggestion = $scope.suggestions[0];
                             }
+                            success();
                         },
 
                         // Error
                         function (response) {
-                            alert("spatne");
-                            var info = JSON.parse(response.data);
-                            //because of a delayed response server
-                            if (currentTimeStamp.toString()==  info.stamp) {
-                                //fail message
-                                fail(info);
-                            }
+                            // var info = JSON.parse(response.data);
+                            $scope.waitForSuggestions = false;
+                            fail(response.data);
                         }
                     );
-                    }, 4000);
+
                 }
                 //endregion
+
                 //sets parameters for the alert directive
                 var success = function()
                 {
                     $scope.serverResponse.type = 'success';
                     $scope.serverResponse.visible = true;
-                    $scope.messege = "Propose was saved";
+                    $scope.messege = "Search results arrived";
                 }
+
                 //sets parameters for the alert directive
                 var fail = function(info)
                 {

@@ -20,7 +20,6 @@
             templateUrl: currentFolder + 'cdselecting.html',
             link: function ($scope, iElement, iAttrs) {
 
-                $scope.isCollapsed = false;
                 //returns a correct data for select boxes
                 $scope.data = function() {
                     if ($scope.selectedPosition.row == -1) {

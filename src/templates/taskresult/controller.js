@@ -426,9 +426,11 @@
             });
         }
 
-        //calls cd proposal modal window
+        //calls cd selection modal window
         $scope.openCDSuggestion = function () {
             $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
                 templateUrl: "src/templates/taskresult/view/classdisam/cdmodalselection/cdmodalselection.html",
                 controller: 'cDSelectionController',
                 resolve: {
