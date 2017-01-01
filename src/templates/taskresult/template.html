@@ -11,7 +11,7 @@
                 <!-- Result display -->
                 <div ng-switch-when="view">
                     <!-- VIEW -->
-                    <div ng-switch="state" ng-init="state = 0">
+                    <div ng-switch="state" ng-init="state = 2">
 
                         <!-- VIEW: Sets subject column  -->
                         <div ng-switch-when="0">
@@ -28,9 +28,6 @@
                         <!-- VIEW: Relations -->
                         <div ng-switch-when="2">
                             <h2>Choosing of predicates</h2>
-
-                            <!-- Modal -->
-                            <include src="src/templates/taskresult/view/relations/rmodalselection/rmodalselection.html"></include>
 
                             <!-- Graph visualiser -->
                             <graphvis bind="gvdata"></graphvis>

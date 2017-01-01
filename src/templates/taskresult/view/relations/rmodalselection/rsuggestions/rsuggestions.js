@@ -9,31 +9,51 @@
         return {
             restrict: 'E',
             scope: {
-                selectedPosition: '=',
+                selectedRelation: '=',
                 locked: '=',
-                primaryKB: '@',
-                result: '='
+                knowledgeBase: '@',
+                result: '=',
+                gvdata: '='
             },
             templateUrl: currentFolder + 'rsuggestions.html',
             link: function ($scope, iElement, iAttrs) {
 
-                //region suggestion from primaryKB
-                $scope.suggestions = {};
-
-
+                //sets parameters for the alert directive
+                $scope.serverResponse = {
+                    type: 'success',
+                    visible: false
+                };
 
                 $scope.addSuggestions = function (suggestion) {
-
-                    $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
 
                     var newObj = {
                         "entity": {"resource": suggestion.resource, "label": suggestion.label},
                         "score": {"value": 0}
                     };
 
-                    $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].candidates[$scope.primaryKB].push(newObj);
-                    $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[$scope.primaryKB] = [newObj]
-                   // $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][$scope.primaryKB].push(newObj.entity)
+                    var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
+                    var candidates = currentRelation.candidates[$scope.knowledgeBase];
+
+                    //gets from candidates only  array of URLs
+                    var urlList = candidates.map(function (candidate) {
+                        return candidate.entity.resource;
+                    });
+
+                    //tests  url duplicity
+                    if (!urlList.includes(suggestion.resource)) {
+                        //adds new relation among the candidates in a current cell and sets it as the selected candidate
+                        candidates.push(newObj);
+                        currentRelation.chosen[$scope.knowledgeBase] = [newObj];
+                        //locks current relation
+                        $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+
+                        gvdata.mc();
+                        gvdata.update();
+                        alertMessage('success','This entity was added.');
+                    }
+                    else {
+                        alertMessage('error','This entity is already added');
+                    }
 
                 }
 
@@ -43,31 +63,37 @@
                 //gets suggestions from server based on user string input
                 $scope.getSuggestions = function (string, limit) {
                     $scope.waitForSuggestions = true;
-                    rest.base($scope.primaryKB).entities.query(string).limit(limit).retrieve.exec(
+                    rest.base($scope.knowledgeBase).entities.properties.query(string).limit(limit).retrieve.exec(
                         // Success, inject into the scope
                         function (response) {
+                            //shuts loading icon
+                            //TODO may be use loadico directive
                             $scope.waitForSuggestions = false;
 
-                            console.log('suggestings from server: '+JSON.stringify(response,null, 4));
                             $scope.suggestions = response;
 
-                            // TODO: Works only once. As soon as you add the result,
-                            // it breaks.
+                            //shows first entity in the select box if some suggestions are found
                             if ($scope.suggestions.length > 0) {
                                 $scope.suggestion = $scope.suggestions[0];
                             }
+                            alertMessage('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
                         },
 
                         // Error
                         function (response) {
-                            alert("Something is wrong. Please, try to again.")
                             $scope.waitForSuggestions = false;
+                            alertMessage('error',response.data.payload.text)
                         }
                     );
                 }
-                //endregion
 
-
+                //sets type and text for alert message
+                var alertMessage = function(type, messageText)
+                {
+                    $scope.serverResponse.type = type;
+                    $scope.serverResponse.visible = true;
+                    $scope.message = messageText ;
+                }
 
             }
         }
