@@ -25,6 +25,11 @@
         "controller": "odalic-taskconfigs-ctrl"
     },
     {
+        "route": "/filelist",
+        "folder": "filelist",
+        "controller": "odalic-filelist-ctrl"
+    },
+    {
         "route": "/createnewtask",
         "folder": "createnewtask",
         "controller": "createnewtask-ctrl"

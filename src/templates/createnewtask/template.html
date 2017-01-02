@@ -7,7 +7,7 @@
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="1" lmenu="default-lm.json" rmenu="default-rm.json" />
+    <navbar selected="2" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <div class="container-fluid">
         <!-- Headline -->
@@ -46,7 +46,7 @@
             </fieldset>
 
             <!-- File settings -->
-            <fieldset disabled="true">
+            <fieldset>
                 <legend>File settings</legend>
                 <!-- File settings -->
                 <div class="form-group">
@@ -70,27 +70,6 @@
                             <input type="radio" ng-model="lineEnding"value="windows">
                             Windows <i>(CRLF)</i>
                         </label>
-                    </div>
-                </div>
-
-                <!-- Delimiter -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Line ending:</label>
-                    <div class="col-md-10">
-                        <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="semicolon">;
-                        </label> <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="colon">:
-                        </label> <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="tab">tab
-                        </label> <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="other"> other:
-                        </label> <input type="text" ng-model="otherDelimiter">
-
                     </div>
                 </div>
 

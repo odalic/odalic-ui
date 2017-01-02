@@ -5,6 +5,15 @@
     "menu": []
   },
   {
+    "title": "Files",
+    "menu": [
+      {
+        "title": "List",
+        "link": "#/filelist"
+      }
+    ]
+  },
+  {
     "title": "Tasks",
     "menu": [
       {
