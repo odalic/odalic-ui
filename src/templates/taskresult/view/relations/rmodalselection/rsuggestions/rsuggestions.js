@@ -44,11 +44,12 @@
                         //adds new relation among the candidates in a current cell and sets it as the selected candidate
                         candidates.push(newObj);
                         currentRelation.chosen[$scope.knowledgeBase] = [newObj];
+                        $scope.gvdata.mc();
+
                         //locks current relation
                         $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+                        $scope.gvdata.update();
 
-                        gvdata.mc();
-                        gvdata.update();
                         alertMessage('success','This entity was added.');
                     }
                     else {

@@ -357,7 +357,6 @@
         //endregion4
 
 
-
         // region Handling graphvis directive
         // **************************************
         function loadGraphVis() {
@@ -437,10 +436,10 @@
                             result: $scope.result,
                             locked: $scope.locked,
                             primaryKB: $scope.primaryKB,
-                            proposal:$scope.proposal,
-                            ignoredColumn:$scope.ignoredColumn,
-                            noDisambiguationCell:$scope.noDisambiguationCell,
-                            noDisambiguationColumn:$scope.noDisambiguationColumn
+                            proposal: $scope.proposal,
+                            ignoredColumn: $scope.ignoredColumn,
+                            noDisambiguationCell: $scope.noDisambiguationCell,
+                            noDisambiguationColumn: $scope.noDisambiguationColumn
 
                         }
                     }
@@ -459,12 +458,12 @@
                 resolve: {
                     data: function () {
                         return {
-                           gvdata: $scope.gvdata,
-                        primaryKB: $scope.primaryKB,
-                        locked: $scope.locked,
-                        selectedRelation : $scope.selectedRelation,
-                        result : $scope.result,
-                        openRProposal : $scope.openRProposal
+                            gvdata: $scope.gvdata,
+                            primaryKB: $scope.primaryKB,
+                            locked: $scope.locked,
+                            selectedRelation: $scope.selectedRelation,
+                            result: $scope.result,
+                            openRProposal: $scope.openRProposal
 
                         }
                     }
