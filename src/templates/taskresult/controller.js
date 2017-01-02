@@ -408,6 +408,8 @@
         //calls cd proposal modal window
         $scope.openCDProposal = function () {
             $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
                 templateUrl: "src/templates/taskresult/view/classdisam/cdmodalproposal/cdproposalcontent/cdproposalcontent.html",
                 controller: 'cDProposeController',
                 resolve: {

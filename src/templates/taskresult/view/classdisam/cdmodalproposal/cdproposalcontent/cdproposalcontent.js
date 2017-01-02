@@ -15,8 +15,16 @@
             visible: false
         };
 
+        $scope.missingColumnClass= {
+            type: 'error',
+            visible: true
+        };
+
+        $scope.columnClass = $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB];
+        $scope.disableDisambCondition =   $scope.selectedPosition.row != -1 &&  $scope.columnClass.length==0
         //region proposal settings
         $scope.setProposal = function (proposal) {
+
 
             // Is proposal defined?
             if (proposal) {
@@ -71,7 +79,7 @@
             }
 
             // Either way we close the modal upon the click
-            $uibModalInstance.close();
+            // $uibModalInstance.close();
         };
         //endregion
 
@@ -82,7 +90,7 @@
                 // Success, inject into the scope
                 function (response) {
 
-                    //adds classification into rusult
+                    //adds classification into result
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
 
