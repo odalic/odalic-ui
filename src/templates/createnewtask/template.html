@@ -57,24 +57,23 @@
                     </div>
                 </div>
 
-                <!-- setting of line ending  -->
+                <!-- Line endings -->
                 <div class="form-group">
                     <label class="col-md-2 control-label">Line ending:</label>
                     <div class="col-md-10">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="lineEnding"
-                                   value="unix">Unix
+                            <input type="radio" ng-model="lineEnding" value="unix">
+                            Unix <i>(LF)</i>
                         </label>
 
                         <label class="radio-inline">
-                            <input type="radio" ng-model="lineEnding"
-                                   value="windows">Windows
+                            <input type="radio" ng-model="lineEnding"value="windows">
+                            Windows <i>(CRLF)</i>
                         </label>
                     </div>
-
                 </div>
 
-                <!-- setting of delimiter -->
+                <!-- Delimiter -->
                 <div class="form-group">
                     <label class="col-md-2 control-label">Line ending:</label>
                     <div class="col-md-10">
@@ -95,7 +94,7 @@
                     </div>
                 </div>
 
-                <!-- setting of "" wrapper -->
+                <!-- Fields wrapped in ""? -->
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
                         <label class="checkbox-inline">
@@ -104,7 +103,6 @@
                         </label>
                     </div>
                 </div>
-
             </fieldset>
 
             <!-- Knowledge base settings -->
@@ -132,6 +130,26 @@
                                 ng-model="primaryKB"
                                 ng-options="opt for opt in chosenKBs"></select>
 
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Miscellaneous -->
+            <fieldset>
+                <legend>Miscellaneous</legend>
+                <!-- Lines limit -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Lines processed:</label>
+                    <div class="col-md-10">
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="linesLimit.selection" value="all" ng-init="linesLimit.selection = 'all'" />
+                            All
+                        </label>
+
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="linesLimit.selection" value="some" />
+                            Exactly <input type="number" ng-model="linesLimit.value" ng-init="linesLimit.value = 1" min="1" max="2147483647" ng-disabled="linesLimit.selection != 'some'" />
+                        </label>
                     </div>
                 </div>
             </fieldset>

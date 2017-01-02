@@ -207,5 +207,24 @@ var text = {
         } else {
             return String(placeholder);
         }
+    },
+
+    /** Safely parses an input string and returns the containing number.
+     *  If the string does not contain any number, a specified fallback is returned.
+     *  In case the string is undefined or null, fallback is returned again.
+     *
+     * @param string    A string to parse.
+     * @param fallback  A fallback value when a string does not contain any value.
+     * @returns {*}     Number in the string or a fallback value.
+     */
+    safeInt: function (string, fallback) {
+        if (string) {
+            var i = parseInt(string);
+            if (!isNaN(i)) {
+                return i;
+            }
+        }
+
+        return fallback;
     }
 };
