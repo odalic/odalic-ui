@@ -18,12 +18,11 @@
             link: function ($scope, iElement, iAttrs) {
 
                 //region suggestion from primaryKB
+                // Initialization
                 $scope.suggestions = {};
-
-
+                $scope.reporting = {};
 
                 $scope.addSuggestions = function (suggestion) {
-
                     $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
 
                     var newObj = {
@@ -34,8 +33,7 @@
                     $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].candidates[$scope.primaryKB].push(newObj);
                     $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[$scope.primaryKB] = [newObj]
                    // $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][$scope.primaryKB].push(newObj.entity)
-
-                }
+                };
 
                 //for server data waiting
                 $scope.waitForSuggestions = false;
@@ -60,7 +58,7 @@
 
                         // Error
                         function (response) {
-                            alert("Something is wrong. Please, try to again.")
+                            $scope.reporting.push('error', reporth.constrErrorMsg($scope['rtxt.finderror'], response.data));
                             $scope.waitForSuggestions = false;
                         }
                     );
