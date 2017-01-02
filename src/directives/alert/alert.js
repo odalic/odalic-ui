@@ -20,6 +20,8 @@
      *  Available types:
      *  'neutral', 'success', 'error', 'warning'
      *
+     *  Non-closable alert: <alert bind="myvar" closable="false">Hooray!</alert>
+     *
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('alert', function () {
@@ -44,6 +46,13 @@
                         scope.bind[key] = value;
                     }
                 });
+
+                // Closable?
+                scope.closable = true;
+                var closable = 'closable';
+                if ((closable in iAttrs) && (iAttrs[closable] === 'false')) {
+                    scope.closable = false;
+                }
 
                 // Type of the alert
                 var mapping = {

@@ -1,6 +1,5 @@
 <div class="form-group">
     <div class="col-md-12">
-        <!--<label class="control-label">Search: </label>-->
         <h3>Search:</h3>
     </div>
 
@@ -11,7 +10,7 @@
     </div>
     <div class="col-md-3">
         <button ng-hide="waitForSuggestions" type="button" class="form-control"
-                ng-click="getSuggestions(string,'10')">
+                ng-click="getSuggestions(string, '10')">
             Find
         </button>
         <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
@@ -33,5 +32,16 @@
             Add
         </button>
         <!-- TODO: Is this todo? Previous comment was: "Icon 'loading'" -->
+    </div>
+
+    <!-- Blank space -->
+    <div class="col-md-12 odalic-hstyle-small"></div>
+
+    <!-- Prepared messages for a user in case of a situation -->
+    <injector for="rtxt.finderror">An error occured while searching for a concept.</injector>
+
+    <!-- Messages -->
+    <div class="col-md-12">
+        <alert-group bind="reporting" />
     </div>
 </div>

@@ -22,18 +22,23 @@
 
 <div ng-switch="fileProvision" ng-init="fileProvision = 'local'">
     <!-- Local file -->
-    <div ng-switch-when="local">
+    <ng-form name="localFileForm" ng-switch-when="local">
         <div class="form-group">
             <label class="col-md-2 control-label">Upload a new file:</label>
             <div class="col-md-8">
-                <input type="file" id="concreteFile" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
-                <!--<input type="file" id="concreteFile" ng-change="fileUpload.fillIdentifier()" />-->
+                <input type="file" id="concreteFile" name="fileSelector" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" required />
+                <div ng-messages="localFileForm.fileSelector.$error" ng-if='localFileForm.fileSelector.$dirty' role="alert">
+                    <div ng-message="required"><error-msg>A file has to be selected for upload.</error-msg></div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Identifier:</label>
             <div class="col-md-8">
-                <input type="text" class="form-control" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" />
+                <input type="text" class="form-control" name="localFileID" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" required />
+                <div ng-messages="localFileForm.localFileID.$error" ng-if='localFileForm.localFileID.$dirty' role="alert">
+                    <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
+                </div>
             </div>
             <div class="col-md-2 text-center">
                 <!-- Button 'upload' -->
@@ -45,53 +50,57 @@
                 <i ng-show="fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
             </div>
         </div>
-    </div>
+    </ng-form>
 
     <!-- Remote file -->
-    <div ng-switch-when="remote">
+    <ng-form name="remoteFileForm" ng-switch-when="remote">
         <div class="form-group">
             <label class="col-md-2 control-label">Location:</label>
             <div class="col-md-10">
-                <input class="form-control" type="text" ng-model="fileAttach.location" ng-init="fileAttach.location = deflocation" />
+                <input class="form-control" type="text" name="remoteFileSrc" ng-model="fileAttach.location" ng-init="fileAttach.location = deflocation" required />
+                <div ng-messages="remoteFileForm.remoteFileSrc.$error" ng-if='remoteFileForm.remoteFileSrc.$dirty' role="alert">
+                    <div ng-message="required"><error-msg>Location has to be set.</error-msg></div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Identifier:</label>
             <div class="col-md-8">
-                <input type="text" class="form-control" ng-model="fileAttach.identifier" />
+                <input type="text" class="form-control" name="remoteFileID" ng-model="fileAttach.identifier" required />
+                <div ng-messages="remoteFileForm.remoteFileID.$error" ng-if='remoteFileForm.remoteFileID.$dirty' role="alert">
+                    <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
+                </div>
             </div>
             <div class="col-md-2 text-center">
                 <!-- Button 'attach' -->
                 <button ng-hide="fileAttach.attachingFile" type="button" class="form-control"
-                        ng-click="fileAttach.attachFile()" ng-disabled="!fileAttach.location || !fileAttach.identifier">
+                        ng-click="fileAttach.attachFile()" ng-disabled="!remoteFileForm.$valid">
                     Attach
                 </button>
                 <!-- Icon 'loading' -->
                 <i ng-show="fileAttach.attachingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
             </div>
         </div>
-    </div>
+    </ng-form>
 </div>
 
 <!-- Selecting file from the list -->
 <div class="form-group">
     <label class="col-md-2 control-label">Selected file:</label>
     <div class="col-md-10">
-        <select class="form-control fs-aclass" ng-model="fileList.selectedFile" ng-options="file.id for file in fileList.identifiers" />
+        <select class="form-control fs-aclass" name="fileSelectList" ng-model="fileList.selectedFile" ng-options="file.id for file in fileList.identifiers" required>
+            <option value="">Select file</option>
+        </select>
+        <div ng-if="form.fileSelectList.$invalid && form.fileSelectList.$dirty">
+            <error-msg>A file has to be selected.</error-msg>
+        </div>
     </div>
 </div>
 
 <!--  Alerts displaying notifications to a user -->
-<injector for="msgtxt.noLocalFile">No local file selected for the upload.</injector>
-<injector for="msgtxt.emptyIdentifier">Identifier must not be empty.</injector>
 <injector for="msgtxt.uploadSuccessful">The file has been successfully uploaded.</injector>
 <injector for="msgtxt.attachSuccessful">The file has been successfully attached.</injector>
 <injector for="msgtxt.uploadFailure">An error occured while uploading the file.</injector>
 <injector for="msgtxt.attachFailure">An error occured while attaching the file.</injector>
-<injector for="msgtxt.errorDescription">Error details:</injector>
 
-<div ng-repeat="obj in messages.alerts">
-    <alert bind="obj">
-        {{ obj.text }}
-    </alert>
-</div>
+<alert-group bind="messages" />

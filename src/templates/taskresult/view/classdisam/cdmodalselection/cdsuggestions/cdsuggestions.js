@@ -5,7 +5,7 @@
 
     // lock directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('cDSuggestions', ['rest', function (rest) {
+    app.directive('cDSuggestions', ['rest', 'reporth', function (rest, reporth) {
         return {
             restrict: 'E',
             scope: {
@@ -18,7 +18,9 @@
             link: function ($scope, iElement, iAttrs) {
 
                 //region suggestion from primaryKB
+                // Initialization
                 $scope.suggestions = {};
+                $scope.reporting = {};
 
                 //adds new suggestion into ruesult
                 $scope.addSuggestions = function (suggestion) {
@@ -42,7 +44,7 @@
                         $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
                         $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
                     }
-                }
+                };
 
                 // $scope.addRelationSuggestions = function (suggestion) {
                 //
@@ -82,15 +84,12 @@
 
                         // Error
                         function (response) {
-                            alert("Something is wrong. Please, try to again.")
+                            $scope.reporting.push('error', reporth.constrErrorMsg($scope['rtxt.finderror'], response.data));
                             $scope.waitForSuggestions = false;
                         }
                     );
-                }
+                };
                 //endregion
-
-
-
             }
         }
     }]);

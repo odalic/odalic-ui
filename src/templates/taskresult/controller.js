@@ -205,7 +205,7 @@
 
                 // Error
                 function (response) {
-                    throw new Error('Task configuration could not have been loaded.');
+                    dataLoadFail(response);
                 }
             );
             //endregion
@@ -226,7 +226,7 @@
                 },
                 // Error
                 function (response) {
-                    throw new Error('Error loading server feedback. Cannot continue.');
+                    dataLoadFail(response);
                 }
             );
             //endregion

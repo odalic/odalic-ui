@@ -1,5 +1,5 @@
 <div class="alert {{ type() }}" ng-show="bind.visible">
-    <a class="close" ng-click="hide()" aria-label="close">&times;</a>
+    <a class="close" ng-click="hide()" aria-label="close" ng-if="closable">&times;</a>
     <span ng-transclude>
         <!-- Content -->
     </span>
