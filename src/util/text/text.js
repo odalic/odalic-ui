@@ -207,5 +207,42 @@ var text = {
         } else {
             return String(placeholder);
         }
+    },
+
+    /** Safely parses an input string and returns the containing number.
+     *  If the string does not contain any number, a specified fallback is returned.
+     *  In case the string is undefined or null, fallback is returned again.
+     *
+     * @param string    A string to parse.
+     * @param fallback  A fallback value when a string does not contain any value.
+     * @returns {*}     Number in the string or a fallback value.
+     */
+    safeInt: function (string, fallback) {
+        if (string) {
+            var i = parseInt(string);
+            if (!isNaN(i)) {
+                return i;
+            }
+        }
+
+        return fallback;
+    },
+
+    /** Performs case insensitive and substring form of 'includes' while finding the item that is 'responsible'.
+     *  Example:
+     *      var it = text.findInclude(['hello', 'yay'], 'El');  // it is equal to 'hello'
+     *
+     * @param arr           An array of strings.
+     * @param arg           A string to find.
+     * @returns {boolean}   True if the string is contained within the array.
+     */
+    findInclude: function (arr, arg) {
+        var result = null;
+        arr.forEach(function (item) {
+            if (item.toUpperCase().includes(arg.toUpperCase())) {
+                result = item;
+            }
+        });
+        return result;
     }
 };

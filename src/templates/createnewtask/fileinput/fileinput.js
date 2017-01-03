@@ -21,6 +21,7 @@
                 scope.files = {};
                 scope.remoteFile = {};
                 scope.messages = {};
+                scope.fileconfig = {};
 
                 // File list
                 scope.fileList = {
@@ -192,6 +193,12 @@
                             }
                         );
                     }
+                };
+
+                // File configuration
+                scope.configureFile = function () {
+                    scope.fileconfig.identifier = scope.bind.getSelectedFile();
+                    scope.fileconfig.open();
                 };
 
                 // Additional actions

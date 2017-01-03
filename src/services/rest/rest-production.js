@@ -5,6 +5,10 @@ $.defineModule(function () {
         var successf = function (success) {
             return function (response) {
                 var r = response.data;
+                if (typeof(r) !== 'object') {
+                    r = JSON.parse(r);
+                }
+
                 var res = {};
                 var addarg1 = undefined;
                 var addarg2 = undefined;
@@ -79,6 +83,35 @@ $.defineModule(function () {
                                     success: successf(success),
                                     failure: failure
                                 });
+                            },
+                            address: function () {
+                                return text.urlConcat(root, 'files', identifier);
+                            }
+                        },
+                        configuration: {
+                            retrieve: {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'GET',
+                                        address: text.urlConcat(root, 'files', identifier, 'format'),
+                                        formData: null,
+                                        success: successf(success),
+                                        failure: failure
+                                    });
+                                }
+                            },
+                            replace: function (data) {
+                                return {
+                                    exec: function (success, failure) {
+                                        requests.reqJSON({
+                                            method: 'PUT',
+                                            address: text.urlConcat(root, 'files', identifier, 'format'),
+                                            formData: data,
+                                            success: successf(success),
+                                            failure: failure
+                                        });
+                                    }
+                                }
                             }
                         }
                     };

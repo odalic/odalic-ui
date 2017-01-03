@@ -18,9 +18,8 @@
             saveTask: null,
             creating: true
         };
-
+        $scope.linesLimit = {};
         $scope.fileinput = {};
-
         formsval.toScope($scope);
 
         //TODO smazat az bude na vyber,tj.
@@ -43,6 +42,32 @@
             // Validation of the form, whether everything is correctly filled; returns true, if it is safe to proceed
             validate: function () {
                 return formsval.validateNonNested($scope.taskCreationForm);
+            },
+
+            getTaskObject: function () {
+                var fileId = $scope.fileinput.getSelectedFile();
+                var taskId = $scope.taskCreation.identifier;
+
+                return {
+                    id: String(taskId),
+                    created: (new Date()).toString("yyyy-MM-dd HH:mm"),
+                    configuration: {
+                        input: fileId,
+                        feedback: {
+                            columnIgnores: [],
+                            classifications: [],
+                            columnAmbiguities: [],
+                            ambiguities: [],
+                            disambiguations: [],
+                            columnRelations: []
+                        },
+                        primaryBase: {
+                            name: $scope.primaryKB
+                        },
+                        rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null
+                    },
+                    description: text.safe($scope.taskCreation.description)
+                };
             }
         };
 
@@ -54,31 +79,12 @@
             }
 
             // Generic preparations
-            var fileId = $scope.fileinput.getSelectedFile();
             var taskId = $scope.taskCreation.identifier;
 
             // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
             // Insert the task
-            rest.tasks.name(taskId).create({
-                id: String(taskId),
-                created: (new Date()).toString(constants.formats.date),
-                configuration: {
-                    input: fileId,
-                    feedback: {
-                        columnIgnores: [],
-                        classifications: [],
-                        columnAmbiguities: [],
-                        ambiguities: [],
-                        disambiguations: [],
-                        columnRelations: []
-                    },
-                    primaryBase: {
-                        name: $scope.primaryKB
-                    }
-                },
-                description: text.safe($scope.taskCreation.description)
-            }).exec(
+            rest.tasks.name(taskId).create($scope.wholeForm.getTaskObject()).exec(
                 // Success
                 function (response) {
                     // Don't handle if further action was specified
@@ -129,31 +135,12 @@
             }
 
             // Generic preparations
-            var fileId = $scope.fileinput.getSelectedFile();
             var taskid = $scope.taskCreation.identifier;
 
             // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
             // Insert the task
-            rest.tasks.name(taskid).create({
-                id: String(taskid),
-                created: (new Date()).toString("yyyy-MM-dd HH:mm"),
-                configuration: {
-                    input: fileId,
-                    feedback: {
-                        columnIgnores: [],
-                        classifications: [],
-                        columnAmbiguities: [],
-                        ambiguities: [],
-                        disambiguations: [],
-                        columnRelations: []
-                    },
-                    primaryBase: {
-                        name: $scope.primaryKB
-                    }
-                },
-                description: text.safe($scope.taskCreation.description)
-            }).exec(
+            rest.tasks.name(taskid).create($scope.wholeForm.getTaskObject()).exec(
                 // Success
                 function (response) {
                     // The task has been updated, redirect to the task configurations screen
@@ -173,17 +160,28 @@
                 rest.tasks.name(TaskID).retrieve.exec(
                     // Success
                     function (response) {
-                        // Find the previously chosen file for the current task
+                        // We are now editing an existing task, not creating a new one
+                        var config = response.configuration;
+                        $scope.templFormat.creating = false;
+
+                        // Basic settings
+                        objhelp.objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
+                        $scope.taskCreation.description = response.description;
+
+                        // Selected file
                         timed.ready(function () {
                             return !!$scope.fileinput.setSelectedFile;
                         }, function () {
-                            $scope.fileinput.setSelectedFile(response.configuration.input);
+                            $scope.fileinput.setSelectedFile(config.input);
                         });
 
-                        // Fill the controls
-                        objhelp.objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
-                        $scope.taskCreation.description = response.description;
-                        $scope.templFormat.creating = false;
+                        // Lines limit
+                        if (config.rowsLimit) {
+                            $scope.linesLimit = {
+                                selection: 'some',
+                                value: config.rowsLimit
+                            };
+                        }
                     },
 
                     // Failure to load the task's config

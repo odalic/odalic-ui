@@ -1,0 +1,90 @@
+<!-- Prepared messages to display to a user in case of a situation -->
+<injector for="msgtxt.removeFailure">An error occurred while removing the file.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="1" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <!-- Content -->
+    <div class="container-fluid">
+        <h2>File list</h2>
+
+        <!-- Modal for file configuration -->
+        <file-settings bind="fileconfig" />
+
+        <!-- Tooltip messages -->
+        <injector for="statetext.local">Uploaded file</injector>
+        <injector for="statetext.remote">Remote file</injector>
+
+        <injector for="actiontext.download">Download</injector>
+        <injector for="actiontext.configure">File settings</injector>
+        <injector for="actiontext.remove">Remove file</injector>
+
+        <!-- Unknown bug - a first useless tooltip has to be written for some reason -->
+        <tooltip msg="bug-fixer" />
+
+        <!-- The table of tasks -->
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Date created</th>
+                <th>File name</th>
+                <th>Action</th>
+                <th>Type</th>
+            </tr>
+            </thead>
+            <tbody>
+                <!-- A single file -->
+                <tr ng-repeat="file in files">
+                    <td class="col-md-2">{{ file.uploaded }}</td>
+                    <td class="col-md-7">{{ file.id }}</td>
+
+                    <!-- Actions -->
+                    <td class="col-md-2">
+                        <tooltip source="actiontext.download" place="top">
+                            <a class="btn btn-default" ng-click="fdownload(file.id)"><i class="fa fa-external-link fa-lg"></i></a>
+                        </tooltip>
+                        <tooltip source="actiontext.configure" place="top">
+                            <a class="btn btn-default" ng-click="fconfigure(file.id)"><i class="fa fa-cog fa-lg"></i></a>
+                        </tooltip>
+                        <tooltip source="actiontext.remove" place="top">
+                            <a class="btn btn-default" ng-click="fremove(file.id)"><i class="fa fa-trash fa-lg"></i></a>
+                        </tooltip>
+                    </td>
+
+                    <!-- State icons -->
+                    <td class="col-md-1">
+                        <div ng-switch="file.cached">
+                            <div ng-switch-when="true">
+                                <tooltip source="statetext.local" place="top">
+                                    <a class="btn odalic-cursor-normal"><i class="fa fa-map-marker fa-lg"></i></a>
+                                </tooltip>
+                            </div>
+                            <div ng-switch-when="false">
+                                <tooltip source="statetext.remote" place="top">
+                                    <a class="btn odalic-cursor-normal"><i class="fa fa-globe fa-lg"></i></a>
+                                </tooltip>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Notice -->
+        <p>Please note that files may be added to the list only during a task creation.</p>
+
+        <!-- Reporting situations to a user -->
+        <div class="col-md-12">
+            <alert-group bind="messages" />
+        </div>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>
