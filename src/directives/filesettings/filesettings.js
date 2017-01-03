@@ -15,7 +15,7 @@
      *
      */
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('fileSettings', function (rest) {
+    app.directive('fileSettings', function (rest, reporth) {
         return {
             restrict: 'E',
             templateUrl: currentFolder + 'filesettings.html',
@@ -27,6 +27,7 @@
 
                 // Initialization
                 scope.dataload = {};
+                scope.messages = {};
                 scope.settings = {
                     encoding: {
                         options: ['UTF-8', 'windows-1250', 'custom']
@@ -153,7 +154,7 @@
 
                         // Failure loading the configuration
                         function (response) {
-                            // TODO: ak load failne, fallback na alert + try again button?
+                            scope.messages.push('error', reporth.constrErrorMsg(scope['msgtxt.loadFailure'], response.data));
                         }
                     );
                 };
@@ -185,15 +186,17 @@
                     modElem.modal('hide');
                 };
 
-                scope.save = function () {
+                scope.save = function (future) {
                     onSave(
                         // Success => close the modal
                         function (response) {
                             scope.dismiss();
+                            future();
                         },
                         // Failure while sending data => display an error
                         function (response) {
-                            // TODO: najprv zmen na lodico, tu zrus loadico a zobraz alert
+                            scope.messages.push('error', reporth.constrErrorMsg(scope['msgtxt.saveFailure'], response.data));
+                            future();
                         }
                     );
                 };
@@ -204,7 +207,7 @@
                 });
 
                 // Public interface
-                scope.bind['open'] = function (title, content) {
+                scope.bind['open'] = function () {
                     // Opening the modal
                     identifier = scope.bind['identifier'];
                     modElem.modal();

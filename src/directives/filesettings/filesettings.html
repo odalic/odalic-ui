@@ -133,13 +133,25 @@
                         </div>
                     </div>
                 </loadico>
+
+                <!-- Blank space -->
+                <div class="col-md-12 odalic-hstyle-small"></div>
+
+                <!-- Messages to a user in case of a situation -->
+                <injector for="msgtxt.loadFailure">An error occurred while loading the file configuration.</injector>
+                <injector for="msgtxt.saveFailure">An error occurred while saving the file configuration.</injector>
+
+                <div class="col-md-12">
+                    <alert-group bind="messages"/>
+                </div>
             </div>
 
             <!-- Footer -->
             <div class="modal-footer">
                 <div class="form-group">
                     <div class="col-md-4">
-                        <button type="button" class="form-control" ng-click="save()" ng-disabled="!dataload.show">Save and close</button>
+                        <!--<button type="button" class="form-control" ng-click="save()" ng-disabled="!dataload.show">Save and close</button>-->
+                        <button-load action="save" disabled="!dataload.show">Save and close</button-load>
                     </div>
                     <div class="col-md-offset-4 col-md-4">
                         <button type="button" class="form-control" ng-click="dismiss()" >Dismiss</button>

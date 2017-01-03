@@ -20,6 +20,7 @@
   "directives/shortened/shortened.js",
   "directives/errormsg/errormsg.js",
   "directives/frankctive/frankctive.js",
+  "directives/buttonload/buttonload.js",
   "directives/filesettings/filesettings.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
