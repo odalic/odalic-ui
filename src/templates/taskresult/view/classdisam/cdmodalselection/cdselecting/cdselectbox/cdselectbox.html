@@ -14,8 +14,9 @@
              ng-src="{{ lodLiveBrowserIcon }}"
              class="selectBoxIcon uism-aclass"/>
         &nbsp
-        {{ $item.entity.label | shortstr: maxlen }}<br/>
-        ({{ $item.entity.resource | shortstr: maxlen }})
+        <span title="label">{{ $item.entity.label | shortstr: maxlen }}</span>  &nbsp
+        <span title="score">{{ $item.score.value| number:2}}</span> <br/>
+        <span title={{$item.entity.resource}}>({{ $item.entity.resource | shortstr: maxlen }})</span>
     </ui-select-match>
 
     <!-- Menu to choose the concept from (basically a ComboBox) -->
@@ -24,12 +25,14 @@
         <img ng-click="createIframe(opt,knowledgeBase,$event)"
              title="lodlive browser"
              ng-src="{{ lodLiveBrowserIcon }}"
-             ng-class="'selectBoxIcon'"/>
+             ng-class="'selectBoxIcon'">
         &nbsp
-        &nbsp
-        <span title={{ opt.entity.resource }}
+        <span title="label"
               ng-bind-html="opt.entity.label | highlight: $select.search"></span>
-        <div title={{ opt.entity.resource }}
+        &nbsp
+        <span title="score">{{opt.score.value | number:2}}</span>
+        <br/>
+        <div title={{opt.entity.resource}}
              ng-bind-html="'(' + opt.entity.resource + ')' | highlight: $select.search"></div>
     </ui-select-choices>
 </ui-select>
