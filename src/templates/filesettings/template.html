@@ -7,12 +7,12 @@
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="2" lmenu="default-lm.json" rmenu="default-rm.json" />
+    <navbar selected="1" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <div class="container-fluid">
         <!-- Headline -->
-        <h2 ng-show="templFormat.creating">Creation of new task</h2>
-        <h2 ng-show="!templFormat.creating">Modification of a task configuration</h2>
+        <h2 ng-show="templFormat.creating">Adding a file</h2>
+        <h2 ng-show="!templFormat.creating">File settings</h2>
 
         <!-- The main form -->
         <form class="form-horizontal" role="form" name="taskCreationForm" ng-init="setForm(this, 'taskCreationForm')">
@@ -21,74 +21,51 @@
                 <legend>Basic settings</legend>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Task name:</label>
+                    <label class="col-md-2 control-label">File name:</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
                                ng-disabled="!templFormat.creating" required>
                         <div ng-messages="taskCreationForm.taskIdentifier.$error" ng-if='taskCreationForm.taskIdentifier.$dirty' role="alert">
-                            <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
+                            <div ng-message="required"><error-msg>File name must not be empty.</error-msg></div>
                         </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Description:</label>
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" ng-model="taskCreation.description">
-                    </div>
-                </div>
             </fieldset>
 
-            <!-- Input file -->
+            <!-- File settings -->
             <fieldset>
-                <legend>Input file</legend>
-                <fileinput bind="fileinput" form="taskCreationForm" />
-            </fieldset>
-
-            <!-- Knowledge base settings -->
-            <fieldset>
-                <legend>Knowledge base</legend>
-                <!-- setting of knowledge bases -->
-                <!-- TODO mozna jinak -->
+                <legend>File settings</legend>
+                <!-- File settings -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Knowledge bases:</label>
+                    <label class="col-md-2 control-label">Choose encoding:</label>
                     <div class="col-md-10">
-                        <select size={{availableKBs.length}}
-                                class="form-control"
-                                ng-model="chosenKBs"
-                                multiple
-                                ng-options="opt for opt in availableKBs"
-                                ng-change="automaticSelectPrimaryKB()"
-                                ng-disabled="true"></select>
+                        <select class="form-control" ng-model="encoding"
+                                ng-options="x for x in encodingPossibilities"></select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <!-- setting of primary knowledge base -->
-                    <label class="col-md-2 control-label">Primary knowledge base:</label>
-                    <div class="col-md-10">
-                        <select class="form-control"
-                                ng-model="primaryKB"
-                                ng-options="opt for opt in chosenKBs"></select>
 
-                    </div>
-                </div>
-            </fieldset>
-
-            <!-- Processing -->
-            <fieldset>
-                <legend>Processing</legend>
-                <!-- Lines limit -->
+                <!-- Line endings -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Lines processed:</label>
+                    <label class="col-md-2 control-label">Line ending:</label>
                     <div class="col-md-10">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="linesLimit.selection" value="all" ng-init="linesLimit.selection = 'all'" />
-                            All
+                            <input type="radio" ng-model="lineEnding" value="unix">
+                            Unix <i>(LF)</i>
                         </label>
 
                         <label class="radio-inline">
-                            <input type="radio" ng-model="linesLimit.selection" value="some" />
-                            Exactly <input type="number" ng-model="linesLimit.value" ng-init="linesLimit.value = 1" min="1" max="2147483647" ng-disabled="linesLimit.selection != 'some'" />
+                            <input type="radio" ng-model="lineEnding"value="windows">
+                            Windows <i>(CRLF)</i>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Fields wrapped in ""? -->
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <label class="checkbox-inline">
+                            <input type="checkbox"
+                                   ng-model="isWrapp" value="">text fields wrapped in ""
                         </label>
                     </div>
                 </div>
@@ -117,6 +94,9 @@
                 </div>
             </div>
         </div>
+
+        <file-settings bind="myfs"/>
+        <button type="button" class="btn btn-lg" ng-click="openTest()">Open test</button>
 
         <!-- Blank space pushing footer further below -->
         <div class="col-md-12 odalic-hstyle-medium"/>

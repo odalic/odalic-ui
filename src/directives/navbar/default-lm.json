@@ -8,6 +8,10 @@
     "title": "Files",
     "menu": [
       {
+        "title": "Add new",
+        "link": "#/filesettings"
+      },
+      {
         "title": "List",
         "link": "#/filelist"
       }

@@ -166,5 +166,27 @@ var objhelp = {
                 return fallback;
             }
         }
+    },
+
+    /** Creates a two-sided mirror from an array.
+     *  Example:
+     *      var m = objhelp.tsmirros([['1', 'a'], ['2', 'b'], ['3', 'c']]);
+     *      var i = m.second['2'];  // i is equal to 'b'
+     *      var j = m.first['c'];   // j is equal to '3'
+     *
+     * @param arr                           Array to create a mirror from.
+     * @returns {{first: {}, second: {}}}   The created mirror.
+     */
+    tsmirror: function (arr) {
+        var mirror = {
+            first: {},
+            second: {}
+        };
+        arr.forEach(function (item) {
+            mirror.first[item[1]] = item[0];
+            mirror.second[item[0]] = item[1];
+        });
+
+        return mirror;
     }
 };

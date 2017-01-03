@@ -226,5 +226,23 @@ var text = {
         }
 
         return fallback;
+    },
+
+    /** Performs case insensitive and substring form of 'includes' while finding the item that is 'responsible'.
+     *  Example:
+     *      var it = text.findInclude(['hello', 'yay'], 'El');  // it is equal to 'hello'
+     *
+     * @param arr           An array of strings.
+     * @param arg           A string to find.
+     * @returns {boolean}   True if the string is contained within the array.
+     */
+    findInclude: function (arr, arg) {
+        var result = null;
+        arr.forEach(function (item) {
+            if (item.toUpperCase().includes(arg.toUpperCase())) {
+                result = item;
+            }
+        });
+        return result;
     }
 };
