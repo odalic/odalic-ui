@@ -10,6 +10,9 @@
     <div class="container-fluid">
         <h2>File list</h2>
 
+        <!-- Modal for file configuration -->
+        <file-settings bind="fileconfig" />
+
         <!-- Tooltip messages -->
         <injector for="statetext.local">Uploaded file</injector>
         <injector for="statetext.remote">Remote file</injector>
@@ -70,18 +73,17 @@
             </tbody>
         </table>
 
+        <!-- Notice -->
+        <p>Please note that files may be added to the list only during a task creation.</p>
+
         <!-- Reporting situations to a user -->
         <div class="col-md-12">
             <alert-group bind="messages" />
         </div>
 
-        <!-- Additional content below the table -->
-        <div class="col-md-offset-11 col-md-1">
-            <button type="button" class="btn btn-lg" ng-click="misc.gotocnt()">Add a new</button>
-        </div>
-
         <!-- Blank space pushing footer further below -->
         <div class="col-md-12 odalic-hstyle-medium"/>
+
     </div>
 </main-cnt>
 

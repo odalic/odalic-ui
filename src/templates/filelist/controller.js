@@ -12,19 +12,19 @@
         var table = tableComponent($scope, rest, reporth);
 
         // Initialize
+        $scope.fileconfig = {};
         $scope.files = [];
         $scope.messages = {};
         table.refreshList();
 
         // Table button functions
         $scope.fdownload = function (fileId) {
-            // TODO
-            //window.location = '#/taskresult/' + fileId;
+            window.location = rest.files.name(fileId).retrieve.address();
         };
 
         $scope.fconfigure = function (fileId) {
-            // TODO
-            // window.location = '#/createnewtask/' + fileId;
+            $scope.fileconfig.identifier = fileId;
+            $scope.fileconfig.open();
         };
 
         $scope.fremove = function (fileId) {
@@ -38,14 +38,6 @@
                     $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.removeFailure'], response.data));
                 }
             );
-        };
-
-        // Miscellaneous
-        $scope.misc = {
-            gotocnt: function () {
-                // TODO
-                // window.location.href = '#/createnewtask';
-            }
         };
     });
 

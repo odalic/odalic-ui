@@ -7,14 +7,6 @@
     var currentFolder = $.getPathForRelativePath('');
     app.controller('odalic-taskconfigs-ctrl', function ($scope, $routeParams, rest, persist, reporth) {
 
-        // TODO: To be removed
-        $scope.sstest = {};
-        $scope.sstest.identifier = 'hralandia';
-        $scope.mytest = function () {
-            $scope.sstest.open();
-        };
-
-
         // Dealing with the table
         $.getScriptSync(currentFolder + 'table/table.js', function () {});
         var table = tableComponent($scope, rest, reporth);

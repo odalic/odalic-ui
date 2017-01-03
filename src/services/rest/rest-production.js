@@ -83,6 +83,9 @@ $.defineModule(function () {
                                     success: successf(success),
                                     failure: failure
                                 });
+                            },
+                            address: function () {
+                                return text.urlConcat(root, 'files', identifier);
                             }
                         },
                         configuration: {

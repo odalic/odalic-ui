@@ -6,16 +6,8 @@
   },
   {
     "title": "Files",
-    "menu": [
-      {
-        "title": "Add new",
-        "link": "#/filesettings"
-      },
-      {
-        "title": "List",
-        "link": "#/filelist"
-      }
-    ]
+    "link": "#/filelist",
+    "menu": []
   },
   {
     "title": "Tasks",
