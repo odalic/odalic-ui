@@ -189,12 +189,10 @@
                     onSave(
                         // Success => close the modal
                         function (response) {
-                            //scope.dismiss();
-                            console.log(response);
+                            scope.dismiss();
                         },
                         // Failure while sending data => display an error
                         function (response) {
-                            console.log(response);
                             // TODO: najprv zmen na lodico, tu zrus loadico a zobraz alert
                         }
                     );

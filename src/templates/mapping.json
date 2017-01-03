@@ -30,16 +30,6 @@
         "controller": "odalic-filelist-ctrl"
     },
     {
-        "route": "/filesettings",
-        "folder": "filesettings",
-        "controller": "odalic-filesettings-ctrl"
-    },
-    {
-        "route": "/filesettings/:fileid",
-        "folder": "filesettings",
-        "controller": "odalic-filesettings-ctrl"
-    },
-    {
         "route": "/createnewtask",
         "folder": "createnewtask",
         "controller": "createnewtask-ctrl"
