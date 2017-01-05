@@ -2,7 +2,7 @@
         ng-model="result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].chosen[knowledgeBase]"
         multiple limit="1" theme="bootstrap"
         search-enabled="true"
-        on-select="switchRelation($item, knowledgeBase)"
+        on-select="switchRelation($item, knowledgeBase);lockRelation()"
         ng-change="gvdata.mc(); lockRelation()">
     <ui-select-match placeholder="">
         <!--{{ $item.entity.label | shortstr: maxlen }}  &nbsp -->
