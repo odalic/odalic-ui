@@ -1,75 +1,100 @@
-<form class="form-horizontal" role="form">
-<div class="container-fluid">
-    <div class="form-group">
-        <label class="col-md-4 control-label">Label:</label>
-        <div class="col-md-8">
-            <input class="form-control" type="text" ng-model="proposal.label" required>
+<form name="cDProposeForm" novalidate class="form-horizontal" role="form">
+    <div class="container-fluid">
+        <div class="form-group">
+            <label class="col-md-4 control-label">Label:</label>
+            <div class="col-md-8">
+                <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
+                <div ng-messages="cDProposeForm.label.$error" role="alert">
+                    <div ng-message="required"><error-msg>You did not enter a field</error-msg></div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <br>
+        <br/>
 
-    <div class="form-group">
-        <label class="col-md-4 control-label">Alternative label:</label>
-        <div class="col-md-8">
-            <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
+        <div class="form-group">
+            <label class="col-md-4 control-label">Alternative label:</label>
+            <div class="col-md-8">
+                <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
+            </div>
         </div>
-    </div>
-    <br>
+        <br>
 
-    <div class="form-group">
-        <label class="col-md-4 control-label">Alternative label:</label>
-        <div class="col-md-8">
-            <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
+        <div class="form-group">
+            <label class="col-md-4 control-label">Alternative label:</label>
+            <div class="col-md-8">
+                <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
+            </div>
         </div>
-    </div>
-    <br>
+        <br>
 
-    <div class="form-group">
-        <label class="col-md-4 control-label">Custom URL suffix:</label>
-        <div class="col-md-8">
-            <input class="form-control" type="text" ng-model="proposal.suffixUrl" required>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Custom URL suffix:</label>
+            <div class="col-md-8">
+                <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
+                <div ng-messages="cDProposeForm.suffixUri.$error" role="alert">
+                    <div ng-message="required"><error-msg>You did not enter a field</error-msg></div>
+                </div>
+            </div>
+
+            <br>
         </div>
+
+        <!--<div ng-if="(selectedPosition.row == -1)">-->
+            <!--<div class="form-group">-->
+                <!--<label class="col-md-2 control-label">Subclass of:</label>-->
+                <!--<div class="col-md-8">-->
+                    <!--&lt;!&ndash;<input type="text" class="form-control" ng-model="" \>&ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="col-md-2 text-center">-->
+                    <!--&lt;!&ndash; Button 'upload' &ndash;&gt;-->
+                    <!--<button ng-hide="" type="button" class="form-control"-->
+                            <!--ng-click="">-->
+                        <!--Use-->
+                    <!--</button>-->
+                    <!--&lt;!&ndash; Icon 'loading' &ndash;&gt;-->
+                    <!--<i ng-hide="!fileUpload.uploadingFile"-->
+                       <!--class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<br>-->
+        <!--</div>-->
+
+        <div ng-if="(selectedPosition.row != -1)">
+
+            <label class="col-md-4 control-label">Class:</label>
+            <div class="col-md-8">
+                <input name="classification" class="form-control" type="text"
+                       ng-disabled="true"
+                       ng-model="result.headerAnnotations[selectedPosition.column].chosen[primaryKB][0].entity.resource" required>
+                <div ng-messages="cDProposeForm.classification.$error" role="alert">
+                    <div ng-message="required"><error-msg>This column doesn't have a chosen classification. You can't add a propose.</error-msg></div>
+                </div>
+            </div>
+
+            <!--<div class="form-group">-->
+                <!--<label class="col-md-4 control-label">Class:</label>-->
+                <!--<div class="col-md-8">-->
+                    <!--<input name="class" class="form-control" type="text"-->
+                           <!--ng-model="result.headerAnnotations[selectedPosition.column].chosen[primaryKB][0].entity.resource" reguired>-->
+                    <!--<div ng-messages="cDProposeForm.class.$error" style="color:red" role="alert">-->
+                        <!--<div ng-message="required">This column doesn't have a chosen classification. You can't add a propose. </div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+        <br/>
+
+        <button type="submit" ng-disabled="!cDProposeForm.$valid" class="btn btn-lg" ng-click="setProposal(proposal)">
+            OK
+        </button>
+
+
+        <alert bind="serverResponse">
+            {{messege}}
+        </alert>
+
     </div>
-
-    <!--<div ng-if="(selectedPosition.row == -1)">-->
-    <!--<div class="form-group">-->
-    <!--<label class="col-md-2 control-label">Subclass of:</label>-->
-    <!--<div class="col-md-8">-->
-    <!--&lt;!&ndash;<input type="text" class="form-control" ng-model="" \>&ndash;&gt;-->
-    <!--</div>-->
-    <!--<div class="col-md-2 text-center">-->
-    <!--&lt;!&ndash; Button 'upload' &ndash;&gt;-->
-    <!--<button ng-hide="" type="button" class="form-control"-->
-    <!--ng-click="">-->
-    <!--Use-->
-    <!--</button>-->
-    <!--&lt;!&ndash; Icon 'loading' &ndash;&gt;-->
-    <!--<i ng-hide="!fileUpload.uploadingFile"-->
-    <!--class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<br>-->
-    <!--</div>-->
-
-    <!--<div ng-if="(selectedPosition.row != -1)">-->
-    <!--<div class="form-group">-->
-    <!--<label class="col-md-2 control-label">Class</label>-->
-    <!--&lt;!&ndash;<label class="col-md-4 control-label"&ndash;&gt;-->
-    <!--&lt;!&ndash;ng-repeat="class in result.headerAnnotations[selectedPosition.row].chosen">&ndash;&gt;-->
-    <!--&lt;!&ndash;{{class}}&ndash;&gt;-->
-    <!--&lt;!&ndash;</label>&ndash;&gt;-->
-    <!--<div class="col-md-6">-->
-    <!--ne tlacitko-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
-
-    <br>
-    <button type="button" class="btn btn-lg" ng-click="setProposal(proposal)">
-        OK
-    </button>
-</div>
 </form>

@@ -1,3 +1,9 @@
+<!-- Prepared messages to display to a user in case of a situation -->
+<injector for="msgtxt.startFailure">An error occurred while starting the task.</injector>
+<injector for="msgtxt.stopFailure">An error occurred while stopping the task.</injector>
+<injector for="msgtxt.removeFailure">An error occurred while removing the task.</injector>
+<injector for="msgtxt.taskdataFailure">An error occurred while retrieving a task's data from the server.</injector>
+
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
@@ -7,6 +13,7 @@
     <div class="container-fluid">
         <h2>Task configurations</h2>
 
+        <!-- Tooltip messages -->
         <injector for="statetext.ready">The task is ready to be run.</injector>
         <injector for="statetext.running">The task is running.</injector>
         <injector for="statetext.success">The task has finished.</injector>
@@ -19,7 +26,7 @@
         <injector for="actiontext.configure">Configure the task</injector>
         <injector for="actiontext.remove">Remove the task</injector>
 
-        <!-- TODO: Unknown bug forcing me to write a first useless tooltip -->
+        <!-- Unknown bug - a first useless tooltip has to be written for some reason -->
         <tooltip msg="bug-fixer" />
 
         <!-- The table of tasks -->
@@ -101,6 +108,11 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Reporting situations to a user -->
+        <div class="col-md-12">
+            <alert-group bind="messages" />
+        </div>
 
         <!-- Additional content below the table -->
         <div class="col-md-offset-11 col-md-1">

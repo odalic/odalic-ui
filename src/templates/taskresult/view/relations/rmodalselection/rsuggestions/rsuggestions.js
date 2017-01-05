@@ -5,7 +5,7 @@
 
     // lock directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('rSuggestions', ['rest', function (rest) {
+    app.directive('rSuggestions', ['rest','reporth', function (rest,reporth) {
         return {
             restrict: 'E',
             scope: {
@@ -24,8 +24,15 @@
                     visible: false
                 };
 
+
+                //region suggestion from primaryKB
+                // Initialization
+                $scope.suggestions = {};
+                $scope.reporting = {};
+
                 $scope.addSuggestions = function (suggestion) {
 
+                    $scope.reporting.clear();
                     var newObj = {
                         "entity": {"resource": suggestion.resource, "label": suggestion.label},
                         "score": {"value": 0}
@@ -50,10 +57,10 @@
                         $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
                         $scope.gvdata.update();
 
-                        alertMessage('success','This entity was added.');
+                        $scope.reporting.push('success','This relation was added.');
                     }
                     else {
-                        alertMessage('error','This entity is already added');
+                        $scope.reporting.push('error','This relation is already added');
                     }
 
                 }
@@ -63,6 +70,7 @@
 
                 //gets suggestions from server based on user string input
                 $scope.getSuggestions = function (string, limit) {
+                    $scope.reporting.clear();
                     $scope.waitForSuggestions = true;
                     rest.base($scope.knowledgeBase).entities.properties.query(string).limit(limit).retrieve.exec(
                         // Success, inject into the scope
@@ -77,23 +85,17 @@
                             if ($scope.suggestions.length > 0) {
                                 $scope.suggestion = $scope.suggestions[0];
                             }
-                            alertMessage('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
+                            // alertMessage('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
+                            $scope.reporting.push('success', 'Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.');
+
                         },
 
                         // Error
                         function (response) {
+                            $scope.reporting.push('error', reporth.constrErrorMsg($scope['rtxt.finderror'], response.data));
                             $scope.waitForSuggestions = false;
-                            alertMessage('error',response.data.payload.text)
                         }
                     );
-                }
-
-                //sets type and text for alert message
-                var alertMessage = function(type, messageText)
-                {
-                    $scope.serverResponse.type = type;
-                    $scope.serverResponse.visible = true;
-                    $scope.message = messageText ;
                 }
 
             }

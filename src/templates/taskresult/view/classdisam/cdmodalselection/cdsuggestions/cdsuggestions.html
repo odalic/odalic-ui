@@ -1,4 +1,3 @@
-
 <div class="row">
     <!-- Find -->
     <div class="col-md-9">
@@ -8,7 +7,7 @@
     <div class="col-md-3">
         <div ng-if="waitForSuggestions == false">
         <button ng-hide="waitForSuggestions" type="button" class="form-control"
-                ng-click="getSuggestions(string,'10')">
+                ng-click="getSuggestions(string, '10')">
             Find
         </button>
             </div>
@@ -37,11 +36,16 @@
     </div>
 </div>
 
-<div class="row">
-    <!--alert message-->
+
+
+<div class="col-md-12 odalic-hstyle-small"></div>
+
+    <!-- Prepared messages for a user in case of a situation -->
+    <injector for="rtxt.finderror">An error occured while searching for a concept.</injector>
+
+    <!-- Messages -->
     <div class="col-md-12">
-        <alert bind="serverResponse">
-            {{message}}
-        </alert>
+        <alert-group bind="reporting" />
     </div>
 </div>
+

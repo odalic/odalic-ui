@@ -16,7 +16,11 @@
         </div>
     </div>
 </div>
+<injector for="rtxt.finderror">Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.'</injector>
 
+<injector for="rtxt.finderror">An error occured while searching for a concept.</injector>
+<injector for="rtxt.finderror">An error occured while searching for a concept.</injector>
+<injector for="rtxt.finderror">An error occured while searching for a concept.</injector>
 
 
 <div class="row">
@@ -36,11 +40,25 @@
     </div>
 </div>
 
-<div class="row">
-    <!--alert message-->
-    <div class="col-md-12">
-        <alert bind="serverResponse">
-            {{message}}
-        </alert>
-    </div>
+<!--<div class="row">-->
+    <!--&lt;!&ndash;alert message&ndash;&gt;-->
+    <!--<div class="col-md-12">-->
+        <!--<alert bind="serverResponse">-->
+            <!--{{message}}-->
+        <!--</alert>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+<!-- Blank space -->
+<div class="col-md-12 odalic-hstyle-small"></div>
+
+<!-- Prepared messages for a user in case of a situation -->
+
+
+<!-- Messages -->
+<div class="col-md-12">
+    <alert-group bind="reporting" />
 </div>
+

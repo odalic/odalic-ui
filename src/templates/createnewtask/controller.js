@@ -7,14 +7,12 @@
     loadhelp.loadDefault();
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, report) {
+    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
 
         // Template initialization
         $scope['taskCreation'] = {};
 
         // Initialization
-        var reporting = report($scope);
-
         $scope.templFormat = {
             createTask: null,
             saveTask: null,
@@ -23,14 +21,7 @@
 
         $scope.fileinput = {};
 
-        $scope.alerts = {
-            taskCreation: {
-                identifier: {
-                    type: 'error',
-                    visible: false
-                }
-            }
-        };
+        formsval.toScope($scope);
 
         //TODO smazat az bude na vyber,tj.
         //az to bude server umet, tak se dostupne kbs nastavi ze serveru
@@ -47,50 +38,11 @@
 
         $scope.wholeForm = {
             // Messages for a user
-            alerts: [],
-
-            // Pushing an alert message for 'the whole form'
-            pushAlert: function (type, text) {
-                var _ref = this;
-                _ref.alerts.push({
-                    type: type,
-                    visible: true,
-                    text: text,
-                    close: function () {
-                        _ref.alerts.splice(_ref.alerts.indexOf(this), 1);
-                    }
-                });
-            },
+            alerts: {},
 
             // Validation of the form, whether everything is correctly filled; returns true, if it is safe to proceed
             validate: function () {
-                // Clear previous alerts
-                this.alerts = [];
-                var valid = true;
-
-                // Task name set?
-                if (!objhelp.objRecurAccess($scope, 'taskCreation')['identifier']) {
-                    valid = false;
-                    $scope.alerts.taskCreation.identifier.visible = true;
-                }
-
-                // File selected?
-                switch ($scope.fileProvision) {
-                    case 'local':
-                        if (!$scope.fileinput.isFileSelected()) {
-                            valid = false;
-                            $scope.fileinput.pushAlert('error', 'No file selected.');
-                        }
-                        break;
-                    case 'remote':
-                        if (!objhelp.objRecurAccess($scope, 'remoteFile')['location']) {
-                            valid = false;
-                            this.pushAlert('error', 'No remote file specified.');
-                        }
-                        break;
-                }
-
-                return valid;
+                return formsval.validateNonNested($scope.taskCreationForm);
             }
         };
 
@@ -125,7 +77,7 @@
                         name: $scope.primaryKB
                     }
                 },
-				description: text.safe($scope.taskCreation.description)
+                description: text.safe($scope.taskCreation.description)
             }).exec(
                 // Success
                 function (response) {
@@ -140,11 +92,11 @@
                 },
                 // Failure
                 function (response) {
-                    reporting.error(response);
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
                 }
             );
         };
-        
+
         // Task creation + run
         $scope.templFormat.createAndRun = function () {
             $scope.templFormat.createTask(function () {
@@ -163,8 +115,7 @@
                     },
                     // Error while starting the execution
                     function (response) {
-                        reporting.error(response);
-                        handler();
+                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.startFailure'], response.data));
                     }
                 );
             });
@@ -179,13 +130,13 @@
 
             // Generic preparations
             var fileId = $scope.fileinput.getSelectedFile();
-			var taskid = $scope.taskCreation.identifier;
+            var taskid = $scope.taskCreation.identifier;
 
             // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
             // Insert the task
-			rest.tasks.name(taskid).create({
-				id: String(taskid),
+            rest.tasks.name(taskid).create({
+                id: String(taskid),
                 created: (new Date()).toString("yyyy-MM-dd HH:mm"),
                 configuration: {
                     input: fileId,
@@ -201,7 +152,7 @@
                         name: $scope.primaryKB
                     }
                 },
-				description: text.safe($scope.taskCreation.description)
+                description: text.safe($scope.taskCreation.description)
             }).exec(
                 // Success
                 function (response) {
@@ -210,7 +161,7 @@
                 },
                 // Failure
                 function (response) {
-                    reporting.error(response);
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
                 }
             );
         };
@@ -223,7 +174,9 @@
                     // Success
                     function (response) {
                         // Find the previously chosen file for the current task
-                        timed.ready(function () { return !!$scope.fileinput.setSelectedFile; }, function () {
+                        timed.ready(function () {
+                            return !!$scope.fileinput.setSelectedFile;
+                        }, function () {
                             $scope.fileinput.setSelectedFile(response.configuration.input);
                         });
 
@@ -235,7 +188,7 @@
 
                     // Failure to load the task's config
                     function (response) {
-                        reporting.error(response);
+                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
                     }
                 );
             }

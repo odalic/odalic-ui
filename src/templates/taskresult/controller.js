@@ -19,7 +19,7 @@
 
                     for (var i = 0; i < keys.length; i++) {
                         var prop = keys[i].split('.');
-                        ;
+
                         var text = props[keys[i]].toLowerCase();
 
                         // lower Case nebezpecne
@@ -205,7 +205,7 @@
 
                 // Error
                 function (response) {
-                    throw new Error('Task configuration could not have been loaded.');
+                    dataLoadFail(response);
                 }
             );
             //endregion
@@ -226,7 +226,7 @@
                 },
                 // Error
                 function (response) {
-                    throw new Error('Error loading server feedback. Cannot continue.');
+                    dataLoadFail(response);
                 }
             );
             //endregion
@@ -368,26 +368,25 @@
             // Set the necessary data
             $scope.gvdata.vertices = $scope['inputFile']['columns'];
             $scope.gvdata.result = $scope['result'];
-            $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
             $scope.gvdata.edgeClick = function (c1, c2) {
                 with ($scope.selectedRelation) {
                     column1 = c1;
                     column2 = c2;
                 }
-                ;
+
                 if (!$scope.$$phase) {
                     $scope.$apply();
                 }
-                $scope.openRSuggestion();
+                $scope.openRSelection();
+
             };
 
-            // TODO: $scope.locked.graphEdges is not initialized at this point! Is this pattern OK?
+            // $scope.locked.graphEdges is not initialized at this point, therefore we will use a delayed initialization
             timed.ready(
                 function () {
                     return (!!$scope['locked'] && !!$scope['locked']['graphEdges'])
                 },
                 function () {
-                    console.warn('lockobj set. check the used pattern');
                     $scope.gvdata.lockobj = $scope['locked']['graphEdges'];
                 }
             );
@@ -414,16 +413,14 @@
                             result: $scope.result,
                             locked: $scope.locked,
                             primaryKB: $scope.primaryKB
-
                         }
                     }
                 }
-
             });
-        }
+        };
 
         //calls cd selection modal window
-        $scope.openCDSuggestion = function () {
+        $scope.openCDSelection = function () {
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -436,12 +433,13 @@
                             result: $scope.result,
                             locked: $scope.locked,
                             primaryKB: $scope.primaryKB,
-                            proposal: $scope.proposal,
+                            openCDProposal: $scope.openCDProposal,
                             ignoredColumn: $scope.ignoredColumn,
                             noDisambiguationCell: $scope.noDisambiguationCell,
                             noDisambiguationColumn: $scope.noDisambiguationColumn
 
                         }
+
                     }
                 }
 
@@ -449,7 +447,7 @@
         }
 
         //calls cd selection modal window
-        $scope.openRSuggestion = function () {
+        $scope.openRSelection = function () {
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',

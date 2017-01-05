@@ -6,7 +6,7 @@
 
     // suggestions directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('cDSuggestions', ['rest', function (rest) {
+    app.directive('cDSuggestions', ['rest', 'reporth', function (rest, reporth) {
         return {
             restrict: 'E',
             scope: {
@@ -22,80 +22,67 @@
                 $scope.waitForSuggestions = false;
 
 
-                //sets parameters for the alert directive
-                $scope.serverResponse = {
-                    type: 'success',
-                    visible: false
-                };
-
+                //region suggestion from primaryKB
+                // Initialization
+                $scope.suggestions = {};
+                $scope.reporting = {};
 
                 //adds new suggestion into ruesult
                 $scope.addSuggestions = function (suggestion) {
-                    $scope.serverResponse.visible = false;
-
-                    //object in result format
-                    var newObj = {
-                        "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                        "score": {"value": 0}
-                    };
+                    $scope.reporting.clear();
 
                     if ($scope.selectedPosition.row == -1) {
                         //adds classification  into result
                         var currentCell = $scope.result.headerAnnotations[$scope.selectedPosition.column];
                         var candidates = currentCell.candidates[$scope.knowledgeBase];
 
-                        //gets from candidates only  array of URLs
-                        var urlList = candidates.map(function (candidate) {
-                            return candidate.entity.resource;
-                        });
+                        addToResult(suggestion,currentCell, candidates,'classification');
 
-                        //tests  url duplicity
-                        if (!urlList.includes(suggestion.resource)) {
-                            //adds new classification among the candidates in a current cell and sets it as the selected candidate
-                            candidates.push(newObj);
-                            currentCell.chosen[$scope.knowledgeBase] = [newObj];
 
-                            //locks current cell
-                            $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-
-                            alertMessage('success','This entity was added.');
-                        }
-                        else {
-                            alertMessage('error','This entity is already added');
-                        }
                     }
                     else {
                         var currentCell = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column];
                         var candidates = currentCell.candidates[$scope.knowledgeBase];
-                        //gets from candidates only  array of URLs
-                        var urlList = candidates.map(function (candidate) {
-                            return candidate.entity.resource;
-                        });
 
-                        //tests  url duplicity
-                        if (!urlList.includes(suggestion.resource)) {
-                            //adds new dissabmbiguation among the candidates in a current cell and sets it as the selected candidate
-                            candidates.push(newObj);
-                            currentCell.chosen[$scope.knowledgeBase] = [newObj];
-                            //locks current cell
-                            $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-                            alertMessage('success','This entity was added.');
-                        }
-                        else {
-                            alertMessage('error','This entity is already added');
-                        }
+                        addToResult(suggestion,currentCell, candidates,'classification');
                     }
+                };
+
+                var  addToResult = function(suggestion,currentCell, candidates,textMessege)
+                {
+                    //object in result format
+                    var newObj = {
+                        "entity": {"resource": suggestion.resource, "label": suggestion.label},
+                        "score": {"value": 0}
+                    };
+                    //gets from candidates only  array of URLs
+                    var urlList = candidates.map(function (candidate) {
+                        return candidate.entity.resource;
+                    });
+
+                    //tests  url duplicity
+                    if (!urlList.includes(suggestion.resource)) {
+                        //adds new dissabmbiguation among the candidates in a current cell and sets it as the selected candidate
+                        candidates.push(newObj);
+                        currentCell.chosen[$scope.knowledgeBase] = [newObj];
+                        //locks current cell
+                        $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+                        $scope.reporting.push('success','This '+textMessege+' was added.');
+                    }
+                    else {
+                        $scope.reporting.push('error','This '+textMessege+' is already added');
+                    }
+
                 }
+                ;
 
 
                 //gets suggestions from server based on user string input
                 $scope.getSuggestions = function (string, limit) {
+                    $scope.reporting.clear();
                     $scope.suggestions = {};
-                    $scope.serverResponse.visible = false;
 
                     $scope.waitForSuggestions = true;
-
-
 
                     if ($scope.selectedPosition.row == -1) {
                         //GET http://example.com/{base}/entities/classes?query=Pra&limit=20
@@ -130,7 +117,7 @@
                         if ($scope.suggestions.length > 0) {
                             $scope.suggestion = $scope.suggestions[0];
                         }
-                        alertMessage('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
+                        $scope.reporting.push('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
                     };
                 };
 
@@ -138,17 +125,12 @@
                 var errorFunction = function () {
                     return function (response) {
                         $scope.waitForSuggestions = false;
-                        alertMessage('error',response.data.payload.text)
+                        $scope.reporting.push('error', reporth.constrErrorMsg($scope['rtxt.finderror'], response.data));
                     }
                 };
 
-                //sets type and text for alert message
-                var alertMessage = function(type, messageText)
-                {
-                    $scope.serverResponse.type = type;
-                    $scope.serverResponse.visible = true;
-                    $scope.message = messageText ;
-                }
+
+
             }
         }
     }

@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css"/>
     <script src="lib/bootstrap/js/bootstrap.js"></script>
 
-
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="lib/fontawesome/css/fa.css"/>
 
@@ -34,6 +32,7 @@
     <script src="lib/angular/angular-sanitize.min.js"></script>
     <script src="lib/angular/angular-animate.min.js"></script>
     <script src="lib/angular/select.min.js"></script>
+    <script src="lib/angular/angular-messages.min.js"></script>
     <script src="lib/uiboostrap/ui-bootstrap-tpls-2.3.0.min.js"></script>
     <link rel="stylesheet" href="lib/angular/select.min.css" />
 
@@ -53,27 +52,25 @@
 
     <!-- ODALIC JavaScript Root -->
     <script src="src/global.js"></script>
-
-
 </head>
 <body>
 
-<!-- Head -->
-<div class="fluid-container odalic-bstyle-lightorange">
-	<div class="odalic-hstyle-semibig"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-1"></div>
-			<div class="col-sm-11"><img src="graphics/logo.png" alt="ODALIC"/></div>
-		</div>
-	</div>
-	<div class="odalic-hstyle-semibig"></div>
-</div>
+    <!-- Head -->
+    <div class="fluid-container odalic-bstyle-lightorange">
+        <div class="odalic-hstyle-semibig"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-11"><img src="graphics/logo.png" alt="ODALIC"/></div>
+            </div>
+        </div>
+        <div class="odalic-hstyle-semibig"></div>
+    </div>
 
-<!-- Template -->
-<div ng-controller="odalic-root-ctrl">
-	<div ng-view></div>
-</div>
+    <!-- Template -->
+    <div ng-controller="odalic-root-ctrl">
+        <div ng-view></div>
+    </div>
 
 </body>
 </html>

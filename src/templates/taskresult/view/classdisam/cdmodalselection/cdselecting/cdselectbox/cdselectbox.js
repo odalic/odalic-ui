@@ -49,7 +49,7 @@
 
                     // The UI-Select element
                     var getUisElement = function () {
-                        return $('.uis-wrapper', iElement.get(0)).get(0);
+                        return $('.uis-aclass', iElement.get(0)).get(0);
                     };
 
                     // What should happen on the element resize
@@ -131,11 +131,11 @@
                         }
                         //TODO  hezci hlaska - o existenci vlevy dolni rohu viz cvut angular
                         else {
-                            alert("This url is already in the selection. ")
+                            // Hlaska je zbytocna; ng-message je nevhodny a alert-group sa mi hadzat kvoli tomuto nechce. wont fix
+                            //alert("This url is already in the selection.");
                         }
 
                         $scope.$apply();
-
                     }
 
                     document.body.removeChild(lodLiveIframe);

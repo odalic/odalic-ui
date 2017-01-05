@@ -8,7 +8,7 @@
         $scope.result = data.result;
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
-        $scope.proposal = data.proposal;
+        $scope.openCDProposal = data.openCDProposal;
         $scope.ignoredColumn = data.ignoredColumn;
         $scope.noDisambiguationCell = data.noDisambiguationCell;
         $scope.noDisambiguationColumn = $scope.noDisambiguationColumn;

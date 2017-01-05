@@ -294,5 +294,4 @@ $.defineModule(function () {
             },
         };
     };
-})
-;
+});

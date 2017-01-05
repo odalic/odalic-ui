@@ -7,16 +7,14 @@
     var currentFolder = $.getPathForRelativePath('');
     app.directive('cDSelecting',['rest','$uibModal',function (rest,$uibModal) {
         return {
-
             restrict: 'E',
             scope: {
                 selectedPosition: '=',
                 locked: '=',
                 primaryKB: '@',
-                result: '='
+                result: '=',
+                openCDProposal: '='
             },
-
-
             templateUrl: currentFolder + 'cdselecting.html',
             link: function ($scope, iElement, iAttrs) {
 

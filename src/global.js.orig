@@ -57,7 +57,12 @@
     };
 
     // Define the angular module dependencies
-    angular.module('odalic-app', ['ngRoute', 'ngSanitize', 'ui.select','ui.bootstrap','ngMessages','ngAnimate']);
+<<<<<<< HEAD
+    angular.module('odalic-app', ['ngRoute', 'ngSanitize', 'ui.select','ui.bootstrap','ngAnimate']);
+=======
+    angular.module('odalic-app', ['ngRoute', 'ngSanitize', 'ui.select','ui.bootstrap','ngMessages']);
+>>>>>>> develop
+    
     // Dependencies (loaded synchronously)
     $.getJSONSync($.getPathForRelativePath('require.json'), function (includes) {
         includes.forEach(function (include) {
