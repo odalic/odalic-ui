@@ -37,6 +37,7 @@ var objhelp = {
 
     /** Returns the first argument that is defined - either non-null or true.
      *  If none such are available, null is returned.
+     *  The function is variadic.
      *
      * @returns {*}
      */
@@ -119,19 +120,6 @@ var objhelp = {
         });
     },
 
-    /** Returns the passed argument if defined, or null.
-     *
-     * @param arg   Argument to return if defined.
-     * @returns {*} The argument, if defined, or null.
-     */
-    argOrNull: function (arg) {
-        if (arg) {
-            return arg;
-        }
-
-        return null;
-    },
-
     /** Performs a test of a passed argument by passed tests.
      *  If the argument passes all of the passed tests, it is returned, otherwise the fallback is returned.
      *  Example:
@@ -164,6 +152,19 @@ var objhelp = {
             var tt = (new String()).concat(String(arg), ' ', args[0]);
             if (!eval(tt)) {
                 return fallback;
+            }
+        }
+    },
+
+    /** Calls the first argument that is defined and is a function.
+     *  This function is variadic.
+     *
+     */
+    callFirstArg: function () {
+        for (var i = 0; i < arguments.length; i++) {
+            if (typeof(arguments[i]) === 'function') {
+                arguments[i]();
+                return;
             }
         }
     },

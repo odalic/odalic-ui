@@ -116,7 +116,7 @@
                                         scope.fileList.setSelected(scope.fileList.getIndex(_ref.identifier));
 
                                         // Clear the fields
-                                        _ref.identifier = String();
+                                        _ref.identifier = new String();
                                         filedata.clearInputFile(_ref.inputFileId);
 
                                         // Another file may be uploaded again
@@ -139,9 +139,19 @@
                         };
 
                         // Read the file and send the data to server
-                        filedata.readBase64(_ref.inputFileId, function (fileData) {
-                            sendData(fileData);
-                        });
+                        filedata.readBase64(_ref.inputFileId,
+                            // Success
+                            function (fileData) {
+                                sendData(fileData);
+                            },
+                            // Failure
+                            function (response) {
+                                scope.messages.push('error', (new String()).concat(scope['msgtxt.uploadFailure'], ' ', response));
+
+                                // A file may be uploaded again
+                                _ref.uploadingFile = false;
+                            }
+                        );
                     }
                 };
 
