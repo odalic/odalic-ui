@@ -13,6 +13,7 @@
   "view/relations/graphvis/graphvis.js",
   "view/relations/rlock/rlock.js",
   "view/relations/rmodalselection/rmodalselection.js",
+  "view/relations/rmodalselection/rmodalproposal/rmodalproposal.js",
   "view/relations/rmodalselection/rsuggestions/rsuggestions.js",
   "view/relations/rmodalselection/rselectbox/rselectbox.js",
   "view/subjectcolumn/sclock/sclock.js",

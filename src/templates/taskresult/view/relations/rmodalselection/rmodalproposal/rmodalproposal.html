@@ -1,0 +1,54 @@
+<form name="rProposeForm" novalidate class="form-horizontal" role="form">
+    <div class="container-fluid">
+        <div class="form-group">
+            <label class="col-md-4 control-label">Label:</label>
+            <div class="col-md-8">
+                <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
+                <div ng-messages="rProposeForm.label.$error" role="alert">
+                    <div ng-message="required"><error-msg>You did not enter a field</error-msg></div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Alternative label:</label>
+            <div class="col-md-8">
+                <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Alternative label:</label>
+            <div class="col-md-8">
+                <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Custom URL suffix:</label>
+            <div class="col-md-8">
+                <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
+                <div ng-messages="rProposeForm.suffixUri.$error" role="alert">
+                    <div ng-message="required"><error-msg>You did not enter a field</error-msg></div>
+                </div>
+            </div>
+            <br>
+        </div>
+
+        <br/>
+
+        <button type="submit" ng-disabled="!rProposeForm.$valid" class="btn btn-lg" ng-click="setProposal(proposal)">
+            OK
+        </button>
+
+
+        <alert bind="serverResponse">
+            {{messege}}
+        </alert>
+
+    </div>
+</form>

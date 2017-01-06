@@ -44,7 +44,6 @@
                         "value": 0
                     }
                 };
-                $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
                 if ($scope.selectedPosition.row == -1) {
 
@@ -84,9 +83,11 @@
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
 
+                    //locks cell
+                    $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
                     //success message
                     success();
-
                 },
                 // Error
                 function (response) {
@@ -105,6 +106,8 @@
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
 
+                    //locks cell
+                    $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
                     //success message
                     success();
                 },
@@ -131,8 +134,5 @@
             $scope.serverResponse.visible = true;
             $scope.messege = info.payload.text;
         }
-
     });
-
-
 })();
