@@ -356,10 +356,6 @@
         // Loading of the necessary resources finishes here
         //endregion4
 
-        //TODO dat nekam do direktivy az se vyjasni own relace
-        $scope.lockRelation = function () {
-            $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
-        };
 
         // region Handling graphvis directive
         // **************************************
@@ -381,8 +377,8 @@
                 if (!$scope.$$phase) {
                     $scope.$apply();
                 }
+                $scope.openRSelection();
 
-                $("#modalPredicates").modal();
             };
 
             // $scope.locked.graphEdges is not initialized at this point, therefore we will use a delayed initialization
@@ -422,6 +418,58 @@
                 }
             });
         };
+
+        //calls cd selection modal window
+        $scope.openCDSelection = function () {
+            $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: "src/templates/taskresult/view/classdisam/cdmodalselection/cdmodalselection.html",
+                controller: 'cDSelectionController',
+                resolve: {
+                    data: function () {
+                        return {
+                            selectedPosition: $scope.selectedPosition,
+                            result: $scope.result,
+                            locked: $scope.locked,
+                            primaryKB: $scope.primaryKB,
+                            openCDProposal: $scope.openCDProposal,
+                            ignoredColumn: $scope.ignoredColumn,
+                            noDisambiguationCell: $scope.noDisambiguationCell,
+                            noDisambiguationColumn: $scope.noDisambiguationColumn
+
+                        }
+
+                    }
+                }
+
+            });
+        }
+
+        //calls cd selection modal window
+        $scope.openRSelection = function () {
+            $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: "src/templates/taskresult/view/relations/rmodalselection/rmodalselection.html",
+                controller: 'rSelectionController',
+                resolve: {
+                    data: function () {
+                        return {
+                            gvdata: $scope.gvdata,
+                            primaryKB: $scope.primaryKB,
+                            locked: $scope.locked,
+                            selectedRelation: $scope.selectedRelation,
+                            result: $scope.result,
+                            openRProposal: $scope.openRProposal
+
+                        }
+                    }
+                }
+
+            });
+        }
+
 
     });
 

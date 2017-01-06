@@ -70,15 +70,13 @@
                 }
             }
 
-            // Either way we close the modal upon the click
-            $uibModalInstance.close();
+          
         };
         //endregion
 
         //saves new propose class
         var classes = function (obj) {
-            var currentTimeStamp =  new Date().getTime();
-            rest.base($scope.primaryKB).entities.classes.stamp(currentTimeStamp).update(obj).exec(
+            rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
 
@@ -94,17 +92,14 @@
                 function (response) {
                     //because of a delayed response server
                     var info = JSON.parse(response.data);
-                    if (currentTimeStamp.toString()==  info.stamp) {
                        fail(info);
-                     }
                 }
             );
         };
 
         //saves new propose resource
         var resources = function (obj) {
-            var currentTimeStamp =  new Date().getTime();
-            rest.base($scope.primaryKB).entities.resources.stamp(currentTimeStamp).update(obj).exec(
+            rest.base($scope.primaryKB).entities.resources.update(obj).exec(
                 function (response) {
                     //adds disambiguation into result
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
@@ -116,11 +111,8 @@
                 // Error
                 function (response) {
                     var info = JSON.parse(response.data);
-                    //because of a delayed response server
-                    if (currentTimeStamp.toString()==  info.stamp) {
                         //fail message
                         fail(info);
-                    }
                 }
             );
         };

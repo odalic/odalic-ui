@@ -3,7 +3,29 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // lock directive
+
+    /** Generates row in a table
+     *
+     *  Usage:
+     *        <tr c-d-table-row
+     *        row="inputFile.columns"
+     *        row-index="-1"
+     *        concrete-data="result.headerAnnotations"
+     *        selected-position="selectedPosition"
+     *        locked-table-cells="locked.tableCells"
+     *        chosen-k-bs="chosenKBs"
+     *        primary-k-b="{{ primaryKB }}"
+     *        proposal="openCDProposal">
+     */
+
+    // row-index determines number of row. Header row has a special number -1.
+    // concrete-data determines data for a concrete row
+    // selected-position determines a position of mouse cursor in table
+    // locked-table-cells determines users changes in the table as  true / false values, if the user  did some
+    // chosen-k-bs determines knowledge bases in the configuration of task
+    // primary-k-b determines primary knowlege base in the task configuration
+    // proposal contains function, which opens modal window for a proposing
+
     var currentFolder = $.getPathForRelativePath('');
     app.directive('cDTableRow', function () {
         return {
@@ -15,8 +37,9 @@
                 selectedPosition: '=',
                 lockedTableCells: '=',
                 chosenKBs: '=',
-                proposal: '=',
-                primaryKB: '@'
+                proposal:'=',
+                suggestion:'=',
+                primaryKB:'@'
             },
             templateUrl: currentFolder + 'cDTableRow.html',
             link: function (scope, iElement, iAttrs) {
@@ -36,6 +59,8 @@
                     var color = constants.kbColorsArray[index];
                     return {"background-color": color, "border-radius": "5px", "opacity": "1"};
                 };
+
+
             }
         }
     });

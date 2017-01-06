@@ -17,8 +17,6 @@
 
                             <include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include>
 
-                            <include src="src/templates/taskresult/view/classdisam/cdmodalselection/cdmodalselection.html"></include>
-
                         </div>
 
                         <!-- VIEW: Sets classifications and disambiguations -->
@@ -29,9 +27,6 @@
                         <!-- VIEW: Relations -->
                         <div ng-switch-when="2">
                             <h2>Choosing of predicates</h2>
-
-                            <!-- Modal -->
-                            <include src="src/templates/taskresult/view/relations/rmodalselection/rmodalselection.html"></include>
 
                             <!-- Graph visualiser -->
                             <graphvis bind="gvdata"></graphvis>

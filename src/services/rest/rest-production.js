@@ -25,6 +25,23 @@ $.defineModule(function () {
             };
         };
 
+        //function with parameters for classification/disambiguation/relation suggestions
+        var searchRequest = function (kb, type) {
+            return function (string) {
+                return {
+                    limit: function (countLimit) {
+                        return {
+                            retrieve: {
+                                exec: function (success, failure) {
+                                    requests.quickRequest(text.urlConcat(root, kb, 'entities', type) + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
+                                },
+                            },
+                        };
+                    },
+                };
+            };
+        };
+
         return {
             // Files service
             files: {
@@ -260,128 +277,54 @@ $.defineModule(function () {
                 }
             },
 
-            // GET http://example.com/base/entities?query=Pra&limit=20
+
             base: function (kb) {
                 return {
                     entities: {
-                        query: function (string) {
-                            return {
-                                limit: function (countLimit) {
-                                    return {
-                                        retrieve: {
-                                            exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET');
-                                                requests.quickRequest(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
-                                            },
-                                        },
-                                    };
-                                },
-                            };
-                        },
                         classes: {
-                            stamp: function (timeStamp) {
+                            //GET http://example.com/{base}/entities/classes?query=Cit&limit=20
+                            query: searchRequest(kb, 'classes'),
+
+                            update: function (data) {
                                 return {
-                                    update: function (data) {
-                                        return {
-                                            exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities', 'classes')+ '?stamp=' + timeStamp);
-                                                requests.reqJSON({
-                                                    method: 'POST',
-                                                    address: text.urlConcat(root, kb, 'entities', 'classes') + '?stamp=' + timeStamp,
-                                                    formData: data,
-                                                    success: successf(success),
-                                                    failure: failure
-                                                });
-                                            },
-                                        };
+                                    exec: function (success, failure) {
+                                        requests.reqJSON({
+                                            method: 'POST',
+                                            address: text.urlConcat(root, kb, 'entities', 'classes'),
+                                            formData: data,
+                                            success: successf(success),
+                                            failure: failure
+                                        });
                                     },
                                 };
                             },
                         },
                         resources: {
-                            stamp: function (timeStamp) {
+                            //GET http://example.com/{base}/entities/resources?query=Pra&limit=20
+                            query: searchRequest(kb, 'resources'),
+
+                            update: function (data) {
                                 return {
-                                    update: function (data) {
-                                        return {
-                                            exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities', 'resources')+ '?stamp=' + timeStamp);
-                                                requests.reqJSON({
-                                                    method: 'POST',
-                                                    address: text.urlConcat(root, kb, 'entities', 'resources')+ '?stamp=' + timeStamp,
-                                                    formData: data,
-                                                    success: successf(success),
-                                                    failure: failure
-                                                });
-                                            },
-                                        };
+                                    exec: function (success, failure) {
+                                        requests.reqJSON({
+                                            method: 'POST',
+                                            address: text.urlConcat(root, kb, 'entities', 'resources'),
+                                            formData: data,
+                                            success: successf(success),
+                                            failure: failure
+                                        });
                                     },
                                 };
                             },
+                        },
+                        properties: {
+                            //GET http://example.com/{base}/entities/properties?query=cap&limit=20
+                            query: searchRequest(kb, 'properties'),
+
                         },
                     },
                 };
             },
-
-            // GET http://example.com/base/entities?query=Pra&limit=20
-            base: function (kb) {
-                return {
-                    entities: {
-                        query: function (string) {
-                            return {
-                                limit: function (countLimit) {
-                                    return {
-                                        retrieve: {
-                                            exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET');
-                                                requests.quickRequest(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
-                                            },
-                                        },
-                                    };
-                                },
-                            };
-                        },
-                        classes: {
-                            stamp: function (timeStamp) {
-                                return {
-                                    update: function (data) {
-                                        return {
-                                            exec: function (success, failure) {
-                                                requests.reqJSON({
-                                                    method: 'POST',
-                                                    address: text.urlConcat(root, kb, 'entities', 'classes') + '?stamp=' + timeStamp,
-                                                    formData: data,
-                                                    success:  success,
-                                                    failure: failure
-                                                });
-                                            },
-                                        };
-                                    },
-                                };
-                            },
-                        },
-                        resources: {
-                            stamp: function (timeStamp) {
-                                return {
-                                    update: function (data) {
-                                        return {
-                                            exec: function (success, failure) {
-                                                requests.reqJSON({
-                                                    method: 'POST',
-                                                    address: text.urlConcat(root, kb, 'entities', 'resources')+ '?stamp=' + timeStamp,
-                                                    formData: data,
-                                                    success: success,
-                                                    failure: failure
-                                                });
-                                            },
-                                        };
-                                    },
-                                };
-                            },
-                        },
-                    },
-                };
-            },
-
         };
     };
 });

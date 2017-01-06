@@ -1,9 +1,10 @@
 (function () {
 
+
     // Main module
     var app = angular.module('odalic-app');
 
-    // lock directive
+    // suggestions directive
     var currentFolder = $.getPathForRelativePath('');
     app.directive('cDSuggestions', ['rest', 'reporth', function (rest, reporth) {
         return {
@@ -11,11 +12,15 @@
             scope: {
                 selectedPosition: '=',
                 locked: '=',
-                primaryKB: '@',
-                result: '='
+                knowledgeBase: '@',
+                result: '=',
             },
             templateUrl: currentFolder + 'cdsuggestions.html',
             link: function ($scope, iElement, iAttrs) {
+
+                //for server data waiting
+                $scope.waitForSuggestions = false;
+
 
                 //region suggestion from primaryKB
                 // Initialization
@@ -24,74 +29,111 @@
 
                 //adds new suggestion into ruesult
                 $scope.addSuggestions = function (suggestion) {
+                    $scope.reporting.clear();
 
-                    //locks concreate cell
-                    $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+                    if ($scope.selectedPosition.row == -1) {
+                        //adds classification  into result
+                        var currentCell = $scope.result.headerAnnotations[$scope.selectedPosition.column];
+                        var candidates = currentCell.candidates[$scope.knowledgeBase];
 
+                        addToResult(suggestion,currentCell, candidates,'classification');
+
+
+                    }
+                    else {
+                        var currentCell = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column];
+                        var candidates = currentCell.candidates[$scope.knowledgeBase];
+
+                        addToResult(suggestion,currentCell, candidates,'classification');
+                    }
+                };
+
+                var  addToResult = function(suggestion,currentCell, candidates,textMessege)
+                {
                     //object in result format
                     var newObj = {
                         "entity": {"resource": suggestion.resource, "label": suggestion.label},
                         "score": {"value": 0}
                     };
+                    //gets from candidates only  array of URLs
+                    var urlList = candidates.map(function (candidate) {
+                        return candidate.entity.resource;
+                    });
 
-                    if ($scope.selectedPosition.row == -1) {
-                        //adds classification  into result
-                        $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                        $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB]= [newObj];
+                    //tests  url duplicity
+                    if (!urlList.includes(suggestion.resource)) {
+                        //adds new dissabmbiguation among the candidates in a current cell and sets it as the selected candidate
+                        candidates.push(newObj);
+                        currentCell.chosen[$scope.knowledgeBase] = [newObj];
+                        //locks current cell
+                        $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+                        $scope.reporting.push('success','This '+textMessege+' was added.');
                     }
                     else {
-                        //adds dissabmbiguation into result
-                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                        $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj]
+                        $scope.reporting.push('error','This '+textMessege+' is already added');
                     }
-                };
 
-                // $scope.addRelationSuggestions = function (suggestion) {
-                //
-                //     $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
-                //
-                //     var newObj = {
-                //         "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                //         "score": {"value": 0}
-                //     };
-                //
-                //     $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].candidates[$scope.primaryKB].push(newObj);
-                //     // $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[$scope.primaryKB] = [newObj]
-                //     $scope.currentRelations[$scope.selectedRelation.column1][$scope.selectedRelation.column2][$scope.primaryKB].push(newObj.entity)
-                //
-                // }
+                }
+                ;
 
-                //for server data waiting
-                $scope.waitForSuggestions = false;
 
                 //gets suggestions from server based on user string input
                 $scope.getSuggestions = function (string, limit) {
+                    $scope.reporting.clear();
+                    $scope.suggestions = {};
+
                     $scope.waitForSuggestions = true;
-                    rest.base($scope.primaryKB).entities.query(string).limit(limit).retrieve.exec(
-                        // Success, inject into the scope
-                        function (response) {
-                            $scope.waitForSuggestions = false;
 
-                            console.log('suggestings from server: '+JSON.stringify(response,null, 4));
-                            $scope.suggestions = response;
+                    if ($scope.selectedPosition.row == -1) {
+                        //GET http://example.com/{base}/entities/classes?query=Pra&limit=20
+                        rest.base($scope.knowledgeBase).entities.classes.query(string).limit(limit).retrieve.exec(
+                            // Success, inject into the scope
+                            successFunction(),
+                            // Error
+                            errorFunction()
+                        );
+                    } else {
+                        //GET http://example.com/{base}/entities/resources?query=Pra&limit=20
+                        rest.base($scope.knowledgeBase).entities.resources.query(string).limit(limit).retrieve.exec(
+                            // Success, inject into the scope
+                            successFunction(),
+                            // Error
+                            errorFunction()
+                        );
 
-                            // TODO: Works only once. As soon as you add the result,
-                            // it breaks.
-                            if ($scope.suggestions.length > 0) {
-                                $scope.suggestion = $scope.suggestions[0];
-                            }
-                        },
+                    }
+                }
 
-                        // Error
-                        function (response) {
-                            $scope.reporting.push('error', reporth.constrErrorMsg($scope['rtxt.finderror'], response.data));
-                            $scope.waitForSuggestions = false;
+                //rest api success function
+                var successFunction = function () {
+                    return function (response) {
+                        //shuts loading icon
+                        //TODO may be use loadico directive
+                        $scope.waitForSuggestions = false;
+
+                        $scope.suggestions = response;
+
+                        //shows first entity in the select box if some suggestions are found
+                        if ($scope.suggestions.length > 0) {
+                            $scope.suggestion = $scope.suggestions[0];
                         }
-                    );
+                        $scope.reporting.push('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
+                    };
                 };
-                //endregion
+
+                //rest api fail function
+                var errorFunction = function () {
+                    return function (response) {
+                        $scope.waitForSuggestions = false;
+                        $scope.reporting.push('error', reporth.constrErrorMsg($scope['rtxt.finderror'], response.data));
+                    }
+                };
+
+
+
             }
         }
-    }]);
+    }
+    ]);
 
 })();
