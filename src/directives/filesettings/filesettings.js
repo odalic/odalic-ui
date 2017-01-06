@@ -55,7 +55,6 @@
                     ['comment', 'commentMarker']
                 ]);
                 var mirrorChkBox = objhelp.tsmirror([
-                    ['header', 'headerPresent'],
                     ['emptylinesignore', 'emptyLinesIgnored'],
                     ['headercaseignore', 'headerCaseIgnored']
                 ]);
@@ -96,7 +95,7 @@
                         }
                     },
 
-                    /** getData('header') - for retrieving from both checkboxes and selects */
+                    /** getData('emptyLinesIgnored') - for retrieving from both checkboxes and selects */
                     getData: function (model) {
                         var result = null;
 
@@ -114,7 +113,7 @@
                         return result;
                     },
 
-                    /** setData('header', true) - for setting data to both checkboxes and selects */
+                    /** setData('emptyLinesIgnored', true) - for setting data to both checkboxes and selects */
                     setData: function (model, data) {
                         if (model in mirrorSelect.second) {
                             // Select
@@ -168,7 +167,6 @@
                         'emptyLinesIgnored',
                         'escapeCharacter',
                         'headerCaseIgnored',
-                        'headerPresent',
                         'quoteCharacter'
                     ];
 
