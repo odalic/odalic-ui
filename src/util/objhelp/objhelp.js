@@ -161,7 +161,7 @@ var objhelp = {
                 return arg;
             }
 
-            var tt = String.concat(String(arg), ' ', args[0]);
+            var tt = (new String()).concat(String(arg), ' ', args[0]);
             if (!eval(tt)) {
                 return fallback;
             }
