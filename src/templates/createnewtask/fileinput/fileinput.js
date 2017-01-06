@@ -118,6 +118,7 @@
                                         // Clear the fields
                                         _ref.identifier = new String();
                                         filedata.clearInputFile(_ref.inputFileId);
+                                        scope.form.localFileForm.$setPristine();
 
                                         // Another file may be uploaded again
                                         _ref.uploadingFile = false;
@@ -186,8 +187,9 @@
                                     scope.fileList.setSelected(scope.fileList.getIndex(_ref.identifier));
 
                                     // Clear the fields
-                                    _ref.identifier = String();
+                                    _ref.identifier = new String();
                                     _ref.location = scope['deflocation'];
+                                    scope.form.remoteFileForm.$setPristine();
 
                                     // Another file may be uploaded again
                                     _ref.attachingFile = false;
