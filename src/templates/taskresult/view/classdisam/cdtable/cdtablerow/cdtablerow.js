@@ -37,8 +37,9 @@
                 selectedPosition: '=',
                 lockedTableCells: '=',
                 chosenKBs: '=',
-                proposal: '=',
-                primaryKB: '@'
+                proposal:'=',
+                suggestion:'=',
+                primaryKB:'@'
             },
             templateUrl: currentFolder + 'cDTableRow.html',
             link: function (scope, iElement, iAttrs) {
@@ -58,6 +59,8 @@
                     var color = constants.kbColorsArray[index];
                     return {"background-color": color, "border-radius": "5px", "opacity": "1"};
                 };
+
+
             }
         }
     });

@@ -3,7 +3,20 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // tooltip directive
+    /** Tooltip directive
+     *  Usage:
+     *      <tooltip source="myvar" place="top">
+     *          <a class="btn btn-default">Button with tooltip</a>
+     *      </tooltip>
+     *
+     *      ...
+     *      $scope.myvar = "A text for tooltip";
+     *
+     *  Alternative:
+     *      <tooltip msg="A text for tooltip" place="top">
+     *          <a class="btn btn-default">Button with tooltip</a>
+     *      </tooltip>
+     */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('tooltip', function () {
         return {
