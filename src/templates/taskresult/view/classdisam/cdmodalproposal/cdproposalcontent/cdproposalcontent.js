@@ -17,7 +17,7 @@
 
         $scope.missingColumnClass= {
             type: 'error',
-            visible: true
+            visible: true,
         };
 
         $scope.columnClass = $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB];
