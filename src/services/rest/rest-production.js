@@ -102,7 +102,7 @@ $.defineModule(function () {
                                 });
                             },
                             address: function () {
-                                return text.urlConcat(root, 'files', identifier);
+                                return text.urlConcat(root, 'files', identifier, 'data');
                             }
                         },
                         configuration: {
