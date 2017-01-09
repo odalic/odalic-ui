@@ -11,7 +11,7 @@
         $scope.gvdata = data.gvdata;
 
         //sets parameters for the alert directive
-        $scope.serverResponse= {
+        $scope.serverResponse = {
             type: 'success',
             visible: false
         };
@@ -30,34 +30,18 @@
                 if (proposal.alternativeLabel != null) {
                     alternativeLabels.push(proposal.alternativeLabel);
                 }
-                if (proposal.alternativeLabel2 != null) {
-                    alternativeLabels.push(proposal.alternativeLabel2);
-                }
-
-                $scope.newObj = {
-                    "entity": {
-                        "resource": url,
-                        "label": proposal.label
-                    },
-                    "score": {
-                        "value": 0
-                    }
-                };
-
 
                 //object in rest api format for classes
                 var obj = {
                     "label": proposal.label,
                     "alternativeLabels": alternativeLabels,
                     "suffix": url,
-                    "superClass": null
-                    // "superClass": proposal.superClass
+                    "superProperty": null,
+                    "domain": $scope.result.headerAnnotations[$scope.selectedRelation.column1].chosen[$scope.primaryKB][0].entity,
+                    "range": $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB][0].entity
                 };
                 properties(obj);
-
             }
-
-
         };
         //endregion
 
@@ -67,15 +51,35 @@
                 // Success, inject into the scope
                 function (response) {
 
-                    var edge = $scope.result.cellAnnotations[$scope.selectedRelation.row][$scope.selectedRelation.column];
+                    var newObj = {
+                        "entity": {
+                            "resource": response.resource,
+                            "label": response.label
+                        },
+                        "score": {
+                            "value": 0
+                        }
+                    };
+
+                    //creates levels of json if they are missing
+                    objhelp.objRecurAccess($scope.result.columnRelationAnnotations, $scope.selectedRelation.column1, $scope.selectedRelation.column2, 'candidates');
+                    var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
+                    if (!currentRelation.candidates.hasOwnProperty($scope.primaryKB)) {
+                        currentRelation.candidates[$scope.primaryKB] = [];
+                    }
+
+                    objhelp.objRecurAccess(currentRelation, 'chosen');
+                    if (!currentRelation.chosen.hasOwnProperty($scope.primaryKB)) {
+                        currentRelation.chosen[$scope.primaryKB] = [];
+                    }
 
                     //adds classification into result
-                    edge.candidates[$scope.primaryKB].push($scope.newObj);
-                    edge.chosen[$scope.primaryKB] = [$scope.newObj];
+                    currentRelation.candidates[$scope.primaryKB].push(newObj);
+                    currentRelation.chosen[$scope.primaryKB] = [newObj];
                     $scope.gvdata.mc();
 
                     //locks
-                    $scope.locked.graphEdges[$scope.selectedRelation.row][$scope.selectedRelation.column] = 1;
+                    $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
                     $scope.gvdata.update();
 
                     //success message

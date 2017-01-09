@@ -5,7 +5,9 @@
             <div class="col-md-8">
                 <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
                 <div ng-messages="rProposeForm.label.$error" role="alert">
-                    <div ng-message="required"><error-msg>You did not enter a field</error-msg></div>
+                    <div ng-message="required">
+                        <error-msg>You did not enter a field</error-msg>
+                    </div>
                 </div>
             </div>
         </div>
@@ -20,10 +22,31 @@
         </div>
         <br>
 
+        <!--<div class="form-group">-->
+            <!--<label class="col-md-4 control-label">Type:</label>-->
+            <!--<div class="col-md-8">-->
+                <!--<label class="radio-inline">-->
+                    <!--<input type="radio" ng-model="type" value="dogs">Data type property-->
+                <!--</label>-->
+                <!--<label class="radio-inline">-->
+                    <!--<input type="radio" ng-model="type" value="tuts">Object propery-->
+                <!--</label>-->
+            <!--</div>-->
+        <!--</div>-->
+
         <div class="form-group">
-            <label class="col-md-4 control-label">Alternative label:</label>
+            <label class="col-md-4 control-label">Domain:</label>
             <div class="col-md-8">
-                <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
+                <input class="form-control" type="text" ng-disabled="true"
+                       ng-model="result.headerAnnotations[selectedRelation.column1].chosen[primaryKB][0].entity.resource">
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Range:</label>
+            <div class="col-md-8">
+                <input class="form-control" type="text" ng-disabled="true"
+                       ng-model="result.headerAnnotations[selectedRelation.column2].chosen[primaryKB][0].entity.resource">
             </div>
         </div>
         <br>
@@ -33,7 +56,9 @@
             <div class="col-md-8">
                 <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
                 <div ng-messages="rProposeForm.suffixUri.$error" role="alert">
-                    <div ng-message="required"><error-msg>You did not enter a field</error-msg></div>
+                    <div ng-message="required">
+                        <error-msg>You did not enter a field</error-msg>
+                    </div>
                 </div>
             </div>
             <br>
