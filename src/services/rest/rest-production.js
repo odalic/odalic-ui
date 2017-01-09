@@ -34,10 +34,10 @@ $.defineModule(function () {
                             retrieve: {
                                 exec: function (success, failure) {
                                     requests.quickRequest(text.urlConcat(root, kb, 'entities', type) + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
-                                },
-                            },
+                                }
+                            }
                         };
-                    },
+                    }
                 };
             };
         };
@@ -102,7 +102,7 @@ $.defineModule(function () {
                                 });
                             },
                             address: function () {
-                                return text.urlConcat(root, 'files', identifier);
+                                return text.urlConcat(root, 'files', identifier, 'data');
                             }
                         },
                         configuration: {
@@ -259,7 +259,7 @@ $.defineModule(function () {
                                 exec: function (success, failure) {
                                     requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'), 'GET', successf(success), failure);
                                 }
-                            },
+                            }
                         }
                     };
                 },
