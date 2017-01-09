@@ -126,8 +126,9 @@ var nodeWrapper = function (gprops) {
                     .attr('r', String(_radius))
                     .attr('stroke', constants.colors.black);
 
-            _label = new label(d3sel);
-            _label.attach(text.dotted(_ref.id, 10));
+            _label = new nodelabel(d3sel);
+            _label.setMaxWidth(_radius * 2);
+            _label.attach(_ref.id);
 
             gsettings.setC(gsettings.stable.free);
 
