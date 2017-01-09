@@ -5,7 +5,7 @@
 
     // lock directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('rSuggestions', ['rest','reporth', function (rest,reporth) {
+    app.directive('rSuggestions', ['rest', 'reporth', function (rest, reporth) {
         return {
             restrict: 'E',
             scope: {
@@ -38,7 +38,21 @@
                         "score": {"value": 0}
                     };
 
+
+                    //creates levels of json if they are missing
+                    objhelp.objRecurAccess($scope.result.columnRelationAnnotations, $scope.selectedRelation.column1, $scope.selectedRelation.column2, 'candidates');
                     var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
+
+                    if (!currentRelation.candidates.hasOwnProperty($scope.knowledgeBase)) {
+                        currentRelation.candidates[$scope.knowledgeBase] = [];
+                    }
+
+                    objhelp.objRecurAccess(currentRelation, 'chosen');
+                    if (!currentRelation.chosen.hasOwnProperty($scope.knowledgeBase)) {
+                        currentRelation.chosen[$scope.knowledgeBase] = [];
+                    }
+
+
                     var candidates = currentRelation.candidates[$scope.knowledgeBase];
 
                     //gets from candidates only  array of URLs
@@ -57,13 +71,14 @@
                         $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
                         $scope.gvdata.update();
 
-                        $scope.reporting.push('success','This relation was added.');
+                        $scope.reporting.push('success', 'This relation was added.');
                     }
                     else {
-                        $scope.reporting.push('error','This relation is already added');
+                        $scope.reporting.push('error', 'This relation is already added');
                     }
 
                 }
+
 
                 //for server data waiting
                 $scope.waitForSuggestions = false;
@@ -86,7 +101,7 @@
                                 $scope.suggestion = $scope.suggestions[0];
                             }
                             // alertMessage('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
-                            $scope.reporting.push('success', 'Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.');
+                            $scope.reporting.push('success', 'Search results arrived. Search found ' + $scope.suggestions.length + ' suggestins.');
 
                         },
 
