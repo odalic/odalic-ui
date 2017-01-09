@@ -27,7 +27,7 @@
 
                 //region suggestion from primaryKB
                 // Initialization
-                $scope.suggestions = {};
+                $scope.suggestions = [];
                 $scope.reporting = {};
 
                 $scope.addSuggestions = function (suggestion) {
@@ -85,8 +85,10 @@
 
                 //gets suggestions from server based on user string input
                 $scope.getSuggestions = function (string, limit) {
+                    $scope.suggestions = [];
                     $scope.reporting.clear();
                     $scope.waitForSuggestions = true;
+
                     rest.base($scope.knowledgeBase).entities.properties.query(string).limit(limit).retrieve.exec(
                         // Success, inject into the scope
                         function (response) {
