@@ -13,9 +13,10 @@
          *
          * @param inputFileElementId    An id of the input file element to read the file from.
          * @param callback              A function accepting 1 parameter: the data in base64 format.
+         * @param failure               An optional function to call in case of a failure.
          *
          */
-        this.readBase64 = function (inputFileElementId, callback) {
+        this.readBase64 = function (inputFileElementId, callback, failure) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
@@ -23,7 +24,14 @@
                 callback(data);
             };
 
-            reader.readAsDataURL(document.getElementById(inputFileElementId).files[0]);
+            var dd = document.getElementById(inputFileElementId).files[0];
+            if (typeof(dd) == 'object') {
+                reader.readAsDataURL(dd);
+            } else {
+                if (failure) {
+                    failure('No file selected');
+                }
+            }
         };
 
         /** Returns whether a file has been chosen for an upload.
