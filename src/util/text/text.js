@@ -130,6 +130,25 @@ var text = {
         return _fhalf + this.repeat('.', dotl) + _shalf;
     },
 
+    /** When a string is too long, use this function to trim it and put '...' at the end.
+     *
+     * @param value     The string to trim
+     * @param length    Length to trim the string to
+     * @returns {*}     'Shortened' string
+     */
+    shortened: function (value, length) {
+        var l = value.length;
+        if (l <= length) {
+            return value;
+        }
+
+        if (length < 5) {
+            throw new Error('Conditional length too small; cannot proceed.');
+        }
+
+        return (new String()).concat(value.slice(0, length - 3), this.repeat('.', 3));
+    },
+
     /** Make a string by repeating it.
      *  e.g. repeat('hi', 3) gives 'hihihi'
      *
@@ -207,5 +226,42 @@ var text = {
         } else {
             return String(placeholder);
         }
+    },
+
+    /** Safely parses an input string and returns the containing number.
+     *  If the string does not contain any number, a specified fallback is returned.
+     *  In case the string is undefined or null, fallback is returned again.
+     *
+     * @param string    A string to parse.
+     * @param fallback  A fallback value when a string does not contain any value.
+     * @returns {*}     Number in the string or a fallback value.
+     */
+    safeInt: function (string, fallback) {
+        if (string) {
+            var i = parseInt(string);
+            if (!isNaN(i)) {
+                return i;
+            }
+        }
+
+        return fallback;
+    },
+
+    /** Performs case insensitive and substring form of 'includes' while finding the item that is 'responsible'.
+     *  Example:
+     *      var it = text.findInclude(['hello', 'yay'], 'El');  // it is equal to 'hello'
+     *
+     * @param arr           An array of strings.
+     * @param arg           A string to find.
+     * @returns {boolean}   True if the string is contained within the array.
+     */
+    findInclude: function (arr, arg) {
+        var result = null;
+        arr.forEach(function (item) {
+            if (item.toUpperCase().includes(arg.toUpperCase())) {
+                result = item;
+            }
+        });
+        return result;
     }
 };

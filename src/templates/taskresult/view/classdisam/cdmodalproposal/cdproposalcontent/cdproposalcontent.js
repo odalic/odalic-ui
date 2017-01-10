@@ -43,17 +43,6 @@
                     alternativeLabels.push(proposal.alternativeLabel2);
                 }
 
-                $scope.newObj = {
-                    "entity": {
-                        "resource": url,
-                        "label": proposal.label
-                    },
-                    "score": {
-                        "value": 0
-                    }
-                };
-                $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-
                 if ($scope.selectedPosition.row == -1) {
 
                     //object in rest api format for classes
@@ -77,46 +66,69 @@
                     resources(obj);
                 }
             }
-
-            // Either way we close the modal upon the click
-            // $uibModalInstance.close();
         };
         //endregion
 
         //saves new propose class
         var classes = function (obj) {
-            var currentTimeStamp =  new Date().getTime();
-            rest.base($scope.primaryKB).entities.classes.stamp(currentTimeStamp).update(obj).exec(
+            rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
+                    var newObj = {
+                        "entity": {
+                            "resource": response.resource,
+                            "label": response.label
+                        },
+                        "score": {
+                            "value": 0
+                        }
+                    };
 
-                    //adds classification into result
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
+                    //adds classification into rusult
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
+
+                    //locks cell
+                    $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
+                    //deletes form fields
+                    $scope.proposal={};
 
                     //success message
                     success();
-
                 },
                 // Error
                 function (response) {
                     //because of a delayed response server
                     var info = JSON.parse(response.data);
-                    if (currentTimeStamp.toString()==  info.stamp) {
                        fail(info);
-                     }
                 }
             );
         };
 
         //saves new propose resource
         var resources = function (obj) {
-            var currentTimeStamp =  new Date().getTime();
-            rest.base($scope.primaryKB).entities.resources.stamp(currentTimeStamp).update(obj).exec(
+            rest.base($scope.primaryKB).entities.resources.update(obj).exec(
                 function (response) {
+                    var newObj = {
+                        "entity": {
+                            "resource": response.resource,
+                            "label": response.label
+                        },
+                        "score": {
+                            "value": 0
+                        }
+                    };
                     //adds disambiguation into result
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
+
+
+                    //locks cell
+                    $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
+                    //deletes form fields
+                    $scope.proposal={};
 
                     //success message
                     success();
@@ -124,11 +136,8 @@
                 // Error
                 function (response) {
                     var info = JSON.parse(response.data);
-                    //because of a delayed response server
-                    if (currentTimeStamp.toString()==  info.stamp) {
                         //fail message
                         fail(info);
-                    }
                 }
             );
         };
@@ -147,8 +156,5 @@
             $scope.serverResponse.visible = true;
             $scope.messege = info.payload.text;
         }
-
     });
-
-
 })();

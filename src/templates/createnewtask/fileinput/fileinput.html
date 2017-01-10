@@ -20,16 +20,16 @@
 <!-- Remote location placeholder -->
 <injector for="deflocation">http://</injector>
 
+<!-- Modal for file configuration -->
+<file-settings bind="fileconfig" />
+
 <div ng-switch="fileProvision" ng-init="fileProvision = 'local'">
     <!-- Local file -->
     <ng-form name="localFileForm" ng-switch-when="local">
         <div class="form-group">
             <label class="col-md-2 control-label">Upload a new file:</label>
             <div class="col-md-8">
-                <input type="file" id="concreteFile" name="fileSelector" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" required />
-                <div ng-messages="localFileForm.fileSelector.$error" ng-if='localFileForm.fileSelector.$dirty' role="alert">
-                    <div ng-message="required"><error-msg>A file has to be selected for upload.</error-msg></div>
-                </div>
+                <input type="file" id="concreteFile" name="fileSelector" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
             </div>
         </div>
         <div class="form-group">
@@ -87,13 +87,18 @@
 <!-- Selecting file from the list -->
 <div class="form-group">
     <label class="col-md-2 control-label">Selected file:</label>
-    <div class="col-md-10">
+    <div class="col-md-8">
         <select class="form-control fs-aclass" name="fileSelectList" ng-model="fileList.selectedFile" ng-options="file.id for file in fileList.identifiers" required>
             <option value="">Select file</option>
         </select>
         <div ng-if="form.fileSelectList.$invalid && form.fileSelectList.$dirty">
             <error-msg>A file has to be selected.</error-msg>
         </div>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="form-control" ng-click="configureFile()" ng-disabled="form.fileSelectList.$invalid">
+            Configure
+        </button>
     </div>
 </div>
 

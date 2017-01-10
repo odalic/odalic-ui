@@ -5,6 +5,10 @@ $.defineModule(function () {
         var successf = function (success) {
             return function (response) {
                 var r = response.data;
+                if (typeof(r) !== 'object') {
+                    r = JSON.parse(r);
+                }
+
                 var res = {};
                 var addarg1 = undefined;
                 var addarg2 = undefined;
@@ -20,6 +24,42 @@ $.defineModule(function () {
                 success(res, addarg1, addarg2);
             };
         };
+
+        //function with parameters for classification/disambiguation/relation suggestions
+        var searchRequest = function (kb, type) {
+            return function (string) {
+                return {
+                    limit: function (countLimit) {
+                        return {
+                            retrieve: {
+                                exec: function (success, failure) {
+                                    requests.quickRequest(text.urlConcat(root, kb, 'entities', type) + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
+                                }
+                            }
+                        };
+                    }
+                };
+            };
+        };
+
+        //function with parameters for classification/disambiguation/relation proposal
+        var proposeRequest = function(kb, type)
+        {
+            return function (data) {
+                return {
+                    exec: function (success, failure) {
+                        requests.reqJSON({
+                            method: 'POST',
+                            address: text.urlConcat(root, kb, 'entities', type),
+                            formData: data,
+                            success: successf(success),
+                            failure: failure
+                        });
+                    },
+                };
+            };
+
+        }
 
         return {
             // Files service
@@ -79,6 +119,35 @@ $.defineModule(function () {
                                     success: successf(success),
                                     failure: failure
                                 });
+                            },
+                            address: function () {
+                                return text.urlConcat(root, 'files', identifier, 'data');
+                            }
+                        },
+                        configuration: {
+                            retrieve: {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'GET',
+                                        address: text.urlConcat(root, 'files', identifier, 'format'),
+                                        formData: null,
+                                        success: successf(success),
+                                        failure: failure
+                                    });
+                                }
+                            },
+                            replace: function (data) {
+                                return {
+                                    exec: function (success, failure) {
+                                        requests.reqJSON({
+                                            method: 'PUT',
+                                            address: text.urlConcat(root, 'files', identifier, 'format'),
+                                            formData: data,
+                                            success: successf(success),
+                                            failure: failure
+                                        });
+                                    }
+                                }
                             }
                         }
                     };
@@ -209,7 +278,7 @@ $.defineModule(function () {
                                 exec: function (success, failure) {
                                     requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'), 'GET', successf(success), failure);
                                 }
-                            },
+                            }
                         }
                     };
                 },
@@ -227,128 +296,35 @@ $.defineModule(function () {
                 }
             },
 
-            // GET http://example.com/base/entities?query=Pra&limit=20
+
             base: function (kb) {
                 return {
                     entities: {
-                        query: function (string) {
-                            return {
-                                limit: function (countLimit) {
-                                    return {
-                                        retrieve: {
-                                            exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET');
-                                                requests.quickRequest(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
-                                            },
-                                        },
-                                    };
-                                },
-                            };
-                        },
                         classes: {
-                            stamp: function (timeStamp) {
-                                return {
-                                    update: function (data) {
-                                        return {
-                                            exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities', 'classes')+ '?stamp=' + timeStamp);
-                                                requests.reqJSON({
-                                                    method: 'POST',
-                                                    address: text.urlConcat(root, kb, 'entities', 'classes') + '?stamp=' + timeStamp,
-                                                    formData: data,
-                                                    success: successf(success),
-                                                    failure: failure
-                                                });
-                                            },
-                                        };
-                                    },
-                                };
-                            },
+                            //GET http://example.com/{base}/entities/classes?query=Cit&limit=20
+                            query: searchRequest(kb, 'classes'),
+
+                            //POST http://example.com/{base}/entities/classes
+                            update: proposeRequest(kb, 'classes')
                         },
                         resources: {
-                            stamp: function (timeStamp) {
-                                return {
-                                    update: function (data) {
-                                        return {
-                                            exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities', 'resources')+ '?stamp=' + timeStamp);
-                                                requests.reqJSON({
-                                                    method: 'POST',
-                                                    address: text.urlConcat(root, kb, 'entities', 'resources')+ '?stamp=' + timeStamp,
-                                                    formData: data,
-                                                    success: successf(success),
-                                                    failure: failure
-                                                });
-                                            },
-                                        };
-                                    },
-                                };
-                            },
+                            //GET http://example.com/{base}/entities/resources?query=Pra&limit=20
+                            query: searchRequest(kb, 'resources'),
+
+                            //POST http://example.com/{base}/entities/resources
+                            update: proposeRequest(kb, 'resources')
+                        },
+                        properties: {
+                            //GET http://example.com/{base}/entities/properties?query=cap&limit=20
+                            query: searchRequest(kb, 'properties'),
+
+                            //POST http://example.com/{base}/entities/properties
+                            update: proposeRequest(kb, 'properties')
+
                         },
                     },
                 };
             },
-
-            // GET http://example.com/base/entities?query=Pra&limit=20
-            base: function (kb) {
-                return {
-                    entities: {
-                        query: function (string) {
-                            return {
-                                limit: function (countLimit) {
-                                    return {
-                                        retrieve: {
-                                            exec: function (success, failure) {
-                                                console.log(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET');
-                                                requests.quickRequest(text.urlConcat(root, kb, 'entities') + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
-                                            },
-                                        },
-                                    };
-                                },
-                            };
-                        },
-                        classes: {
-                            stamp: function (timeStamp) {
-                                return {
-                                    update: function (data) {
-                                        return {
-                                            exec: function (success, failure) {
-                                                requests.reqJSON({
-                                                    method: 'POST',
-                                                    address: text.urlConcat(root, kb, 'entities', 'classes') + '?stamp=' + timeStamp,
-                                                    formData: data,
-                                                    success:  success,
-                                                    failure: failure
-                                                });
-                                            },
-                                        };
-                                    },
-                                };
-                            },
-                        },
-                        resources: {
-                            stamp: function (timeStamp) {
-                                return {
-                                    update: function (data) {
-                                        return {
-                                            exec: function (success, failure) {
-                                                requests.reqJSON({
-                                                    method: 'POST',
-                                                    address: text.urlConcat(root, kb, 'entities', 'resources')+ '?stamp=' + timeStamp,
-                                                    formData: data,
-                                                    success: success,
-                                                    failure: failure
-                                                });
-                                            },
-                                        };
-                                    },
-                                };
-                            },
-                        },
-                    },
-                };
-            },
-
         };
     };
 });

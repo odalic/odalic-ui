@@ -1,0 +1,21 @@
+{
+  "id": "i1",
+  "description": "",
+  "created": "2017-01-09 19:30",
+  "configuration": {
+    "rowsLimit": null,
+    "input": "i1.csv",
+    "feedback": {
+      "subjectColumnPositions": {},
+      "columnIgnores": [],
+      "columnAmbiguities": [],
+      "classifications": [],
+      "columnRelations": [],
+      "disambiguations": [],
+      "ambiguities": []
+    },
+    "primaryBase": {
+      "name": "DBpedia"
+    }
+  }
+}

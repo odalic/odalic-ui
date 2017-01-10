@@ -1,45 +1,52 @@
-<div class="col-md-12">
-    <h3>Search:</h3>
+<div class="row">
+    <!-- Find -->
+    <div class="col-md-9">
+        <input type="text" class="form-control"
+               ng-model="string">
+    </div>
+    <div class="col-md-3">
+        <div ng-if="waitForSuggestions == false">
+            <button ng-hide="waitForSuggestions" type="button" class="form-control"
+                    ng-click="getSuggestions(string,'10')">
+                Find
+            </button>
+        </div>
+        <div ng-if="waitForSuggestions == true">
+            <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+        </div>
+    </div>
 </div>
 
-<!-- Find -->
-<div class="col-md-9">
-    <input type="text" class="form-control"
-           ng-model="string">
-</div>
-<div class="col-md-3">
-    <button ng-hide="waitForSuggestions" type="button" class="form-control"
-            ng-click="getSuggestions(string,'10')">
-        Find
-    </button>
-    <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-</div>
-
-<!-- Blank space -->
-<div class="col-md-12 odalic-hstyle-small"></div>
-
-<!-- Add -->
-<div class="col-md-9">
-    <select class="form-control" style="width: 100%"
-            ng-model="suggestion"
-            ng-options=" suggest.resource + ' ' + suggest.label  for suggest in suggestions">
-    </select>
-</div>
-<div class="col-md-3">
-    <button type="button" class="form-control"
-            ng-click="addSuggestions(suggestion)">
-        Add
-    </button>
-    <!-- TODO: Is this todo? Previous comment was: "Icon 'loading'" -->
-</div>
-
-<!-- Blank space -->
-<div class="col-md-12 odalic-hstyle-small"></div>
-
-<!-- Prepared messages for a user in case of a situation -->
 <injector for="rtxt.finderror">An error occured while searching for a concept.</injector>
 
-<!-- Messages -->
-<div class="col-md-12">
-    <alert-group bind="reporting" />
+<div class="row">
+    <!-- Add -->
+    <div class="col-md-9">
+        <select class="form-control" style="width: 100%"
+                ng-model="suggestion"
+                ng-options="suggest.label + ' (' + suggest.resource + ')' for suggest in suggestions">
+        </select>
+    </div>
+    <div class="col-md-3">
+        <button type="button" class="form-control" ng-disabled="suggestions.length ==0"
+                ng-click="addSuggestions(suggestion)">
+            Add
+        </button>
+        <!-- TODO: Is this todo? Previous comment was: "Icon 'loading'" -->
+    </div>
 </div>
+
+<div class="row">
+    <!-- Blank space -->
+    <div class="col-md-12 odalic-hstyle-small"></div>
+</div>
+
+<!-- Prepared messages for a user in case of a situation -->
+
+<div class="row">
+    <!-- Messages -->
+    <div class="col-md-12">
+        <alert-group bind="reporting"/>
+    </div>
+</div>
+

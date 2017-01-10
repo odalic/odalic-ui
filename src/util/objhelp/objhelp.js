@@ -37,6 +37,7 @@ var objhelp = {
 
     /** Returns the first argument that is defined - either non-null or true.
      *  If none such are available, null is returned.
+     *  The function is variadic.
      *
      * @returns {*}
      */
@@ -97,6 +98,7 @@ var objhelp = {
 
     /** Copies contents of a one object into another.
      *  Omits the properties that are already defined in the second object.
+     *  Beware, the copy is non-recursive.
      *
      * @param obj1 The object to copy.
      * @param obj2 The object to copy the first object to. Must not be null nor undefined.
@@ -116,5 +118,76 @@ var objhelp = {
                 obj2[key] = value;
             }
         });
+    },
+
+    /** Performs a test of a passed argument by passed tests.
+     *  If the argument passes all of the passed tests, it is returned, otherwise the fallback is returned.
+     *  Example:
+     *      var i = objhelp.test(3, 'alternative', '> 0', '<= 3');  // i is equal to 3
+     *      var j = objhelp.test(3, 'alternative', '> 0', '< 3');   // j is equal to 'alternative'
+     *
+     *  Note that if the argument is undefined or null, the fallback is returned.
+     *
+     * @param arg       The argument to test.
+     * @param fallback  Fallback to use when the argument does not pass any of tests.
+     * {params String}  Any amount of tests in the following format: '< 0', '=== true', etc.
+     * @returns {*}     The argument or the fallback.
+     */
+    test: function (arg, fallback) {
+        // If undefined or null, return fallback
+        if (!arg) {
+            return fallback;
+        }
+
+        // Remove first argument
+        var args = Array.prototype.slice.call(arguments, 1);
+
+        // Test
+        for (;;) {
+            args = Array.prototype.slice.call(args, 1);
+            if (args.length <= 0) {
+                return arg;
+            }
+
+            var tt = (new String()).concat(String(arg), ' ', args[0]);
+            if (!eval(tt)) {
+                return fallback;
+            }
+        }
+    },
+
+    /** Calls the first argument that is defined and is a function.
+     *  This function is variadic.
+     *
+     */
+    callFirstArg: function () {
+        for (var i = 0; i < arguments.length; i++) {
+            if (typeof(arguments[i]) === 'function') {
+                arguments[i]();
+                return;
+            }
+        }
+    },
+
+    /** Creates a two-sided mirror from an array.
+     *  Example:
+     *      var m = objhelp.tsmirros([['1', 'a'], ['2', 'b'], ['3', 'c']]);
+     *      var i = m.second['2'];  // i is equal to 'b'
+     *      var j = m.first['c'];   // j is equal to '3'
+     *
+     * @param arr                           Array to create a mirror from.
+     * @returns {{first: {}, second: {}}}   The created mirror.
+     */
+    tsmirror: function (arr) {
+        var mirror = {
+            first: {},
+            second: {}
+        };
+        arr.forEach(function (item) {
+            mirror.first[item[1]] = item[0];
+            mirror.second[item[0]] = item[1];
+        });
+
+        return mirror;
     }
 };

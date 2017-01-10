@@ -1,0 +1,154 @@
+<div class="modal fade" role="dialog">
+    <div class="modal-dialog lg">
+        <div class="modal-content">
+
+            <!-- Headline -->
+            <div class="modal-header">
+                <h2>File configuration</h2>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body container-fluid">
+                <loadico bind="dataload" size="3" center="true" showtxt="true">
+                    <!-- Encoding -->
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="control-label">Encoding:</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="settings.encoding.selection" ng-options="option for option in settings.encoding.options"></select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="settings.encoding.value" ng-disabled="settings.encoding.selection != 'custom'" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blank space -->
+                    <div class="col-md-12 odalic-hstyle-small"></div>
+
+                    <!-- Delimiter -->
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="control-label">Delimiter:</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="settings.delimiter.selection" ng-options="option for option in settings.delimiter.options"></select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="settings.delimiter.value" ng-disabled="settings.delimiter.selection != 'custom'" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blank space -->
+                    <div class="col-md-12 odalic-hstyle-small"></div>
+
+                    <!-- Escape character -->
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="control-label">Escape character:</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="settings.escape.selection" ng-options="option for option in settings.escape.options">
+                                    <option value="">none</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="settings.escape.value" ng-disabled="settings.escape.selection != 'custom'" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blank space -->
+                    <div class="col-md-12 odalic-hstyle-small"></div>
+
+                    <!-- Comment marker -->
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="control-label">Comment marker:</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="settings.comment.selection" ng-options="option for option in settings.comment.options">
+                                    <option value="">none</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="settings.comment.value" ng-disabled="settings.comment.selection != 'custom'" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blank space -->
+                    <div class="col-md-12 odalic-hstyle-small"></div>
+
+                    <!-- Quote character -->
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="control-label">Quote character:</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-6">
+                                <select class="form-control" ng-model="settings.quote.selection" ng-options="option for option in settings.quote.options">
+                                    <option value="">none</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" ng-model="settings.quote.value" ng-disabled="settings.quote.selection != 'custom'" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Blank space -->
+                    <div class="col-md-12 odalic-hstyle-small"></div>
+
+                    <!-- Empty lines ignore -->
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="settings.emptylinesignore"/> Ignore empty lines
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- HeaderCase ignore -->
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="settings.headercaseignore"/> Ignore HeaderCase
+                            </label>
+                        </div>
+                    </div>
+                </loadico>
+
+                <!-- Blank space -->
+                <div class="col-md-12 odalic-hstyle-small"></div>
+
+                <!-- Messages to a user in case of a situation -->
+                <injector for="msgtxt.loadFailure">An error occurred while loading the file configuration.</injector>
+                <injector for="msgtxt.saveFailure">An error occurred while saving the file configuration.</injector>
+
+                <div class="col-md-12">
+                    <alert-group bind="messages"/>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <!--<button type="button" class="form-control" ng-click="save()" ng-disabled="!dataload.show">Save and close</button>-->
+                        <button-load action="save" disabled="!dataload.show">Save and close</button-load>
+                    </div>
+                    <div class="col-md-offset-4 col-md-4">
+                        <button type="button" class="form-control" ng-click="dismiss()" >Dismiss</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

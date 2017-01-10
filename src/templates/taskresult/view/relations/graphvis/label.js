@@ -146,6 +146,80 @@ var label = function (d3sel) {
 };
 
 
+/** Node label, for displaying node labels.
+ *
+ * @param d3sel  D3 selection of the element that should contain the label
+ *
+ * @constructor
+ * @extends {label}
+ */
+var nodelabel = function (d3sel) {
+    // inherit
+    var ll = new label(d3sel);
+
+    // automatic font decreasing
+    var _mwidth = null;
+    var _basefont = 15;
+    var _nowfont = _basefont;
+    var _minfont = 10;
+
+    // changes text; does not exceed the maximum allowed width
+    ll.changeText = (function(f) {
+        return function (labelText) {
+            var label = ll.label;
+            f.call(ll, labelText);
+
+            // binary search for finding an optimal font-size
+            var up = _basefont;
+            var down = _minfont;
+            while (down <= up) {
+                _nowfont = (up + down) / 2;
+
+                // try using the new font-size and test, whether it is OK
+                label.attr('font-size', _nowfont);
+                f.call(ll, labelText);
+                if (ll.width > _mwidth) {
+                    up = _nowfont - 1;
+                } else {
+                    down = _nowfont + 1;
+                }
+            }
+
+            // still exceeding bounds?
+            if (ll.width > _mwidth) {
+                // binary search for shortened text
+                var dup = labelText.length;
+                var ddown = 5;
+                while (ddown <= dup) {
+                    var dmid = (dup + ddown) / 2;
+                    f.call(ll, text.shortened(labelText, dmid));
+                    if (ll.width > _mwidth) {
+                        dup = dmid - 1;
+                    } else {
+                        ddown = dmid + 1;
+                    }
+                }
+            }
+        }
+    })(ll.changeText);
+
+    // attach override
+    ll.attach = (function(f) {
+        return function(text) {
+            f.call(ll, text);
+            ll.changeText(text);
+            ll.update();
+        }
+    })(ll.attach);
+
+    // sets maximum allowed width for the current label
+    ll.setMaxWidth = function (width) {
+        _mwidth = width;
+    };
+
+    return ll;
+};
+
 
 /** Edge label, for displaying edge labels
  *
