@@ -15,8 +15,16 @@
             visible: false
         };
 
+        $scope.missingColumnClass= {
+            type: 'error',
+            visible: true,
+        };
+
+        $scope.columnClass = $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB];
+        $scope.disableDisambCondition =   $scope.selectedPosition.row != -1 &&  $scope.columnClass.length==0
         //region proposal settings
         $scope.setProposal = function (proposal) {
+
 
             // Is proposal defined?
             if (proposal) {
@@ -34,8 +42,6 @@
                 if (proposal.alternativeLabel2 != null) {
                     alternativeLabels.push(proposal.alternativeLabel2);
                 }
-
-
 
                 if ($scope.selectedPosition.row == -1) {
 
@@ -60,8 +66,6 @@
                     resources(obj);
                 }
             }
-
-          
         };
         //endregion
 
@@ -84,12 +88,14 @@
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
                     $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
 
+                    //locks cell
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
+                    //deletes form fields
                     $scope.proposal={};
+
                     //success message
                     success();
-
                 },
                 // Error
                 function (response) {
@@ -117,9 +123,13 @@
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
                     $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
 
+
+                    //locks cell
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
+                    //deletes form fields
                     $scope.proposal={};
+
                     //success message
                     success();
                 },
@@ -146,8 +156,5 @@
             $scope.serverResponse.visible = true;
             $scope.messege = info.payload.text;
         }
-
     });
-
-
 })();

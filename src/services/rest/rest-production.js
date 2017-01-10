@@ -42,6 +42,25 @@ $.defineModule(function () {
             };
         };
 
+        //function with parameters for classification/disambiguation/relation proposal
+        var proposeRequest = function(kb, type)
+        {
+            return function (data) {
+                return {
+                    exec: function (success, failure) {
+                        requests.reqJSON({
+                            method: 'POST',
+                            address: text.urlConcat(root, kb, 'entities', type),
+                            formData: data,
+                            success: successf(success),
+                            failure: failure
+                        });
+                    },
+                };
+            };
+
+        }
+
         return {
             // Files service
             files: {
@@ -285,41 +304,22 @@ $.defineModule(function () {
                             //GET http://example.com/{base}/entities/classes?query=Cit&limit=20
                             query: searchRequest(kb, 'classes'),
 
-                            update: function (data) {
-                                return {
-                                    exec: function (success, failure) {
-                                        requests.reqJSON({
-                                            method: 'POST',
-                                            address: text.urlConcat(root, kb, 'entities', 'classes'),
-                                            formData: data,
-                                            success: successf(success),
-                                            failure: failure
-                                        });
-                                    },
-                                };
-                            },
+                            //POST http://example.com/{base}/entities/classes
+                            update: proposeRequest(kb, 'classes')
                         },
                         resources: {
                             //GET http://example.com/{base}/entities/resources?query=Pra&limit=20
                             query: searchRequest(kb, 'resources'),
 
-                            update: function (data) {
-                                return {
-                                    exec: function (success, failure) {
-                                        requests.reqJSON({
-                                            method: 'POST',
-                                            address: text.urlConcat(root, kb, 'entities', 'resources'),
-                                            formData: data,
-                                            success: successf(success),
-                                            failure: failure
-                                        });
-                                    },
-                                };
-                            },
+                            //POST http://example.com/{base}/entities/resources
+                            update: proposeRequest(kb, 'resources')
                         },
                         properties: {
                             //GET http://example.com/{base}/entities/properties?query=cap&limit=20
                             query: searchRequest(kb, 'properties'),
+
+                            //POST http://example.com/{base}/entities/properties
+                            update: proposeRequest(kb, 'properties')
 
                         },
                     },

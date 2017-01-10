@@ -123,7 +123,7 @@
                         $scope.dataload.show = true;
 
                         // Force rendering of the result
-                        $scope.$apply();
+                        // $scope.$apply();
                     }
                 };
             })();
@@ -407,12 +407,33 @@
         //calls cd proposal modal window
         $scope.openCDProposal = function () {
             $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
                 templateUrl: "src/templates/taskresult/view/classdisam/cdmodalproposal/cdproposalcontent/cdproposalcontent.html",
                 controller: 'cDProposeController',
                 resolve: {
                     data: function () {
                         return {
                             selectedPosition: $scope.selectedPosition,
+                            result: $scope.result,
+                            locked: $scope.locked,
+                            primaryKB: $scope.primaryKB
+                        }
+                    }
+                }
+            });
+        };
+
+        //calls cd proposal modal window
+        $scope.openRProposal = function () {
+            $uibModal.open({
+                templateUrl: "src/templates/taskresult/view/relations/rmodalselection/rmodalproposal/rmodalproposal.html",
+                controller: 'rProposeController',
+                resolve: {
+                    data: function () {
+                        return {
+                            gvdata: $scope.gvdata,
+                            selectedRelation: $scope.selectedRelation,
                             result: $scope.result,
                             locked: $scope.locked,
                             primaryKB: $scope.primaryKB
