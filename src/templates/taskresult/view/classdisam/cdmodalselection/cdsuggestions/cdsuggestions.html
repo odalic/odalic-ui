@@ -23,11 +23,11 @@
     <div class="col-md-9">
         <select class="form-control" style="width: 100%"
                 ng-model="suggestion"
-                ng-options="suggest.resource + ' ' + suggest.label  for suggest in suggestions">
+                ng-options="suggest.label + ' (' + suggest.resource + ')' for suggest in suggestions">
         </select>
     </div>
     <div class="col-md-3">
-        <button type="button" class="form-control"
+        <button type="button" class="form-control" ng-disabled="suggestions.length ==0"
                 ng-click="addSuggestions(suggestion)">
             Add
         </button>

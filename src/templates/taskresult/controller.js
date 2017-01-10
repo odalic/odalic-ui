@@ -121,6 +121,9 @@
 
                         $scope.resview = 'view';
                         $scope.dataload.show = true;
+
+                        // Force rendering of the result
+                        $scope.$apply();
                     }
                 };
             })();
@@ -463,7 +466,7 @@
                 }
 
             });
-        }
+        };
 
         //calls cd selection modal window
         $scope.openRSelection = function () {

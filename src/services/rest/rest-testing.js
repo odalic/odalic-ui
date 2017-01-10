@@ -56,6 +56,13 @@ $.defineModule(function () {
             tasks: {
                 name: function (identifier) {
                     return {
+                        retrieve: {
+                            exec: function (success, failure) {
+                                $.getJSON('./test/samples/result/' + identifier + 'config.json', function (response) {
+                                    success(response);
+                                });
+                            }
+                        },
                         stop: {
                             exec: function (success, failure) {
                                 if (!(identifier in statem)) {
@@ -108,6 +115,7 @@ $.defineModule(function () {
                                                         Papa.parse(response, {
                                                             worker: true,
                                                             complete: function (inputFile) {
+                                                                var inputFileColumns = inputFile.data[0];
                                                                 var inputFileRows = [];
                                                                 for (var i = 1; i < inputFile.data.length; i++) {
                                                                     inputFileRows.push(inputFile.data[i]);
@@ -115,7 +123,7 @@ $.defineModule(function () {
 
                                                                 // Call the callback, which should handle the data and fill the table
                                                                 success({
-                                                                    'columns': inputFile.data[0],
+                                                                    'headers': inputFileColumns,
                                                                     'rows': inputFileRows
                                                                 });
                                                             }
@@ -133,6 +141,15 @@ $.defineModule(function () {
                             retrieve: {
                                 exec: function (success, failure) {
                                     $.getJSON('./test/samples/result/' + identifier + '.json', function (response) {
+                                        success(response);
+                                    });
+                                }
+                            }
+                        },
+                        feedback: {
+                            retrieve: {
+                                exec: function (success, failure) {
+                                    $.getJSON('./test/samples/result/' + identifier + 'feedback.json', function (response) {
                                         success(response);
                                     });
                                 }

@@ -35,16 +35,6 @@
                     alternativeLabels.push(proposal.alternativeLabel2);
                 }
 
-                $scope.newObj = {
-                    "entity": {
-                        "resource": url,
-                        "label": proposal.label
-                    },
-                    "score": {
-                        "value": 0
-                    }
-                };
-
                 if ($scope.selectedPosition.row == -1) {
 
                     //object in rest api format for classes
@@ -78,13 +68,25 @@
             rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
+                    var newObj = {
+                        "entity": {
+                            "resource": response.resource,
+                            "label": response.label
+                        },
+                        "score": {
+                            "value": 0
+                        }
+                    };
 
                     //adds classification into rusult
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
+                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
 
                     //locks cell
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
+                    //deletes form fields
+                    $scope.proposal={};
 
                     //success message
                     success();
@@ -102,12 +104,26 @@
         var resources = function (obj) {
             rest.base($scope.primaryKB).entities.resources.update(obj).exec(
                 function (response) {
+                    var newObj = {
+                        "entity": {
+                            "resource": response.resource,
+                            "label": response.label
+                        },
+                        "score": {
+                            "value": 0
+                        }
+                    };
                     //adds disambiguation into result
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push($scope.newObj);
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [$scope.newObj];
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
+                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
+
 
                     //locks cell
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
+                    //deletes form fields
+                    $scope.proposal={};
+
                     //success message
                     success();
                 },

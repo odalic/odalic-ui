@@ -130,6 +130,25 @@ var text = {
         return _fhalf + this.repeat('.', dotl) + _shalf;
     },
 
+    /** When a string is too long, use this function to trim it and put '...' at the end.
+     *
+     * @param value     The string to trim
+     * @param length    Length to trim the string to
+     * @returns {*}     'Shortened' string
+     */
+    shortened: function (value, length) {
+        var l = value.length;
+        if (l <= length) {
+            return value;
+        }
+
+        if (length < 5) {
+            throw new Error('Conditional length too small; cannot proceed.');
+        }
+
+        return (new String()).concat(value.slice(0, length - 3), this.repeat('.', 3));
+    },
+
     /** Make a string by repeating it.
      *  e.g. repeat('hi', 3) gives 'hihihi'
      *

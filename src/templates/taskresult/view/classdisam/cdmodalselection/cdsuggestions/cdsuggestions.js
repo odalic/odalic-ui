@@ -24,7 +24,7 @@
 
                 //region suggestion from primaryKB
                 // Initialization
-                $scope.suggestions = {};
+                $scope.suggestions = [];
                 $scope.reporting = {};
 
                 //adds new suggestion into ruesult
@@ -79,10 +79,9 @@
 
                 //gets suggestions from server based on user string input
                 $scope.getSuggestions = function (string, limit) {
-                    $scope.reporting.clear();
-                    $scope.suggestions = {};
-
+                    $scope.suggestions = [];
                     $scope.waitForSuggestions = true;
+                    $scope.reporting.clear();
 
                     if ($scope.selectedPosition.row == -1) {
                         //GET http://example.com/{base}/entities/classes?query=Pra&limit=20
