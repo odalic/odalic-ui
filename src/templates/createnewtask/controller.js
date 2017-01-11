@@ -29,19 +29,24 @@
         // TODO: Temporarily this way! Improvement needed!
         // Fallback to default:
         $scope.kbs = {
-            chosenKBs: [],
             availableKBs: [
-                { name: 'DBpedia' },
-                { name: 'DBpedia Clone' },
-                { name: 'German DBpedia' }
+                // { name: 'DBpedia' },
+                // { name: 'DBpedia Clone' },
+                // { name: 'German DBpedia' }
             ],
-            primaryKB: { name: 'DBpedia' }
+            primaryKB: null,
+            setDefault: function () {
+                if (this.availableKBs && this.availableKBs.length > 0) {
+                    this.primaryKB = this.availableKBs[0];
+                }
+            }
         };
         rest.bases.list(false).exec(
             // Success
             function (response) {
                 console.log(response);
                 $scope.kbs.availableKBs = response;
+                $scope.kbs.setDefault();
             },
 
             // Failure
@@ -49,15 +54,9 @@
                 // Log and ignore. Hopefully won't happen.
                 console.warn('Could not load KB list. Reponse:');
                 console.warn(response);
+                $scope.kbs.setDefault();
             }
         );
-
-        $scope.automaticSelectPrimaryKB = function () {
-            var chosen = $scope.kbs.chosenKBs;
-            if (chosen && (chosen.length > 0)) {
-                $scope.kbs.primaryKB = chosen[0];
-            }
-        };
 
 
 

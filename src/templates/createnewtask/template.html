@@ -55,20 +55,22 @@
                     <div class="col-md-10">
                         <select size="{{ kbs.availableKBs.length }}"
                                 class="form-control"
-                                ng-model="kbs.chosenKBs"
                                 multiple
+                                ng-model="kbs.chosenKBs"
                                 ng-options="opt.name for opt in kbs.availableKBs"
-                                ng-change="automaticSelectPrimaryKB()"></select>
+                                disabled></select>
                     </div>
                 </div>
                 <div class="form-group">
                     <!-- setting of primary knowledge base -->
                     <label class="col-md-2 control-label">Primary knowledge base:</label>
                     <div class="col-md-10">
-                        <select class="form-control"
-                                ng-model="kbs.primaryKB"
-                                ng-options="opt.name for opt in kbs.chosenKBs"></select>
-
+                        <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.availableKBs" required>
+                            <option value="">Select Knowledge Base</option>
+                        </select>
+                        <div ng-if="taskCreationForm.selectPrimaryKB.$invalid && taskCreationForm.selectPrimaryKB.$dirty">
+                            <error-msg>A knowledge base has to be selected.</error-msg>
+                        </div>
                     </div>
                 </div>
             </fieldset>
