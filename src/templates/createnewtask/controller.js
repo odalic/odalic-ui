@@ -26,14 +26,40 @@
         //az to bude server umet, tak se dostupne kbs nastavi ze serveru
 
         //Supported knowledge bases
-        $scope.availableKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
+        // TODO: Temporarily this way! Improvement needed!
+        // Fallback to default:
+        $scope.kbs = {
+            chosenKBs: [],
+            availableKBs: [
+                { name: 'DBpedia' },
+                { name: 'DBpedia Clone' },
+                { name: 'German DBpedia' }
+            ],
+            primaryKB: { name: 'DBpedia' }
+        };
+        rest.bases.list(false).exec(
+            // Success
+            function (response) {
+                console.log(response);
+                $scope.kbs.availableKBs = response;
+            },
 
-        $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
-        $scope.primaryKB = "DBpedia";
+            // Failure
+            function (response) {
+                // Log and ignore. Hopefully won't happen.
+                console.warn('Could not load KB list. Reponse:');
+                console.warn(response);
+            }
+        );
 
         $scope.automaticSelectPrimaryKB = function () {
-            $scope.primaryKB = $scope.chosenKBs[0];
+            var chosen = $scope.kbs.chosenKBs;
+            if (chosen && (chosen.length > 0)) {
+                $scope.kbs.primaryKB = chosen[0];
+            }
         };
+
+
 
         $scope.wholeForm = {
             // Messages for a user
@@ -62,7 +88,7 @@
                             columnRelations: []
                         },
                         primaryBase: {
-                            name: $scope.primaryKB
+                            name: $scope.kbs.primaryKB.name
                         },
                         rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null
                     },
