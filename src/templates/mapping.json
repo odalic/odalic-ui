@@ -15,6 +15,11 @@
         "controller": "generic"
     },
     {
+        "route": "/ngtest",
+        "folder": "ngtest",
+        "controller": "odalic-ngtest-ctrl"
+    },
+    {
         "route": "/taskconfigs",
         "folder": "taskconfigs",
         "controller": "odalic-taskconfigs-ctrl"

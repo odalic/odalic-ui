@@ -55,11 +55,11 @@ $.defineModule(function () {
                             success: successf(success),
                             failure: failure
                         });
-                    },
+                    }
                 };
             };
 
-        }
+        };
 
         return {
             // Files service
@@ -296,6 +296,17 @@ $.defineModule(function () {
                 }
             },
 
+            // Knowledge bases service
+            bases: {
+                list: function (modifiable) {
+                    return {
+                        exec: function (success, failure) {
+                            requests.quickRequest(text.urlConcat(root, (new String()).concat('bases', '?modifiable=', modifiable)), 'GET', successf(success), failure);
+                        }
+                    }
+                }
+            },
+
 
             base: function (kb) {
                 return {
@@ -322,7 +333,7 @@ $.defineModule(function () {
                             update: proposeRequest(kb, 'properties')
 
                         },
-                    },
+                    }
                 };
             },
         };
