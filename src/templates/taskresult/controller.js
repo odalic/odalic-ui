@@ -181,6 +181,8 @@
                 // Success
                 function (response) {
                     $scope.result = response;
+                    // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
+                    $scope.chosenKBs = Object.keys( $scope.result.subjectColumnPositions);
 
                     // Prepare data for graphvis component
                     actions.push(setsData);
@@ -238,8 +240,7 @@
         $scope.serverFeedback = {};
 
 
-        // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
-        $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
+
         //region dependent on data from server
         //sets data for graph component
         $scope.currentRelations = {};

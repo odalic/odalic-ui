@@ -65,7 +65,7 @@
                     <!-- setting of primary knowledge base -->
                     <label class="col-md-2 control-label">Primary knowledge base:</label>
                     <div class="col-md-10">
-                        <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.availableKBs" required>
+                        <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableKBs" required>
                             <option value="">Select Knowledge Base</option>
                         </select>
                         <div ng-if="taskCreationForm.selectPrimaryKB.$invalid && taskCreationForm.selectPrimaryKB.$dirty">
