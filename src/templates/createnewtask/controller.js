@@ -29,6 +29,7 @@
         // TODO: Temporarily this way! Improvement needed!
         // Fallback to default:
         $scope.kbs = {
+            modifiableKBs:[],
             availableKBs: [
                 // { name: 'DBpedia' },
                 // { name: 'DBpedia Clone' },
@@ -36,8 +37,8 @@
             ],
             primaryKB: null,
             setDefault: function () {
-                if (this.availableKBs && this.availableKBs.length > 0) {
-                    this.primaryKB = this.availableKBs[0];
+                if (this.modifiableKBs && this.modifiableKBs.length > 0) {
+                    this.primaryKB = this.modifiableKBs[0];
                 }
             }
         };
@@ -46,6 +47,20 @@
             function (response) {
                 console.log(response);
                 $scope.kbs.availableKBs = response;
+            },
+
+            // Failure
+            function (response) {
+                // Log and ignore. Hopefully won't happen.
+                console.warn('Could not load KB list. Reponse:');
+            }
+        );
+
+        rest.bases.list(true).exec(
+            // Success
+            function (response) {
+                console.log(response);
+                $scope.kbs.modifiableKBs = response;
                 $scope.kbs.setDefault();
             },
 
