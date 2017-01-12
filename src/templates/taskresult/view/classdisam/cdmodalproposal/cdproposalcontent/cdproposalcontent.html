@@ -21,7 +21,7 @@
                     <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
                     <div ng-messages="cDProposeForm.label.$error" role="alert">
                         <div ng-message="required">
-                            <error-msg>You did not enter a field</error-msg>
+                            <error-msg>Label is mandatory</error-msg>
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
                     <div ng-messages="cDProposeForm.suffixUri.$error" role="alert">
                         <div ng-message="required">
-                            <error-msg>You did not enter a field</error-msg>
+                            <error-msg>Custom URL suffix is mandatory</error-msg>
                         </div>
                     </div>
                 </div>

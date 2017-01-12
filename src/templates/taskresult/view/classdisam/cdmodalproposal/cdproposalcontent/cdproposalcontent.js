@@ -147,7 +147,7 @@
         {
             $scope.serverResponse.type = 'success';
             $scope.serverResponse.visible = true;
-            $scope.messege = "Propose was saved";
+            $scope.messege = "Proposed relation was successfully saved in the knowledge base";
         }
         //sets parameters for the alert directive
         var fail = function(info)
