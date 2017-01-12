@@ -1,5 +1,6 @@
 <form name="rProposeForm" novalidate class="form-horizontal" role="form">
     <div class="container-fluid">
+        <br/>
         <div class="form-group">
             <label class="col-md-4 control-label">Label:</label>
             <div class="col-md-8">
@@ -12,26 +13,23 @@
             </div>
         </div>
 
-        <br/>
-
         <div class="form-group">
             <label class="col-md-4 control-label">Alternative label:</label>
             <div class="col-md-8">
                 <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
             </div>
         </div>
-        <br>
 
         <!--<div class="form-group">-->
-            <!--<label class="col-md-4 control-label">Type:</label>-->
-            <!--<div class="col-md-8">-->
-                <!--<label class="radio-inline">-->
-                    <!--<input type="radio" ng-model="type" value="dogs">Data type property-->
-                <!--</label>-->
-                <!--<label class="radio-inline">-->
-                    <!--<input type="radio" ng-model="type" value="tuts">Object propery-->
-                <!--</label>-->
-            <!--</div>-->
+        <!--<label class="col-md-4 control-label">Type:</label>-->
+        <!--<div class="col-md-8">-->
+        <!--<label class="radio-inline">-->
+        <!--<input type="radio" ng-model="type" value="dogs">Data type property-->
+        <!--</label>-->
+        <!--<label class="radio-inline">-->
+        <!--<input type="radio" ng-model="type" value="tuts">Object propery-->
+        <!--</label>-->
+        <!--</div>-->
         <!--</div>-->
 
         <div class="form-group">
@@ -41,7 +39,7 @@
                        ng-model="result.headerAnnotations[selectedRelation.column1].chosen[primaryKB][0].entity.resource">
             </div>
         </div>
-        <br>
+
         <div class="form-group">
             <label class="col-md-4 control-label">Range:</label>
             <div class="col-md-8">
@@ -49,7 +47,6 @@
                        ng-model="result.headerAnnotations[selectedRelation.column2].chosen[primaryKB][0].entity.resource">
             </div>
         </div>
-        <br>
 
         <div class="form-group">
             <label class="col-md-4 control-label">Custom URL suffix:</label>
@@ -64,16 +61,22 @@
             <br>
         </div>
 
-        <br/>
+        <div class="form-group">
+            <div class="col-md-2 col-lg-offset-10 ">
+                <button type="submit" ng-disabled="!rProposeForm.$valid" class="btn btn-lg"
+                        ng-click="setProposal(proposal)">
+                    OK
+                </button>
+            </div>
+        </div>
 
-        <button type="submit" ng-disabled="!rProposeForm.$valid" class="btn btn-lg" ng-click="setProposal(proposal)">
-            OK
-        </button>
-
-
-        <alert bind="serverResponse">
-            {{messege}}
-        </alert>
+        <div class="form-group">
+            <div class="col-md-12">
+                <alert bind="serverResponse">
+                    {{messege}}
+                </alert>
+            </div>
+        </div>
 
     </div>
 </form>
