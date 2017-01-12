@@ -158,14 +158,26 @@ var nodelabel = function (d3sel) {
     var ll = new label(d3sel);
 
     // automatic font decreasing
+    var _wholetxt = null;
+    var _shorttxt = null;
     var _mwidth = null;
     var _basefont = 15;
     var _nowfont = _basefont;
-    var _minfont = 10;
+    var _minfont = 11;
+
+    // additional variables
+    var _lastX = null;
+    var _lastY = null;
 
     // changes text; does not exceed the maximum allowed width
     ll.changeText = (function(f) {
+        // save the previous function we are going to override
+        ll.quickChange = function (labelText) {
+            f.call(ll, labelText);
+        };
+
         return function (labelText) {
+            // call original 'changeText' function
             var label = ll.label;
             f.call(ll, labelText);
 
@@ -200,6 +212,10 @@ var nodelabel = function (d3sel) {
                     }
                 }
             }
+
+            // save the string
+            _wholetxt = labelText;
+            _shorttxt = label.text();
         }
     })(ll.changeText);
 
@@ -212,9 +228,38 @@ var nodelabel = function (d3sel) {
         }
     })(ll.attach);
 
+    // update override; if empty arguments provided, will be called for the latest position
+    ll.update = (function(f) {
+        return function (x, y) {
+            if (!x && !y) {
+                if (_lastX && _lastY) {
+                    f.call(ll, _lastX, _lastY);
+                }
+            } else {
+                _lastX = x;
+                _lastY = y;
+                f.call(ll, x, y);
+            }
+        };
+    })(ll.update);
+
     // sets maximum allowed width for the current label
     ll.setMaxWidth = function (width) {
         _mwidth = width;
+    };
+
+    // displaying the whole vs. shortened label
+    ll.displayWhole = function (whole) {
+        if (_wholetxt && _shorttxt) {
+            var label = ll.label;
+            if (whole) {
+                ll.quickChange(_wholetxt);
+                ll.update();
+            } else {
+                ll.quickChange(_shorttxt);
+                ll.update();
+            }
+        }
     };
 
     return ll;
