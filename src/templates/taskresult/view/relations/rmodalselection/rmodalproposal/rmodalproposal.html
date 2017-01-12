@@ -4,7 +4,7 @@
             <label class="col-md-4 control-label">Label:</label>
             <div class="col-md-8">
                 <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
-                <div ng-messages="rProposeForm.label.$error" role="alert">
+                <div ng-messages="rProposeForm.label.$dirty && rProposeForm.label.$error" role="alert">
                     <div ng-message="required">
                         <error-msg>Label is mandatory</error-msg>
                     </div>
@@ -55,7 +55,7 @@
             <label class="col-md-4 control-label">Custom URL suffix:</label>
             <div class="col-md-8">
                 <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
-                <div ng-messages="rProposeForm.suffixUri.$error" role="alert">
+                <div ng-messages="rProposeForm.suffixUri.$dirty && rProposeForm.suffixUri.$error" role="alert">
                     <div ng-message="required">
                         <error-msg>Custom URL suffix is mandatory</error-msg>
                     </div>
