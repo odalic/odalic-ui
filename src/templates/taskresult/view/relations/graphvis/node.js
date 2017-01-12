@@ -169,12 +169,22 @@ var nodeWrapper = function (gprops) {
         this.mouseOver = function () {
             gprops.link.hoveredNode = _ref;
             gsettings.setC(gsettings.stable.hover);
+
+            // display the whole node's label
+            if (_label) {
+                _label.displayWhole(true);
+            }
         };
 
         // mouseOut
         this.mouseOut = function () {
             gprops.link.hoveredNode = null;
             gsettings.setC(gsettings.last);
+
+            // display the shortened node's label
+            if (_label) {
+                _label.displayWhole(false);
+            }
         };
 
         /* Node inner states */
