@@ -114,20 +114,7 @@
                     rest.tasks.name($scope.taskID).feedback.store($scope.feedback).exec(success, error);
                 };
 
-                // Send feedback
-                $scope.userFeedback = function () {
-                    sendFeedback(
-                        // Success
-                        function (response) {
-                            // Feedback successfully sent.
-                        },
 
-                        // Failure
-                        function (response) {
-                            throw new Error('Error while trying to send the feedback.');
-                        }
-                    );
-                };
 
                 // Reexecute
                 $scope.reexecute = function () {
