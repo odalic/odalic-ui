@@ -122,8 +122,8 @@
                         $scope.resview = 'view';
                         $scope.dataload.show = true;
 
-                        // Force rendering of the result
-                        // $scope.$apply();
+                        // Force rendering of the result wen testing
+                        //$scope.$apply();
                     }
                 };
             })();

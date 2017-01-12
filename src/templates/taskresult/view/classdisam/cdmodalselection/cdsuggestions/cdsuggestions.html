@@ -8,7 +8,7 @@
         <div ng-if="waitForSuggestions == false">
             <button ng-hide="waitForSuggestions" type="button" class="form-control"
                     ng-click="getSuggestions(string, '10')">
-                Find
+                Search
             </button>
         </div>
         <div ng-if="waitForSuggestions == true">
@@ -29,7 +29,7 @@
     <div class="col-md-3">
         <button type="button" class="form-control" ng-disabled="suggestions.length ==0"
                 ng-click="addSuggestions(suggestion)">
-            Add
+            Use
         </button>
         <!-- TODO: Is this todo? Previous comment was: "Icon 'loading'" -->
     </div>

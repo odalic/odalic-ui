@@ -67,10 +67,10 @@
                         currentCell.chosen[$scope.knowledgeBase] = [newObj];
                         //locks current cell
                         $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-                        $scope.reporting.push('success','This '+textMessege+' was added.');
+                        $scope.reporting.push('success','This '+textMessege+' was used.');
                     }
                     else {
-                        $scope.reporting.push('error','This '+textMessege+' is already added');
+                        $scope.reporting.push('error','This '+textMessege+' is already in the list of suggested resources.');
                     }
 
                 }
