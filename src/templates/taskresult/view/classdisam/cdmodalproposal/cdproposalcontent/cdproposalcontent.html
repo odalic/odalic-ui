@@ -4,9 +4,8 @@
     </div>
 </div>
 <div class="container-fluid" id="modal-body">
-    <br/>
     <form name="cDProposeForm" novalidate class="form-horizontal" role="form">
-
+        <br/>
         <div ng-if="disableDisambCondition==true">
             <alert bind="missingColumnClass" closable="false">
                 You cannot propose disambiguation, if a column classification for the primary knowledge base is not set.
@@ -27,15 +26,12 @@
                 </div>
             </div>
 
-            <br/>
-
             <div class="form-group">
                 <label class="col-md-4 control-label">Alternative label:</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
                 </div>
             </div>
-            <br>
 
             <div class="form-group">
                 <label class="col-md-4 control-label">Alternative label:</label>
@@ -43,7 +39,7 @@
                     <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
                 </div>
             </div>
-            <br>
+
 
             <div class="form-group">
                 <label class="col-md-4 control-label">Custom URL suffix:</label>
@@ -56,7 +52,7 @@
                     </div>
                 </div>
 
-                <br>
+
             </div>
 
             <!--<div ng-if="(selectedPosition.row == -1)">-->
@@ -81,13 +77,15 @@
             <!--</div>-->
 
             <div ng-if="(selectedPosition.row != -1)">
+                <div class="form-group">
 
-                <label class="col-md-4 control-label">Class:</label>
-                <div class="col-md-8">
-                    <input name="classification" class="form-control" type="text"
-                           ng-disabled="true"
-                           ng-model="columnClass[0].entity.resource"
-                           required>
+                    <label class="col-md-4 control-label">Class:</label>
+                    <div class="col-md-8">
+                        <input name="classification" class="form-control" type="text"
+                               ng-disabled="true"
+                               ng-model="columnClass[0].entity.resource"
+                               required>
+                    </div>
                 </div>
 
                 <!--<div class="form-group">-->
@@ -102,17 +100,22 @@
                 <!--</div>-->
             </div>
 
-            <br/>
+            <div class="form-group">
+                <div class="col-md-2 col-lg-offset-10 ">
+                    <button class="btn btn-lg " type="submit" ng-disabled="!cDProposeForm.$valid"
+                            ng-click="setProposal(proposal)">
+                        OK
+                    </button>
+                </div>
+            </div>
 
-            <button class="btn btn-lg col-md-2 col-lg-offset-10 " type="submit" ng-disabled="!cDProposeForm.$valid"
-                    ng-click="setProposal(proposal)">
-                OK
-            </button>
-
-
-            <alert bind="serverResponse">
-                {{messege}}
-            </alert>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <alert bind="serverResponse">
+                        {{messege}}
+                    </alert>
+                </div>
+            </div>
         </div>
 
     </form>
