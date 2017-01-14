@@ -1,0 +1,50 @@
+<td ng-repeat="cell in row "
+    ng-init="columnIndex = $index"
+    ng-class="(rowIndex == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
+    ng-mouseover="selectPosition( rowIndex,$index)"
+>
+
+    <span>{{ cell }}</span>
+
+    <div class="pull-right">
+        <!-- Propose icon -->
+        <a ng-click="proposal()" class="odalic-cursor-pointer">
+            <span class="fa fa-plus-square-o"></span>
+        </a>
+
+        <!-- Lock icon -->
+        <c-d-lock locked="lockedTableCells" row="{{rowIndex}}" column="{{columnIndex}}"/>
+
+        <!-- Details icon -->
+        <a  ng-click="suggestion()"  class="odalic-cursor-pointer">
+            <span class="glyphicon glyphicon-new-window"></span>
+        </a>
+    </div>
+
+
+    <!--  Primary knowledge base disambiguation -->
+    <div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
+         ng-repeat="disam in concreteData[columnIndex].chosen[primaryKB]">
+        <!-- Remove icon -->
+        <a ng-click="removeClass(concreteData[columnIndex].chosen[primaryKB],columnIndex,$index)" class="odalic-cursor-pointer pull-right">
+            <span ng-class="'fa fa-trash'"></span>
+        </a>
+        <!-- row of cell in format: label (url)-->
+        <span>{{ disam.entity.label + ' ' + '(' + disam.entity.resource + ')' }}</span>
+
+    </div>
+    <!-- other knowledge base disambiguation  -->
+    <div ng-repeat="(KB,data) in concreteData[columnIndex].chosen ">
+        <div ng-if="KB != primaryKB">
+            <div ng-style="backgroundColor(KB)" ng-repeat="disam in data" ng-init="itemIndex = $index" >
+                <!-- Remove icon -->
+                <a ng-click="removeClass(concreteData[columnIndex].chosen[KB],columnIndex,$index)" class="odalic-cursor-pointer pull-right">
+                    <span ng-class="'fa fa-trash'"></span>
+                </a>
+                <!-- row of cell in format: label (url)-->
+                <span>{{ disam.entity.label + ' ' + '(' + disam.entity.resource + ')' }}</span>
+
+            </div>
+        </div>
+    </div>
+</td>

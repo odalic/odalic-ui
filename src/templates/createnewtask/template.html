@@ -1,221 +1,128 @@
+<!-- Prepared messages to display to user in case of a situation -->
+<injector for="msgtxt.saveFailure">An error occured while saving the task.</injector>
+<injector for="msgtxt.createFailure">An error occured while creating the task.</injector>
+<injector for="msgtxt.startFailure">An error occured while starting the task. The task has been successfully created, though.</injector>
+<injector for="msgtxt.loadFailure">Fatal error occured while loading the task configuration.</injector>
+
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="1"
-            lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
+    <navbar selected="2" lmenu="default-lm.json" rmenu="default-rm.json" />
 
-    <div class="container-fluid" ng-controller="createnewtask-ctrl">
-        <h2>Creation of new task</h2>
-        <form class="form-horizontal" role="form" name="taskCreationForm">
+    <div class="container-fluid">
+        <!-- Headline -->
+        <h2 ng-show="templFormat.creating">Creation of new task</h2>
+        <h2 ng-show="!templFormat.creating">Modification of a task configuration</h2>
 
-            <!-- Name of new task -->
+        <!-- The main form -->
+        <form class="form-horizontal" role="form" name="taskCreationForm" ng-init="setForm(this, 'taskCreationForm')">
+            <!-- Basic settings -->
             <fieldset>
-                <legend>New task</legend>
+                <legend>Basic settings</legend>
+
                 <div class="form-group">
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
-                        <input class="form-control" type="text" ng-model="taskCreation.identifier"
-                               required>
-                    </div>
-                </div>
-            </fieldset>
-
-            <!--Uploading input file -->
-            <fieldset>
-                <legend>Input file</legend>
-                <!-- Specifying a source -->
-                <div class="form-group">
-                    <label class="control-label col-md-2">
-                        Source:
-                    </label>
-                    <div class="col-md-5">
-                        <label class="radio-inline">
-                            <input type="radio" ng-model="fileProvision" value="local" />
-                            Uploaded or selected file
-                        </label>
-                    </div>
-                    <div class="col-md-5">
-                        <label class="radio-inline">
-                            <input type="radio" ng-model="fileProvision" value="remote" disabled="true"/>
-                            Remote file
-                        </label>
-                    </div>
-                </div>
-
-                <div ng-switch="fileProvision">
-                    <!-- When a file that was already uploaded is to be selected -->
-                    <div ng-switch-when="local">
-
-
-                        <!-- Upload a new local file -->
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Upload a new file:</label>
-                            <div class="col-md-8">
-                                <input type="file" id="concreteFile" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
-                            </div>
-                            <div class="col-md-2"></div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Identifier:</label>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" \>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <!-- Button 'upload' -->
-                                <button ng-hide="fileUpload.uploadingFile" type="button" class="form-control"
-                                        ng-click="fileUpload.uploadFile()" ng-disabled="fileUpload.isUploadDisabled">
-                                    Upload
-                                </button>
-                                <!-- Icon 'loading' -->
-                                <i ng-hide="!fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-                            </div>
-                        </div>
-
-                        <!--  Alerts displaying notifications for a user -->
-                        <div ng-repeat="obj in fileUpload.alerts">
-                            <alert bind="obj">
-                                {{ obj.text }}
-                            </alert>
-                        </div>
-
-                        <!-- Select from the already uploaded ones -->
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Selected file:</label>
-                            <div class="col-md-10">
-                                <select class="form-control" ng-model="files.selectedFile"
-                                        ng-options="file.id for file in fileUpload.uploaded"></select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- When a remote file is to be specified -->
-                    <div ng-switch-when="remote">
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">specify a location:</label>
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="remoteFile.location" \>
-                            </div>
+                        <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
+                               ng-disabled="!templFormat.creating" required>
+                        <div ng-messages="taskCreationForm.taskIdentifier.$error" ng-if='taskCreationForm.taskIdentifier.$dirty' role="alert">
+                            <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
                         </div>
                     </div>
                 </div>
-            </fieldset>
 
-            <!-- File settings -->
-            <fieldset disabled="true">
-                <legend>File settings</legend>
-                <!-- File settings -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Choose encoding:</label>
-                    <div class="col-md-10">
-                        <select class="form-control" ng-model="encoding"
-                                ng-options="x for x in encodingPossibilities"></select>
-                    </div>
-                </div>
-
-                <!-- setting of line ending  -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Line ending:</label>
-                    <div class="col-md-10">
-                        <label class="radio-inline">
-                            <input type="radio" ng-model="lineEnding"
-                                   value="unix">Unix
-                        </label>
-
-                        <label class="radio-inline">
-                            <input type="radio" ng-model="lineEnding"
-                                   value="windows">Windows
-                        </label>
-                    </div>
-
-                </div>
-
-                <!-- setting of delimiter -->
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Line ending:</label>
-                    <div class="col-md-10">
-                        <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="semicolon">;
-                        </label> <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="colon">:
-                        </label> <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="tab">tab
-                        </label> <label class="radio-inline">
-                            <input type="radio"
-                                   ng-model="delimiter" value="other"> other:
-                        </label> <input type="text" ng-model="otherDelimiter">
-
-                    </div>
-                </div>
-
-                <!-- setting of "" wrapper -->
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <label class="checkbox-inline">
-                            <input type="checkbox"
-                                   ng-model="isWrapp" value="">text fields wrapped in ""
-                        </label>
-                    </div>
-                </div>
-
-                <!-- description -->
                 <div class="form-group">
                     <label class="col-md-2 control-label">Description:</label>
                     <div class="col-md-10">
-                        <input class="form-control" type="text" ng-model="description">
+                        <input class="form-control" type="text" ng-model="taskCreation.description">
                     </div>
                 </div>
+            </fieldset>
+
+            <!-- Input file -->
+            <fieldset>
+                <legend>Input file</legend>
+                <fileinput bind="fileinput" form="taskCreationForm" />
             </fieldset>
 
             <!-- Knowledge base settings -->
             <fieldset>
-                <legend> Knowledge base settings</legend>
+                <legend>Knowledge base</legend>
                 <!-- setting of knowledge bases -->
                 <!-- TODO mozna jinak -->
                 <div class="form-group">
                     <label class="col-md-2 control-label">Knowledge bases:</label>
                     <div class="col-md-10">
-                        <select size={{availableKBs.length}}
+                        <select size="{{ kbs.availableKBs.length }}"
                                 class="form-control"
-                                ng-model="chosenKBs"
                                 multiple
-                                ng-options="opt for opt in availableKBs"
-                                ng-change="automaticSelectPrimaryKB()"
-                                ng-disabled="true"></select>
+                                ng-model="kbs.chosenKBs"
+                                ng-options="opt.name for opt in kbs.availableKBs"
+                                disabled></select>
                     </div>
                 </div>
                 <div class="form-group">
                     <!-- setting of primary knowledge base -->
                     <label class="col-md-2 control-label">Primary knowledge base:</label>
                     <div class="col-md-10">
-                        <select class="form-control"
-                                ng-model="primaryKB"
-                                ng-options="opt for opt in chosenKBs"></select>
+                        <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableKBs" required>
+                            <option value="">Select Knowledge Base</option>
+                        </select>
+                        <div ng-if="taskCreationForm.selectPrimaryKB.$invalid && taskCreationForm.selectPrimaryKB.$dirty">
+                            <error-msg>A knowledge base has to be selected.</error-msg>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
 
+            <!-- Processing -->
+            <fieldset>
+                <legend>Processing</legend>
+                <!-- Lines limit -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Lines processed:</label>
+                    <div class="col-md-10">
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="linesLimit.selection" value="all" ng-init="linesLimit.selection = 'all'" />
+                            All
+                        </label>
+
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="linesLimit.selection" value="some" />
+                            At most <input type="number" ng-model="linesLimit.value" ng-init="linesLimit.value = 1" min="1" max="2147483647" ng-disabled="linesLimit.selection != 'some'" />
+                        </label>
                     </div>
                 </div>
             </fieldset>
 
             <!--  Alerts displaying notifications for a user regarding the whole form -->
-            <div ng-repeat="obj in wholeForm.alerts">
-                <alert bind="obj">
-                    {{ obj.text }}
-                </alert>
+            <alert-group bind="wholeForm.alerts" disappearing="3"/>
+        </form>
+
+        <!-- Submit -->
+        <div class="col-md-offset-10 col-md-2">
+            <!-- When creating a new task -->
+            <div ng-if="templFormat.creating">
+                <div class="col-md-8">
+                    <button type="button" class="btn btn-lg" ng-click="templFormat.createAndRun()">Create and run</button>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-lg" ng-click="templFormat.createTask()">Create</button>
+                </div>
             </div>
 
-            <!-- submit button -->
-            <button type="button" class="btn btn-lg pull-right" ng-click="createTask()">Create</button>
+            <!-- When editing an existing task -->
+            <div ng-if="!templFormat.creating">
+                <div class="col-md-offset-8 col-md-4">
+                    <button type="button" class="btn btn-lg" ng-click="templFormat.saveTask()">Save</button>
+                </div>
+            </div>
+        </div>
 
-        </form>
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
     </div>
-
 </main-cnt>
 
 <!-- Footer -->
-<footer>
-    <p>...</p>
-</footer>
-
+<footer/>

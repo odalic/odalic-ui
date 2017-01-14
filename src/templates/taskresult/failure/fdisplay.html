@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="col-md-12">
+        <h3>Well, this is embarassing.</h3>
+        <h4>It seems the ODALIC engine could not process your task. See the details below:</h4>
+    </div>
+
+    <!-- Details -->
+    <div class="col-md-3">
+        <strong>Cause:</strong>
+    </div>
+    <div class="col-md-9">
+        {{ failurev.result }}
+    </div>
+
+    <div class="col-md-3">
+        <strong>Our guess:</strong>
+    </div>
+    <div class="col-md-9">
+        {{ failurev.message }}
+    </div>
+
+    <div class="col-md-3">
+        <strong>Debug content:</strong>
+    </div>
+    <div class="col-md-9">
+        <shortened text="failurev.description"/>
+    </div>
+
+    <!-- Blank space -->
+    <div class="col-md-12 odalic-hstyle-medium"/>
+
+    <div class="col-md-12">
+        <p>We are sorry.</p>
+        <p>Do you think it is our fault? <a href="mailto:not-set-yet@unknown-domain.com">Report a bug!</a></p>
+    </div>
+</div>

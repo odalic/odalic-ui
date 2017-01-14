@@ -40,7 +40,7 @@
          */
         $.defineModule = function(task) {
              defined.push(task.apply(task, args));
-        }
+        };
 
         // Load the modules file
         $.getJSONSync(currentFolder + 'modules.json', function (json) {

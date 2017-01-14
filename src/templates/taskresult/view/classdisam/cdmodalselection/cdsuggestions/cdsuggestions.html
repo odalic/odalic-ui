@@ -1,0 +1,53 @@
+<div class="row">
+    <!-- Find -->
+    <div class="col-md-9">
+        <input type="text" class="form-control"
+               ng-model="string">
+    </div>
+    <div class="col-md-3">
+        <div ng-if="waitForSuggestions == false">
+            <button ng-hide="waitForSuggestions" type="button" class="form-control"
+                    ng-click="getSuggestions(string, '10')">
+                Search
+            </button>
+        </div>
+        <div ng-if="waitForSuggestions == true">
+            <i ng-hide="!waitForSuggestions" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <!-- Add -->
+    <div class="col-md-9">
+        <select class="form-control" style="width: 100%"
+                ng-model="suggestion"
+                ng-options="suggest.label + ' (' + suggest.resource + ')' for suggest in suggestions">
+        </select>
+    </div>
+    <div class="col-md-3">
+        <button type="button" class="form-control" ng-disabled="suggestions.length ==0"
+                ng-click="addSuggestions(suggestion)">
+            Use
+        </button>
+        <!-- TODO: Is this todo? Previous comment was: "Icon 'loading'" -->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 odalic-hstyle-small"/>
+</div>
+
+<!-- Prepared messages for a user in case of a situation -->
+<injector for="rtxt.finderror">An error occured while searching for a concept.</injector>
+
+<div class="row">
+    <!-- Add -->
+    <div class="col-md-12">
+        <!-- Messages -->
+        <alert-group bind="reporting" disappearing="3"/>
+    </div>
+</div>
+
+

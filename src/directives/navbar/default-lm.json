@@ -5,8 +5,21 @@
     "menu": []
   },
   {
-    "title": "Create new task",
-    "link": "#/createnewtask",
+    "title": "Files",
+    "link": "#/filelist",
     "menu": []
+  },
+  {
+    "title": "Tasks",
+    "menu": [
+      {
+        "title": "Create new",
+        "link": "#/createnewtask"
+      },
+      {
+        "title": "Task configurations",
+        "link": "#/taskconfigs"
+      }
+    ]
   }
 ]

@@ -3,320 +3,235 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // Settings
-    var settings = {
-        fileProvisionTypes: ['local', 'remote']
-    };
+    // Load submodules
+    loadhelp.loadDefault();
 
     // Create a controller for task-creation screen
-    app.controller('createnewtask-ctrl', function ($scope, $http, $window, sharedata, filedata, requests, rest) {
+    app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
 
-        // Files
-        $scope.fileProvision = settings.fileProvisionTypes[0];
-        $scope.files = {};
-        $scope.remoteFile = {};
+        // Template initialization
+        $scope['taskCreation'] = {};
 
+        // Initialization
+        $scope.templFormat = {
+            createTask: null,
+            saveTask: null,
+            creating: true
+        };
+        $scope.linesLimit = {};
+        $scope.fileinput = {};
+        formsval.toScope($scope);
 
         //TODO smazat az bude na vyber,tj.
         //az to bude server umet, tak se dostupne kbs nastavi ze serveru
 
         //Supported knowledge bases
-        $scope.availableKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
-
-        $scope.chosenKBs = ["DBpedia", "DBpedia Clone", "German DBpedia"];
-        $scope.primaryKB = "DBpedia";
-
-        $scope.automaticSelectPrimaryKB = function () {
-            $scope.primaryKB = $scope.chosenKBs[0];
-        }
-
-        // File uploading
-        $scope.fileUpload = {
-            // Id of the input-file element
-            inputFileId: 'concreteFile',
-
-            // Are we uploading a file at the moment?
-            uploadingFile: false,
-
-            // Button for file uploading disabled?
-            isUploadDisabled: true,
-
-            // Identifier of the file to be uploaded
-            identifier: String(),
-
-            // Messages for a user
-            alerts: [],
-
-            // List of uploaded files
-            uploaded: [],
-
-            // Pushing an alert message for 'file upload'
-            pushAlert: function (type, text) {
-                var _ref = this;
-                _ref.alerts.push({
-                    type: type,
-                    visible: true,
-                    text: text,
-                    close: function () {
-                        _ref.alerts.splice(_ref.alerts.indexOf(this), 1);
-                    }
-                });
-            },
-
-            // Automatically fill the 'identifier' when a file is selected
-            fillIdentifier: function () {
-                var name = filedata.fileName(this.inputFileId);
-                this.isUploadDisabled = !name;
-                if (!name) {
-                    name = text.randomId();
+        // TODO: Temporarily this way! Improvement needed!
+        // Fallback to default:
+        $scope.kbs = {
+            modifiableKBs:[],
+            availableKBs: [
+                // { name: 'DBpedia' },
+                // { name: 'DBpedia Clone' },
+                // { name: 'German DBpedia' }
+            ],
+            primaryKB: null,
+            setDefault: function () {
+                if (this.modifiableKBs && this.modifiableKBs.length > 0) {
+                    this.primaryKB = this.modifiableKBs[0];
                 }
-
-                this.identifier = name;
-                $scope.$apply();
-            },
-
-            // Refresh the list of uploaded files
-            refreshUploaded: function (callback) {
-                var _ref = this;
-                rest.files.list.exec(
-                    // Success
-                    function (response) {
-                        _ref.uploaded = response.data;
-                        if (callback) {
-                            callback(true);
-                        }
-                    },
-                    // Failure
-                    function failure(response) {
-                        if (callback) {
-                            callback(false);
-                        }
-                    }
-                );
-            },
-
-            // Validates the file uploading part of the form; returns true, if it is safe to proceed with the file upload
-            validate: function () {
-                // Clear previous alerts
-                this.alerts = [];
-                var valid = true;
-
-                // Local file selected?
-                if (!filedata.filePresent(this.inputFileId)) {
-                    this.pushAlert('error', 'No local file selected for the upload.');
-                    valid = false;
-                }
-
-                // Identifier set?
-                if (!this.identifier) {
-                    this.pushAlert('error', 'Identifier must not be empty.');
-                    valid = false;
-                }
-
-                return valid;
-            },
-
-            // Upload the selected file
-            uploadFile: function () {
-                // Validate
-                if (!this.validate()) {
-                    return;
-                }
-
-                // Reference to self
-                var _ref = this;
-
-                // The file is now uploading. Hide the 'upload' button to prevent multiple uploads.
-                _ref.uploadingFile = true;
-
-                // Uploading the file asynchronously
-                sendData = function (fileData) {
-                    rest.files.name(_ref.identifier).create(filedata.fileObject(_ref.inputFileId)).exec(
-                        // Success
-                        function (response) {
-                            // The file has been uploaded successfully => refresh the list of available files
-                            _ref.refreshUploaded(function (succes) {
-                                // Succes parameter ignored.
-
-                                // Display a success message
-                                _ref.pushAlert('success', 'The file has been successfully uploaded.');
-
-                                // Sets the newly uploaded file as the selected one
-                                var uploadedFileIndex = _ref.uploaded.map(function (file) {
-                                    return file.id;
-                                }).indexOf(_ref.identifier);
-                                $scope.files.selectedFile = _ref.uploaded[uploadedFileIndex];
-
-                                // Clear the fields
-                                _ref.identifier = String();
-                                filedata.clearInputFile("concreteFile");
-
-                                // Another file may be uploaded again
-                                _ref.uploadingFile = false;
-				_ref.isUploadDisabled = true;
-
-                                // Clear chosen file
-                                angular.element("input[type='file']").val(null);
-                            });
-                        },
-                        // Failure
-                        function (response) {
-                            // The file has not been uploaded => display an error message
-                            _ref.pushAlert('error', 'An error occured while uploading the file. Details: ' + text.dotted(response, 50));
-
-                            // A file may be uploaded again
-                            _ref.uploadingFile = false;
-                        }
-                    );
-                };
-
-                // Read the file and send the data to server
-                filedata.readBase64(_ref.inputFileId, function (fileData) {
-                    sendData(fileData);
-                });
             }
         };
-        $scope.fileUpload.refreshUploaded();
+        rest.bases.list(false).exec(
+            // Success
+            function (response) {
+                console.log(response);
+                $scope.kbs.availableKBs = response;
+            },
+
+            // Failure
+            function (response) {
+                // Log and ignore. Hopefully won't happen.
+                console.warn('Could not load KB list. Reponse:');
+            }
+        );
+
+        rest.bases.list(true).exec(
+            // Success
+            function (response) {
+                console.log(response);
+                $scope.kbs.modifiableKBs = response;
+                $scope.kbs.setDefault();
+            },
+
+            // Failure
+            function (response) {
+                // Log and ignore. Hopefully won't happen.
+                console.warn('Could not load KB list. Reponse:');
+                console.warn(response);
+                $scope.kbs.setDefault();
+            }
+        );
+
+
 
         $scope.wholeForm = {
             // Messages for a user
-            alerts: [],
-
-            // Pushing an alert message for 'the whole form'
-            pushAlert: function (type, text) {
-                var _ref = this;
-                _ref.alerts.push({
-                    type: type,
-                    visible: true,
-                    text: text,
-                    close: function () {
-                        _ref.alerts.splice(_ref.alerts.indexOf(this), 1);
-                    }
-                });
-            },
+            alerts: {},
 
             // Validation of the form, whether everything is correctly filled; returns true, if it is safe to proceed
             validate: function () {
-                // Clear previous alerts
-                this.alerts = [];
-                var valid = true;
+                return formsval.validateNonNested($scope.taskCreationForm);
+            },
 
-                // Task name set?
-                if (!objRecurAccess($scope, 'taskCreation')['identifier']) {
-                    valid = false;
-                    this.pushAlert('error', 'Task name not set.');
-                }
+            getTaskObject: function () {
+                var fileId = $scope.fileinput.getSelectedFile();
+                var taskId = $scope.taskCreation.identifier;
 
-                // File selected?
-                switch ($scope.fileProvision) {
-                    case 'local':
-                        if (!objRecurAccess($scope, 'files', 'selectedFile')['id']) {
-                            valid = false;
-                            this.pushAlert('error', 'No file selected.');
-                        }
-                        break;
-                    case 'remote':
-                        if (!objRecurAccess($scope, 'remoteFile')['location']) {
-                            valid = false;
-                            this.pushAlert('error', 'No remote file specified.');
-                        }
-                        break;
-                }
-
-                return valid;
+                return {
+                    id: String(taskId),
+                    created: (new Date()).toString("yyyy-MM-dd HH:mm"),
+                    configuration: {
+                        input: fileId,
+                        feedback: {
+                            columnIgnores: [],
+                            classifications: [],
+                            columnAmbiguities: [],
+                            ambiguities: [],
+                            disambiguations: [],
+                            columnRelations: []
+                        },
+                        primaryBase: {
+                            name: $scope.kbs.primaryKB.name
+                        },
+                        rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null
+                    },
+                    description: text.safe($scope.taskCreation.description)
+                };
             }
         };
 
-
         // Task creation
-        $scope.createTask = function () {
+        $scope.templFormat.createTask = function (callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
                 return;
             }
 
             // Generic preparations
-            var fileId = $scope.files.selectedFile.id;
+            var taskId = $scope.taskCreation.identifier;
 
-            // Immediately redirect to a loading screen
-            $window.location.href = "#/loading";
+            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
-            // For displaying error messages when a failure of one of the requests occurs
-            var requestError = function (response) {
-                sharedata.set("Failure", response.data);
-                $window.location.href = "#/genericerror";
-            };
-
-            // A request for retrieval of an executed task's result
-            var reqGetResult = function () {
-                rest.tasks.name($scope.taskCreation.identifier).result.retrieve.exec(
-                    // Success
-                    function (response) {
-                        //TODO predelat pro vice tasku bezicich zaroven??
-                        // Save the result and redirect
-                        sharedata.set("Result", response.data);
-                        // Save the task ID
-                        sharedata.set("TaskID", $scope.taskCreation.identifier);
-                        $window.location.href = "#/taskresult";
-                    },
-                    // Failure
-                    // TODO: Uncomment this
-                    //failure : requestError
-                    function () {
-                        // TODO: This is just a temporary solution until a problem with REST file upload is resolved
-                        $.getJSONSync("src/templates/taskresult/sample_result.json", function (sample) {
-                            sharedata.set("Result", sample);
-                        });
-                        $window.location.href = "#/taskresult";
-                    }
-                );
-            };
-
-            // A request for executing the prepared task
-            var reqStartTask = function () {
-                rest.tasks.name($scope.taskCreation.identifier).execute.exec(
-                    // Success
-                    function (response) {
-                        reqGetResult();
-                    },
-                    // Failure
-                    requestError
-                );
-            };
-
-            // Start with a request for inserting a task
-            rest.tasks.name($scope.taskCreation.identifier).create({
-                id: String($scope.taskCreation.identifier),
-                created: "2000-01-01 00:00",
-                configuration: {
-                    input: fileId,
-                    feedback: {
-                        columnIgnores: [],
-                        classifications: [],
-                        columnAmbiguities: [],
-                        ambiguities: [],
-                        disambiguations: [],
-                        cellRelations: [],
-                        columnRelations: []
-                    },
-                    primary_base: {
-                        name: $scope.primaryKB
-                    }
-                }
-            }).exec(
+            // Insert the task
+            rest.tasks.name(taskId).create($scope.wholeForm.getTaskObject()).exec(
                 // Success
-                function () {
-                    //TODO predelat pro vice tasku bezicich zaroven??
-                    // Save the chosen input file identifier
-                    sharedata.set("Input", $scope.files.selectedFile.id);
-                    sharedata.set("PrimaryKB", $scope.primaryKB);
-                    sharedata.set("ChosenKBs", $scope.chosenKBs);
-                    reqStartTask();
+                function (response) {
+                    // Don't handle if further action was specified
+                    if (callback) {
+                        callback();
+                        return;
+                    }
+
+                    // The task has been created, redirect to the task configurations screen
+                    window.location.href = '#/taskconfigs/' + taskId;
                 },
                 // Failure
-                requestError
+                function (response) {
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
+                }
             );
-        }
+        };
+
+        // Task creation + run
+        $scope.templFormat.createAndRun = function () {
+            $scope.templFormat.createTask(function () {
+                // Prepare
+                var taskId = $scope.taskCreation.identifier;
+                var handler = function () {
+                    // Just continue to the taskconfigs screen
+                    window.location.href = '#/taskconfigs/' + taskId;
+                };
+
+                // Start the task
+                rest.tasks.name(taskId).execute.exec(
+                    // Execution started successfully
+                    function (response) {
+                        handler();
+                    },
+                    // Error while starting the execution
+                    function (response) {
+                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.startFailure'], response.data));
+                    }
+                );
+            });
+        };
+
+        // Task saving
+        $scope.templFormat.saveTask = function () {
+            // Validate the form
+            if (!$scope.wholeForm.validate()) {
+                return;
+            }
+
+            // Generic preparations
+            var taskid = $scope.taskCreation.identifier;
+
+            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
+
+            // Insert the task
+            rest.tasks.name(taskid).create($scope.wholeForm.getTaskObject()).exec(
+                // Success
+                function (response) {
+                    // The task has been updated, redirect to the task configurations screen
+                    window.location.href = '#/taskconfigs/' + $scope.taskCreation.identifier;
+                },
+                // Failure
+                function (response) {
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                }
+            );
+        };
+
+        // Preloading form controls (if applicable), or creation of a completely new task
+        (function () {
+            var TaskID = $routeParams['taskid'];
+            if (TaskID) {
+                rest.tasks.name(TaskID).retrieve.exec(
+                    // Success
+                    function (response) {
+                        // We are now editing an existing task, not creating a new one
+                        var config = response.configuration;
+                        $scope.templFormat.creating = false;
+
+                        // Basic settings
+                        objhelp.objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
+                        $scope.taskCreation.description = response.description;
+
+                        // Selected file
+                        timed.ready(function () {
+                            return !!$scope.fileinput.setSelectedFile;
+                        }, function () {
+                            $scope.fileinput.setSelectedFile(config.input);
+                        });
+
+                        // Lines limit
+                        if (config.rowsLimit) {
+                            $scope.linesLimit = {
+                                selection: 'some',
+                                value: config.rowsLimit
+                            };
+                        }
+                    },
+
+                    // Failure to load the task's config
+                    function (response) {
+                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
+                    }
+                );
+            }
+        })();
+
     });
 
 })();

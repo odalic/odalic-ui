@@ -1,0 +1,21 @@
+<!-- Blank space -->
+<div class="odalic-hr-pushtop"></div>
+
+<!-- Export buttons-->
+<fieldset ng-disabled="feedbackChanged">
+    <legend class="col-md-12">Export</legend>
+
+    <div class="col-md-12">
+        <div class="col-md-3">
+            <button class="btn col-md-5" ng-click="exporting.csv()">Extended input file (CSV)</button>
+            <button class="btn col-md-offset-1 col-md-5" ng-click="exporting.json()">File annotations (JSON)</button>
+        </div>
+        <div class="col-md-3">
+            <button class="btn col-md-5" ng-click="exporting.turtle()">RDF version (Turtle)</button>
+            <button class="btn col-md-offset-1 col-md-5" ng-click="exporting.jsonld()">RDF version (JSON-LD)</button>
+        </div>
+    </div>
+</fieldset>
+
+<!-- Blank space -->
+<div class="odalic-hr-pushbtm"></div>

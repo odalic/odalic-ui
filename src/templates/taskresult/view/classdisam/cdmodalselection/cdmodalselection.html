@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <c-d-modal-head id="modal-title"/>
+</div>
+
+
+<div class="container-fluid" id="modal-body">
+
+    <div class="modal-body">
+        <c-d-selecting
+                primary-k-b="{{ primaryKB }}"
+                selected-position="selectedPosition" ,
+                locked="locked" ,
+                result="result" ,
+                open-c-d-proposal="proposal"/>
+
+
+        <!--Blank space-->
+        <div class="col-md-12 odalic-hstyle-medium"></div>
+
+        <c-d-check-boxes selected-position="selectedPosition"
+                         locked="locked"
+                         ignored-column="ignoredColumn"
+                         no-disambiguation-cell="noDisambiguationCell"
+                         no-disambiguation-column="noDisambiguationColumn"/>
+
+    </div>
+</div>

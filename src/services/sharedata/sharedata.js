@@ -10,17 +10,17 @@
         // Saving data
         this.set = function (key, value) {
             stateObject[key] = value;
-        }
+        };
 
         // Cleaning data
         this.clear = function (key) {
             delete stateObject[key];
-        }
+        };
 
         // Retrieving data
         this.get = function (key) {
             return stateObject[key];
-        }
+        };
     });
 
 })();

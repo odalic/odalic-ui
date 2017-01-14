@@ -5,14 +5,34 @@
         "controller": "generic"
     },
     {
+        "route": "/home",
+        "target": "/",
+        "controller": "reroute"
+    },
+    {
         "route": "/test",
         "folder": "test",
         "controller": "generic"
     },
     {
-        "route": "/taskconfig",
-        "folder": "taskconfig",
-        "controller": "odalic-taskconfig-ctrl"
+        "route": "/ngtest",
+        "folder": "ngtest",
+        "controller": "odalic-ngtest-ctrl"
+    },
+    {
+        "route": "/taskconfigs",
+        "folder": "taskconfigs",
+        "controller": "odalic-taskconfigs-ctrl"
+    },
+    {
+        "route": "/taskconfigs/:taskid",
+        "folder": "taskconfigs",
+        "controller": "odalic-taskconfigs-ctrl"
+    },
+    {
+        "route": "/filelist",
+        "folder": "filelist",
+        "controller": "odalic-filelist-ctrl"
     },
     {
         "route": "/createnewtask",
@@ -20,7 +40,12 @@
         "controller": "createnewtask-ctrl"
     },
     {
-        "route": "/taskresult",
+        "route": "/createnewtask/:taskid",
+        "folder": "createnewtask",
+        "controller": "createnewtask-ctrl"
+    },
+    {
+        "route": "/taskresult/:taskid",
         "folder": "taskresult",
         "controller": "taskresult-ctrl"
     },
@@ -29,7 +54,7 @@
         "folder": "loading",
         "controller": "loading-ctrl"
     },
-	{
+    {
         "route": "/genericerror",
         "folder": "genericerror",
         "controller": "genericerror-ctrl"

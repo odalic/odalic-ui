@@ -1,0 +1,44 @@
+[
+	{
+		"id": "I1",
+		"description": "An exemplary task using i1.csv",
+		"created": "2000-01-01 00:00",
+		"configuration": {
+			"input": "i1.csv",
+			"feedback": {
+				"subjectColumnPositions": {},
+				"columnIgnores": [],
+				"columnAmbiguities": [],
+				"classifications": [],
+				"columnRelations": [],
+				"disambiguations": [],
+				"ambiguities": []
+			},
+			"primaryBase": {
+				"name": "DBpedia"
+			}
+		},
+		"state": "READY"
+	},
+	{
+		"id": "I2",
+		"description": "An exemplary task using i2.csv",
+		"created": "2000-01-01 00:00",
+		"configuration": {
+			"input": "i2.csv",
+			"feedback": {
+				"subjectColumnPositions": {},
+				"columnIgnores": [],
+				"columnAmbiguities": [],
+				"classifications": [],
+				"columnRelations": [],
+				"disambiguations": [],
+				"ambiguities": []
+			},
+			"primaryBase": {
+				"name": "DBpedia"
+			}
+		},
+		"state": "RUNNING"
+	}
+]

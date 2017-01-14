@@ -10,6 +10,7 @@
          *
          * {
          * 	method 		A string parameter. e.g. "PUT", "POST", etc.
+         * 	address     URL to send the request to.
          * 	formData 	Object containing the data to send. May vary.
          * 	success		A callback function to call if the method succeeds.
          * 	failure		A callback function to call if the method fails.
@@ -85,7 +86,7 @@
                     }
                 };
             })();
-        }
+        };
 
         /** Performs a request while encoding the data in "multipart/form-data".
          *  Does not transform the response.

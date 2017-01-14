@@ -1,0 +1,17 @@
+<div class="form-group odalic-hr-pushbtm">
+    <div class="col-md-2">
+        <button class="btn btn-lg btn-block" ng-click="reexecute()">
+            Reexecute
+        </button>
+    </div>
+    <div class="col-md-2 col-md-offset-6">
+        <button class="btn btn-lg btn-block" ng-click="state = state - 1" ng-disabled="state <= 0">
+            Previous step
+        </button>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-lg btn-block" ng-click="state = state + 1" ng-disabled="state >= 2">
+            Next step
+        </button>
+    </div>
+</div>

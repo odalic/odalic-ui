@@ -1,0 +1,16 @@
+[
+   {
+	  "id": "i1.csv",
+	  "uploaded": "2016-10-22 12:16",
+	  "owner": "",
+	  "location": "http://localhost:8080/odalic/files/i1.csv",
+	  "cached": true
+   },
+   {
+	  "id": "i2.csv",
+	  "uploaded": "2016-10-18 12:16",
+	  "owner": "",
+	  "location": "http://localhost:8080/odalic/files/i2.csv",
+	  "cached": true
+   }
+]

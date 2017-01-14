@@ -1,8 +1,8 @@
 [
     {
-        "name": "taskresult/loader",
-        "source": "../../templates/taskresult/loader-default.js",
+        "name": "rest",
+        "source": "../rest/rest-production.js",
         "args": [],
-        "description": "Changes behaviour of taskresult controller. [loader-test.js, loader-default.js]"
+        "description": "Changes behaviour of rest service. Useful for testing without server. [rest-testing.js, rest-production.js]"
     }
 ]
