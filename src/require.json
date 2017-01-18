@@ -33,5 +33,6 @@
   "services/formsval/formsval.js",
   "services/reporth/reporth.js",
   "filters/shortstr/filter.js",
+  "services/authentication.js",
   "templates/templates.js"
 ]
