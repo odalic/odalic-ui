@@ -19,7 +19,7 @@
                 <label class="col-md-4 control-label">Label:</label>
                 <div class="col-md-8">
                     <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
-                    <div ng-messages="cDProposeForm.label.$dirty && cDProposeForm.label.$error" role="alert">
+                    <div ng-messages="(cDProposeForm.$submitted || cDProposeForm.label.$dirty) && cDProposeForm.label.$error" role="alert">
                         <div ng-message="required">
                             <error-msg>Label is mandatory</error-msg>
                         </div>
@@ -49,11 +49,6 @@
                 <label class="col-md-4 control-label">Custom URL suffix:</label>
                 <div class="col-md-8">
                     <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
-                    <div ng-messages="cDProposeForm.suffixUri.$dirty && cDProposeForm.suffixUri.$error" role="alert">
-                        <div ng-message="required">
-                            <error-msg>Custom URL suffix is mandatory</error-msg>
-                        </div>
-                    </div>
                 </div>
 
                 <br>
@@ -104,7 +99,7 @@
 
             <br/>
 
-            <button class="btn btn-lg col-md-2 col-lg-offset-10 " type="submit" ng-disabled="!cDProposeForm.$valid"
+            <button  class="btn btn-lg col-md-2 col-lg-offset-10 " type="submit"
                     ng-click="setProposal(proposal)">
                 OK
             </button>
