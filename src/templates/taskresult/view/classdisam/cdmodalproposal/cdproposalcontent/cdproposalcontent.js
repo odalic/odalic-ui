@@ -27,7 +27,7 @@
 
 
             // Is proposal defined?
-            if (proposal) {
+            if (proposal && $scope.cDProposeForm.$valid) {
                 //TOTO prefix kde ho vezmu co s nim?????
                 var prefixUrl = "";
 
@@ -71,6 +71,7 @@
 
         //saves new propose class
         var classes = function (obj) {
+
             rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
