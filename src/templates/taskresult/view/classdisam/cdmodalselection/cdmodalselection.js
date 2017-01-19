@@ -11,7 +11,7 @@
         $scope.openCDProposal = data.openCDProposal;
         $scope.ignoredColumn = data.ignoredColumn;
         $scope.noDisambiguationCell = data.noDisambiguationCell;
-        $scope.noDisambiguationColumn = $scope.noDisambiguationColumn;
+        $scope.noDisambiguationColumn = data.noDisambiguationColumn;
 
 
     });
