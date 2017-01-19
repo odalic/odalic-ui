@@ -16,7 +16,7 @@
         <div ng-if="disableDisambCondition==false">
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Label:</label>
+                <label class="col-md-4 control-label" title ="required">Label *</span></label>
                 <div class="col-md-8">
                     <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
                     <div ng-messages="(cDProposeForm.$submitted || cDProposeForm.label.$dirty) && cDProposeForm.label.$error" role="alert">
@@ -30,7 +30,7 @@
             <br/>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Alternative label:</label>
+                <label class="col-md-4 control-label">Alternative label</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
                 </div>
@@ -38,7 +38,7 @@
             <br>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Alternative label:</label>
+                <label class="col-md-4 control-label">Alternative label</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
                 </div>
@@ -46,7 +46,7 @@
             <br>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Custom URL suffix:</label>
+                <label class="col-md-4 control-label">Custom URL suffix</label>
                 <div class="col-md-8">
                     <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
                 </div>
