@@ -22,58 +22,63 @@
         $scope.fileinput = {};
         formsval.toScope($scope);
 
-        //TODO smazat az bude na vyber,tj.
-        //az to bude server umet, tak se dostupne kbs nastavi ze serveru
+        // Dealing with knowledge bases
+        (function () {
+            // Supported knowledge bases
+            $scope.kbs = {
+                modifiableSelectedKBs: [],      // KBs that a primary base can be chosen from
+                chosenKBs: [],                  // KBs that were selected
 
-        //Supported knowledge bases
-        // TODO: Temporarily this way! Improvement needed!
-        // Fallback to default:
-        $scope.kbs = {
-            modifiableKBs:[],
-            availableKBs: [
-                // { name: 'DBpedia' },
-                // { name: 'DBpedia Clone' },
-                // { name: 'German DBpedia' }
-            ],
-            primaryKB: null,
-            setDefault: function () {
-                if (this.modifiableKBs && this.modifiableKBs.length > 0) {
-                    this.primaryKB = this.modifiableKBs[0];
+                availableKBs: [],               // All KBs
+                modifiableKBs: [],              // KBs that can serve as a primary base
+                primaryKB: null,
+                
+                // Change list of available KBs that can serve as a primary base upon selection change
+                selectionChanged: function () {
+                    var ref = this;
+                    ref.modifiableSelectedKBs = [];
+
+                    // Not the optimal algorithm, but the amount of KBs is assumed to be small
+                    if (ref.modifiableKBs) {
+                        ref.modifiableKBs.forEach(function (modifiableKB) {
+                            if (ref.chosenKBs) {
+                                ref.chosenKBs.forEach(function (kb) {
+                                    if (kb.name === modifiableKB.name) {
+                                        ref.modifiableSelectedKBs.push(modifiableKB);
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
-            }
-        };
-        rest.bases.list(false).exec(
-            // Success
-            function (response) {
-                console.log(response);
-                $scope.kbs.availableKBs = response;
-            },
+            };
 
-            // Failure
-            function (response) {
-                // Log and ignore. Hopefully won't happen.
-                console.warn('Could not load KB list. Reponse:');
-            }
-        );
+            // Retrieve the list of KBs from server
+            rest.bases.list(false).exec(
+                // Success
+                function (response) {
+                    // Set available KBs
+                    $scope.kbs.availableKBs = response;
 
-        rest.bases.list(true).exec(
-            // Success
-            function (response) {
-                console.log(response);
-                $scope.kbs.modifiableKBs = response;
-                $scope.kbs.setDefault();
-            },
+                    // Retrieve list of KBs that can serve as a primary KB
+                    rest.bases.list(true).exec(
+                        // Success
+                        function (response) {
+                            $scope.kbs.modifiableKBs = response;
+                        },
 
-            // Failure
-            function (response) {
-                // Log and ignore. Hopefully won't happen.
-                console.warn('Could not load KB list. Reponse:');
-                console.warn(response);
-                $scope.kbs.setDefault();
-            }
-        );
-
-
+                        // Failure
+                        function (response) {
+                            $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.kbLoadFailure'], response.data));
+                        }
+                    );
+                },
+                // Failure
+                function (response) {
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.kbLoadFailure'], response.data));
+                }
+            );
+        })();
 
         $scope.wholeForm = {
             // Messages for a user
