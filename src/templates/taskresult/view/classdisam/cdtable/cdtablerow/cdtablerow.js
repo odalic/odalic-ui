@@ -41,7 +41,7 @@
                 suggestion:'=',
                 primaryKB:'@'
             },
-            templateUrl: currentFolder + 'cDTableRow.html',
+            templateUrl: currentFolder + 'cdtablerow.html',
             link: function (scope, iElement, iAttrs) {
 
                 scope.selectPosition = function (row, column) {

@@ -20,7 +20,7 @@
         $scope.setProposal = function (proposal) {
 
             // Is proposal defined?
-            if (proposal) {
+            if (proposal && $scope.rProposeForm.$valid) {
 
                 var url = proposal.suffixUrl;
 

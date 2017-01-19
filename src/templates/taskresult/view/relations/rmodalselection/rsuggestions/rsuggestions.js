@@ -71,12 +71,15 @@
                         $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
                         $scope.gvdata.update();
 
+                        //deletes form
+                        $scope.suggestions ={};
+                        $scope.string="";
+
                         $scope.reporting.push('success', 'This relation was added.');
                     }
                     else {
                         $scope.reporting.push('error', 'This relation is already added');
                     }
-
                 }
 
 

@@ -9,7 +9,7 @@
     app.directive('controlButtons',['rest', function (rest) {
         return {
             restrict: 'E',
-            templateUrl: currentFolder + 'controlButtons.html',
+            templateUrl: currentFolder + 'controlbuttons.html',
             link: function ($scope, iElement, iAttrs) {
                 // TODO: [critical] Feedback saving not working when a user actually makes a change.
                 // Set the feedback according to UI
