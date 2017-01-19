@@ -67,6 +67,11 @@
                         currentCell.chosen[$scope.knowledgeBase] = [newObj];
                         //locks current cell
                         $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
+                        //deletes form
+                        $scope.suggestions ={};
+                        $scope.string="";
+
                         $scope.reporting.push('success','This '+textMessege+' was used.');
                     }
                     else {
@@ -116,6 +121,7 @@
                         if ($scope.suggestions.length > 0) {
                             $scope.suggestion = $scope.suggestions[0];
                         }
+
                         $scope.reporting.push('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
                     };
                 };
