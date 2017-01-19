@@ -9,10 +9,8 @@
     // Create a controller for task-creation screen
     app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
 
-        // Template initialization
-        $scope['taskCreation'] = {};
-
         // Initialization
+        $scope.taskCreation = {};
         $scope.templFormat = {
             createTask: null,
             saveTask: null,
@@ -21,6 +19,9 @@
         $scope.linesLimit = {};
         $scope.fileinput = {};
         formsval.toScope($scope);
+
+        // Additional variables
+        var kbListLoaded = false;
 
         // Dealing with knowledge bases
         (function () {
@@ -50,6 +51,37 @@
                             }
                         });
                     }
+                },
+
+                // Updates "chosenKBs" and "primaryKB" according to arguments (string names of KBs); chosenKBs has to be an array
+                setFromNames: function (chosenKBs, primaryKB) {
+                    if (!this.availableKBs) {
+                        return;
+                    }
+
+                    var ref = this;
+                    var chosenKBsObjs = [];
+
+                    // Again not the most optimal approach, but should not matter...
+                    chosenKBs.forEach(function (kbString) {
+                        ref.availableKBs.forEach(function (kbObj) {
+                            if (kbObj.name === kbString) {
+                                chosenKBsObjs.push(kbObj);
+                            }
+                        })
+                    });
+                    
+                    ref.chosenKBs = chosenKBsObjs;
+                    ref.selectionChanged();
+
+                    // Find the primary base among "modifiableKBs" list
+                    if (ref.modifiableKBs) {
+                        ref.modifiableKBs.forEach(function (kbObj) {
+                            if (kbObj.name === primaryKB) {
+                                ref.primaryKB = kbObj;
+                            }
+                        })
+                    }
                 }
             };
 
@@ -65,17 +97,20 @@
                         // Success
                         function (response) {
                             $scope.kbs.modifiableKBs = response;
+                            kbListLoaded = true;
                         },
 
                         // Failure
                         function (response) {
                             $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.kbLoadFailure'], response.data));
+                            kbListLoaded = true;
                         }
                     );
                 },
                 // Failure
                 function (response) {
                     $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.kbLoadFailure'], response.data));
+                    kbListLoaded = true;
                 }
             );
         })();
@@ -218,6 +253,20 @@
                             return !!$scope.fileinput.setSelectedFile;
                         }, function () {
                             $scope.fileinput.setSelectedFile(config.input);
+                        });
+
+                        // Selected knowledge bases
+                        timed.ready(function () {
+                            return kbListLoaded;
+                        }, function () {
+                            // TODO: Temporarily this way until the server supports 'KB subset selection'
+                            var kbNames = [];
+                            $scope.kbs.availableKBs.forEach(function (kbObj) {
+                                kbNames.push(kbObj.name);
+                            });
+
+                            $scope.kbs.setFromNames(kbNames, config.primaryBase.name);
+                            $scope.$apply();
                         });
 
                         // Lines limit
