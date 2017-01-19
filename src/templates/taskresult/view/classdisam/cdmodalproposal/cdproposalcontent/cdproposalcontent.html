@@ -15,10 +15,10 @@
         <div ng-if="disableDisambCondition==false">
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Label:</label>
+                <label class="col-md-4 control-label" title ="required">Label *</span></label>
                 <div class="col-md-8">
                     <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
-                    <div ng-messages="cDProposeForm.label.$error" role="alert">
+                    <div ng-messages="(cDProposeForm.$submitted || cDProposeForm.label.$dirty) && cDProposeForm.label.$error" role="alert">
                         <div ng-message="required">
                             <error-msg>Label is mandatory</error-msg>
                         </div>
@@ -27,14 +27,14 @@
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Alternative label:</label>
+                <label class="col-md-4 control-label">Alternative label</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Alternative label:</label>
+                <label class="col-md-4 control-label">Alternative label</label>
                 <div class="col-md-8">
                     <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
                 </div>
@@ -42,14 +42,9 @@
 
 
             <div class="form-group">
-                <label class="col-md-4 control-label">Custom URL suffix:</label>
+                <label class="col-md-4 control-label">Custom URL suffix</label>
                 <div class="col-md-8">
-                    <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl" required>
-                    <div ng-messages="cDProposeForm.suffixUri.$error" role="alert">
-                        <div ng-message="required">
-                            <error-msg>Custom URL suffix is mandatory</error-msg>
-                        </div>
-                    </div>
+                    <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl">
                 </div>
 
 
@@ -99,15 +94,13 @@
                 <!--</div>-->
                 <!--</div>-->
             </div>
+            
+            <br/>
 
-            <div class="form-group">
-                <div class="col-md-2 col-lg-offset-10 ">
-                    <button class="btn btn-lg " type="submit" ng-disabled="!cDProposeForm.$valid"
-                            ng-click="setProposal(proposal)">
-                        OK
-                    </button>
-                </div>
-            </div>
+            <button  class="btn btn-lg col-md-2 col-lg-offset-10 " type="submit"
+                    ng-click="setProposal(proposal)">
+                OK
+            </button>
 
             <div class="form-group">
                 <div class="col-md-12">
