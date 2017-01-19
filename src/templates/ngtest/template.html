@@ -6,8 +6,11 @@
     <!-- Content -->
     <div class="container-fluid">
         <h2>Angular testing template</h2>
+        <ul>
+            <li ng-repeat="item in getItems()">{{ item }}</li>
+        </ul>
         <p>
-
+            <ul uib-pagination total-items="xx.bigTotalItems" ng-model="xx.bigCurrentPage" max-size="xx.maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="xx.pageChanged()" />
         </p>
     </div>
 </main-cnt>
