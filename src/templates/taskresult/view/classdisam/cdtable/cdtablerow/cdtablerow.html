@@ -1,4 +1,4 @@
-<td ng-repeat="cell in row "
+<td ng-repeat="cell in row track by $index"
     ng-init="columnIndex = $index"
     ng-class="(rowIndex == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
     ng-mouseover="selectPosition( rowIndex,$index)"
