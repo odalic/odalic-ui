@@ -1,7 +1,7 @@
 [
     {
         "name": "rest",
-        "source": "../rest/rest-testing.js",
+        "source": "../rest/rest-production.js",
         "args": [],
         "description": "Changes behaviour of rest service. Useful for testing without server. [rest-testing.js, rest-production.js]"
     }
