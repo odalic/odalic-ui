@@ -7,6 +7,9 @@
     var currentFolder = $.getPathForRelativePath('');
     app.controller('odalic-ngtest-ctrl', function ($scope) {
 
+        $scope.myobj = {};
+        $scope.myobj.model = ["Hi", "this", "is", "an", "array", "of", "words"];
+        $scope.myobj.perPage = 3;
     });
 
 })();

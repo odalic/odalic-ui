@@ -36,7 +36,7 @@
             </thead>
             <tbody>
                 <!-- A single file -->
-                <tr ng-repeat="file in files">
+                <tr ng-repeat="file in filesProxy.getView()">
                     <td class="col-md-2">{{ file.uploaded }}</td>
                     <td class="col-md-7">{{ file.id }}</td>
 
@@ -71,6 +71,9 @@
                 </tr>
             </tbody>
         </table>
+
+        <!-- Pagination -->
+        <pagination bind="filesProxy" />
 
         <!-- Notice -->
         <p>Please note that files may be added to the list only during a task creation.</p>

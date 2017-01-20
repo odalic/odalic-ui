@@ -20,6 +20,14 @@
         $scope.messages = {};
         table.refreshList(statepoll.setPolling);
 
+        // Pagination settings
+        $scope.taskconfigsProxy = {
+            perPage: 10
+        };
+        $scope.$watch('taskconfigs', function(newValue, oldValue) {
+            $scope.taskconfigsProxy.model = $scope.taskconfigs;
+        });
+
         // Table button functions
         $scope.frun = function (taskId) {
             rest.tasks.name(taskId).execute.exec(

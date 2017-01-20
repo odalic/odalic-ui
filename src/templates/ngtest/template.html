@@ -6,9 +6,12 @@
     <!-- Content -->
     <div class="container-fluid">
         <h2>Angular testing template</h2>
-        <p>
 
-        </p>
+        <span ng-repeat="word in myobj.getView()">
+            {{ word }}
+        </span>
+        <pagination bind="myobj" />
+
     </div>
 </main-cnt>
 
