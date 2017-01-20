@@ -19,7 +19,7 @@
             },
 
 
-            templateUrl: currentFolder + 'rSelectBox.html',
+            templateUrl: currentFolder + 'rselectbox.html',
             link: function ($scope, iElement, iAttrs) {
 
                 $scope.switchRelation = function (newSelection, knowledgeBase) {
