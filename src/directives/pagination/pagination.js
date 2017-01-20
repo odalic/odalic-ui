@@ -73,6 +73,16 @@
                     scope.pgn.current = index + 1;
                 };
 
+                scope.bind.getPage = function () {
+                    return scope.pgn.current - 1;
+                };
+
+                scope.bind.getModelIndex = function (viewIndex) {
+                    var index = scope.pgn.current - 1;
+                    var startIndex = index * perPage;
+                    return startIndex + viewIndex;
+                };
+
                 scope.bind.getView = function () {
                     var index = scope.pgn.current - 1;
                     var maxIndex = data.length;

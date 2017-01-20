@@ -16,8 +16,8 @@
             <!--ng-repeat="row in inputFile.rows"-->
             <tr ng-class-even="'evenRow'"
                 ng-repeat="row in inputFileProxy.getView() track by $index"
-                c-d-table-row row="row" row-index="$index"
-                concrete-data="result.cellAnnotations[$index]" selected-position="selectedPosition"
+                c-d-table-row row="row" row-index="inputFileProxy.getModelIndex($index)"
+                concrete-data="result.cellAnnotations[inputFileProxy.getModelIndex($index)]" selected-position="selectedPosition"
                 locked-table-cells= "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{ primaryKB }}" proposal="openCDProposal"
                 suggestion="openCDSelection">
             </tr>
