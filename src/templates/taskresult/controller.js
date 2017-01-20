@@ -123,7 +123,7 @@
                         $scope.dataload.show = true;
 
                         // Force rendering of the result wen testing
-                        //$scope.$apply();
+                        $scope.$apply();
                     }
                 };
             })();

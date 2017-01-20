@@ -8,5 +8,10 @@
 		"begin": "RUNNING",
 		"running": 3,
 		"end": "WARNING"
+	},
+	"NB": {
+		"begin": "RUNNING",
+		"running": 1,
+		"end": "SUCCESS"
 	}
 }
