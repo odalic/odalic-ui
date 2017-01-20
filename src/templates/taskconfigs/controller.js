@@ -22,7 +22,7 @@
 
         // Pagination settings
         $scope.taskconfigsProxy = {
-            perPage: 5
+            perPage: 10
         };
         $scope.$watch('taskconfigs', function(newValue, oldValue) {
             $scope.taskconfigsProxy.model = $scope.taskconfigs;
