@@ -28,27 +28,45 @@
             },
             link: function (scope, iElement, iAttrs) {
 
-                // Initialization
-                var data = scope.bind.model;
-                var perPage = scope.bind.perPage;
-                var pages = Math.floor(data.length / perPage) + (data.length % perPage == 0 ? 0 : 1);
+                // Default values
+                var data = [];
+                var perPage = 100;
+                var pages = 1;
 
-                // Pagination data
-                scope.pgn = {
-                    // Model (index shifted by 1)
-                    current: 1,
-
-                    // Amount of pages (e.g.: 90 = 9, 91 = 10, 89 = 9, etc.)
-                    total: pages * 10,
-
-                    // Amount of 'buttons'
-                    size: 4,
-
-                    // On change
-                    changed: function() {
-                        // Empty so far...
+                // Prepare data to use by the pagination directive
+                var prepare = function () {
+                    // Initialization
+                    var _model = scope.bind.model;
+                    var _perPage = scope.bind.perPage;
+                    if (_model && _perPage) {
+                        data = _model;
+                        perPage = _perPage;
+                        pages = Math.floor(data.length / perPage) + (data.length % perPage == 0 ? 0 : 1);
                     }
+
+                    // Pagination data
+                    scope.pgn = {
+                        // Model (index shifted by 1)
+                        current: 1,
+
+                        // Amount of pages (e.g.: 90 = 9, 91 = 10, 89 = 9, etc.)
+                        total: pages * 10,
+
+                        // Amount of 'buttons'
+                        size: 4,
+
+                        // On change
+                        changed: function() {
+                            // Empty so far...
+                        }
+                    };
                 };
+
+                // Watch for changes
+                prepare();
+                scope.$watch('bind', function(nv, ov) {
+                    prepare();
+                });
 
                 // Public interface
                 scope.bind.setPage = function (index) {
