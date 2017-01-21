@@ -181,8 +181,6 @@
                 // Success
                 function (response) {
                     $scope.result = response;
-                    // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
-                    $scope.chosenKBs = Object.keys( $scope.result.subjectColumnPositions);
 
                     // Prepare data for graphvis component
                     actions.push(setsData);
@@ -202,7 +200,16 @@
             rest.tasks.name($scope.taskID).retrieve.exec(
                 // Success
                 function (response) {
-                    $scope.primaryKB = response['configuration']['primaryBase']['name'];
+                    var config = response['configuration'];
+
+                    // Chosen KBs
+                    $scope.chosenKBs = [];
+                    config['usedBases'].forEach(function (kb) {
+                        $scope.chosenKBs.push(kb['name']);
+                    });
+
+                    // Primary KB
+                    $scope.primaryKB = config['primaryBase']['name'];
 
                     // Phase complete
                     dataLoaded(phases.kb);
