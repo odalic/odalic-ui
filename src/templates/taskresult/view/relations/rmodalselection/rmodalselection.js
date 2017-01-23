@@ -11,7 +11,24 @@
         $scope.selectedRelation =data.selectedRelation;
         $scope.result = data.result;
         $scope.openRProposal = data.openRProposal;
+        $scope.chosenKBs = data.chosenKBs;
 
+
+        //creates levels of json if they are missing
+        objhelp.objRecurAccess($scope.result.columnRelationAnnotations, $scope.selectedRelation.column1, $scope.selectedRelation.column2, 'candidates');
+        var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
+        objhelp.objRecurAccess(currentRelation, 'chosen');
+        for(var i in  $scope.chosenKBs)
+        {
+            var KB =  $scope.chosenKBs[i];
+            if (!currentRelation.candidates.hasOwnProperty( KB)) {
+                currentRelation.candidates[KB] = [];
+            }
+
+            if (!currentRelation.chosen.hasOwnProperty(KB)) {
+                currentRelation.chosen[KB] = [];
+            }
+        }
 
         //locks relation
         $scope.lockRelation = function () {

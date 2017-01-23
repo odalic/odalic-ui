@@ -486,7 +486,7 @@
             });
         };
 
-        //calls cd selection modal window
+        //calls r selection modal window
         $scope.openRSelection = function () {
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
@@ -501,7 +501,8 @@
                             locked: $scope.locked,
                             selectedRelation: $scope.selectedRelation,
                             result: $scope.result,
-                            openRProposal: $scope.openRProposal
+                            openRProposal: $scope.openRProposal,
+                            chosenKBs:$scope.chosenKBs
 
                         }
                     }
