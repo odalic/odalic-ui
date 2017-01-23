@@ -1,0 +1,21 @@
+{
+	"id": "Number of babies",
+	"description": "",
+	"created": "2017-01-18 17:18",
+	"configuration": {
+		"rowsLimit": null,
+		"input": "NB.csv",
+		"feedback": {
+			"subjectColumnPositions": {},
+			"columnIgnores": [],
+			"columnAmbiguities": [],
+			"classifications": [],
+			"columnRelations": [],
+			"disambiguations": [],
+			"ambiguities": []
+		},
+		"primaryBase": {
+			"name": "DBpedia"
+		}
+	}
+}

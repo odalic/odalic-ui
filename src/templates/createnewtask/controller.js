@@ -54,7 +54,7 @@
                 },
 
                 // Updates "chosenKBs" and "primaryKB" according to arguments (string names of KBs); chosenKBs has to be an array
-                setFromNames: function (chosenKBs, primaryKB) {
+                setBases: function (chosenKBs, primaryKB) {
                     if (!this.availableKBs) {
                         return;
                     }
@@ -65,7 +65,7 @@
                     // Again not the most optimal approach, but should not matter...
                     chosenKBs.forEach(function (kbString) {
                         ref.availableKBs.forEach(function (kbObj) {
-                            if (kbObj.name === kbString) {
+                            if (kbObj.name === kbString.name) {
                                 chosenKBsObjs.push(kbObj);
                             }
                         })
@@ -77,7 +77,7 @@
                     // Find the primary base among "modifiableKBs" list
                     if (ref.modifiableKBs) {
                         ref.modifiableKBs.forEach(function (kbObj) {
-                            if (kbObj.name === primaryKB) {
+                            if (kbObj.name === primaryKB.name) {
                                 ref.primaryKB = kbObj;
                             }
                         })
@@ -144,6 +144,7 @@
                         primaryBase: {
                             name: $scope.kbs.primaryKB.name
                         },
+                        usedBases: $scope.kbs.chosenKBs,
                         rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null
                     },
                     description: text.safe($scope.taskCreation.description)
@@ -259,13 +260,7 @@
                         timed.ready(function () {
                             return kbListLoaded;
                         }, function () {
-                            // TODO: Temporarily this way until the server supports 'KB subset selection'
-                            var kbNames = [];
-                            $scope.kbs.availableKBs.forEach(function (kbObj) {
-                                kbNames.push(kbObj.name);
-                            });
-
-                            $scope.kbs.setFromNames(kbNames, config.primaryBase.name);
+                            $scope.kbs.setBases(config.usedBases, config.primaryBase);
                             $scope.$apply();
                         });
 
