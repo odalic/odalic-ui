@@ -21,9 +21,10 @@
 
             templateUrl: currentFolder + 'rSelectBox.html',
             link: function ($scope, iElement, iAttrs) {
+                $scope.data = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2]
 
                 $scope.switchRelation = function (newSelection, knowledgeBase) {
-                    $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[knowledgeBase] = [newSelection];
+                    $scope.data.chosen[knowledgeBase] = [newSelection];
                     $scope.gvdata.mc();
                 };
 

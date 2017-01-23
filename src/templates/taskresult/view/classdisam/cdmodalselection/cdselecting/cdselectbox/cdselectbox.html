@@ -1,10 +1,11 @@
 <!-- SelectBox with only one possibility to choose from -->
 <ui-select
+        title="Choose from the remaining candidates ({{data.candidates[knowledgeBase].length - data.chosen[knowledgeBase].length}})"
         ng-model="data.chosen[knowledgeBase]"
         multiple limit="1" theme="bootstrap"
-        search-enabled="true"
         ng-change="lockCell()"
         on-select="switchChosen($item, knowledgeBase);lockCell() "
+        ng-disabled = "data.candidates[knowledgeBase].length == 0"
         class="uis-aclass">
 
     <!-- Currently selected concept -->
