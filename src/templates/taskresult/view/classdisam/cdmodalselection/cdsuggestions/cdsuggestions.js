@@ -53,7 +53,7 @@
                     //object in result format
                     var newObj = {
                         "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                        "score": {"value": 0}
+                        "score": {"value": null}
                     };
                     //gets from candidates only  array of URLs
                     var urlList = candidates.map(function (candidate) {

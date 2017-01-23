@@ -3,6 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
+
     // directive represets ui-select box for classification and disambiguation
     // attribute 'data' has to contain data related to cell of table (classifications and disambiguations from result)
     var currentFolder = $.getPathForRelativePath('');

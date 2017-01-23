@@ -6,6 +6,16 @@
     // Load submodules
     loadhelp.loadDefault();
 
+    app.filter('nullOrNumber', ['$filter', function ($filter) {
+        return function (input, fractionSize) {
+            if (input  == null) {
+                return "";
+            } else {
+                return $filter('number')(input, fractionSize);
+            }
+        };
+    }]);
+
     //region filter for a string matching in the select boxes
     //works only for two hierarchy of json
     app.filter('propsFilter', function () {
@@ -255,7 +265,6 @@
         $scope.serverFeedback = {};
 
 
-
         //region dependent on data from server
         //sets data for graph component
         $scope.currentRelations = {};
@@ -486,7 +495,7 @@
             });
         };
 
-        //calls cd selection modal window
+        //calls r selection modal window
         $scope.openRSelection = function () {
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
@@ -501,7 +510,8 @@
                             locked: $scope.locked,
                             selectedRelation: $scope.selectedRelation,
                             result: $scope.result,
-                            openRProposal: $scope.openRProposal
+                            openRProposal: $scope.openRProposal,
+                            chosenKBs:$scope.chosenKBs
 
                         }
                     }
