@@ -81,7 +81,7 @@
                             "label": response.label
                         },
                         "score": {
-                            "value": 0
+                            "value": null
                         }
                     };
 
@@ -117,7 +117,7 @@
                             "label": response.label
                         },
                         "score": {
-                            "value": 0
+                            "value": null
                         }
                     };
                     //adds disambiguation into result

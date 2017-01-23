@@ -35,7 +35,7 @@
                     $scope.reporting.clear();
                     var newObj = {
                         "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                        "score": {"value": 0}
+                        "score": {"value": null}
                     };
 
 
