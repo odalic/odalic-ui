@@ -6,14 +6,14 @@
         ng-change="gvdata.mc(); lockRelation()">
     <ui-select-match placeholder="">
         <!--{{ $item.entity.label | shortstr: maxlen }}  &nbsp -->
-        <span title="score">{{ $item.score.value| number:2}}  </span> <br/>
+        <span title="score">{{ $item.score.value| nullOrNumber:2}}  </span> <br/>
         <span title={{$item.entity.resource}}>{{$item.entity.resource}}</span>
     </ui-select-match>
     <ui-select-choices
             repeat="opt in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search}">
 
         <!--{{ opt.entity.label | shortstr: maxlen }}  &nbsp-->
-        <span title="score">{{opt.score.value| number:2}}</span>
+        <span title="score">{{opt.score.value| nullOrNumber:2}}</span>
         <br/>
         <span title={{opt.entity.resource}}
              ng-bind-html="opt.entity.resource| highlight: $select.search"></span>

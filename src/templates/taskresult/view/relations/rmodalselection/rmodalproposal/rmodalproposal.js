@@ -57,7 +57,7 @@
                             "label": response.label
                         },
                         "score": {
-                            "value": 0
+                            "value": null
                         }
                     };
 
