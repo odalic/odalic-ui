@@ -23,6 +23,7 @@
   "directives/buttonload/buttonload.js",
   "directives/filesettings/filesettings.js",
   "directives/pagination/pagination.js",
+  "directives/modalclosing/modalclosing.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",

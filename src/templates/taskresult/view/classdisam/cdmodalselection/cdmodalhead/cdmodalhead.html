@@ -1,11 +1,13 @@
 <div ng-if="(selectedPosition.row == -1)">
 
     <div class="row">
-        <h2 class="col-md-11">Column classification</h2>
-        <h2 class="col-md-1">
+        <h2 class="col-md-10">Column classification</h2>
+        <h2 class="col-md-2">
             <c-d-lock locked="locked.tableCells"
                       row="{{selectedPosition.row}}"
                       column="{{selectedPosition.column}}"/>
+
+            <modal-closing modal-window="modalWindow"/>
         </h2>
     </div>
 
@@ -13,11 +15,13 @@
 <div ng-if="(selectedPosition.row != -1)">
 
     <div class="row">
-        <h2 class="col-md-11">Cell disambiguation</h2>
-        <h2 class="col-md-1">
+        <h2 class="col-md-10">Cell disambiguation</h2>
+        <h2 class="col-md-2">
             <c-d-lock locked="locked.tableCells"
                       row="{{selectedPosition.row}}"
                       column="{{selectedPosition.column}}"/>
+
+            <modal-closing modal-window="modalWindow"/>
         </h2>
     </div>
 

@@ -12,6 +12,7 @@
         $scope.result = data.result;
         $scope.openRProposal = data.openRProposal;
         $scope.chosenKBs = data.chosenKBs;
+        $scope.modalWindow = $uibModalInstance;
 
 
         //creates levels of json if they are missing

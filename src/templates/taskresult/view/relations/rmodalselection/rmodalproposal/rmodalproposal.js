@@ -9,6 +9,7 @@
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
         $scope.gvdata = data.gvdata;
+        $scope.modalWindow = $uibModalInstance;
 
         //sets parameters for the alert directive
         $scope.serverResponse = {

@@ -1,13 +1,15 @@
 <!-- Headline -->
 <div class="modal-header">
     <div class="row" id="modal-title">
-        <h2 class="col-md-11">Relations</h2>
-        <h2 class="col-md-1">
+        <h2 class="col-md-10">Relations</h2>
+        <h2 class="col-md-2">
             <r-lock
                     click="gvdata.update"
                     locked="locked.graphEdges"
                     column1="{{ selectedRelation.column1 }}"
                     column2="{{ selectedRelation.column2 }}"/>
+
+            <modal-closing modal-window="modalWindow"/>
         </h2>
     </div>
 </div>

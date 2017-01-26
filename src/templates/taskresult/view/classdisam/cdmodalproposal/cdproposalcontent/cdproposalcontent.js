@@ -8,6 +8,8 @@
         $scope.result = data.result;
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
+        $scope.modalWindow = $uibModalInstance;
+
 
         //sets parameters for the alert directive
         $scope.serverResponse= {
