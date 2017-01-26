@@ -18,15 +18,17 @@
         // Initialize
         $scope.taskconfigs = [];
         $scope.messages = {};
-        table.refreshList(statepoll.setPolling);
 
         // Pagination settings
         $scope.taskconfigsProxy = {
             perPage: 10
         };
-        $scope.$watch('taskconfigs', function(newValue, oldValue) {
+        $scope.$watch('taskconfigs', function(nv, ov) {
             $scope.taskconfigsProxy.model = $scope.taskconfigs;
         });
+
+        // Load the data into the table
+        table.refreshList(statepoll.setPolling);
 
         // Table button functions
         $scope.frun = function (taskId) {
