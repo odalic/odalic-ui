@@ -15,9 +15,9 @@
              ng-src="{{ lodLiveBrowserIcon }}"
              class="selectBoxIcon uism-aclass"/>
         &nbsp
-        <span title="label">{{ $item.entity.label | shortstr: maxlen }}</span>  &nbsp
+        <span title="label">{{ $item.entity.label  }}</span>  &nbsp
         <span title="score">{{ $item.score.value| nullOrNumber:2}}</span> <br/>
-        <span title={{$item.entity.resource}}>({{ $item.entity.resource | shortstr: maxlen }})</span>
+        <span title={{$item.entity.resource}}>({{ $item.entity.resource}})</span>
     </ui-select-match>
 
     <!-- Menu to choose the concept from (basically a ComboBox) -->

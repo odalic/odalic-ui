@@ -6,14 +6,15 @@
         ng-disabled="data.candidates[knowledgeBase].length == 0"
         ng-change="gvdata.mc(); lockRelation()">
     <ui-select-match placeholder="">
-        <!--{{ $item.entity.label | shortstr: maxlen }}  &nbsp -->
+        <span title="label">{{ $item.entity.label }}</span>  &nbsp
         <span title="score">{{ $item.score.value| nullOrNumber:2}}  </span> <br/>
         <span title={{$item.entity.resource}}>{{$item.entity.resource}}</span>
     </ui-select-match>
     <ui-select-choices
             repeat="opt in data.candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search}">
 
-        <!--{{ opt.entity.label | shortstr: maxlen }}  &nbsp-->
+         <span title="label"
+               ng-bind-html="opt.entity.label | highlight: $select.search"></span>
         <span title="score">{{opt.score.value| nullOrNumber:2}}</span>
         <br/>
         <span title={{opt.entity.resource}}
