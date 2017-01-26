@@ -44,7 +44,7 @@
                         var currentCell = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column];
                         var candidates = currentCell.candidates[$scope.knowledgeBase];
 
-                        addToResult(suggestion,currentCell, candidates,'classification');
+                        addToResult(suggestion,currentCell, candidates,'disambiguation');
                     }
                 };
 
@@ -62,7 +62,7 @@
 
                     //tests  url duplicity
                     if (!urlList.includes(suggestion.resource)) {
-                        //adds new dissabmbiguation among the candidates in a current cell and sets it as the selected candidate
+                        //adds new disambiguation among the candidates in a current cell and sets it as the selected candidate
                         candidates.push(newObj);
                         currentCell.chosen[$scope.knowledgeBase] = [newObj];
                         //locks current cell
