@@ -3,11 +3,14 @@
     <div class="row">
         <h2 class="col-md-10">Column classification</h2>
         <h2 class="col-md-2">
-            <c-d-lock locked="locked.tableCells"
+            <span class="col-md-6">
+                <c-d-lock locked="locked.tableCells"
                       row="{{selectedPosition.row}}"
                       column="{{selectedPosition.column}}"/>
-
-            <modal-closing modal-window="modalWindow"/>
+            </span>
+            <span class="col-md-6">
+                <modal-closing closing-function="close"/>
+            </span>
         </h2>
     </div>
 
@@ -21,7 +24,7 @@
                       row="{{selectedPosition.row}}"
                       column="{{selectedPosition.column}}"/>
 
-            <modal-closing modal-window="modalWindow"/>
+            <modal-closing closing-function="close"/>
         </h2>
     </div>
 

@@ -12,7 +12,7 @@
         $scope.ignoredColumn = data.ignoredColumn;
         $scope.noDisambiguationCell = data.noDisambiguationCell;
         $scope.noDisambiguationColumn = data.noDisambiguationColumn;
-        $scope.modalWindow = $uibModalInstance;
+        $scope.close = $uibModalInstance.close;
 
 
 

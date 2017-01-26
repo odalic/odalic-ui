@@ -184,6 +184,10 @@
                     modElem.modal('hide');
                 };
 
+                scope.close = function () {
+                    scope.dismiss();
+                }
+
                 scope.save = function (future) {
                     onSave(
                         // Success => close the modal

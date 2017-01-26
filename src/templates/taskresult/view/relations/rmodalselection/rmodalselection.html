@@ -3,13 +3,16 @@
     <div class="row" id="modal-title">
         <h2 class="col-md-10">Relations</h2>
         <h2 class="col-md-2">
-            <r-lock
-                    click="gvdata.update"
-                    locked="locked.graphEdges"
-                    column1="{{ selectedRelation.column1 }}"
-                    column2="{{ selectedRelation.column2 }}"/>
-
-            <modal-closing modal-window="modalWindow"/>
+            <span class="col-md-6">
+                <r-lock
+                        click="gvdata.update"
+                        locked="locked.graphEdges"
+                        column1="{{ selectedRelation.column1 }}"
+                        column2="{{ selectedRelation.column2 }}"/>
+            </span>
+            <span class="col-md-6">
+                <modal-closing closing-function="close"/>
+            </span>
         </h2>
     </div>
 </div>
@@ -37,8 +40,9 @@
 
     <!--collapse label-->
     <div class="row">
-        <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedPKB = false" ng-click="isCollapsedPKB = !isCollapsedPKB">
-            <i class="fa fa-angle-down " ></i>
+        <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedPKB = false"
+             ng-click="isCollapsedPKB = !isCollapsedPKB">
+            <i class="fa fa-angle-down "></i>
             <span>Search knowledge base</span>
         </div>
     </div>
@@ -81,8 +85,9 @@
             </div>
             <!--collapse label-->
             <div class="row">
-                <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedKB = true" ng-click="isCollapsedKB = !isCollapsedKB">
-                    <i class=" fa fa-angle-down " ></i>
+                <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedKB = true"
+                     ng-click="isCollapsedKB = !isCollapsedKB">
+                    <i class=" fa fa-angle-down "></i>
                     <span>search</span>
                 </div>
             </div>

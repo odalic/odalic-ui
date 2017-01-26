@@ -5,7 +5,7 @@
 
     /** Icon for closing of a modal window
      *
-     *  Usage: <modal-closing modal-window="$uibModalInstance"/>
+     *  Usage: <modal-closing close-function = "close"/>
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('modalClosing', function () {
@@ -13,12 +13,12 @@
             restrict: 'E',
             templateUrl: currentFolder + 'modalclosing.html',
             scope: {
-                modalWindow: '='
+                closingFunction: '='
             },
             link: function ($scope, iElement, iAttrs) {
                 $scope.close = function()
                 {
-                    $scope.modalWindow.close();
+                    $scope.closingFunction();
                 };
             }
         }
