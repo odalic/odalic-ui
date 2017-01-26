@@ -11,6 +11,9 @@
         $scope.gvdata = data.gvdata;
         $scope.modalWindow = $uibModalInstance;
 
+        $scope.domain = $scope.result.headerAnnotations[ $scope.selectedRelation.column1].chosen[ $scope.primaryKB][0].entity.resource;
+        $scope.range = $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB][0].entity.resource;
+
         //sets parameters for the alert directive
         $scope.serverResponse = {
             type: 'success',
@@ -38,9 +41,11 @@
                     "alternativeLabels": alternativeLabels,
                     "suffix": url,
                     "superProperty": null,
-                    "domain": $scope.result.headerAnnotations[$scope.selectedRelation.column1].chosen[$scope.primaryKB][0].entity,
-                    "range": $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB][0].entity
+                    "domain":  $scope.domain,
+                    "range":  $scope.range
                 };
+
+
                 properties(obj);
             }
         };
@@ -61,18 +66,6 @@
                             "value": null
                         }
                     };
-
-                    //creates levels of json if they are missing
-                    objhelp.objRecurAccess($scope.result.columnRelationAnnotations, $scope.selectedRelation.column1, $scope.selectedRelation.column2, 'candidates');
-                    var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
-                    if (!currentRelation.candidates.hasOwnProperty($scope.primaryKB)) {
-                        currentRelation.candidates[$scope.primaryKB] = [];
-                    }
-
-                    objhelp.objRecurAccess(currentRelation, 'chosen');
-                    if (!currentRelation.chosen.hasOwnProperty($scope.primaryKB)) {
-                        currentRelation.chosen[$scope.primaryKB] = [];
-                    }
 
                     //adds classification into result
                     currentRelation.candidates[$scope.primaryKB].push(newObj);
