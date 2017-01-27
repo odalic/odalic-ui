@@ -55,29 +55,30 @@
                         "entity": {"resource": suggestion.resource, "label": suggestion.label},
                         "score": {"value": null}
                     };
-                    //gets from candidates only  array of URLs
-                    var urlList = candidates.map(function (candidate) {
-                        return candidate.entity.resource;
+                    //finds already existing resource
+                    var alreadyExist = candidates.find(function (candidate) {
+                            return candidate.entity.resource == suggestion.resource
                     });
 
-                    //tests  url duplicity
-                    if (!urlList.includes(suggestion.resource)) {
+                    //tests duplicity
+                    if (alreadyExist == null) {
                         //adds new disambiguation among the candidates in a current cell and sets it as the selected candidate
                         candidates.push(newObj);
                         currentCell.chosen[$scope.knowledgeBase] = [newObj];
-                        //locks current cell
-                        $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
-                        //deletes form
-                        $scope.suggestions ={};
-                        $scope.string="";
-
-                        $scope.reporting.push('success','This '+textMessege+' was used.');
                     }
                     else {
-                        $scope.reporting.push('error','This '+textMessege+' is already in the list of suggested resources.');
+                        //sets it as the selected candidate
+                        currentCell.chosen[$scope.knowledgeBase]=[alreadyExist];
                     }
+                    //locks current cell
+                    $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
+                    //deletes form
+                    $scope.suggestions ={};
+                    $scope.string="";
+
+                    $scope.reporting.push('success','The '+textMessege+' is used.');
                 }
                 ;
 
