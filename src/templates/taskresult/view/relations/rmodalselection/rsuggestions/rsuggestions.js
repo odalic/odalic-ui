@@ -35,24 +35,12 @@
                     $scope.reporting.clear();
                     var newObj = {
                         "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                        "score": {"value": 0}
+                        "score": {"value": null}
                     };
 
 
-                    //creates levels of json if they are missing
-                    objhelp.objRecurAccess($scope.result.columnRelationAnnotations, $scope.selectedRelation.column1, $scope.selectedRelation.column2, 'candidates');
+
                     var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
-
-                    if (!currentRelation.candidates.hasOwnProperty($scope.knowledgeBase)) {
-                        currentRelation.candidates[$scope.knowledgeBase] = [];
-                    }
-
-                    objhelp.objRecurAccess(currentRelation, 'chosen');
-                    if (!currentRelation.chosen.hasOwnProperty($scope.knowledgeBase)) {
-                        currentRelation.chosen[$scope.knowledgeBase] = [];
-                    }
-
-
                     var candidates = currentRelation.candidates[$scope.knowledgeBase];
 
                     //gets from candidates only  array of URLs
@@ -71,12 +59,15 @@
                         $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
                         $scope.gvdata.update();
 
+                        //deletes form
+                        $scope.suggestions ={};
+                        $scope.string="";
+
                         $scope.reporting.push('success', 'This relation was added.');
                     }
                     else {
                         $scope.reporting.push('error', 'This relation is already added');
                     }
-
                 }
 
 

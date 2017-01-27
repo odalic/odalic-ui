@@ -53,7 +53,7 @@
                     //object in result format
                     var newObj = {
                         "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                        "score": {"value": 0}
+                        "score": {"value": null}
                     };
                     //gets from candidates only  array of URLs
                     var urlList = candidates.map(function (candidate) {
@@ -67,6 +67,11 @@
                         currentCell.chosen[$scope.knowledgeBase] = [newObj];
                         //locks current cell
                         $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
+                        //deletes form
+                        $scope.suggestions ={};
+                        $scope.string="";
+
                         $scope.reporting.push('success','This '+textMessege+' was used.');
                     }
                     else {
@@ -116,6 +121,7 @@
                         if ($scope.suggestions.length > 0) {
                             $scope.suggestion = $scope.suggestions[0];
                         }
+
                         $scope.reporting.push('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
                     };
                 };

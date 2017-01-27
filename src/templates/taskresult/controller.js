@@ -6,6 +6,16 @@
     // Load submodules
     loadhelp.loadDefault();
 
+    app.filter('nullOrNumber', ['$filter', function ($filter) {
+        return function (input, fractionSize) {
+            if (input  == null) {
+                return "";
+            } else {
+                return $filter('number')(input, fractionSize);
+            }
+        };
+    }]);
+
     //region filter for a string matching in the select boxes
     //works only for two hierarchy of json
     app.filter('propsFilter', function () {
@@ -165,6 +175,14 @@
                         $scope.$apply();
                     }
 
+                    // Prepare data for pagination
+                    actions.push(function () {
+                        $scope.inputFileProxy = {
+                            model: $scope.inputFile.rows,
+                            perPage: 5
+                        };
+                    });
+
                     // Phase complete
                     dataLoaded(phases.input);
                 },
@@ -181,8 +199,6 @@
                 // Success
                 function (response) {
                     $scope.result = response;
-                    // TODO: This will have to be rewritten: chosenKBs need to be part of the task somehow (its configuration), I guess
-                    $scope.chosenKBs = Object.keys( $scope.result.subjectColumnPositions);
 
                     // Prepare data for graphvis component
                     actions.push(setsData);
@@ -202,7 +218,16 @@
             rest.tasks.name($scope.taskID).retrieve.exec(
                 // Success
                 function (response) {
-                    $scope.primaryKB = response['configuration']['primaryBase']['name'];
+                    var config = response['configuration'];
+
+                    // Chosen KBs
+                    $scope.chosenKBs = [];
+                    config['usedBases'].forEach(function (kb) {
+                        $scope.chosenKBs.push(kb['name']);
+                    });
+
+                    // Primary KB
+                    $scope.primaryKB = config['primaryBase']['name'];
 
                     // Phase complete
                     dataLoaded(phases.kb);
@@ -238,7 +263,6 @@
         })();
 
         $scope.serverFeedback = {};
-
 
 
         //region dependent on data from server
@@ -471,7 +495,7 @@
             });
         };
 
-        //calls cd selection modal window
+        //calls r selection modal window
         $scope.openRSelection = function () {
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
@@ -486,7 +510,8 @@
                             locked: $scope.locked,
                             selectedRelation: $scope.selectedRelation,
                             result: $scope.result,
-                            openRProposal: $scope.openRProposal
+                            openRProposal: $scope.openRProposal,
+                            chosenKBs:$scope.chosenKBs
 
                         }
                     }

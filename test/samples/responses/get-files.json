@@ -12,5 +12,12 @@
 	  "owner": "",
 	  "location": "http://localhost:8080/odalic/files/i2.csv",
 	  "cached": true
+   },
+   {
+	  "id": "NB.csv",
+	  "uploaded": "2016-10-18 12:16",
+	  "owner": "",
+	  "location": "http://localhost:8080/odalic/files/NB.csv",
+	  "cached": true
    }
 ]

@@ -3,6 +3,7 @@
 <injector for="msgtxt.createFailure">An error occured while creating the task.</injector>
 <injector for="msgtxt.startFailure">An error occured while starting the task. The task has been successfully created, though.</injector>
 <injector for="msgtxt.loadFailure">Fatal error occured while loading the task configuration.</injector>
+<injector for="msgtxt.kbLoadFailure">Fatal error occured while loading list of available knowledge bases.</injector>
 
 <!-- Main Content -->
 <main-cnt>
@@ -51,21 +52,21 @@
                 <!-- setting of knowledge bases -->
                 <!-- TODO mozna jinak -->
                 <div class="form-group">
+                    <!-- Used knowledge bases -->
                     <label class="col-md-2 control-label">Knowledge bases:</label>
                     <div class="col-md-10">
-                        <select size="{{ kbs.availableKBs.length }}"
-                                class="form-control"
-                                multiple
-                                ng-model="kbs.chosenKBs"
-                                ng-options="opt.name for opt in kbs.availableKBs"
-                                disabled></select>
+                        <select class="form-control" name="selectKBs" ng-model="kbs.chosenKBs" ng-options="opt.name for opt in kbs.availableKBs" size="{{ kbs.availableKBs.length }}" ng-change="kbs.selectionChanged()" multiple required>
+                        </select>
+                        <div ng-if="taskCreationForm.selectKBs.$invalid && taskCreationForm.selectKBs.$dirty">
+                            <error-msg>At least 1 knowledge base has to be selected.</error-msg>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <!-- setting of primary knowledge base -->
+                    <!-- Primary knowledge base -->
                     <label class="col-md-2 control-label">Primary knowledge base:</label>
                     <div class="col-md-10">
-                        <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableKBs" required>
+                        <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableSelectedKBs" required>
                             <option value="">Select Knowledge Base</option>
                         </select>
                         <div ng-if="taskCreationForm.selectPrimaryKB.$invalid && taskCreationForm.selectPrimaryKB.$dirty">

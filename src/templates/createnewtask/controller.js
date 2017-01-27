@@ -9,10 +9,8 @@
     // Create a controller for task-creation screen
     app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
 
-        // Template initialization
-        $scope['taskCreation'] = {};
-
         // Initialization
+        $scope.taskCreation = {};
         $scope.templFormat = {
             createTask: null,
             saveTask: null,
@@ -22,58 +20,100 @@
         $scope.fileinput = {};
         formsval.toScope($scope);
 
-        //TODO smazat az bude na vyber,tj.
-        //az to bude server umet, tak se dostupne kbs nastavi ze serveru
+        // Additional variables
+        var kbListLoaded = false;
 
-        //Supported knowledge bases
-        // TODO: Temporarily this way! Improvement needed!
-        // Fallback to default:
-        $scope.kbs = {
-            modifiableKBs:[],
-            availableKBs: [
-                // { name: 'DBpedia' },
-                // { name: 'DBpedia Clone' },
-                // { name: 'German DBpedia' }
-            ],
-            primaryKB: null,
-            setDefault: function () {
-                if (this.modifiableKBs && this.modifiableKBs.length > 0) {
-                    this.primaryKB = this.modifiableKBs[0];
+        // Dealing with knowledge bases
+        (function () {
+            // Supported knowledge bases
+            $scope.kbs = {
+                modifiableSelectedKBs: [],      // KBs that a primary base can be chosen from
+                chosenKBs: [],                  // KBs that were selected
+
+                availableKBs: [],               // All KBs
+                modifiableKBs: [],              // KBs that can serve as a primary base
+                primaryKB: null,
+                
+                // Change list of available KBs that can serve as a primary base upon selection change
+                selectionChanged: function () {
+                    var ref = this;
+                    ref.modifiableSelectedKBs = [];
+
+                    // Not the optimal algorithm, but the amount of KBs is assumed to be small
+                    if (ref.modifiableKBs) {
+                        ref.modifiableKBs.forEach(function (modifiableKB) {
+                            if (ref.chosenKBs) {
+                                ref.chosenKBs.forEach(function (kb) {
+                                    if (kb.name === modifiableKB.name) {
+                                        ref.modifiableSelectedKBs.push(modifiableKB);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                },
+
+                // Updates "chosenKBs" and "primaryKB" according to arguments (string names of KBs); chosenKBs has to be an array
+                setBases: function (chosenKBs, primaryKB) {
+                    if (!this.availableKBs) {
+                        return;
+                    }
+
+                    var ref = this;
+                    var chosenKBsObjs = [];
+
+                    // Again not the most optimal approach, but should not matter...
+                    chosenKBs.forEach(function (kbString) {
+                        ref.availableKBs.forEach(function (kbObj) {
+                            if (kbObj.name === kbString.name) {
+                                chosenKBsObjs.push(kbObj);
+                            }
+                        })
+                    });
+                    
+                    ref.chosenKBs = chosenKBsObjs;
+                    ref.selectionChanged();
+
+                    // Find the primary base among "modifiableKBs" list
+                    if (ref.modifiableKBs) {
+                        ref.modifiableKBs.forEach(function (kbObj) {
+                            if (kbObj.name === primaryKB.name) {
+                                ref.primaryKB = kbObj;
+                            }
+                        })
+                    }
                 }
-            }
-        };
-        rest.bases.list(false).exec(
-            // Success
-            function (response) {
-                console.log(response);
-                $scope.kbs.availableKBs = response;
-            },
+            };
 
-            // Failure
-            function (response) {
-                // Log and ignore. Hopefully won't happen.
-                console.warn('Could not load KB list. Reponse:');
-            }
-        );
+            // Retrieve the list of KBs from server
+            rest.bases.list(false).exec(
+                // Success
+                function (response) {
+                    // Set available KBs
+                    $scope.kbs.availableKBs = response;
 
-        rest.bases.list(true).exec(
-            // Success
-            function (response) {
-                console.log(response);
-                $scope.kbs.modifiableKBs = response;
-                $scope.kbs.setDefault();
-            },
+                    // Retrieve list of KBs that can serve as a primary KB
+                    rest.bases.list(true).exec(
+                        // Success
+                        function (response) {
+                            $scope.kbs.modifiableKBs = response;
+                            kbListLoaded = true;
+                        },
 
-            // Failure
-            function (response) {
-                // Log and ignore. Hopefully won't happen.
-                console.warn('Could not load KB list. Reponse:');
-                console.warn(response);
-                $scope.kbs.setDefault();
-            }
-        );
-
-
+                        // Failure
+                        function (response) {
+                            $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.kbLoadFailure'], response.data));
+                            kbListLoaded = true;
+                        }
+                    );
+                },
+                // Failure
+                function (response) {
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.kbLoadFailure'], response.data));
+                    kbListLoaded = true;
+                }
+            );
+        })();
 
         $scope.wholeForm = {
             // Messages for a user
@@ -104,6 +144,7 @@
                         primaryBase: {
                             name: $scope.kbs.primaryKB.name
                         },
+                        usedBases: $scope.kbs.chosenKBs,
                         rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null
                     },
                     description: text.safe($scope.taskCreation.description)
@@ -213,6 +254,14 @@
                             return !!$scope.fileinput.setSelectedFile;
                         }, function () {
                             $scope.fileinput.setSelectedFile(config.input);
+                        });
+
+                        // Selected knowledge bases
+                        timed.ready(function () {
+                            return kbListLoaded;
+                        }, function () {
+                            $scope.kbs.setBases(config.usedBases, config.primaryBase);
+                            $scope.$apply();
                         });
 
                         // Lines limit

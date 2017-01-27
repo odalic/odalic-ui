@@ -3,23 +3,27 @@
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
-        <!--row index -1 represents headers-->
-        <tr ng-class="'headerRow'"
-            c-d-table-row row="inputFile.columns" row-index="-1"
-            concrete-data="result.headerAnnotations" selected-position="selectedPosition"
-            locked-table-cells = "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{primaryKB}}" proposal = "openCDProposal"
-            suggestion ="openCDSelection">
-        </tr>
+            <!-- Row index -1 represents headers -->
+            <tr ng-class="'headerRow'"
+                c-d-table-row row="inputFile.columns" row-index="-1"
+                concrete-data="result.headerAnnotations" selected-position="selectedPosition"
+                locked-table-cells = "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{ primaryKB }}" proposal="openCDProposal"
+                suggestion="openCDSelection">
+            </tr>
         </thead>
         <tbody>
-        <!--row index <0, inputFile.rows>  represents  disambiguation result-->
-        <tr ng-class-even="'evenRow'"
-            ng-repeat="row in inputFile.rows"
-            c-d-table-row row="row" row-index="$index"
-            concrete-data="result.cellAnnotations[$index]"  selected-position="selectedPosition"
-            locked-table-cells= "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{primaryKB}}" proposal = "openCDProposal"
-            suggestion ="openCDSelection">
-        </tr>
+            <!-- Row index <0, inputFile.rows>  represents  disambiguation result -->
+            <!--ng-repeat="row in inputFile.rows"-->
+            <tr ng-class-even="'evenRow'"
+                ng-repeat="row in inputFileProxy.getView() track by $index"
+                c-d-table-row row="row" row-index="inputFileProxy.getModelIndex($index)"
+                concrete-data="result.cellAnnotations[inputFileProxy.getModelIndex($index)]" selected-position="selectedPosition"
+                locked-table-cells= "locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{ primaryKB }}" proposal="openCDProposal"
+                suggestion="openCDSelection">
+            </tr>
         </tbody>
     </table>
 </div>
+
+<!-- Pagination -->
+<pagination bind="inputFileProxy" />

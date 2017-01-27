@@ -55,8 +55,7 @@
                     ['comment', 'commentMarker']
                 ]);
                 var mirrorChkBox = objhelp.tsmirror([
-                    ['emptylinesignore', 'emptyLinesIgnored'],
-                    ['headercaseignore', 'headerCaseIgnored']
+                    ['emptylinesignore', 'emptyLinesIgnored']
                 ]);
 
                 // The root element
@@ -166,7 +165,6 @@
                         'delimiter',
                         'emptyLinesIgnored',
                         'escapeCharacter',
-                        'headerCaseIgnored',
                         'quoteCharacter'
                     ];
 

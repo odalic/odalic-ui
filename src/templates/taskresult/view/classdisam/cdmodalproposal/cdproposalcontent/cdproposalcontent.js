@@ -27,7 +27,7 @@
 
 
             // Is proposal defined?
-            if (proposal) {
+            if (proposal && $scope.cDProposeForm.$valid) {
                 //TOTO prefix kde ho vezmu co s nim?????
                 var prefixUrl = "";
 
@@ -71,6 +71,7 @@
 
         //saves new propose class
         var classes = function (obj) {
+
             rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
@@ -80,7 +81,7 @@
                             "label": response.label
                         },
                         "score": {
-                            "value": 0
+                            "value": null
                         }
                     };
 
@@ -116,7 +117,7 @@
                             "label": response.label
                         },
                         "score": {
-                            "value": 0
+                            "value": null
                         }
                     };
                     //adds disambiguation into result
@@ -147,7 +148,7 @@
         {
             $scope.serverResponse.type = 'success';
             $scope.serverResponse.visible = true;
-            $scope.messege = "Proposed relation was successfully saved in the knowledge base";
+            $scope.messege = "Proposed resource was successfully saved in the knowledge base";
         }
         //sets parameters for the alert directive
         var fail = function(info)

@@ -1,10 +1,11 @@
 <!-- SelectBox with only one possibility to choose from -->
 <ui-select
+        title="Choose from the remaining candidates ({{data.candidates[knowledgeBase].length - data.chosen[knowledgeBase].length}})"
         ng-model="data.chosen[knowledgeBase]"
         multiple limit="1" theme="bootstrap"
-        search-enabled="true"
         ng-change="lockCell()"
         on-select="switchChosen($item, knowledgeBase);lockCell() "
+        ng-disabled = "data.candidates[knowledgeBase].length == 0"
         class="uis-aclass">
 
     <!-- Currently selected concept -->
@@ -14,9 +15,9 @@
              ng-src="{{ lodLiveBrowserIcon }}"
              class="selectBoxIcon uism-aclass"/>
         &nbsp
-        <span title="label">{{ $item.entity.label | shortstr: maxlen }}</span>  &nbsp
-        <span title="score">{{ $item.score.value| number:2}}</span> <br/>
-        <span title={{$item.entity.resource}}>({{ $item.entity.resource | shortstr: maxlen }})</span>
+        <span title="label">{{ $item.entity.label  }}</span>  &nbsp
+        <span title="score">{{ $item.score.value| nullOrNumber:2}}</span> <br/>
+        <span title={{$item.entity.resource}}>({{ $item.entity.resource}})</span>
     </ui-select-match>
 
     <!-- Menu to choose the concept from (basically a ComboBox) -->
@@ -30,7 +31,7 @@
         <span title="label"
               ng-bind-html="opt.entity.label | highlight: $select.search"></span>
         &nbsp
-        <span title="score">{{opt.score.value | number:2}}</span>
+        <span title="score">{{opt.score.value | nullOrNumber:2}}</span>
         <br/>
         <div title={{opt.entity.resource}}
              ng-bind-html="'(' + opt.entity.resource + ')' | highlight: $select.search"></div>
