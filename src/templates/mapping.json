@@ -20,6 +20,16 @@
         "controller": "odalic-ngtest-ctrl"
     },
     {
+        "route": "/login",
+        "folder": "login",
+        "controller": "odalic-login-ctrl"
+    },
+    {
+        "route": "/signup",
+        "folder": "signup",
+        "controller": "odalic-signup-ctrl"
+    },
+    {
         "route": "/taskconfigs",
         "folder": "taskconfigs",
         "controller": "odalic-taskconfigs-ctrl"

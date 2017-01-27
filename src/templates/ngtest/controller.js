@@ -24,6 +24,13 @@
             console.log($auth.getToken());
             console.log($auth.getPayload());
         };
+
+        $scope.logout = function() {
+            $auth.logout();
+            console.log($auth.isAuthenticated());
+            console.log($auth.getToken());
+            console.log($auth.getPayload());
+        };
         
         $scope.testconn = function () {
             // TODO: Everything needs to be rewritten to use "$http" as its 'ajax-middleware' in rest services
