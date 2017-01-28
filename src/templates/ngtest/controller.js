@@ -33,12 +33,20 @@
         };
         
         $scope.testconn = function () {
-            // TODO: Everything needs to be rewritten to use "$http" as its 'ajax-middleware' in rest services
             $http({
                 method: 'GET',
-                url: '/meh'
+                url: 'http://localhost:8080/odalic/files'
                 //skipAuthorization: true
-            });
+            }).then(
+                function (response) {
+                    console.log('success response');
+                    console.log(response);
+                },
+                function (response) {
+                    console.log('failure response');
+                    console.log(response);
+                }
+            );
         };
 
         $scope.basicauth = function () {

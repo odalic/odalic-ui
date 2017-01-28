@@ -41,7 +41,7 @@
 
                 <!-- Right menu -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-repeat="singleMenu in rightMenu">
+                    <li ng-repeat="singleMenu in rightMenu" ng-class="{ active: selectedIndex == ($index + leftMenu.length) }">
                         <a href="{{ singleMenu.link }}"><span class="glyphicon {{ singleMenu.icon }}"></span> {{
                             singleMenu.title }}</a>
                     </li>

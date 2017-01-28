@@ -2,30 +2,8 @@ $.defineModule(function () {
     return function (requests) {
         // Preparations
         var root = constants.addresses.odalicroot;
-        var successf = function (success) {
-            return function (response) {
-                var r = response.data;
-                if (typeof(r) !== 'object') {
-                    r = JSON.parse(r);
-                }
 
-                var res = {};
-                var addarg1 = undefined;
-                var addarg2 = undefined;
-
-                if (r.type === 'DATA') {
-                    res = r.payload;
-                }
-                else if (r.type === 'MESSAGE') {
-                    res = r.payload.text;
-                    addarg1 = r.payload.additionalResources;
-                    addarg2 = r.payload.debugContent;
-                }
-                success(res, addarg1, addarg2);
-            };
-        };
-
-        //function with parameters for classification/disambiguation/relation suggestions
+        // Classification/disambiguation/relation suggestions
         var searchRequest = function (kb, type) {
             return function (string) {
                 return {
@@ -33,7 +11,7 @@ $.defineModule(function () {
                         return {
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, kb, 'entities', type) + '?query=' + string + '&limit=' + countLimit, 'GET', successf(success), failure);
+                                    requests.quickRequest(text.urlConcat(root, kb, 'entities', type) + '?query=' + string + '&limit=' + countLimit, 'GET', success, failure);
                                 }
                             }
                         };
@@ -42,9 +20,8 @@ $.defineModule(function () {
             };
         };
 
-        //function with parameters for classification/disambiguation/relation proposal
-        var proposeRequest = function(kb, type)
-        {
+        // Classification/disambiguation/relation proposal
+        var proposeRequest = function(kb, type) {
             return function (data) {
                 return {
                     exec: function (success, failure) {
@@ -52,15 +29,15 @@ $.defineModule(function () {
                             method: 'POST',
                             address: text.urlConcat(root, kb, 'entities', type),
                             formData: data,
-                            success: successf(success),
+                            success: success,
                             failure: failure
                         });
                     }
                 };
             };
-
         };
 
+        // Module
         return {
             // Files service
             files: {
@@ -83,7 +60,7 @@ $.defineModule(function () {
                                                 })
                                                 .attachGeneric('input', data)
                                                 .get(),
-                                            success: successf(success),
+                                            success: success,
                                             failure: failure
                                         });
                                     }
@@ -98,7 +75,7 @@ $.defineModule(function () {
                                             formData: {
                                                 location: location
                                             },
-                                            success: successf(success),
+                                            success: success,
                                             failure: failure
                                         });
                                     }
@@ -107,7 +84,7 @@ $.defineModule(function () {
                         },
                         remove: {
                             exec: function (success, failure) {
-                                requests.quickRequest(text.urlConcat(root, 'files', identifier), 'DELETE', successf(success), failure);
+                                requests.quickRequest(text.urlConcat(root, 'files', identifier), 'DELETE', success, failure);
                             }
                         },
                         retrieve: {
@@ -116,7 +93,7 @@ $.defineModule(function () {
                                     method: 'GET',
                                     address: text.urlConcat(root, 'files', identifier),
                                     formData: 'unspecified',
-                                    success: successf(success),
+                                    success: success,
                                     failure: failure
                                 });
                             },
@@ -131,7 +108,7 @@ $.defineModule(function () {
                                         method: 'GET',
                                         address: text.urlConcat(root, 'files', identifier, 'format'),
                                         formData: null,
-                                        success: successf(success),
+                                        success: success,
                                         failure: failure
                                     });
                                 }
@@ -143,7 +120,7 @@ $.defineModule(function () {
                                             method: 'PUT',
                                             address: text.urlConcat(root, 'files', identifier, 'format'),
                                             formData: data,
-                                            success: successf(success),
+                                            success: success,
                                             failure: failure
                                         });
                                     }
@@ -154,7 +131,7 @@ $.defineModule(function () {
                 },
                 list: {
                     exec: function (success, failure) {
-                        requests.quickRequest(text.urlConcat(root, 'files'), 'GET', successf(success), failure);
+                        requests.quickRequest(text.urlConcat(root, 'files'), 'GET', success, failure);
                     }
                 }
             },
@@ -170,7 +147,7 @@ $.defineModule(function () {
                                         method: 'PUT',
                                         address: text.urlConcat(root, 'tasks', identifier),
                                         formData: data,
-                                        success: successf(success),
+                                        success: success,
                                         failure: failure
                                     });
                                 }
@@ -183,7 +160,7 @@ $.defineModule(function () {
                                         method: 'PUT',
                                         address: text.urlConcat(root, 'tasks', identifier, 'configuration'),
                                         formData: data,
-                                        success: successf(success),
+                                        success: success,
                                         failure: failure
                                     });
                                 }
@@ -191,12 +168,12 @@ $.defineModule(function () {
                         },
                         remove: {
                             exec: function (success, failure) {
-                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'DELETE', successf(success), failure);
+                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'DELETE', success, failure);
                             }
                         },
                         retrieve: {
                             exec: function (success, failure) {
-                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', successf(success), failure);
+                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', success, failure);
                             }
                         },
                         execute: {
@@ -207,34 +184,34 @@ $.defineModule(function () {
                                     formData: {
                                         draft: false
                                     },
-                                    success: successf(success),
+                                    success: success,
                                     failure: failure
                                 });
                             }
                         },
                         stop: {
                             exec: function (success, failure) {
-                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'execution'), 'DELETE', successf(success), failure);
+                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'execution'), 'DELETE', success, failure);
                             }
                         },
                         state: {
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'state'), 'GET', successf(success), failure);
+                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'state'), 'GET', success, failure);
                                 }
                             }
                         },
                         input: {
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback', 'input'), 'GET', successf(success), failure);
+                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback', 'input'), 'GET', success, failure);
                                 }
                             }
                         },
                         result: {
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'result'), 'GET', successf(success), failure);
+                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'result'), 'GET', success, failure);
                                 }
                             },
                             export: {
@@ -268,7 +245,7 @@ $.defineModule(function () {
                                             method: 'PUT',
                                             address: text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'),
                                             formData: data,
-                                            success: successf(success),
+                                            success: success,
                                             failure: failure
                                         });
                                     }
@@ -276,7 +253,7 @@ $.defineModule(function () {
                             },
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'), 'GET', successf(success), failure);
+                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'), 'GET', success, failure);
                                 }
                             }
                         }
@@ -284,7 +261,7 @@ $.defineModule(function () {
                 },
                 list: {
                     exec: function (success, failure) {
-                        requests.quickRequest(text.urlConcat(root, 'tasks') + '?states=true', 'GET', successf(success), failure);
+                        requests.quickRequest(text.urlConcat(root, 'tasks') + '?states=true', 'GET', success, failure);
                     }
                 },
                 states: {
@@ -301,7 +278,7 @@ $.defineModule(function () {
                 list: function (modifiable) {
                     return {
                         exec: function (success, failure) {
-                            requests.quickRequest(text.urlConcat(root, (new String()).concat('bases', '?modifiable=', modifiable)), 'GET', successf(success), failure);
+                            requests.quickRequest(text.urlConcat(root, (new String()).concat('bases', '?modifiable=', modifiable)), 'GET', success, failure);
                         }
                     }
                 }
@@ -331,11 +308,10 @@ $.defineModule(function () {
 
                             //POST http://example.com/{base}/entities/properties
                             update: proposeRequest(kb, 'properties')
-
-                        },
+                        }
                     }
                 };
-            },
+            }
         };
     };
 });
