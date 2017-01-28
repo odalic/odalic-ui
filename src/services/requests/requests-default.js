@@ -36,7 +36,14 @@ $.defineModule(function () {
 
         // Default failure function in each ajax request
         failure: function (response, f) {
-            f(response);
+            // Unauthorized?
+            if (response.status === 401) {
+                window.location.href = '#/login';
+            }
+            // Otherwise custom handler
+            else {
+                f(response);
+            }
         }
     };
 });
