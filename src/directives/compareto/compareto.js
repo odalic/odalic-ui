@@ -18,15 +18,28 @@
     var currentFolder = $.getPathForRelativePath('');
     app.directive('compareTo', function () {
         return {
+            restrict: 'A',
             require: 'ngModel',
             scope: {
                 otherValue: '=compareTo'
             },
             link: function (scope, iElement, iAttrs, ngModel) {
 
+                // Validator name
+                var vname = 'compare';
+
+                // Validation function
+                var tester = function (value) {
+                    var result = scope.otherValue === value;
+                    ngModel.$setValidity(vname, result);
+                    return result;
+                };
+
                 // Add a new validation function before all of the other validators
+                ngModel.$validators[vname] = tester;
                 ngModel.$parsers.unshift(function (value) {
-                    ngModel.$setValidity('compare', scope.otherValue === value);
+                    // Set validity upon change
+                    tester(value);
 
                     // "Parsers change how view values will be saved in the model" => we simply return the value
                     return value;

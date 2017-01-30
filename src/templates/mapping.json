@@ -30,6 +30,11 @@
         "controller": "odalic-signup-ctrl"
     },
     {
+        "route": "/signup/:token",
+        "folder": "signupcnf",
+        "controller": "odalic-signupcnf-ctrl"
+    },
+    {
         "route": "/taskconfigs",
         "folder": "taskconfigs",
         "controller": "odalic-taskconfigs-ctrl"

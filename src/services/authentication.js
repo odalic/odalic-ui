@@ -6,12 +6,19 @@
     // Configure routes
     app.config(function ($authProvider) {
 
-        $authProvider.google({
-            clientId: '526771567449-ope1mlfqrptemsqbgk4iae1e9j6728kf.apps.googleusercontent.com',
-            url: 'authtest/index.htm',
-            redirectUri: window.location.origin,
-            responseType: 'token'
-        });
+        // Root
+        var root = constants.addresses.odalicroot;
+
+        // Configure
+        $authProvider.loginUrl = text.urlConcat(root, 'users', 'authentications');
+        $authProvider.signupUrl = text.urlConcat(root, 'users');
+
+        // $authProvider.google({
+        //     clientId: '526771567449-ope1mlfqrptemsqbgk4iae1e9j6728kf.apps.googleusercontent.com',
+        //     url: 'authtest/index.htm',
+        //     redirectUri: window.location.origin,
+        //     responseType: 'token'
+        // });
 
         // Custom
         // $authProvider.oauth2({
