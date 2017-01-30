@@ -39,6 +39,141 @@ $.defineModule(function () {
 
         // Module
         return {
+            // Users service
+            users: {
+                /** Provides methods for handling a specific single user.
+                 *
+                 * @param identifier    A user's username string (e-mail).
+                 */
+                name: function (identifier) {
+                    return {
+                        /** Creates a new user. After thet, the user has to be 'confirmed' before being able to log into the system.
+                         *
+                         * @param data      Profile data in JSON, e.g.: { "password": "********" }
+                         */
+                        create: function (data) {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'POST',
+                                        address: text.urlConcat(root, 'users'),
+                                        formData: {
+                                            email: objhelp.getFirstArg(identifier, data.email),
+                                            password: data.password
+                                        },
+                                        success: success,
+                                        failure: failure
+                                    });
+                                }
+                            };
+                        },
+
+                        /** Logs user. Server responds with an issued token, if authorized.
+                         *
+                         *  @param password     The user's password.
+                         */
+                        log: function (password) {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'POST',
+                                        address: text.urlConcat(root, 'users', 'authentications'),
+                                        formData: {
+                                            email: identifier,
+                                            password: password
+                                        },
+                                        success: success,
+                                        failure: failure
+                                    });
+                                }
+                            };
+                        },
+                        password: {
+                            // TODO: Wrong use of API; the documentation on grips is incomplete.
+                            replace: function (passwordOld, passwordNew) {
+                                return {
+                                    exec: function (success, failure) {
+                                        requests.reqJSON({
+                                            method: 'POST',
+                                            address: text.urlConcat(root, 'users', identifier, 'password'),
+                                            formData: {
+                                                email: identifier,
+                                                passwordOld: passwordOld,
+                                                passwordNew: passwordNew
+                                            },
+                                            success: success,
+                                            failure: failure
+                                        });
+                                    }
+                                };
+                            }
+                        },
+
+                        /** Retrieves current user's profile data. */
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.reqJSON({
+                                    method: 'GET',
+                                    address: text.urlConcat(root, 'users', identifier),
+                                    formData: undefined,
+                                    success: success,
+                                    failure: failure
+                                });
+                            }
+                        }
+                    };
+                },
+
+                /** Confirms creation of a new user.
+                 *
+                 *  @param token    A string token. Usually provided by a user who got it in an e-mail.
+                 */
+                confirm: function (token) {
+                    return {
+                        exec: function (success, failure) {
+                            requests.reqJSON({
+                                method: 'POST',
+                                address: text.urlConcat(root, 'users', 'confirmations'),
+                                formData: {
+                                    token: token
+                                },
+                                success: success,
+                                failure: failure
+                            });
+                        }
+                    };
+                },
+                password: {
+                    /** Confirms password change.
+                     *  Note that previously issued authentication tokens are invalidated after successful password change.
+                     *
+                     *  @param token    A string token. Usually provided by a user who got it in an e-mail.
+                     */
+                    confirm: function (token) {
+                        return {
+                            exec: function (success, failure) {
+                                requests.reqJSON({
+                                    method: 'POST',
+                                    address: text.urlConcat(root, 'users', 'passwords', 'confirmations'),
+                                    formData: token,
+                                    success: success,
+                                    failure: failure
+                                });
+                            }
+                        };
+                    },
+                },
+
+                /** Lists all available users.
+                 *  May be called only by an administrator.
+                 */
+                list: {
+                    exec: function (success, failure) {
+                        requests.quickRequest(text.urlConcat(root, 'users'), 'GET', success, failure);
+                    }
+                }
+            },
+
             // Files service
             files: {
                 name: function (identifier) {
