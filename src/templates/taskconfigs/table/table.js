@@ -21,10 +21,16 @@ var tableComponent = function (scope, rest, reporth) {
                 // Success
                 function (response) {
                     scope.taskconfigs = response;
+                    console.log('taskconfigs table: updating taskconfigs scope variable');
                     updateMirror();
 
                     if (callback) {
                         callback();
+                    }
+
+                    if (!scope.$$phase) {
+                        console.log('taskconfigs table: scope apply called');
+                        scope.$apply();
                     }
                 },
                 // Error
