@@ -21,7 +21,7 @@
         };
 
         $scope.columnClass = $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB];
-        $scope.disableDisambCondition =   $scope.selectedPosition.row != -1 &&  $scope.columnClass.length==0
+        $scope.disableDisambCondition =  $scope.selectedPosition.row != -1 &&  $scope.columnClass.length==0
         //region proposal settings
         $scope.setProposal = function (proposal) {
 
