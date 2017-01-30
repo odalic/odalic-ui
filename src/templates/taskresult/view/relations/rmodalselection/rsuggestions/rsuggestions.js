@@ -38,36 +38,35 @@
                         "score": {"value": null}
                     };
 
-
-
                     var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
                     var candidates = currentRelation.candidates[$scope.knowledgeBase];
 
-                    //gets from candidates only  array of URLs
-                    var urlList = candidates.map(function (candidate) {
-                        return candidate.entity.resource;
+                    //finds already existing resource
+                    var alreadyExist = candidates.find(function (candidate) {
+                        return candidate.entity.resource == suggestion.resource
                     });
 
-                    //tests  url duplicity
-                    if (!urlList.includes(suggestion.resource)) {
+                    //tests duplicity
+                    if (alreadyExist == null) {
                         //adds new relation among the candidates in a current cell and sets it as the selected candidate
                         candidates.push(newObj);
                         currentRelation.chosen[$scope.knowledgeBase] = [newObj];
-                        $scope.gvdata.mc();
-
-                        //locks current relation
-                        $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
-                        $scope.gvdata.update();
-
-                        //deletes form
-                        $scope.suggestions ={};
-                        $scope.string="";
-
-                        $scope.reporting.push('success', 'This relation was added.');
                     }
                     else {
-                        $scope.reporting.push('error', 'This relation is already added');
+                        currentRelation.chosen[$scope.knowledgeBase] = [newObj];
                     }
+
+                    $scope.gvdata.mc();
+
+                    //locks current relation
+                    $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+                    $scope.gvdata.update();
+
+                    //deletes form
+                    $scope.suggestions ={};
+                    $scope.string="";
+
+                    $scope.reporting.push('success', 'The relation is used.');
                 }
 
 
