@@ -26,6 +26,10 @@ var tableComponent = function (scope, rest, reporth) {
                     if (callback) {
                         callback();
                     }
+
+                    // Update pagination directive
+                    scope.filesProxy.model = scope.files;
+                    scope.$broadcast('pagination');
                 },
                 // Error
                 function (response) {
