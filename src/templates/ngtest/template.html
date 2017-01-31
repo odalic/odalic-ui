@@ -1,17 +1,18 @@
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json" />
+    <navbar selected="none" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <!-- Content -->
     <div class="container-fluid">
         <h2>Angular testing template</h2>
-
-        <span ng-repeat="word in myobj.getView()">
-            {{ word }}
-        </span>
-        <pagination bind="myobj" />
-
+        <p>
+            <button type="button" class="btn btn-lg" ng-click="myauth()">Google</button>
+            <button type="button" class="btn btn-lg" ng-click="testauth()">Am I authorized?</button>
+            <button type="button" class="btn btn-lg" ng-click="testconn()">Send packet</button>
+            <button type="button" class="btn btn-lg" ng-click="basicauth()">Basic</button>
+            <button type="button" class="btn btn-lg" ng-click="logout()">Logout</button>
+        </p>
     </div>
 </main-cnt>
 

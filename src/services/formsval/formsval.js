@@ -57,6 +57,28 @@
             // Return
             return valid;
         };
+
+        /** Returns whether a form is valid.
+        *  Sets dirty flag in the controls that report an error.
+        *
+        *  @param form        The form object to validate.
+        *  @returns {boolean} Whether the form is valid.
+        */
+        this.validate = function (form) {
+            var valid = true;
+
+            // Force validation
+            objhelp.objForEach(form.$error, function (key, value) {
+                value.forEach(function (item) {
+                    item.$setDirty();
+                    valid = false;
+                })
+            });
+
+            // Return
+            return valid;
+        };
+
     });
 
 })();

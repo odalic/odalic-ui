@@ -23,6 +23,7 @@
   "directives/buttonload/buttonload.js",
   "directives/filesettings/filesettings.js",
   "directives/pagination/pagination.js",
+  "directives/compareto/compareto.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",
@@ -34,5 +35,6 @@
   "services/formsval/formsval.js",
   "services/reporth/reporth.js",
   "filters/shortstr/filter.js",
+  "services/authentication.js",
   "templates/templates.js"
 ]

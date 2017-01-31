@@ -5,11 +5,66 @@
 
     // Create a controller for ngtest
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-ngtest-ctrl', function ($scope) {
+    app.controller('odalic-ngtest-ctrl', function ($scope, $auth, $http) {
 
-        $scope.myobj = {};
-        $scope.myobj.model = ["Hi", "this", "is", "an", "array", "of", "words"];
-        $scope.myobj.perPage = 3;
+        $scope.myauth = function() {
+            $auth.authenticate('google')
+                .then(function(response) {
+                    console.log('Connected!');
+                    console.log(response);
+                })
+                .catch(function(response) {
+                    console.log('Failure!');
+                    console.log(response);
+                });
+        };
+
+        $scope.testauth = function() {
+            console.log($auth.isAuthenticated());
+            console.log($auth.getToken());
+            console.log($auth.getPayload());
+        };
+
+        $scope.logout = function() {
+            $auth.logout();
+            console.log($auth.isAuthenticated());
+            console.log($auth.getToken());
+            console.log($auth.getPayload());
+        };
+        
+        $scope.testconn = function () {
+            $http({
+                method: 'GET',
+                url: 'http://localhost:8080/odalic/files'
+                //skipAuthorization: true
+            }).then(
+                function (response) {
+                    console.log('success response');
+                    console.log(response);
+                },
+                function (response) {
+                    console.log('failure response');
+                    console.log(response);
+                }
+            );
+        };
+
+        $scope.basicauth = function () {
+            var user = {
+                email: 'istvan.satmari@gmail.com',
+                password: 'example'
+            };
+
+            $auth.login(user)
+                .then(function(response) {
+                    console.log('login successful!');
+                    console.log(response);
+                })
+                .catch(function(response) {
+                    console.log('login failure!');
+                    console.log(response);
+                });
+        };
     });
 
 })();
