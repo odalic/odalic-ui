@@ -1,12 +1,23 @@
 [
   {
+    "id": "signup",
     "title": "Sign up",
     "link": "#/signup",
-    "icon": "glyphicon-user"
+    "icon": "glyphicon-user",
+    "condition": "!$auth.isAuthenticated()"
   },
   {
+    "id": "login",
     "title": "Log in",
     "link": "#/login",
-    "icon": "glyphicon-log-in"
+    "icon": "glyphicon-log-in",
+    "condition": "!$auth.isAuthenticated()"
+  },
+  {
+    "id": "login",
+    "title": "My account",
+    "link": "#/login",
+    "icon": "glyphicon-cog",
+    "condition": "$auth.isAuthenticated()"
   }
 ]
