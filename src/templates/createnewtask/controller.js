@@ -18,6 +18,7 @@
         };
         $scope.linesLimit = {};
         $scope.fileinput = {};
+        $scope.statistical = {};
         formsval.toScope($scope);
 
         // Additional variables
@@ -145,7 +146,8 @@
                             name: $scope.kbs.primaryKB.name
                         },
                         usedBases: $scope.kbs.chosenKBs,
-                        rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null
+                        rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null,
+                        statistical: $scope.statistical.value
                     },
                     description: text.safe($scope.taskCreation.description)
                 };
@@ -248,6 +250,7 @@
                         // Basic settings
                         objhelp.objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
                         $scope.taskCreation.description = response.description;
+                        $scope.statistical.value = config.statistical;
 
                         // Selected file
                         timed.ready(function () {

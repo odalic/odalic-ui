@@ -79,6 +79,7 @@
             <!-- Processing -->
             <fieldset>
                 <legend>Processing</legend>
+
                 <!-- Lines limit -->
                 <div class="form-group">
                     <label class="col-md-2 control-label">Lines processed:</label>
@@ -91,6 +92,16 @@
                         <label class="radio-inline">
                             <input type="radio" ng-model="linesLimit.selection" value="some" />
                             At most <input type="number" ng-model="linesLimit.value" ng-init="linesLimit.value = 1" min="1" max="2147483647" ng-disabled="linesLimit.selection != 'some'" />
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Statistical data -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Statistical data:</label>
+                    <div class="col-md-10 checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="statistical.value" />
                         </label>
                     </div>
                 </div>
