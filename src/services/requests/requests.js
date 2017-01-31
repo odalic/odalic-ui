@@ -4,7 +4,7 @@
     var app = angular.module('odalic-app');
 
     // A service for creating REST requests in a convenient way
-    app.service('requests', function ($http) {
+    app.service('requests', function ($http, ioc) {
 
         /** Format of "request_package" object parameter.
          *
@@ -30,10 +30,10 @@
                 data: request_package.formData
             }).then(
                 function (response) {
-                    request_package.success(response)
+                    ioc['requests'].success(response, request_package.success);
                 },
                 function (response) {
-                    request_package.failure(response)
+                    ioc['requests'].failure(response, request_package.failure);
                 }
             );
         }
@@ -47,13 +47,15 @@
          * @param failure       Failure function
          */
         this.quickRequest = function (url, method, success, failure) {
-            $http({
+            generic_request({
                 method: method,
-                url: url
-            }).then(
-                success,
-                failure
-            );
+                address: url,
+                formData: undefined,
+                success: success,
+                failure: failure
+            }, {
+                'Content-Type': undefined
+            });
         };
 
         /** Helps to prepare "multipart/form-data" payload.

@@ -1,15 +1,18 @@
 [
   {
+    "id": "home",
     "title": "Home",
     "link": "#/",
     "menu": []
   },
   {
+    "id": "files",
     "title": "Files",
     "link": "#/filelist",
     "menu": []
   },
   {
+    "id": "tasks",
     "title": "Tasks",
     "menu": [
       {
