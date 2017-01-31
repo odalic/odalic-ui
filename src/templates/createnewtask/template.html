@@ -116,17 +116,17 @@
             <!-- When creating a new task -->
             <div ng-if="templFormat.creating">
                 <div class="col-md-8">
-                    <button type="button" class="btn btn-lg" ng-click="templFormat.createAndRun()">Create and run</button>
+                    <button-load button-class="btn btn-lg" action="templFormat.createAndRun" disabled="false">Create and run</button-load>
                 </div>
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-lg" ng-click="templFormat.createTask()">Create</button>
+                    <button-load button-class="btn btn-lg" action="templFormat.createTask" disabled="false">Create</button-load>
                 </div>
             </div>
 
             <!-- When editing an existing task -->
             <div ng-if="!templFormat.creating">
                 <div class="col-md-offset-8 col-md-4">
-                    <button type="button" class="btn btn-lg" ng-click="templFormat.saveTask()">Save</button>
+                    <button-load button-class="btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>
                 </div>
             </div>
         </div>

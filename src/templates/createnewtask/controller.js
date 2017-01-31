@@ -155,7 +155,7 @@
         };
 
         // Task creation
-        $scope.templFormat.createTask = function (callback) {
+        $scope.templFormat.createTask = function (f, callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
                 return;
@@ -182,13 +182,14 @@
                 // Failure
                 function (response) {
                     $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
+                    f();
                 }
             );
         };
 
         // Task creation + run
-        $scope.templFormat.createAndRun = function () {
-            $scope.templFormat.createTask(function () {
+        $scope.templFormat.createAndRun = function (f) {
+            $scope.templFormat.createTask(f, function () {
                 // Prepare
                 var taskId = $scope.taskCreation.identifier;
                 var handler = function () {
@@ -205,13 +206,14 @@
                     // Error while starting the execution
                     function (response) {
                         $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.startFailure'], response.data));
+                        f();
                     }
                 );
             });
         };
 
         // Task saving
-        $scope.templFormat.saveTask = function () {
+        $scope.templFormat.saveTask = function (f) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
                 return;
@@ -232,6 +234,7 @@
                 // Failure
                 function (response) {
                     $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                    f();
                 }
             );
         };
