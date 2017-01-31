@@ -94,12 +94,11 @@ $.defineModule(function () {
                                 return {
                                     exec: function (success, failure) {
                                         requests.reqJSON({
-                                            method: 'POST',
+                                            method: 'PUT',
                                             address: text.urlConcat(root, 'users', identifier, 'password'),
                                             formData: {
-                                                email: identifier,
-                                                passwordOld: passwordOld,
-                                                passwordNew: passwordNew
+                                                oldPassword: passwordOld,
+                                                newPassword: passwordNew
                                             },
                                             success: success,
                                             failure: failure
@@ -155,7 +154,9 @@ $.defineModule(function () {
                                 requests.reqJSON({
                                     method: 'POST',
                                     address: text.urlConcat(root, 'users', 'passwords', 'confirmations'),
-                                    formData: token,
+                                    formData: {
+                                        token: token
+                                    },
                                     success: success,
                                     failure: failure
                                 });

@@ -1,0 +1,100 @@
+<!-- Prepared messages for alert-group -->
+<injector for="msgtxt.failure">An error occured while changing password.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <!-- Content -->
+    <div class="container-fluid">
+        <div ng-switch="status">
+            <!-- Change password -->
+            <div ng-switch-default>
+                <!-- Panel -->
+                <div class="col-sm-4 col-md-offset-4">
+                    <div class="panel panel-border">
+                        <div class="panel-body odalic-bstyle-lightgrey odalic-gfont-moderate">
+                            Change password
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form" name="cpasswdForm" ng-init="setForm(this, 'cpasswdForm')">
+
+                                <!-- Old passwod -->
+                                <div class="col-md-6">
+                                    <strong>Old password:</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="password" name="cpassword" ng-model="cpasswd.cpassword" required />
+                                    <div ng-messages="cpasswdForm.cpassword.$error" ng-if='cpasswdForm.cpassword.$dirty' role="alert">
+                                        <div ng-message="required"><error-msg>The field must not be empty.</error-msg></div>
+                                    </div>
+                                </div>
+
+                                <!-- Empty space -->
+                                <div class="col-md-12 odalic-hstyle-small"></div>
+
+                                <!-- New password -->
+                                <div class="col-md-6">
+                                    <strong>New password:</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="password" name="password" ng-model="cpasswd.password" minlength="8" required />
+                                    <div ng-messages="cpasswdForm.password.$error" ng-if='cpasswdForm.password.$dirty' role="alert">
+                                        <div ng-message="required"><error-msg>Password must not be empty.</error-msg></div>
+                                        <div ng-message="minlength"><error-msg>Password is too short.</error-msg></div>
+                                    </div>
+                                </div>
+
+                                <!-- Empty space -->
+                                <div class="col-md-12 odalic-hstyle-small"></div>
+
+                                <!-- Password again -->
+                                <div class="col-md-6">
+                                    <strong>Retype password:</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <input class="form-control" type="password" name="password2" ng-model="cpasswd.password2" compare-to="cpasswd.password" />
+                                    <div ng-messages="cpasswdForm.password2.$error" ng-if='cpasswdForm.password2.$dirty' role="alert">
+                                        <div ng-message="compare"><error-msg>Passwords do not match.</error-msg></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-md-offset-6 text-right odalic-gfont-small">
+                                    *Note you have to log in afterwards.
+                                </div>
+
+                                <!-- Empty space -->
+                                <div class="col-md-12 odalic-hstyle-small"></div>
+
+                                <div class="col-md-6 col-md-offset-6">
+                                    <button-load action="cpasswd.confirm" disabled="cpasswd.buttondis">Confirm</button-load>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="panel-body odalic-gfont-small">
+                            Already have an account?  <a href="#/login">Log in!</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="col-md-12">
+                    <alert-group bind="cpasswd.alerts" disappearing="3" />
+                </div>
+            </div>
+
+            <!-- E-mail sent -->
+            <div ng-switch-when="emsent">
+                <div class="col-md-6 col-md-offset-3">
+                    <alert bind="emsent.alert" closable="false">
+                        <span class="glyphicon glyphicon-envelope"/> <strong>E-mail sent.</strong> An e-mail with additional instructions has been sent to the address you have provided.
+                    </alert>
+                </div>
+            </div>
+        </div>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

@@ -35,6 +35,16 @@
         "controller": "odalic-signupcnf-ctrl"
     },
     {
+        "route": "/chngpasswd",
+        "folder": "chngpasswd",
+        "controller": "odalic-chngpasswd-ctrl"
+    },
+    {
+        "route": "/chngpasswd/:token",
+        "folder": "chngpasswdcnf",
+        "controller": "odalic-chngpasswdcnf-ctrl"
+    },
+    {
         "route": "/taskconfigs",
         "folder": "taskconfigs",
         "controller": "odalic-taskconfigs-ctrl"

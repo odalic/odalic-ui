@@ -5,7 +5,7 @@
 
     // Controller
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-signupcnf-ctrl', function ($scope, rest, $routeParams, $auth) {
+    app.controller('odalic-chngpasswdcnf-ctrl', function ($scope, rest, $routeParams, $auth) {
 
         // Initialization
         $scope.dataload = {};
@@ -25,9 +25,10 @@
         var token = $routeParams['token'];
 
         // Send the token
-        rest.users.confirm(token).exec(
+        rest.users.password.confirm(token).exec(
             // Success
             function (response) {
+                $auth.logout();
                 $scope.status = 'success';
                 $scope.dataload.show = true;
             },

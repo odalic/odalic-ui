@@ -4,7 +4,7 @@
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="3" lmenu="default-lm.json" rmenu="default-rm.json" />
+    <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <!-- Content -->
     <div class="container-fluid">
@@ -14,14 +14,14 @@
                 <!-- On success -->
                 <div ng-switch-when="success">
                     <alert bind="confirmation.alertSuccess" closable="false">
-                        <span class="glyphicon glyphicon-user"/> <strong>Welcome!</strong> Your account has been successfully activated! Thank you for using ODALIC. <a href="#/login">Log in now!</a>
+                        <span class="glyphicon glyphicon-ok"/> <strong>Password changed!</strong> Your password has been successfully changed! <a href="#/login">Log in?</a>
                     </alert>
                 </div>
 
                 <!-- On failure -->
                 <div ng-switch-when="failure">
                     <alert bind="confirmation.alertFailure" closable="false">
-                        <span class="glyphicon glyphicon-user"/> <strong>There was an error.</strong> It seems the token you provided is either invalid, or expired. <a href="#/signup">Sign up again?</a>
+                        <span class="glyphicon glyphicon-remove"/> <strong>There was an error.</strong> It seems the token you provided is either invalid, or expired. <a href="#/chngpasswd">Change password again?</a>
                     </alert>
                 </div>
             </div>
