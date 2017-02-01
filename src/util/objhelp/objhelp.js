@@ -189,5 +189,25 @@ var objhelp = {
         });
 
         return mirror;
+    },
+
+    /** Returns an array created from items of a passed array using a selector function.
+     *  This is basically a map function.
+     *  Example:
+     *      var newArr = objhelp.select(arr, function(item) {
+     *          return item.id;
+     *      });
+     *
+     * @param arr           An original array.
+     * @param selector      Function applicable on each array item.
+     * @returns {Array}     A new array.
+     */
+    select: function (arr, selector) {
+        var result = [];
+        arr.forEach(function (item) {
+            result.push(selector(item));
+        });
+
+        return result;
     }
 };

@@ -14,6 +14,22 @@ var tableComponent = function (scope, rest, reporth) {
             })(i);
         }
     };
+    
+    // Supporting functions
+    scope.table = {
+        getPrimaryKB: function (taskconfig) {
+            return taskconfig.configuration.primaryBase.name;
+        },
+
+        getNonPrimaryKBs: function (taskconfig) {
+            var config = taskconfig.configuration;
+            return objhelp.select(sets.exclusion([config.primaryBase], config.usedBases, function (item) {
+                return item.name;
+            }), function (item) {
+                return item.name
+            })
+        }
+    };
 
     return {
         refreshList: function (callback) {
@@ -21,17 +37,15 @@ var tableComponent = function (scope, rest, reporth) {
                 // Success
                 function (response) {
                     scope.taskconfigs = response;
-                    console.log('taskconfigs table: updating taskconfigs scope variable');
                     updateMirror();
 
                     if (callback) {
                         callback();
                     }
 
-                    if (!scope.$$phase) {
-                        console.log('taskconfigs table: scope apply called');
-                        scope.$apply();
-                    }
+                    // Update pagination directive
+                    scope.taskconfigsProxy.model = scope.taskconfigs;
+                    scope.$broadcast('pagination');
                 },
                 // Error
                 function (response) {

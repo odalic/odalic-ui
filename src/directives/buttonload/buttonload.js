@@ -6,7 +6,7 @@
     /** Button with loading icon directive.
      *
      *  Usage:
-     *      <button-load action="myaction" disabled="myvar">Execute</button-load>
+     *      <button-load button-class="btn" action="myaction" disabled="myvar">Execute</button-load>
      *
      *      // The action has to accept the future!
      *      $scope.myaction = function(f) {
@@ -32,7 +32,7 @@
             scope: {
                 action: '=',
                 disabled: '=',
-                buttonText: '@'
+                buttonClass: '@'
             },
             link: function (scope, iElement, iAttrs) {
 

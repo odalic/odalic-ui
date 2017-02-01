@@ -21,9 +21,6 @@
         $scope.filesProxy = {
             perPage: 10
         };
-        $scope.$watch('files', function(nv, ov) {
-            $scope.filesProxy.model = $scope.files;
-        });
 
         // Table button functions
         $scope.fdownload = function (fileId) {
