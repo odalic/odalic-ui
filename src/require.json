@@ -7,6 +7,7 @@
   "util/timed/timed.js",
   "util/loadhelp/loadhelp.js",
   "util/eventbuilder/eventbuilder.js",
+  "util/sets/sets.js",
   "directives/maincnt/maincnt.js",
   "directives/navbar/navbar.js",
   "directives/footer/footer.js",
@@ -23,6 +24,8 @@
   "directives/buttonload/buttonload.js",
   "directives/filesettings/filesettings.js",
   "directives/pagination/pagination.js",
+  "directives/compareto/compareto.js",
+  "directives/afake/afake.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",
@@ -34,5 +37,7 @@
   "services/formsval/formsval.js",
   "services/reporth/reporth.js",
   "filters/shortstr/filter.js",
+  "filters/nonempty/filter.js",
+  "services/authentication.js",
   "templates/templates.js"
 ]

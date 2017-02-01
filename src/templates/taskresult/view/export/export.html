@@ -7,12 +7,30 @@
 
     <div class="col-md-12">
         <div class="col-md-3">
-            <button class="btn col-md-5" ng-click="exporting.csv()">Extended CSV</button>
-            <button class="btn col-md-offset-1 col-md-5" ng-click="exporting.json()">JSON Annotations</button>
+            <div class="col-md-5">
+                <a-fake ajax="exporting.csv" type="text/csv">
+                    <button class="btn">Extended CSV</button>
+                </a-fake>
+            </div>
+
+            <div class="col-md-offset-1 col-md-5">
+                <a-fake ajax="exporting.json" type="application/json">
+                    <button class="btn">JSON Annotations</button>
+                </a-fake>
+            </div>
         </div>
         <div class="col-md-3">
-            <button class="btn col-md-5" ng-click="exporting.turtle()">RDF (Turtle)</button>
-            <button class="btn col-md-offset-1 col-md-5" ng-click="exporting.jsonld()">RDF (JSON-LD)</button>
+            <div class="col-md-5">
+                <a-fake ajax="exporting.turtle" type="text/turtle">
+                    <button class="btn">RDF (Turtle)</button>
+                </a-fake>
+            </div>
+
+            <div class="col-md-offset-1 col-md-5">
+                <a-fake ajax="exporting.jsonld" type="application/ld+json">
+                    <button class="btn">RDF (JSON-LD)</button>
+                </a-fake>
+            </div>
         </div>
     </div>
 </fieldset>

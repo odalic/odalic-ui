@@ -1,10 +1,11 @@
 <!-- Prepared messages to display to a user in case of a situation -->
 <injector for="msgtxt.removeFailure">An error occurred while removing the file.</injector>
+<injector for="msgtxt.downloadFailure">An error occurred while downloading the file.</injector>
 
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="1" lmenu="default-lm.json" rmenu="default-rm.json" />
+    <navbar selected="files" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <!-- Content -->
     <div class="container-fluid">
@@ -43,7 +44,11 @@
                     <!-- Actions -->
                     <td class="col-md-2">
                         <tooltip source="actiontext.download" place="top">
-                            <a class="btn btn-default" ng-click="fdownload(file.id)"><i class="fa fa-external-link fa-lg"></i></a>
+                            <a-fake ajax="fdownload" args="file.id" catcher="fileerror" type="text/csv">
+                                <a class="btn btn-default">
+                                    <i class="fa fa-external-link fa-lg"></i>
+                                </a>
+                            </a-fake>
                         </tooltip>
                         <tooltip source="actiontext.configure" place="top">
                             <a class="btn btn-default" ng-click="fconfigure(file.id)"><i class="fa fa-cog fa-lg"></i></a>

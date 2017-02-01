@@ -56,8 +56,17 @@
         return current.substring(0, current.lastIndexOf('/')) + '/' + filePath;
     };
 
-    // Define the angular module dependencies
-    angular.module('odalic-app', ['ngRoute', 'ngSanitize', 'ui.select','ui.bootstrap','ngMessages','ngAnimate']);
+    // Angular module dependencies
+    angular.module('odalic-app', [
+        'ngRoute',
+        'ngSanitize',
+        'ui.select',
+        'ui.bootstrap',
+        'ngMessages',
+        'ngAnimate',
+        'satellizer'
+    ]);
+
     // Dependencies (loaded synchronously)
     $.getJSONSync($.getPathForRelativePath('require.json'), function (includes) {
         includes.forEach(function (include) {

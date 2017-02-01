@@ -50,17 +50,17 @@
 
                 // Button actions: exporting to JSON / CSV / RDF
                 $scope.exporting = {
-                    json: function () {
-                        window.open(rest.tasks.name($scope.taskID).result.export.json.address());
+                    json: function (s, f) {
+                        rest.tasks.name($scope.taskID).result.export.json.exec(s, f);
                     },
-                    csv: function () {
-                        window.open(rest.tasks.name($scope.taskID).result.export.csv.address());
+                    csv: function (s, f) {
+                        rest.tasks.name($scope.taskID).result.export.csv.exec(s, f);
                     },
-                    turtle: function () {
-                        window.open(rest.tasks.name($scope.taskID).result.export.turtle.address());
+                    turtle: function (s, f) {
+                        rest.tasks.name($scope.taskID).result.export.turtle.exec(s, f);
                     },
-                    jsonld: function () {
-                        window.open(rest.tasks.name($scope.taskID).result.export.jsonld.address());
+                    jsonld: function (s, f) {
+                        rest.tasks.name($scope.taskID).result.export.jsonld.exec(s, f);
                     }
                 };
             }

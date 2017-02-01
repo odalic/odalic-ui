@@ -20,6 +20,31 @@
         "controller": "odalic-ngtest-ctrl"
     },
     {
+        "route": "/login",
+        "folder": "login",
+        "controller": "odalic-login-ctrl"
+    },
+    {
+        "route": "/signup",
+        "folder": "signup",
+        "controller": "odalic-signup-ctrl"
+    },
+    {
+        "route": "/signup/:token",
+        "folder": "signupcnf",
+        "controller": "odalic-signupcnf-ctrl"
+    },
+    {
+        "route": "/chngpasswd",
+        "folder": "chngpasswd",
+        "controller": "odalic-chngpasswd-ctrl"
+    },
+    {
+        "route": "/chngpasswd/:token",
+        "folder": "chngpasswdcnf",
+        "controller": "odalic-chngpasswdcnf-ctrl"
+    },
+    {
         "route": "/taskconfigs",
         "folder": "taskconfigs",
         "controller": "odalic-taskconfigs-ctrl"
