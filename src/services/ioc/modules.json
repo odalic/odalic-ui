@@ -4,5 +4,11 @@
         "source": "../rest/rest-production.js",
         "args": [],
         "description": "Changes behaviour of rest service. Useful for testing without server. [rest-testing.js, rest-production.js]"
+    },
+    {
+        "name": "requests",
+        "source": "../requests/requests-default.js",
+        "args": [],
+        "description": "Changes behaviour of an 'interceptor' of ajax requests. [requests-default.js, requests-none.js]"
     }
 ]

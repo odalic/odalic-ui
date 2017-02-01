@@ -7,7 +7,7 @@
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="2" lmenu="default-lm.json" rmenu="default-rm.json" />
+    <navbar selected="tasks" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <!-- Content -->
     <div class="container-fluid">
@@ -36,6 +36,7 @@
                 <th>Date created</th>
                 <th>Task name</th>
                 <th>Task description</th>
+                <th>Knowledge bases</th>
                 <th>Action</th>
                 <th>State</th>
             </tr>
@@ -45,8 +46,8 @@
                 <tr ng-repeat="taskconfig in taskconfigsProxy.getView()" ng-class="{'odalic-trstyle-lightgrey': taskconfig.id == misc.selected}">
                     <td class="col-md-1">{{ taskconfig.created }}</td>
                     <td class="col-md-2">{{ taskconfig.id }}</td>
-                    <td class="col-md-6">{{ taskconfig.description }}</td>
-
+                    <td class="col-md-4">{{ taskconfig.description }}</td>
+                    <td class="col-md-2"><strong>{{ table.getPrimaryKB(taskconfig) }}</strong>{{ table.getNonPrimaryKBs(taskconfig).join(', ') | nonempty:', ' }}</td>
                     <td class="col-md-2">
                         <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.run" place="top">

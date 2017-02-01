@@ -9,6 +9,26 @@
     cursor: default;
 }
 
+/*
+ * Centralizing element over another element
+ *
+ * Usage:
+ *  <span class="odalic-centralize-wrapper">
+ *      <span>Real element</span>
+ *      <span class="odalic-centralize-sibling">Element to centralize over the 'real' one</span>
+ *  </span>
+ */
+.odalic-centralize-wrapper {
+    position: relative
+}
+
+.odalic-centralize-sibling {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    text-align: center;
+}
 
 /* Not cursors. Whatever. */
 .selectBoxIcon {
@@ -71,4 +91,21 @@ iframe {
 .modal-content {
     margin: 0% auto; /* 15% from the top and centered */
     padding: 20px;
+}
+//controls a owerflowing text for ui-selectbox
+.ui-select-placeholder, .ui-select-match-text, .ui-select-match-item {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.table {
+    border: 0.5px solid LightSteelBlue   ;
+}
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+    border: 0.5px solid LightSteelBlue  ;
 }

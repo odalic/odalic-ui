@@ -23,9 +23,6 @@
         $scope.taskconfigsProxy = {
             perPage: 10
         };
-        $scope.$watch('taskconfigs', function(nv, ov) {
-            $scope.taskconfigsProxy.model = $scope.taskconfigs;
-        });
 
         // Load the data into the table
         table.refreshList(statepoll.setPolling);

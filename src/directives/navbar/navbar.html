@@ -17,7 +17,7 @@
                 <!-- Left menu -->
                 <ul class="nav navbar-nav">
                     <!-- Main menu -->
-                    <li ng-repeat="singleMenu in leftMenu" ng-class="{ active: selectedIndex == $index }">
+                    <li ng-repeat="singleMenu in leftMenu" ng-class="{ active: selected == singleMenu.id }">
 
                         <!-- With submenu -->
                         <a ng-show="singleMenu.menu.length > 0" class="dropdown-toggle odalic-cursor-pointer" data-toggle="dropdown">
@@ -26,8 +26,9 @@
                         <ul ng-show="singleMenu.menu.length > 0" class="dropdown-menu" role="menu">
                             <li ng-repeat="singleSubmenu in singleMenu.menu"
                                 ng-class="{ divider: !singleSubmenu.hasOwnProperty('title') }">
-                                <a href="{{ singleSubmenu.link }}" ng-show="singleSubmenu.hasOwnProperty('title')">{{
-                                    singleSubmenu.title }}</a>
+                                <a href="{{ singleSubmenu.link }}" ng-show="singleSubmenu.hasOwnProperty('title')">
+                                    {{ singleSubmenu.title }}
+                                </a>
                             </li>
                         </ul>
 
@@ -41,9 +42,10 @@
 
                 <!-- Right menu -->
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-repeat="singleMenu in rightMenu">
-                        <a href="{{ singleMenu.link }}"><span class="glyphicon {{ singleMenu.icon }}"></span> {{
-                            singleMenu.title }}</a>
+                    <li ng-repeat="singleMenu in rightMenu" ng-class="{ active: selected == singleMenu.id }" ng-if="conditioned(singleMenu)">
+                        <a href="{{ singleMenu.link }}"><span class="glyphicon {{ singleMenu.icon }}"></span>
+                            {{ singleMenu.title }}
+                        </a>
                     </li>
                 </ul>
 

@@ -68,6 +68,11 @@
                     prepare();
                 });
 
+                // Fallback if watcher fails (only special customized cases)
+                scope.$on('pagination', function (event, data) {
+                    prepare();
+                });
+
                 // Public interface
                 scope.bind.setPage = function (index) {
                     scope.pgn.current = index + 1;

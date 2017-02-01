@@ -14,6 +14,22 @@ var tableComponent = function (scope, rest, reporth) {
             })(i);
         }
     };
+    
+    // Supporting functions
+    scope.table = {
+        getPrimaryKB: function (taskconfig) {
+            return taskconfig.configuration.primaryBase.name;
+        },
+
+        getNonPrimaryKBs: function (taskconfig) {
+            var config = taskconfig.configuration;
+            return objhelp.select(sets.exclusion([config.primaryBase], config.usedBases, function (item) {
+                return item.name;
+            }), function (item) {
+                return item.name
+            })
+        }
+    };
 
     return {
         refreshList: function (callback) {
@@ -26,6 +42,10 @@ var tableComponent = function (scope, rest, reporth) {
                     if (callback) {
                         callback();
                     }
+
+                    // Update pagination directive
+                    scope.taskconfigsProxy.model = scope.taskconfigs;
+                    scope.$broadcast('pagination');
                 },
                 // Error
                 function (response) {

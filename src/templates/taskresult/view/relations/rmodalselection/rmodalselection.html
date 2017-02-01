@@ -40,10 +40,11 @@
 
     <!--collapse label-->
     <div class="row">
+
         <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedPKB = false"
              ng-click="isCollapsedPKB = !isCollapsedPKB">
             <i class="fa fa-angle-down "></i>
-            <span>Search knowledge base</span>
+            <span>Search {{primaryKB}}</span>
         </div>
     </div>
     <!-- search for the primary knowledge base -->
@@ -88,7 +89,7 @@
                 <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedKB = true"
                      ng-click="isCollapsedKB = !isCollapsedKB">
                     <i class=" fa fa-angle-down "></i>
-                    <span>search</span>
+                    <span>Search {{ knowledgeBase }}</span>
                 </div>
             </div>
             <!-- search for the primary knowledge base -->

@@ -18,6 +18,7 @@
         };
         $scope.linesLimit = {};
         $scope.fileinput = {};
+        $scope.statistical = {};
         formsval.toScope($scope);
 
         // Additional variables
@@ -145,7 +146,8 @@
                             name: $scope.kbs.primaryKB.name
                         },
                         usedBases: $scope.kbs.chosenKBs,
-                        rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null
+                        rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null,
+                        statistical: $scope.statistical.value
                     },
                     description: text.safe($scope.taskCreation.description)
                 };
@@ -153,7 +155,7 @@
         };
 
         // Task creation
-        $scope.templFormat.createTask = function (callback) {
+        $scope.templFormat.createTask = function (f, callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
                 return;
@@ -180,13 +182,14 @@
                 // Failure
                 function (response) {
                     $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
+                    f();
                 }
             );
         };
 
         // Task creation + run
-        $scope.templFormat.createAndRun = function () {
-            $scope.templFormat.createTask(function () {
+        $scope.templFormat.createAndRun = function (f) {
+            $scope.templFormat.createTask(f, function () {
                 // Prepare
                 var taskId = $scope.taskCreation.identifier;
                 var handler = function () {
@@ -203,13 +206,14 @@
                     // Error while starting the execution
                     function (response) {
                         $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.startFailure'], response.data));
+                        f();
                     }
                 );
             });
         };
 
         // Task saving
-        $scope.templFormat.saveTask = function () {
+        $scope.templFormat.saveTask = function (f) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
                 return;
@@ -230,6 +234,7 @@
                 // Failure
                 function (response) {
                     $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                    f();
                 }
             );
         };
@@ -248,6 +253,7 @@
                         // Basic settings
                         objhelp.objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
                         $scope.taskCreation.description = response.description;
+                        $scope.statistical.value = config.statistical;
 
                         // Selected file
                         timed.ready(function () {
