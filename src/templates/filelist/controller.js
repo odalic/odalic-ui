@@ -23,9 +23,8 @@
         };
 
         // Table button functions
-        $scope.fdownload = function (fileId) {
-            // TODO: header! taktiez nespravna adresa
-            window.location = rest.files.name(fileId).retrieve.address();
+        $scope.fdownload = function (f, s, identifier) {
+            rest.files.name(identifier).retrieve.exec(f, s);
         };
 
         $scope.fconfigure = function (fileId) {
@@ -45,6 +44,11 @@
                 }
             );
         };
+
+        // Handling errors for file download
+        $scope.fileerror = function (response) {
+            $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.downloadFailure'], response.data));
+        }
     });
 
 })();

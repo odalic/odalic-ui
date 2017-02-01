@@ -7,7 +7,7 @@
      *  Usage:
      *      <a-fake ajax="myajax" catcher="myerror" type="text/csv">Download</a-fake>
      *
-     *      // ajax function must accept success and failure functions (only)
+     *      // ajax function must accept success and failure functions (only) and has to return the resource in successful case
      *      $scope.myajax = function (s, f) {
      *          rest.tasks.name(identifier).result.export.csv.exec(s, f);
      *      };
@@ -17,6 +17,13 @@
      *          console.error(r.data);
      *      };
      *
+     *  Sometimes it may be necessary to provide additional arguments to pass to the ajax function.
+     *  It can be done like this:
+     *      <a-fake ajax="myajax" args="'mytask'" type="text/csv">Download</a-fake>
+     *
+     *      $scope.myajax = function (s, f, arg) {
+     *          rest.tasks.name(arg).result.export.csv.exec(s, f);
+     *      };
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('aFake', function () {
@@ -26,7 +33,8 @@
             transclude: true,
             scope: {
                 ajax: '=',
-                catcher: '='
+                catcher: '=',
+                args: '='
             },
             link: function (scope, iElement, iAttrs) {
 
@@ -64,7 +72,10 @@
 
                             // Unset loading icon
                             scope.clicked = false;
-                        }
+                        },
+
+                        // Additional arguments
+                        scope.args
                     );
                 };
 

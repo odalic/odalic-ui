@@ -366,7 +366,7 @@ $.defineModule(function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'turtle');
                                     },
                                     exec: function (success, failure) {
-                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'turtle'), 'GET', success, failure);
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export'), 'GET', success, failure, 'text/turtle');
                                     }
                                 },
                                 jsonld: {
@@ -374,7 +374,7 @@ $.defineModule(function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'json-ld');
                                     },
                                     exec: function (success, failure) {
-                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'json-ld'), 'GET', success, failure);
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export'), 'GET', success, failure, 'application/ld+json', 'application/ld+json');
                                     }
                                 }
                             }
