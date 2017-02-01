@@ -25,6 +25,7 @@
   "directives/filesettings/filesettings.js",
   "directives/pagination/pagination.js",
   "directives/compareto/compareto.js",
+  "directives/afake/afake.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",

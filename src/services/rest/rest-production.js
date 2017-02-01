@@ -225,13 +225,7 @@ $.defineModule(function () {
                         },
                         retrieve: {
                             exec: function (success, failure) {
-                                requests.reqCSV({
-                                    method: 'GET',
-                                    address: text.urlConcat(root, 'files', identifier),
-                                    formData: 'unspecified',
-                                    success: success,
-                                    failure: failure
-                                });
+                                requests.pureRequest(text.urlConcat(root, 'files', identifier), 'GET', success, failure, 'text/csv');
                             },
                             address: function () {
                                 return text.urlConcat(root, 'files', identifier, 'data');
@@ -354,21 +348,33 @@ $.defineModule(function () {
                                 json: {
                                     address: function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'annotated-table');
+                                    },
+                                    exec: function (success, failure) {
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'annotated-table'), 'GET', success, failure);
                                     }
                                 },
                                 csv: {
                                     address: function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'csv-export');
+                                    },
+                                    exec: function (success, failure) {
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'csv-export'), 'GET', success, failure);
                                     }
                                 },
                                 turtle: {
                                     address: function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'turtle');
+                                    },
+                                    exec: function (success, failure) {
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'turtle'), 'GET', success, failure);
                                     }
                                 },
                                 jsonld: {
                                     address: function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'json-ld');
+                                    },
+                                    exec: function (success, failure) {
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'json-ld'), 'GET', success, failure);
                                     }
                                 }
                             }

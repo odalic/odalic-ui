@@ -5,7 +5,7 @@
 
     // Create a controller for ngtest
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-ngtest-ctrl', function ($scope, $auth, $http) {
+    app.controller('odalic-ngtest-ctrl', function ($scope, $auth, $http, rest) {
 
         $scope.myauth = function() {
             $auth.authenticate('google')
@@ -64,6 +64,14 @@
                     console.log('login failure!');
                     console.log(response);
                 });
+        };
+
+        // Testing fake-link
+        $scope.testfile = function (s, f) {
+            rest.tasks.name('i1').result.export.csv.exec(s, f);
+        };
+        $scope.myerror = function (r) {
+            console.error(r);
         };
     });
 

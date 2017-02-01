@@ -24,6 +24,7 @@
 
         // Table button functions
         $scope.fdownload = function (fileId) {
+            // TODO: header! taktiez nespravna adresa
             window.location = rest.files.name(fileId).retrieve.address();
         };
 

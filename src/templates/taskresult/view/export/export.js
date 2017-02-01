@@ -51,15 +51,19 @@
                 // Button actions: exporting to JSON / CSV / RDF
                 $scope.exporting = {
                     json: function () {
+                        // TODO: header! skutocne chyba header
                         window.open(rest.tasks.name($scope.taskID).result.export.json.address());
                     },
                     csv: function () {
+                        // TODO: header! skutocne chyba header
                         window.open(rest.tasks.name($scope.taskID).result.export.csv.address());
                     },
                     turtle: function () {
+                        // TODO: header! 404
                         window.open(rest.tasks.name($scope.taskID).result.export.turtle.address());
                     },
                     jsonld: function () {
+                        // TODO: header! 404
                         window.open(rest.tasks.name($scope.taskID).result.export.jsonld.address());
                     }
                 };
