@@ -78,10 +78,7 @@
                 // Success, inject into the scope
                 function (response) {
                     var newObj = {
-                        "entity": {
-                            "resource": response.resource,
-                            "label": response.label
-                        },
+                        "entity": response,
                         "score": {
                             "value": null
                         }
@@ -115,10 +112,7 @@
             rest.base($scope.primaryKB).entities.resources.update(obj).exec(
                 function (response) {
                     var newObj = {
-                        "entity": {
-                            "resource": response.resource,
-                            "label": response.label
-                        },
+                        "entity": response,
                         "score": {
                             "value": null
                         }
