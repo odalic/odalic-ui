@@ -11,7 +11,7 @@ $.defineModule(function () {
                         return {
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, kb, 'entities', type) + '?query=' + string + '&limit=' + countLimit, 'GET', success, failure);
+                                    requests.quickRequest(text.urlConcat(root, 'bases', kb, 'entities', type) + '?query=' + string + '&limit=' + countLimit, 'GET', success, failure);
                                 }
                             }
                         };
@@ -27,7 +27,7 @@ $.defineModule(function () {
                     exec: function (success, failure) {
                         requests.reqJSON({
                             method: 'POST',
-                            address: text.urlConcat(root, kb, 'entities', type),
+                            address: text.urlConcat(root, 'bases', kb, 'entities', type),
                             formData: data,
                             success: success,
                             failure: failure
