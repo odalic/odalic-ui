@@ -12,26 +12,26 @@
 
 
         //sets parameters for the alert directive
-        $scope.serverResponse= {
+        $scope.serverResponse = {
             type: 'success',
             visible: false
         };
 
-        $scope.missingColumnClass= {
+        $scope.missingColumnClass = {
             type: 'error',
             visible: true,
         };
 
         $scope.columnClass = $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB];
-        $scope.disableDisambCondition =  $scope.selectedPosition.row != -1 &&  $scope.columnClass.length==0
+
+        $scope.disableDisambCondition = $scope.selectedPosition.row != -1 && $scope.columnClass.length == 0
+
         //region proposal settings
         $scope.setProposal = function (proposal) {
 
 
             // Is proposal defined?
             if (proposal && $scope.cDProposeForm.$valid) {
-                //TOTO prefix kde ho vezmu co s nim?????
-                var prefixUrl = "";
 
                 var url = proposal.suffixUrl;
 
@@ -87,15 +87,16 @@
                         }
                     };
 
+                    var currentClassification =  $scope.result.headerAnnotations[$scope.selectedPosition.column];
                     //adds classification into rusult
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
+                    currentClassification.candidates[$scope.primaryKB].push(newObj);
+                    currentClassification.chosen[$scope.primaryKB] = [newObj];
 
                     //locks cell
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
                     //deletes form fields
-                    $scope.proposal={};
+                    $scope.proposal = {};
 
                     //success message
                     success();
@@ -104,7 +105,7 @@
                 function (response) {
                     //because of a delayed response server
                     var info = JSON.parse(response.data);
-                       fail(info);
+                    fail(info);
                 }
             );
         };
@@ -122,16 +123,18 @@
                             "value": null
                         }
                     };
+
+                    var currentDisambiguation = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column];
                     //adds disambiguation into result
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
+                    currentDisambiguation.candidates[$scope.primaryKB].push(newObj);
+                    currentDisambiguation.chosen[$scope.primaryKB] = [newObj];
 
 
                     //locks cell
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
                     //deletes form fields
-                    $scope.proposal={};
+                    $scope.proposal = {};
 
                     //success message
                     success();
@@ -139,22 +142,20 @@
                 // Error
                 function (response) {
                     var info = JSON.parse(response.data);
-                        //fail message
-                        fail(info);
+                    //fail message
+                    fail(info);
                 }
             );
         };
 
         //sets parameters for the alert directive
-        var success = function()
-        {
+        var success = function () {
             $scope.serverResponse.type = 'success';
             $scope.serverResponse.visible = true;
             $scope.messege = "Proposed resource was successfully saved in the knowledge base";
         }
         //sets parameters for the alert directive
-        var fail = function(info)
-        {
+        var fail = function (info) {
             $scope.serverResponse.type = 'error';
             $scope.serverResponse.visible = true;
             $scope.messege = info.payload.text;

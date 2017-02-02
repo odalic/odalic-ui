@@ -67,6 +67,7 @@
                         }
                     };
 
+                    var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
                     //adds classification into result
                     currentRelation.candidates[$scope.primaryKB].push(newObj);
                     currentRelation.chosen[$scope.primaryKB] = [newObj];
