@@ -9,6 +9,7 @@
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
         $scope.gvdata = data.gvdata;
+        $scope.close = $uibModalInstance.close;
 
         $scope.domain = $scope.result.headerAnnotations[ $scope.selectedRelation.column1].chosen[ $scope.primaryKB][0].entity.resource;
         $scope.range = $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB][0].entity.resource;
