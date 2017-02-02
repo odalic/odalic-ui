@@ -165,6 +165,26 @@ $.defineModule(function () {
                     },
                 },
 
+                test: {
+                    exec: function (valid, expired, failure) {
+                        // Test 3 times before proclaiming failure
+                        var tryno = 0;
+                        var tryfn = function () {
+                            // Test with fake file listing request, which is protected
+                            requests.pureRequest(text.urlConcat(root, 'files'), 'GET', valid, function (response) {
+                                if (response.status === 401) {
+                                    expired(response);
+                                } else if (++tryno < 3) {
+                                    tryfn();
+                                } else {
+                                    failure(response);
+                                }
+                            });
+                        };
+                        tryfn();
+                    }
+                },
+
                 /** Lists all available users.
                  *  May be called only by an administrator.
                  */
@@ -225,13 +245,7 @@ $.defineModule(function () {
                         },
                         retrieve: {
                             exec: function (success, failure) {
-                                requests.reqCSV({
-                                    method: 'GET',
-                                    address: text.urlConcat(root, 'files', identifier),
-                                    formData: 'unspecified',
-                                    success: success,
-                                    failure: failure
-                                });
+                                requests.pureRequest(text.urlConcat(root, 'files', identifier), 'GET', success, failure, 'text/csv');
                             },
                             address: function () {
                                 return text.urlConcat(root, 'files', identifier, 'data');
@@ -354,21 +368,33 @@ $.defineModule(function () {
                                 json: {
                                     address: function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'annotated-table');
+                                    },
+                                    exec: function (success, failure) {
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'annotated-table'), 'GET', success, failure);
                                     }
                                 },
                                 csv: {
                                     address: function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'csv-export');
+                                    },
+                                    exec: function (success, failure) {
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'csv-export'), 'GET', success, failure);
                                     }
                                 },
                                 turtle: {
                                     address: function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'turtle');
+                                    },
+                                    exec: function (success, failure) {
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export'), 'GET', success, failure, 'text/turtle');
                                     }
                                 },
                                 jsonld: {
                                     address: function () {
                                         return text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export', 'json-ld');
+                                    },
+                                    exec: function (success, failure) {
+                                        requests.pureRequest(text.urlConcat(root, 'tasks', identifier, 'result', 'rdf-export'), 'GET', success, failure, 'application/ld+json', 'application/ld+json');
                                     }
                                 }
                             }

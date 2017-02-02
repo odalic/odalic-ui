@@ -129,6 +129,34 @@
         this.reqRDF = function (request_package) {
             generic_request(request_package, {'Content-Type': 'text/turtle', 'Accept': 'text/turtle'});
         };
+
+        /** A simple generic request wrapper that ignores default
+         *  behaviour specified by IOC.
+         *  Serves ONLY for requests that are an exception from rules
+         *  set by the server, e.g. wrapped response, etc.
+         *
+         * @param url           Url of the resource
+         * @param method        GET / POST / PUT / DELETE
+         * @param success       Success function
+         * @param failure       Failure function
+         * @param acceptType    Content-type of data accepted (in header)
+         * @param type          Content-type of data sent (in header)
+         * @param data          Data to be sent to server
+         */
+        this.pureRequest = function (url, method, success, failure, acceptType, type, data) {
+            $http({
+                method: method,
+                url: url,
+                headers: {
+                    'Content-Type': type,
+                    'Accept': acceptType
+                },
+                transformResponse: [function (data) {
+                    return data;
+                }],
+                data: data
+            }).then(success, failure);
+        };
     });
 
 })();

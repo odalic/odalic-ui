@@ -1,0 +1,18 @@
+<span class="text-center">
+    <!-- Link -->
+    <span ng-if="!clicked">
+        <a ng-click="handle()" class="odalic-cursor-pointer" ng-transclude>
+            <!-- Content -->
+        </a>
+    </span>
+
+    <!-- Loading icon -->
+    <span ng-if="clicked" class="odalic-centralize-wrapper">
+        <span ng-transclude>
+            <!-- Content -->
+        </span>
+        <span class="odalic-centralize-sibling">
+            <i class="fa fa-spinner fa-pulse fa-fw"></i>
+        </span>
+    </span>
+</span>

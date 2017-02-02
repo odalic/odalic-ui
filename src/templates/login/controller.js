@@ -5,7 +5,7 @@
 
     // Create a controller for ngtest
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-login-ctrl', function ($scope, formsval, $auth, reporth) {
+    app.controller('odalic-login-ctrl', function ($scope, formsval, $auth, rest, reporth) {
 
         // Initialization
         formsval.toScope($scope);
@@ -53,7 +53,23 @@
 
         // Check if user is already logged in
         if ($auth.isAuthenticated()) {
-            $scope.status = 'logged';
+            $scope.status = 'evaluating';
+            rest.users.test.exec(
+                // Success
+                function (response) {
+                    $scope.status = 'logged';
+                },
+                // Token expired
+                function (response) {
+                    $auth.logout();
+                    $scope.status = 'login';
+                },
+                // Failure while testing
+                function (response) {
+                    $auth.logout();
+                    $scope.status = 'login';
+                }
+            );
         }
 
     });
