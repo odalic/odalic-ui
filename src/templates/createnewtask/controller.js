@@ -158,13 +158,12 @@
         $scope.templFormat.createTask = function (f, callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
+                f();
                 return;
             }
 
             // Generic preparations
             var taskId = $scope.taskCreation.identifier;
-
-            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
             // Insert the task
             rest.tasks.name(taskId).create($scope.wholeForm.getTaskObject()).exec(
@@ -216,13 +215,12 @@
         $scope.templFormat.saveTask = function (f) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
+                f();
                 return;
             }
 
             // Generic preparations
             var taskid = $scope.taskCreation.identifier;
-
-            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
             // Insert the task
             rest.tasks.name(taskid).create($scope.wholeForm.getTaskObject()).exec(
