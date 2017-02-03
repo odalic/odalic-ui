@@ -91,7 +91,9 @@
                         }
 
                         this.identifier = name;
-                        scope.$apply();
+                        if (!scope.$$phase) {
+                            scope.$apply();
+                        }
                     },
 
                     // Upload the selected file
@@ -234,7 +236,6 @@
                     if (typeof(id) === 'string') {
                         timed.ready(function () { return !!fl.identifiers && (fl.identifiers.length > 0); }, function () {
                             fl.setSelected(fl.getIndex(id));
-                            scope.$apply();
                         });
                     } else {
                         throw new Error('fileinput component: Unsupported argument id.');
