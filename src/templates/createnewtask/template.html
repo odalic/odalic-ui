@@ -49,10 +49,9 @@
             <!-- Knowledge base settings -->
             <fieldset>
                 <legend>Knowledge base</legend>
-                <!-- setting of knowledge bases -->
-                <!-- TODO mozna jinak -->
+
+                <!-- Used knowledge bases -->
                 <div class="form-group">
-                    <!-- Used knowledge bases -->
                     <label class="col-md-2 control-label">Knowledge bases:</label>
                     <div class="col-md-10">
                         <select class="form-control" name="selectKBs" ng-model="kbs.chosenKBs" ng-options="opt.name for opt in kbs.availableKBs" size="{{ kbs.availableKBs.length }}" ng-change="kbs.selectionChanged()" multiple required>
@@ -62,8 +61,9 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Primary knowledge base -->
                 <div class="form-group">
-                    <!-- Primary knowledge base -->
                     <label class="col-md-2 control-label">Primary knowledge base:</label>
                     <div class="col-md-10">
                         <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableSelectedKBs" required>

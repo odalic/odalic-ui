@@ -158,13 +158,12 @@
         $scope.templFormat.createTask = function (f, callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
+                f();
                 return;
             }
 
             // Generic preparations
             var taskId = $scope.taskCreation.identifier;
-
-            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
             // Insert the task
             rest.tasks.name(taskId).create($scope.wholeForm.getTaskObject()).exec(
@@ -216,13 +215,12 @@
         $scope.templFormat.saveTask = function (f) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
+                f();
                 return;
             }
 
             // Generic preparations
             var taskid = $scope.taskCreation.identifier;
-
-            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
 
             // Insert the task
             rest.tasks.name(taskid).create($scope.wholeForm.getTaskObject()).exec(
@@ -246,6 +244,9 @@
                 rest.tasks.name(TaskID).retrieve.exec(
                     // Success
                     function (response) {
+                        // $scope.apply after all timed tasks are finished
+                        var timedTasks = 2;
+
                         // We are now editing an existing task, not creating a new one
                         var config = response.configuration;
                         $scope.templFormat.creating = false;
@@ -260,6 +261,7 @@
                             return !!$scope.fileinput.setSelectedFile;
                         }, function () {
                             $scope.fileinput.setSelectedFile(config.input);
+                            timedTasks--;
                         });
 
                         // Selected knowledge bases
@@ -267,7 +269,7 @@
                             return kbListLoaded;
                         }, function () {
                             $scope.kbs.setBases(config.usedBases, config.primaryBase);
-                            $scope.$apply();
+                            timedTasks--;
                         });
 
                         // Lines limit
@@ -277,6 +279,15 @@
                                 value: config.rowsLimit
                             };
                         }
+
+                        // When all of the timed tasks are finished, update
+                        timed.ready(function () {
+                            return timedTasks <= 0;
+                        }, function () {
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                        });
                     },
 
                     // Failure to load the task's config
