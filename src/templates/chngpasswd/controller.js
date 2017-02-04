@@ -17,7 +17,7 @@
             cpassword: new String(),
             password: new String(),
             password2: new String(),
-            buttondis: false,
+            cpobj: {},
             confirm: function (f) {
                 // Validate
                 if (!formsval.validate($scope.cpasswdForm)) {

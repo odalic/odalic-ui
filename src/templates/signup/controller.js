@@ -17,7 +17,7 @@
             username: new String(),
             password: new String(),
             password2: new String(),
-            buttondis: false,
+            signobj: {},
             signup: function (f) {
                 // Validate
                 if (!formsval.validate($scope.signupForm)) {

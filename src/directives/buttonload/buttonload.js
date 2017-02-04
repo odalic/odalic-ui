@@ -20,7 +20,10 @@
      *      // Disabled? (Must be set!)
      *      $scope.myvar = false;
      *
-     *  Note that for styling the directive should be wrapped around an element with form-group class.
+     *  For submitting via enter:
+     *      <form ng-submit="myobj.submit()">
+     *      ...
+     *      <button-load button-class="btn" action="myaction" disabled="myvar" bind="myobj" button-type="submit">Execute</button-load>
      *
      */
     var currentFolder = $.getPathForRelativePath('');
@@ -32,24 +35,54 @@
             scope: {
                 action: '=',
                 disabled: '=',
-                buttonClass: '@'
+                bind: '=',
+                buttonClass: '@',
+                buttonType: '@'
             },
             link: function (scope, iElement, iAttrs) {
 
                 // Initialization
                 scope.dataload = {};
                 scope.dataload.show = true;
+                var setLoading = null;
 
-                // Button action
-                scope.buttonClick = function () {
+                // On calling the action
+                var actionCall = function () {
                     // Show loading icon
                     scope.dataload.show = false;
+                    objhelp.callDefined(setLoading, true);
 
                     // Outer action accepting our future
                     scope['action'](function () {
                         scope.dataload.show = true;
+                        objhelp.callDefined(setLoading, false);
                     });
                 };
+
+                // Interface for easing form submission
+                if (scope.bind) {
+                    // Submit action
+                    scope.bind.loading = false;
+
+                    // Define function setLoading
+                    setLoading = function (isLoading) {
+                        scope.bind.loading = isLoading;
+                    };
+
+                    // Public method - the specified action may be called by another event (if not called already)
+                    scope.bind.submit = function () {
+                        console.log("submit called");
+                        if (!scope.bind.loading) {
+                            actionCall();
+                        }
+                    };
+                }
+
+                // Button action
+                scope.buttonClick = function () {
+                    actionCall();
+                };
+
             }
         }
     });

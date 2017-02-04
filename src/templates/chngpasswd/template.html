@@ -13,12 +13,12 @@
             <div ng-switch-default>
                 <!-- Panel -->
                 <div class="col-sm-4 col-md-offset-4">
-                    <div class="panel panel-border">
-                        <div class="panel-body odalic-bstyle-lightgrey odalic-gfont-moderate">
+                    <div class="panel">
+                        <div class="panel-body odalic-bstyle-lightorange odalic-gfont-moderate">
                             Change password
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" role="form" name="cpasswdForm" ng-init="setForm(this, 'cpasswdForm')">
+                            <form class="form-horizontal" role="form" name="cpasswdForm" ng-init="setForm(this, 'cpasswdForm')" ng-submit="cpasswd.cpobj.submit()">
 
                                 <!-- Old passwod -->
                                 <div class="col-md-6">
@@ -68,7 +68,7 @@
                                 <div class="col-md-12 odalic-hstyle-small"></div>
 
                                 <div class="col-md-6 col-md-offset-6">
-                                    <button-load button-class="form-control" action="cpasswd.confirm" disabled="cpasswd.buttondis">Confirm</button-load>
+                                    <button-load button-class="form-control" button-type="submit" action="cpasswd.confirm" bind="cpasswd.cpobj" disabled="false">Confirm</button-load>
                                 </div>
                             </form>
                         </div>
