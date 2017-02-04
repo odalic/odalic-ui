@@ -18,7 +18,8 @@
                             Log in
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" role="form" name="loginForm" ng-init="setForm(this, 'loginForm')">
+                            <form class="form-horizontal" role="form" name="loginForm" ng-init="setForm(this, 'loginForm')" ng-submit="login.logobj.submit()">
+                                <!-- Username -->
                                 <div class="col-md-6 ">
                                     <strong>Username:</strong>
                                 </div>
@@ -32,6 +33,7 @@
                                 <!-- Empty space -->
                                 <div class="col-md-12 odalic-hstyle-small"></div>
 
+                                <!-- Password -->
                                 <div class="col-md-6">
                                     <strong>Password:</strong>
                                 </div>
@@ -45,8 +47,9 @@
                                 <!-- Empty space -->
                                 <div class="col-md-12 odalic-hstyle-small"></div>
 
+                                <!-- Submit -->
                                 <div class="col-md-6 col-md-offset-6">
-                                    <button-load button-class="form-control" action="login.login" disabled="login.buttondis">Log in</button-load>
+                                    <button-load button-class="form-control" button-type="submit" action="login.login" bind="login.logobj" disabled="false">Log in</button-load>
                                 </div>
                             </form>
                         </div>

@@ -16,7 +16,7 @@
             alerts: {},
             username: new String(),
             password: new String(),
-            buttondis: false,
+            logobj: {},
             login: function (f) {
                 // Validate
                 if (!formsval.validate($scope.loginForm)) {
