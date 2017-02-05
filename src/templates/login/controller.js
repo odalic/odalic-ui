@@ -54,7 +54,7 @@
         // Check if user is already logged in
         if ($auth.isAuthenticated()) {
             $scope.status = 'evaluating';
-            rest.users.test.exec(
+            rest.users.test.custom.exec(
                 // Success
                 function (response) {
                     $scope.status = 'logged';

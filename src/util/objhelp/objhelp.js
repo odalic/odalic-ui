@@ -227,5 +227,12 @@ var objhelp = {
 
         var args = Array.prototype.splice.call(arguments, 1);
         return f.apply(null, args);
+    },
+
+    /** Function that does... nothing.
+     *
+     */
+    emptyFunction: function () {
+
     }
 };

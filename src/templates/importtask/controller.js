@@ -70,6 +70,9 @@
             }
         };
 
+        // Redirect to login screen if not logged
+        rest.users.test.automatic.exec(objhelp.emptyFunction);
+
     });
 
 })();
