@@ -428,7 +428,7 @@ $.defineModule(function () {
                             import: function (data) {
                                 return {
                                     exec: function (success, failure) {
-                                        requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'PUT', success, failure, null, 'text/turtle', data);
+                                        requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'PUT', success, failure, 'text/turtle', 'text/turtle', data);
                                     }
                                 }
                             }
