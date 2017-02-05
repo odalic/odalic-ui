@@ -1,0 +1,64 @@
+<!-- Prepared messages to display to user in case of a situation -->
+<injector for="msgtxt.saveFailure">An error occurred while saving the task.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="tasks" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <div class="container-fluid">
+        <!-- Headline -->
+        <h2>Task import</h2>
+
+        <!-- The main form -->
+        <form class="form-horizontal" role="form" name="taskCreationForm" ng-init="setForm(this, 'taskCreationForm')">
+
+            <!-- Basic settings -->
+            <fieldset>
+                <legend>Basic settings</legend>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Task name:</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
+                               ng-disabled="!templFormat.creating" required>
+                        <div ng-messages="taskCreationForm.taskIdentifier.$error" ng-if='taskCreationForm.taskIdentifier.$dirty' role="alert">
+                            <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Input file -->
+            <fieldset>
+                <legend>Configuration file</legend>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Configuration file:</label>
+                    <div class="col-md-8">
+                        <input type="file" id="concreteFile" name="fileSelector" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <!--  Alerts displaying notifications to a user -->
+            <alert-group bind="wholeForm.alerts" disappearing="3"/>
+        </form>
+
+        <!-- Submit -->
+        <div class="col-md-offset-10 col-md-2">
+            <div class="col-md-8">
+                <button-load button-class="btn btn-lg" action="submission.createAndRun" disabled="false">Create and run</button-load>
+            </div>
+            <div class="col-md-4">
+                <button-load button-class="btn btn-lg" action="submission.createTask" disabled="false">Create</button-load>
+            </div>
+        </div>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

@@ -70,6 +70,11 @@
         "controller": "createnewtask-ctrl"
     },
     {
+        "route": "/importtask",
+        "folder": "importtask",
+        "controller": "odalic-importtask-ctrl"
+    },
+    {
         "route": "/taskresult/:taskid",
         "folder": "taskresult",
         "controller": "taskresult-ctrl"

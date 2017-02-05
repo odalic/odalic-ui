@@ -424,12 +424,14 @@ $.defineModule(function () {
                                 exec: function (success, failure) {
                                     requests.pureRequest(text.urlConcat(root, 'tasks', identifier), 'GET', success, failure, 'text/turtle');
                                 }
+                            },
+                            import: function (data) {
+                                return {
+                                    exec: function (success, failure) {
+                                        requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'PUT', success, failure, null, 'text/turtle', data);
+                                    }
+                                }
                             }
-                            // import: {
-                            //     exec: function (success, failure) {
-                            //         requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'PUT', success, failure, );
-                            //     }
-                            // }
                         }
                     };
                 },
