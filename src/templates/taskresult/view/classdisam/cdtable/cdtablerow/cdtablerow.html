@@ -8,17 +8,21 @@
 
     <div class="pull-right">
         <!-- Propose icon -->
-        <a ng-click="proposal()" class="odalic-cursor-pointer">
-            <span class="fa fa-plus-square-o"></span>
-        </a>
+        <tooltip msg="Propose" place="top">
+            <a ng-click="proposal()" class="odalic-cursor-pointer">
+                <span class="fa fa-plus-square-o"></span>
+            </a>
+        </tooltip>
 
         <!-- Lock icon -->
         <c-d-lock locked="lockedTableCells" row="{{rowIndex}}" column="{{columnIndex}}"/>
 
         <!-- Details icon -->
-        <a  ng-click="suggestion()"  class="odalic-cursor-pointer">
-            <span class="glyphicon glyphicon-new-window"></span>
-        </a>
+        <tooltip msg="Details" place="top">
+            <a ng-click="suggestion()"  class="odalic-cursor-pointer">
+                <span class="glyphicon glyphicon-new-window"></span>
+            </a>
+        </tooltip>
     </div>
 
 
@@ -29,6 +33,7 @@
         <a ng-click="removeClass(concreteData[columnIndex].chosen[primaryKB],columnIndex,$index)" class="odalic-cursor-pointer pull-right">
             <span ng-class="'fa fa-trash'"></span>
         </a>
+
         <!-- row of cell in format: label (url)-->
         <span>{{ disam.entity.label + ' ' + '(' + disam.entity.prefixed + ')' }}</span>
 
