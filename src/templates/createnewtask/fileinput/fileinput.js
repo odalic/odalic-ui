@@ -4,7 +4,7 @@
     var app = angular.module('odalic-app');
 
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('fileinput', function (rest, filedata, reporth) {
+    app.directive('fileinput', function (rest, filedata, reporth, formsval) {
         return {
             restrict: 'E',
             scope: {
@@ -18,6 +18,7 @@
                 };
 
                 // Initialization
+                formsval.toScope(scope);
                 scope.files = {};
                 scope.remoteFile = {};
                 scope.messages = {};
@@ -98,6 +99,11 @@
 
                     // Upload the selected file
                     uploadFile: function () {
+                        // Validate
+                        if (!formsval.validate(scope.localFileForm)) {
+                            return;
+                        }
+
                         // Reference to self
                         var _ref = this;
 

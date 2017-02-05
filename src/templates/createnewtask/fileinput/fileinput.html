@@ -25,7 +25,7 @@
 
 <div ng-switch="fileProvision" ng-init="fileProvision = 'local'">
     <!-- Local file -->
-    <ng-form name="localFileForm" ng-switch-when="local">
+    <ng-form name="localFileForm" ng-init="setForm(this, 'localFileForm')" ng-switch-when="local">
         <div class="form-group">
             <label class="col-md-2 control-label">Upload a new file:</label>
             <div class="col-md-8">
@@ -35,9 +35,10 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Identifier:</label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="localFileID" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" required />
+                <input type="text" class="form-control" name="localFileID" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" pattern="[a-zA-Z0-9_.]*" required/>
                 <div ng-messages="localFileForm.localFileID.$error" ng-if='localFileForm.localFileID.$dirty' role="alert">
                     <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
+                    <div ng-message="pattern"><error-msg>Identifier must consist only of alphanumeric characters and '_', '.'.</error-msg></div>
                 </div>
             </div>
             <div class="col-md-2 text-center">
@@ -66,9 +67,10 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Identifier:</label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="remoteFileID" ng-model="fileAttach.identifier" required />
+                <input type="text" class="form-control" name="remoteFileID" ng-model="fileAttach.identifier" pattern="[a-zA-Z0-9_.]*" required/>
                 <div ng-messages="remoteFileForm.remoteFileID.$error" ng-if='remoteFileForm.remoteFileID.$dirty' role="alert">
                     <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
+                    <div ng-message="pattern"><error-msg>Identifier must consist only of alphanumeric characters and '_', '.'.</error-msg></div>
                 </div>
             </div>
             <div class="col-md-2 text-center">
