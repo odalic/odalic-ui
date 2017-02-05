@@ -49,7 +49,7 @@
 
             // Button "import and run" action
             importAndRun: function (f) {
-                $scope.taskImport.create(f, function () {
+                $scope.taskImport.import(f, function () {
                     // Prepare
                     var taskId = $scope.taskImport.identifier;
 

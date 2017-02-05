@@ -14,6 +14,14 @@
          * @returns {String}    The error message.
          */
         this.constrErrorMsg = function (info, response) {
+            // Empty response?
+            if (!response) {
+                return (new String()).concat(
+                    text.safe(info), ' (Server responded with empty message...)'
+                );
+            }
+
+            // Normal flow
             var parsed = (typeof(response) === 'object') ? response : JSON.parse(response);
 
             return (new String()).concat(
