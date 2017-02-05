@@ -19,6 +19,7 @@
         $scope.linesLimit = {};
         $scope.fileinput = {};
         $scope.statistical = {};
+        $scope.confirm = {};
         formsval.toScope($scope);
 
         // Additional variables
@@ -165,24 +166,48 @@
             // Generic preparations
             var taskId = $scope.taskCreation.identifier;
 
-            // Insert the task
-            rest.tasks.name(taskId).create($scope.wholeForm.getTaskObject()).exec(
-                // Success
-                function (response) {
-                    // Don't handle if further action was specified
-                    if (callback) {
-                        callback();
-                        return;
-                    }
+            // Task creation
+            var create = function () {
+                rest.tasks.name(taskId).create($scope.wholeForm.getTaskObject()).exec(
+                    // Success
+                    function (response) {
+                        // Don't handle if further action was specified
+                        if (callback) {
+                            callback();
+                            return;
+                        }
 
-                    // The task has been created, redirect to the task configurations screen
-                    window.location.href = '#/taskconfigs/' + taskId;
+                        // The task has been created, redirect to the task configurations screen
+                        window.location.href = '#/taskconfigs/' + taskId;
+                    },
+                    // Failure
+                    function (response) {
+                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
+                        f();
+                    }
+                );
+            };
+
+            // Insert the task, if everything is OK
+            rest.tasks.name(taskId).exists(
+                // The task already exists => confirm overwrite
+                function () {
+                    $scope.confirm.open(function (response) {
+                        if (response === true) {
+                            create();
+                        } else {
+                            f();
+
+                            // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                        }
+                    });
                 },
-                // Failure
-                function (response) {
-                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
-                    f();
-                }
+
+                // The task does not exist yet => create without any prompt
+                create
             );
         };
 

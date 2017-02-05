@@ -284,6 +284,15 @@ $.defineModule(function () {
                                     }
                                 }
                             }
+                        },
+                        exists: function (yes, no) {
+                            // Use get-file-configuration request for finding out whether the file exists or not
+                            requests.reqJSON({
+                                method: 'GET',
+                                address: text.urlConcat(root, 'files', identifier, 'format'),
+                                success: yes,
+                                failure: no
+                            });
                         }
                     };
                 },
@@ -440,6 +449,10 @@ $.defineModule(function () {
                                     }
                                 }
                             }
+                        },
+                        exists: function (yes, no) {
+                            // Use get-task-configuration request for finding out whether the task exists or not
+                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', yes, no);
                         }
                     };
                 },

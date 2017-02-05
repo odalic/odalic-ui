@@ -23,6 +23,11 @@
 <!-- Modal for file configuration -->
 <file-settings bind="fileconfig" />
 
+<!-- Confirm modal when overwriting file (does not matter whether local or remote) -->
+<confirm bind="confirm" title="File overwrite">
+    You are about to overwrite an existing file. Continue?
+</confirm>
+
 <div ng-switch="fileProvision" ng-init="fileProvision = 'local'">
     <!-- Local file -->
     <ng-form name="localFileForm" ng-init="setForm(this, 'localFileForm')" ng-switch-when="local">

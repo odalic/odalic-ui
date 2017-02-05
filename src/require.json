@@ -27,6 +27,7 @@
   "directives/modalclosing/modalclosing.js",
   "directives/compareto/compareto.js",
   "directives/afake/afake.js",
+  "directives/confirm/confirm.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",

@@ -44,7 +44,10 @@
             <!-- Input file -->
             <fieldset>
                 <legend>Input file</legend>
-                <fileinput bind="fileinput" form="taskCreationForm" />
+
+                <div class="form-group">
+                    <fileinput bind="fileinput" form="taskCreationForm" />
+                </div>
             </fieldset>
 
             <!-- Knowledge base settings -->
@@ -111,6 +114,11 @@
             <!--  Alerts displaying notifications for a user regarding the whole form -->
             <alert-group bind="wholeForm.alerts" disappearing="3"/>
         </form>
+
+        <!-- Confirm modal when overwriting task -->
+        <confirm bind="confirm" title="Task overwrite">
+            You are about to overwrite an existing task definition. Continue?
+        </confirm>
 
         <!-- Submit -->
         <div class="col-md-offset-10 col-md-2">
