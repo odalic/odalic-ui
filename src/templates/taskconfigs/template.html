@@ -3,6 +3,7 @@
 <injector for="msgtxt.stopFailure">An error occurred while stopping the task.</injector>
 <injector for="msgtxt.removeFailure">An error occurred while removing the task.</injector>
 <injector for="msgtxt.taskdataFailure">An error occurred while retrieving a task's data from the server.</injector>
+<injector for="msgtxt.configdFailure">An error occurred while trying to download the task's configuration.</injector>
 
 <!-- Main Content -->
 <main-cnt>
@@ -23,6 +24,7 @@
         <injector for="actiontext.run">Run the task</injector>
         <injector for="actiontext.stop">Stop the running task</injector>
         <injector for="actiontext.result">Go to result</injector>
+        <injector for="actiontext.download">Download task configuration</injector>
         <injector for="actiontext.configure">Configure the task</injector>
         <injector for="actiontext.remove">Remove the task</injector>
 
@@ -49,26 +51,44 @@
                     <td class="col-md-4">{{ taskconfig.description }}</td>
                     <td class="col-md-2"><strong>{{ table.getPrimaryKB(taskconfig) }}</strong>{{ table.getNonPrimaryKBs(taskconfig).join(', ') | nonempty:', ' }}</td>
                     <td class="col-md-2">
+                        <!-- Run the task -->
                         <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.run" place="top">
                                 <a class="btn btn-default" ng-click="frun(taskconfig.id)"><i class="fa fa-play fa-lg"></i></a>
                             </tooltip>
                         </span>
+
+                        <!-- Stop running task -->
                         <span ng-show="['RUNNING'].includes(taskconfig.state)">
                             <tooltip source="actiontext.stop" place="top">
                                 <a class="btn btn-default" ng-click="fstop(taskconfig.id)"><i class="fa fa-stop fa-lg"></i></a>
                             </tooltip>
                         </span>
+
+                        <!-- Go to result -->
                         <span ng-show="['SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.result" place="top">
                                 <a class="btn btn-default" ng-click="fresult(taskconfig.id)"><i class="fa fa-external-link fa-lg"></i></a>
                             </tooltip>
                         </span>
+
+                        <!-- Download configuration -->
+                        <span>
+                            <tooltip source="actiontext.download" place="top">
+                                <a-fake ajax="fdownload" args="taskconfig.id" catcher="configderror" type="text/turtle">
+                                    <a class="btn btn-default"><i class="fa fa-download fa-lg"></i></a>
+                                </a-fake>
+                            </tooltip>
+                        </span>
+
+                        <!-- Configure the task -->
                         <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.configure" place="top">
                                 <a class="btn btn-default" ng-click="fconfigure(taskconfig.id)"><i class="fa fa-cog fa-lg"></i></a>
                             </tooltip>
                         </span>
+
+                        <!-- Remove the task -->
                         <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.remove" place="top">
                                 <a class="btn btn-default" ng-click="fremove(taskconfig.id)"><i class="fa fa-trash fa-lg"></i></a>

@@ -51,7 +51,7 @@
         this.fileObject = function (inputFileElementId) {
             if (_ref.filePresent(inputFileElementId)) {
                 return document.getElementById(inputFileElementId).files[0];
-            };
+            }
 
             return null;
         };

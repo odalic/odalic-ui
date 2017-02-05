@@ -20,6 +20,12 @@
         "link": "#/createnewtask"
       },
       {
+        "title": "Import",
+        "link": "#/importtask"
+      },
+      {
+      },
+      {
         "title": "Task configurations",
         "link": "#/taskconfigs"
       }
