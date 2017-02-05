@@ -45,16 +45,20 @@
          * @param method        GET / POST / PUT / DELETE
          * @param success       Success function
          * @param failure       Failure function
+         * @param acceptType    Content-type of data accepted (in header)
+         * @param type          Content-type of data sent (in header)
+         * @param data          Data to be sent to server
          */
-        this.quickRequest = function (url, method, success, failure) {
+        this.quickRequest = function (url, method, success, failure, acceptType, type, data) {
             generic_request({
                 method: method,
                 address: url,
-                formData: undefined,
+                formData: data,
                 success: success,
                 failure: failure
             }, {
-                'Content-Type': undefined
+                'Content-Type': type,
+                'Accept': acceptType
             });
         };
 
