@@ -49,6 +49,11 @@
             <alert-group bind="taskImport.alerts" disappearing="3"/>
         </form>
 
+        <!-- Confirm modal when overwriting task -->
+        <confirm bind="confirm" title="Task overwrite">
+            You are about to overwrite an existing task definition. Continue?
+        </confirm>
+
         <!-- Submit -->
         <div class="col-md-offset-10 col-md-2">
             <div class="col-md-8">
