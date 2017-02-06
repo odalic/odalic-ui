@@ -209,5 +209,30 @@ var objhelp = {
         });
 
         return result;
+    },
+
+    /** Calls a function passed as an argument, if defined.
+     *  Any amount of arguments to be passed to the function may be specified.
+     *  Example:
+     *      var s = objhelp.callDefined(text.safe, 'My string');
+     *
+     * @param f     Function to call if defined.
+     * @returns {*} Undefined, if function is undefined, or what "f" would return.
+     */
+    callDefined: function (f) {
+        // If undefined or null, return
+        if (!f) {
+            return;
+        }
+
+        var args = Array.prototype.splice.call(arguments, 1);
+        return f.apply(null, args);
+    },
+
+    /** Function that does... nothing.
+     *
+     */
+    emptyFunction: function () {
+
     }
 };

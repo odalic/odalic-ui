@@ -251,16 +251,23 @@
 
                         // Construct predicate label for a given KB and a candidate
                         var handleCandidate = function (kb, candidate) {
-                            var concept = candidate['label'];
-                            if (!concept) {
-                                var resource = candidate['resource'];
-                                try {
-                                    concept = text.uri(resource).page;
-                                } catch (e) {
-                                    concept = text.dotted(resource, 20);
+                            var prefix = candidate['prefixed'];
+                            if (prefix) {
+                                // Display the prefix on edge, if defined
+                                labels.push(prefix);
+                            } else {
+                                // The old way - display "label (KB)"
+                                var concept = candidate['label'];
+                                if (!concept) {
+                                    var resource = candidate['resource'];
+                                    try {
+                                        concept = text.uri(resource).page;
+                                    } catch (e) {
+                                        concept = text.dotted(resource, 20);
+                                    }
                                 }
+                                labels.push((new String()).concat(concept, '(', kb, ')'));
                             }
-                            labels.push(kb + ':' + concept);
                         };
 
                         // Retrieve selected predicate labels

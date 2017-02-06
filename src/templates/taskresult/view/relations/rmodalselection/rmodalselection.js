@@ -12,6 +12,7 @@
         $scope.openRProposal = data.openRProposal;
         $scope.chosenKBs = data.chosenKBs;
         $scope.currentRelation = data.currentRelation;
+        $scope.close = $uibModalInstance.close;
 
         $scope.locksLock = function() {
             $scope.locked[$scope.selectedRelation.column2] = 1

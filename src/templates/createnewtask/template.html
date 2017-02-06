@@ -1,9 +1,9 @@
 <!-- Prepared messages to display to user in case of a situation -->
-<injector for="msgtxt.saveFailure">An error occured while saving the task.</injector>
-<injector for="msgtxt.createFailure">An error occured while creating the task.</injector>
-<injector for="msgtxt.startFailure">An error occured while starting the task. The task has been successfully created, though.</injector>
-<injector for="msgtxt.loadFailure">Fatal error occured while loading the task configuration.</injector>
-<injector for="msgtxt.kbLoadFailure">Fatal error occured while loading list of available knowledge bases.</injector>
+<injector for="msgtxt.saveFailure">An error occurred while saving the task.</injector>
+<injector for="msgtxt.createFailure">An error occurred while creating the task.</injector>
+<injector for="msgtxt.startFailure">An error occurred while starting the task. The task has been successfully created, though.</injector>
+<injector for="msgtxt.loadFailure">Fatal error occurred while loading the task configuration.</injector>
+<injector for="msgtxt.kbLoadFailure">Fatal error occurred while loading list of available knowledge bases.</injector>
 
 <!-- Main Content -->
 <main-cnt>
@@ -25,9 +25,10 @@
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
-                               ng-disabled="!templFormat.creating" required>
+                               ng-disabled="!templFormat.creating" pattern="[a-zA-Z0-9_.]*" required>
                         <div ng-messages="taskCreationForm.taskIdentifier.$error" ng-if='taskCreationForm.taskIdentifier.$dirty' role="alert">
                             <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
+                            <div ng-message="pattern"><error-msg>Task name must consist only of alphanumeric characters and '_', '.'.</error-msg></div>
                         </div>
                     </div>
                 </div>
@@ -43,16 +44,18 @@
             <!-- Input file -->
             <fieldset>
                 <legend>Input file</legend>
-                <fileinput bind="fileinput" form="taskCreationForm" />
+
+                <div class="form-group">
+                    <fileinput bind="fileinput" form="taskCreationForm" />
+                </div>
             </fieldset>
 
             <!-- Knowledge base settings -->
             <fieldset>
                 <legend>Knowledge base</legend>
-                <!-- setting of knowledge bases -->
-                <!-- TODO mozna jinak -->
+
+                <!-- Used knowledge bases -->
                 <div class="form-group">
-                    <!-- Used knowledge bases -->
                     <label class="col-md-2 control-label">Knowledge bases:</label>
                     <div class="col-md-10">
                         <select class="form-control" name="selectKBs" ng-model="kbs.chosenKBs" ng-options="opt.name for opt in kbs.availableKBs" size="{{ kbs.availableKBs.length }}" ng-change="kbs.selectionChanged()" multiple required>
@@ -62,8 +65,9 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Primary knowledge base -->
                 <div class="form-group">
-                    <!-- Primary knowledge base -->
                     <label class="col-md-2 control-label">Primary knowledge base:</label>
                     <div class="col-md-10">
                         <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableSelectedKBs" required>
@@ -110,6 +114,11 @@
             <!--  Alerts displaying notifications for a user regarding the whole form -->
             <alert-group bind="wholeForm.alerts" disappearing="3"/>
         </form>
+
+        <!-- Confirm modal when overwriting task -->
+        <confirm bind="confirm" title="Task overwrite">
+            You are about to overwrite an existing task definition. Continue?
+        </confirm>
 
         <!-- Submit -->
         <div class="col-md-offset-10 col-md-2">

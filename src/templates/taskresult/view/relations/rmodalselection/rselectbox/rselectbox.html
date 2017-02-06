@@ -8,7 +8,7 @@
     <ui-select-match placeholder="">
         <span title="label">{{ $item.entity.label }}</span>  &nbsp
         <span title="score">{{ $item.score.value| nullOrNumber:2}}  </span> <br/>
-        <span title={{$item.entity.resource}}>{{$item.entity.resource}}</span>
+        <span title={{$item.entity.resource}}>({{$item.entity.prefixed}})</span>
     </ui-select-match>
     <ui-select-choices
             repeat="opt in  currentRelation.candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search}">
@@ -18,7 +18,7 @@
         <span title="score">{{opt.score.value| nullOrNumber:2}}</span>
         <br/>
         <span title={{opt.entity.resource}}
-             ng-bind-html="opt.entity.resource| highlight: $select.search"></span>
+             ng-bind-html="'(' + opt.entity.prefixed  + ')'| highlight: $select.search"></span>
 
     </ui-select-choices>
 </ui-select>

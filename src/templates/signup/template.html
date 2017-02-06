@@ -13,14 +13,14 @@
             <div ng-switch-default>
                 <!-- Panel -->
                 <div class="col-sm-4 col-md-offset-4">
-                    <div class="panel panel-border">
-                        <div class="panel-body odalic-bstyle-lightgrey odalic-gfont-moderate">
+                    <div class="panel">
+                        <div class="panel-body odalic-bstyle-lightorange odalic-gfont-moderate">
                             Sign up
                         </div>
                         <div class="panel-body">
-                            <form class="form-horizontal" role="form" name="signupForm" ng-init="setForm(this, 'signupForm')">
+                            <form class="form-horizontal" role="form" name="signupForm" ng-init="setForm(this, 'signupForm')" ng-submit="signup.signobj.submit()">
                                 <!-- Username / e-mail -->
-                                <div class="col-md-6 ">
+                                <div class="col-md-6">
                                     <strong>E-mail:</strong>
                                 </div>
                                 <div class="col-md-6">
@@ -68,7 +68,7 @@
                                 <div class="col-md-12 odalic-hstyle-small"></div>
 
                                 <div class="col-md-6 col-md-offset-6">
-                                    <button-load button-class="form-control" action="signup.signup" disabled="signup.buttondis">Sign up</button-load>
+                                    <button-load button-class="form-control" button-type="submit" action="signup.signup" bind="signup.signobj" disabled="false">Sign up</button-load>
                                 </div>
                             </form>
                         </div>

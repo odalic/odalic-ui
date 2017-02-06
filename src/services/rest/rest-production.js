@@ -11,7 +11,7 @@ $.defineModule(function () {
                         return {
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, kb, 'entities', type) + '?query=' + string + '&limit=' + countLimit, 'GET', success, failure);
+                                    requests.quickRequest(text.urlConcat(root, 'bases', kb, 'entities', type) + '?query=' + string + '&limit=' + countLimit, 'GET', success, failure);
                                 }
                             }
                         };
@@ -27,7 +27,7 @@ $.defineModule(function () {
                     exec: function (success, failure) {
                         requests.reqJSON({
                             method: 'POST',
-                            address: text.urlConcat(root, kb, 'entities', type),
+                            address: text.urlConcat(root, 'bases', kb, 'entities', type),
                             formData: data,
                             success: success,
                             failure: failure
@@ -165,6 +165,34 @@ $.defineModule(function () {
                     },
                 },
 
+                test: {
+                    custom: {
+                        exec: function (valid, expired, failure) {
+                            // Test 3 times before proclaiming failure
+                            var tryno = 0;
+                            var tryfn = function () {
+                                // Test with fake file listing request, which is protected
+                                requests.pureRequest(text.urlConcat(root, 'files'), 'GET', valid, function (response) {
+                                    if (response.status === 401) {
+                                        expired(response);
+                                    } else if (++tryno < 3) {
+                                        tryfn();
+                                    } else {
+                                        failure(response);
+                                    }
+                                });
+                            };
+                            tryfn();
+                        }
+                    },
+
+                    automatic: {
+                        exec: function (success) {
+                            requests.quickRequest(text.urlConcat(root, 'files'), 'GET', success, objhelp.emptyFunction);
+                        }
+                    }
+                },
+
                 /** Lists all available users.
                  *  May be called only by an administrator.
                  */
@@ -256,6 +284,15 @@ $.defineModule(function () {
                                     }
                                 }
                             }
+                        },
+                        exists: function (yes, no) {
+                            // Use get-file-configuration request for finding out whether the file exists or not
+                            requests.reqJSON({
+                                method: 'GET',
+                                address: text.urlConcat(root, 'files', identifier, 'format'),
+                                success: yes,
+                                failure: no
+                            });
                         }
                     };
                 },
@@ -398,6 +435,24 @@ $.defineModule(function () {
                                     requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'), 'GET', success, failure);
                                 }
                             }
+                        },
+                        configuration: {
+                            retrieve: {
+                                exec: function (success, failure) {
+                                    requests.pureRequest(text.urlConcat(root, 'tasks', identifier), 'GET', success, failure, 'text/turtle');
+                                }
+                            },
+                            import: function (data) {
+                                return {
+                                    exec: function (success, failure) {
+                                        requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'PUT', success, failure, 'application/json', 'text/turtle', data);
+                                    }
+                                }
+                            }
+                        },
+                        exists: function (yes, no) {
+                            // Use get-task-configuration request for finding out whether the task exists or not
+                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', yes, no);
                         }
                     };
                 },

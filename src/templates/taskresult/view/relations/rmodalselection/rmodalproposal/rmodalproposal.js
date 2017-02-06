@@ -12,6 +12,7 @@
         $scope.primaryKB = data.primaryKB;
         $scope.gvdata = data.gvdata;
         $scope.currentRelation =  data.currentRelation;
+        $scope.close = $uibModalInstance.close;
 
 
         //sets parameters for the alert directive
@@ -58,15 +59,12 @@
                 function (response) {
 
                     var newObj = {
-                        "entity": {
-                            "resource": response.resource,
-                            "label": response.label
-                        },
+                        "entity": response,
                         "score": {
                             "value": null
                         }
                     };
-
+                    
                     //adds classification into result
                     $scope.currentRelation.candidates[$scope.primaryKB].push(newObj);
                     $scope.currentRelation.chosen[$scope.primaryKB] = [newObj];

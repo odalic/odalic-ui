@@ -9,6 +9,9 @@
             <div ng-switch="resview">
                 <!-- Result display -->
                 <div ng-switch-when="view">
+                    <!-- Task information, warning messages, etc. -->
+                    <task-info result="result"/>
+
                     <!-- VIEW -->
                     <div ng-switch="state" ng-init="state = 0">
 
