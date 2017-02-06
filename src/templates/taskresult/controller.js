@@ -8,7 +8,7 @@
 
     app.filter('nullOrNumber', ['$filter', function ($filter) {
         return function (input, fractionSize) {
-            if (input  == null) {
+            if (input == null) {
                 return "";
             } else {
                 return $filter('number')(input, fractionSize);
@@ -203,6 +203,24 @@
                     // Prepare data for graphvis component
                     actions.push(setsData);
 
+                    //TODO jak pockat i na inputfile
+                    if($scope.statistical == true) {
+                        for (var index in $scope.result.statisticalAnnotations) {
+                            var predicateObj = $scope.result.statisticalAnnotations[index];
+                            var predicate = predicateObj.predicate;
+
+                            predicate.candidates = {};
+                            predicate.candidates[$scope.primaryKB] = angular.copy(predicate[$scope.primaryKB]);
+                            predicate.chosen = {};
+                            predicate.chosen[$scope.primaryKB] = angular.copy(predicate[$scope.primaryKB]);
+
+
+                            var header = $scope.inputFile.columns[index];
+                            predicateObj.label = header;
+                            predicateObj.index = index;
+                        }
+                    }
+
                     // Phase complete
                     dataLoaded(phases.result);
                 },
@@ -228,6 +246,9 @@
 
                     // Primary KB
                     $scope.primaryKB = config['primaryBase']['name'];
+
+                    //statistical data flag
+                    $scope.statistical= config['statistical'];
 
                     // Phase complete
                     dataLoaded(phases.kb);
@@ -371,12 +392,24 @@
                 }
             }
 
+            //default statistical locking (set to 'no-lock'
+            $scope.locked.statisticalData = {};
+            for (var c2 = 0; c2 < columnCount; c2++) {
+                $scope.locked.statisticalData[c2] = 0;
+            }
+
             //relations locking from server feedback
             var fbrel = $scope.serverFeedback.columnRelations;
             for (var index in fbrel) {
                 var column1 = fbrel[index].position.first.index;
                 var column2 = fbrel[index].position.second.index;
                 $scope.locked.graphEdges[column1][column2] = 1;
+            }
+
+            var fbrel = $scope.serverFeedback.dataCubeComponents;
+            for (var index in fbrel) {
+                var column = fbrel[index].position.index;
+                $scope.locked.statisticalData[column]  = 1;
             }
         };
         //endregion
@@ -450,7 +483,7 @@
         };
 
         //calls cd proposal modal window
-        $scope.openRProposal = function () {
+        $scope.openRProposal = function (index) {
             $uibModal.open({
                 templateUrl: "src/templates/taskresult/view/relations/rmodalselection/rmodalproposal/rmodalproposal.html",
                 controller: 'rProposeController',
@@ -459,14 +492,19 @@
                         return {
                             gvdata: $scope.gvdata,
                             selectedRelation: $scope.selectedRelation,
-                            result: $scope.result,
-                            locked: $scope.locked,
+                            domain : $scope.result.headerAnnotations[$scope.selectedRelation.column1].chosen[ $scope.primaryKB][0].entity.resource,
+                            range : $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB][0].entity.resource,
+                            locked: function() {
+                                $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1
+                            },
+                            currentRelation: $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2],
                             primaryKB: $scope.primaryKB
                         }
                     }
                 }
             });
         };
+
 
         //calls cd selection modal window
         $scope.openCDSelection = function () {
@@ -495,8 +533,25 @@
             });
         };
 
+        //calls cd proposal modal window
+
         //calls r selection modal window
         $scope.openRSelection = function () {
+            //creates levels of json if they are missing
+            objhelp.objRecurAccess($scope.result.columnRelationAnnotations, $scope.selectedRelation.column1, $scope.selectedRelation.column2, 'candidates');
+            var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
+            objhelp.objRecurAccess(currentRelation, 'chosen');
+            for (var i in  $scope.chosenKBs) {
+                var KB = $scope.chosenKBs[i];
+                if (!currentRelation.candidates.hasOwnProperty(KB)) {
+                    currentRelation.candidates[KB] = [];
+                }
+
+                if (!currentRelation.chosen.hasOwnProperty(KB)) {
+                    currentRelation.chosen[KB] = [];
+                }
+            }
+
             $uibModal.open({
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -507,11 +562,12 @@
                         return {
                             gvdata: $scope.gvdata,
                             primaryKB: $scope.primaryKB,
-                            locked: $scope.locked,
+                            locked:  $scope.locked.graphEdges[$scope.selectedRelation.column1],
                             selectedRelation: $scope.selectedRelation,
                             result: $scope.result,
+                            currentRelation: currentRelation,
                             openRProposal: $scope.openRProposal,
-                            chosenKBs:$scope.chosenKBs
+                            chosenKBs: $scope.chosenKBs
 
                         }
                     }
@@ -519,8 +575,6 @@
 
             });
         }
-
-
     });
 
 })();

@@ -5,9 +5,8 @@
         <h2 class="col-md-1">
             <r-lock
                     click="gvdata.update"
-                    locked="locked.graphEdges"
-                    column1="{{ selectedRelation.column1 }}"
-                    column2="{{ selectedRelation.column2 }}"/>
+                    current-lock="locked"
+                    column2 = "selectedRelation.column2"/>
         </h2>
     </div>
 </div>
@@ -24,10 +23,9 @@
     <div class="row">
         <!-- Primary Knowledge Base -->
         <div class="col-md-12">
-            <r-select-box locked="locked"
-                          result="result"
+            <r-select-box current-lock="locksLock"
+                          current-relation="currentRelation"
                           gvdata="gvdata"
-                          selected-relation="selectedRelation"
                           knowledge-base="{{primaryKB}}"/>
         </div>
     </div>
@@ -42,23 +40,22 @@
     </div>
     <!-- search for the primary knowledge base -->
     <div uib-collapse="isCollapsedPKB">
-        <r-suggestions selected-relation="selectedRelation" ,
-                       locked="locked" ,
+        <r-suggestions current-lock="locksLock"
+                       current-relation="currentRelation"
                        knowledge-base="{{primaryKB}}" ,
-                       result="result"
                        gvdata="gvdata"/>
     </div>
 
     <div class="row">
         <div class="col-md-3 col-md-offset-9">
-            <button class="form-control" ng-click="openRProposal()">
+            <button class="form-control" ng-click="openRProposal(selectedRelation.column2)">
                 Propose
             </button>
         </div>
     </div>
 
     <!-- Separate div for each knowledge base -->
-    <div ng-repeat="(knowledgeBase, candidates) in result.columnRelationAnnotations[selectedRelation.column1][selectedRelation.column2].candidates">
+    <div ng-repeat="(knowledgeBase, candidates) in currentRelation.candidates">
         <div ng-if="knowledgeBase != primaryKB">
 
             <div class="row">
@@ -70,10 +67,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- Selection of a candidate(s) for the current knowledge base -->
-                    <r-select-box locked="locked"
-                                  result="result"
+                    <r-select-box current-lock="locksLock"
+                                  current-relation="currentRelation"
                                   gvdata="gvdata"
-                                  selected-relation="selectedRelation"
                                   knowledge-base="{{knowledgeBase}}"/>
                 </div>
             </div>
@@ -86,10 +82,9 @@
             </div>
             <!-- search for the primary knowledge base -->
             <div uib-collapse="isCollapsedKB">
-                <r-suggestions selected-relation="selectedRelation" ,
-                               locked="locked" ,
+                <r-suggestions current-lock="locksLock"
+                               current-relation="currentRelation"
                                knowledge-base="{{knowledgeBase}}" ,
-                               result="result"
                                gvdata="gvdata"/>
             </div>
         </div>

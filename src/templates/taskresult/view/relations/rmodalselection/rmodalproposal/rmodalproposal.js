@@ -6,12 +6,13 @@
     app.controller('rProposeController', function ($scope, $uibModalInstance, rest, data) {
         $scope.selectedRelation = data.selectedRelation;
         $scope.result = data.result;
-        $scope.locked = data.locked;
+        $scope.range = data.range;
+        $scope.domain = data.domain;
+        $scope.currentLock = data.locked;
         $scope.primaryKB = data.primaryKB;
         $scope.gvdata = data.gvdata;
+        $scope.currentRelation =  data.currentRelation;
 
-        $scope.domain = $scope.result.headerAnnotations[ $scope.selectedRelation.column1].chosen[ $scope.primaryKB][0].entity.resource;
-        $scope.range = $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB][0].entity.resource;
 
         //sets parameters for the alert directive
         $scope.serverResponse = {
@@ -67,12 +68,12 @@
                     };
 
                     //adds classification into result
-                    currentRelation.candidates[$scope.primaryKB].push(newObj);
-                    currentRelation.chosen[$scope.primaryKB] = [newObj];
+                    $scope.currentRelation.candidates[$scope.primaryKB].push(newObj);
+                    $scope.currentRelation.chosen[$scope.primaryKB] = [newObj];
                     $scope.gvdata.mc();
 
                     //locks
-                    $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+                    $scope.currentLock();
                     $scope.gvdata.update();
 
                     //success message

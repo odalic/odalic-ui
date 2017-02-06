@@ -3,16 +3,14 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // lock directive
     var currentFolder = $.getPathForRelativePath('');
     app.directive('rSuggestions', ['rest', 'reporth', function (rest, reporth) {
         return {
             restrict: 'E',
             scope: {
-                selectedRelation: '=',
-                locked: '=',
+                currentLock: '=',
                 knowledgeBase: '@',
-                result: '=',
+                currentRelation: '=',
                 gvdata: '='
             },
             templateUrl: currentFolder + 'rsuggestions.html',
@@ -38,7 +36,7 @@
                         "score": {"value": null}
                     };
 
-                    var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
+                    var currentRelation = $scope.currentRelation;
                     var candidates = currentRelation.candidates[$scope.knowledgeBase];
 
                     //finds already existing resource
@@ -59,7 +57,7 @@
                     $scope.gvdata.mc();
 
                     //locks current relation
-                    $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+                    $scope.currentLock();
                     $scope.gvdata.update();
 
                     //deletes form

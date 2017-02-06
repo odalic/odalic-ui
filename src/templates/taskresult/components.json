@@ -17,5 +17,6 @@
   "view/relations/rmodalselection/rsuggestions/rsuggestions.js",
   "view/relations/rmodalselection/rselectbox/rselectbox.js",
   "view/subjectcolumn/sclock/sclock.js",
-  "view/subjectcolumn/subjectcolumntables/subjectcolumntables.js"
+  "view/subjectcolumn/subjectcolumntables/subjectcolumntables.js",
+  "view/statisticaldata/table/table.js"
 ]
