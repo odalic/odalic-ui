@@ -35,7 +35,9 @@
         </a>
 
         <!-- row of cell in format: label (url)-->
-        <span>{{ disam.entity.label + ' ' + '(' + disam.entity.prefixed + ')' }}</span>
+        <span>{{ disam.entity.label + ' ' + '('}}</span>
+        <a target="_blank" href = "{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
+        <span>)</span>
 
     </div>
     <!-- other knowledge base disambiguation  -->
@@ -47,7 +49,9 @@
                     <span ng-class="'fa fa-trash'"></span>
                 </a>
                 <!-- row of cell in format: label (url)-->
-                <span>{{ disam.entity.label + ' ' + '(' + disam.entity.prefixed + ')' }}</span>
+                <span>{{ disam.entity.label + ' ' + '('}}</span>
+                <a target="_blank" href = "{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
+                <span>)</span>
 
             </div>
         </div>
