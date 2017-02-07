@@ -4,7 +4,7 @@
     var app = angular.module('odalic-app');
 
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('fileinput', function (rest, filedata, reporth) {
+    app.directive('fileinput', function (rest, filedata, reporth, formsval) {
         return {
             restrict: 'E',
             scope: {
@@ -13,11 +13,15 @@
             },
             templateUrl: currentFolder + 'fileinput.html',
             link: function (scope, iElement, iAttrs) {
+
+                // Is the form ready?
                 scope.taskCreationFormReady = function () {
                     return !!scope.form;
                 };
 
                 // Initialization
+                formsval.toScope(scope);
+                scope.confirm = {};
                 scope.files = {};
                 scope.remoteFile = {};
                 scope.messages = {};
@@ -68,6 +72,29 @@
                     }
                 };
 
+                // Miscellaneous
+                var testOverwrite = function (fileId, process, fallback) {
+                    rest.files.name(fileId).exists(
+                        // The file already exists => confirm overwrite
+                        function () {
+                            scope.confirm.open(function (response) {
+                                if (response === true) {
+                                    process();
+                                } else {
+                                    // Overwrite rejected => do some 'cleaning'
+                                    fallback();
+
+                                    // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
+                                    // For some reason "scope.$$phase" gets buggy here and always returns false (not even try-catch block helps...)
+                                    scope.$apply();
+                                }
+                            });
+                        },
+                        // The file does not exist yet => continue without any prompt
+                        process
+                    );
+                };
+
                 // File uploading
                 scope.fileUpload = {
                     // Id of the input-file element
@@ -98,6 +125,11 @@
 
                     // Upload the selected file
                     uploadFile: function () {
+                        // Validate
+                        if (!formsval.validate(scope.localFileForm)) {
+                            return;
+                        }
+
                         // Reference to self
                         var _ref = this;
 
@@ -142,19 +174,26 @@
                         };
 
                         // Read the file and send the data to server
-                        filedata.readBase64(_ref.inputFileId,
-                            // Success
-                            function (fileData) {
-                                sendData(fileData);
-                            },
-                            // Failure
-                            function (response) {
-                                scope.messages.push('error', (new String()).concat(scope['msgtxt.uploadFailure'], ' ', response));
+                        var process = function () {
+                            filedata.readBase64(_ref.inputFileId,
+                                // Success
+                                function (fileData) {
+                                    sendData(fileData);
+                                },
+                                // Failure
+                                function (response) {
+                                    scope.messages.push('error', (new String()).concat(scope['msgtxt.uploadFailure'], ' ', response));
 
-                                // A file may be uploaded again
-                                _ref.uploadingFile = false;
-                            }
-                        );
+                                    // A file may be uploaded again
+                                    _ref.uploadingFile = false;
+                                }
+                            );
+                        };
+
+                        // Insert the file, if everything is OK
+                        testOverwrite(_ref.identifier, process, function () {
+                            _ref.uploadingFile = false;
+                        });
                     }
                 };
 
@@ -168,6 +207,7 @@
 
                     // Location of the file to be attached
                     location: String(),
+
                     // Attach the selected file
                     attachFile: function () {
                         // Reference to self
@@ -177,35 +217,42 @@
                         _ref.attachingFile = true;
 
                         // Send the REST request
-                        rest.files.name(_ref.identifier).create.remote(_ref.location).exec(
-                            // Success
-                            function () {
-                                // The file has been attached successfully => refresh the list of available files
-                                scope.fileList.refresh(function (succes) {
-                                    // Display a success message
-                                    scope.messages.push('success', scope['msgtxt.attachSuccessful']);
+                        var process = function () {
+                            rest.files.name(_ref.identifier).create.remote(_ref.location).exec(
+                                // Success
+                                function () {
+                                    // The file has been attached successfully => refresh the list of available files
+                                    scope.fileList.refresh(function (succes) {
+                                        // Display a success message
+                                        scope.messages.push('success', scope['msgtxt.attachSuccessful']);
 
-                                    // Sets the newly attached file as the selected one
-                                    scope.fileList.setSelected(scope.fileList.getIndex(_ref.identifier));
+                                        // Sets the newly attached file as the selected one
+                                        scope.fileList.setSelected(scope.fileList.getIndex(_ref.identifier));
 
-                                    // Clear the fields
-                                    _ref.identifier = new String();
-                                    _ref.location = scope['deflocation'];
-                                    scope.form.remoteFileForm.$setPristine();
+                                        // Clear the fields
+                                        _ref.identifier = new String();
+                                        _ref.location = scope['deflocation'];
+                                        scope.form.remoteFileForm.$setPristine();
 
-                                    // Another file may be uploaded again
+                                        // Another file may be uploaded again
+                                        _ref.attachingFile = false;
+                                    });
+                                },
+                                // Failure
+                                function (response) {
+                                    // The file has not been attached => display an error message
+                                    scope.messages.push('error', reporth.constrErrorMsg(scope['msgtxt.attachFailure'], response.data));
+
+                                    // A file may be uploaded again
                                     _ref.attachingFile = false;
-                                });
-                            },
-                            // Failure
-                            function (response) {
-                                // The file has not been attached => display an error message
-                                scope.messages.push('error', reporth.constrErrorMsg(scope['msgtxt.attachFailure'], response.data));
+                                }
+                            );
+                        };
 
-                                // A file may be uploaded again
-                                _ref.attachingFile = false;
-                            }
-                        );
+                        // Attach the file, if everything is OK
+                        testOverwrite(_ref.identifier, process, function () {
+                            _ref.attachingFile = false;
+                        });
                     }
                 };
 

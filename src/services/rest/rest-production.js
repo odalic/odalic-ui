@@ -166,22 +166,30 @@ $.defineModule(function () {
                 },
 
                 test: {
-                    exec: function (valid, expired, failure) {
-                        // Test 3 times before proclaiming failure
-                        var tryno = 0;
-                        var tryfn = function () {
-                            // Test with fake file listing request, which is protected
-                            requests.pureRequest(text.urlConcat(root, 'files'), 'GET', valid, function (response) {
-                                if (response.status === 401) {
-                                    expired(response);
-                                } else if (++tryno < 3) {
-                                    tryfn();
-                                } else {
-                                    failure(response);
-                                }
-                            });
-                        };
-                        tryfn();
+                    custom: {
+                        exec: function (valid, expired, failure) {
+                            // Test 3 times before proclaiming failure
+                            var tryno = 0;
+                            var tryfn = function () {
+                                // Test with fake file listing request, which is protected
+                                requests.pureRequest(text.urlConcat(root, 'files'), 'GET', valid, function (response) {
+                                    if (response.status === 401) {
+                                        expired(response);
+                                    } else if (++tryno < 3) {
+                                        tryfn();
+                                    } else {
+                                        failure(response);
+                                    }
+                                });
+                            };
+                            tryfn();
+                        }
+                    },
+
+                    automatic: {
+                        exec: function (success) {
+                            requests.quickRequest(text.urlConcat(root, 'files'), 'GET', success, objhelp.emptyFunction);
+                        }
                     }
                 },
 
@@ -276,6 +284,15 @@ $.defineModule(function () {
                                     }
                                 }
                             }
+                        },
+                        exists: function (yes, no) {
+                            // Use get-file-configuration request for finding out whether the file exists or not
+                            requests.reqJSON({
+                                method: 'GET',
+                                address: text.urlConcat(root, 'files', identifier, 'format'),
+                                success: yes,
+                                failure: no
+                            });
                         }
                     };
                 },
@@ -432,6 +449,10 @@ $.defineModule(function () {
                                     }
                                 }
                             }
+                        },
+                        exists: function (yes, no) {
+                            // Use get-task-configuration request for finding out whether the task exists or not
+                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', yes, no);
                         }
                     };
                 },

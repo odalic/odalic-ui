@@ -21,9 +21,10 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
-                        <input class="form-control" type="text" name="taskIdentifier" ng-model="taskImport.identifier" required>
+                        <input class="form-control" type="text" name="taskIdentifier" ng-model="taskImport.identifier" pattern="[a-zA-Z0-9_.]*" required>
                         <div ng-messages="taskImportForm.taskIdentifier.$error" ng-if='taskImportForm.taskIdentifier.$dirty' role="alert">
                             <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
+                            <div ng-message="pattern"><error-msg>Task name must consist only of alphanumeric characters and '_', '.'.</error-msg></div>
                         </div>
                     </div>
                 </div>
@@ -47,6 +48,11 @@
             <!--  Alerts displaying notifications to a user -->
             <alert-group bind="taskImport.alerts" disappearing="3"/>
         </form>
+
+        <!-- Confirm modal when overwriting task -->
+        <confirm bind="confirm" title="Task overwrite">
+            You are about to overwrite an existing task definition. Continue?
+        </confirm>
 
         <!-- Submit -->
         <div class="col-md-offset-10 col-md-2">
