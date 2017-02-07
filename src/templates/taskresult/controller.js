@@ -484,6 +484,13 @@
 
         //calls cd proposal modal window
         $scope.openRProposal = function (index) {
+            //sets non existing chosen domain and range to empty string
+            var chosenD = $scope.result.headerAnnotations[$scope.selectedRelation.column1].chosen[$scope.primaryKB];
+            var domain = (chosenD.length == 0) ? "": chosenD[0].entity.resource;
+
+            var chosenR = $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB]
+            var range =(chosenR.length == 0) ?  "" : chosenR[0].entity.resource;
+
             $uibModal.open({
                 templateUrl: "src/templates/taskresult/view/relations/rmodalselection/rmodalproposal/rmodalproposal.html",
                 controller: 'rProposeController',
@@ -492,8 +499,8 @@
                         return {
                             gvdata: $scope.gvdata,
                             selectedRelation: $scope.selectedRelation,
-                            domain : $scope.result.headerAnnotations[$scope.selectedRelation.column1].chosen[ $scope.primaryKB][0].entity.resource,
-                            range : $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB][0].entity.resource,
+                            domain : domain,
+                            range : range,
                             locked: function() {
                                 $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1
                             },
