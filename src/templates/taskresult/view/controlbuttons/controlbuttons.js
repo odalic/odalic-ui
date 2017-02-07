@@ -110,6 +110,25 @@
                         }
                     }
 
+
+                    $scope.feedback.dataCubeComponents = [];
+                    for (var index in $scope.locked.statisticalData) {
+                            var lock  = $scope.locked.statisticalData[index];
+                            if (lock == 1) {
+                                var predicateObj = $scope.result.statisticalAnnotations[index];
+                                var obj = {
+                                    "position": { "index":  index},
+                                    "annotation": {"component":predicateObj.component,
+                                        "predicate": predicateObj.predicate}
+
+                                };
+                                obj.annotation.predicate[$scope.primaryKB] = angular.copy(predicateObj.predicate.chosen[$scope.primaryKB]);
+                                delete obj.annotation.predicate.chosen;
+                                delete obj.annotation.predicate.candidates;
+                                $scope.feedback.dataCubeComponents.push(obj);
+                            }
+                    }
+
                     // Send the feedback
                     rest.tasks.name($scope.taskID).feedback.store($scope.feedback).exec(success, error);
                 };

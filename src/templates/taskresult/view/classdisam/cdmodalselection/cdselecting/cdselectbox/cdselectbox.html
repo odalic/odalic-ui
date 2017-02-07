@@ -14,6 +14,10 @@
              title="lodlive browser"
              ng-src="{{ lodLiveBrowserIcon }}"
              class="selectBoxIcon uism-aclass"/>
+
+        <a  class="selectBoxLink"  title="shows resource detail" target="_blank" href = "{{$item.entity.resource}}">
+            <span class="fa fa-info-circle fa-lg"> </span>
+        </a>
         &nbsp
         <span title="label">{{ $item.entity.label  }}</span>  &nbsp
         <span title="score">{{ $item.score.value| nullOrNumber:2}}</span> <br/>
@@ -27,6 +31,10 @@
              title="lodlive browser"
              ng-src="{{ lodLiveBrowserIcon }}"
              ng-class="'selectBoxIcon'">
+
+        <a class="selectBoxLink" title="shows resource detail" target="_blank" href = "{{opt.entity.resource}}">
+            <span class="fa fa-info-circle fa-lg"> </span>
+        </a>
         &nbsp
         <span title="label"
               ng-bind-html="opt.entity.label | highlight: $select.search"></span>

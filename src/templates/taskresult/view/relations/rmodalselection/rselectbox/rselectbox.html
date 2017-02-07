@@ -1,18 +1,26 @@
 <ui-select
-        title="Choose from the remaining candidates ({{data.candidates[knowledgeBase].length - data.chosen[knowledgeBase].length}})"
-        ng-model="data.chosen[knowledgeBase]"
+        title="Choose from the remaining candidates ({{ currentRelation.candidates[knowledgeBase].length -  currentRelation.chosen[knowledgeBase].length}})"
+        ng-model=" currentRelation.chosen[knowledgeBase]"
         multiple limit="1" theme="bootstrap"
         on-select="switchRelation($item, knowledgeBase);lockRelation()"
-        ng-disabled="data.candidates[knowledgeBase].length == 0"
+        ng-disabled=" currentRelation.candidates[knowledgeBase].length == 0"
         ng-change="gvdata.mc(); lockRelation()">
     <ui-select-match placeholder="">
+        <a  class="selectBoxLink"  title="shows resource detail" target="_blank" href = "{{$item.entity.resource}}">
+            <span class="fa fa-info-circle fa-lg"> </span>
+        </a>
+        &nbsp
         <span title="label">{{ $item.entity.label }}</span>  &nbsp
         <span title="score">{{ $item.score.value| nullOrNumber:2}}  </span> <br/>
         <span title={{$item.entity.resource}}>({{$item.entity.prefixed}})</span>
     </ui-select-match>
     <ui-select-choices
-            repeat="opt in data.candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search}">
+            repeat="opt in  currentRelation.candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search}">
 
+        <a class="selectBoxLink" title="shows resource detail" target="_blank" href = "{{opt.entity.resource}}">
+            <span class="fa fa-info-circle fa-lg"> </span>
+        </a>
+        &nbsp
          <span title="label"
                ng-bind-html="opt.entity.label | highlight: $select.search"></span>
         <span title="score">{{opt.score.value| nullOrNumber:2}}</span>
