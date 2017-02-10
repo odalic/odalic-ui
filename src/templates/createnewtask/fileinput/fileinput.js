@@ -4,7 +4,7 @@
     var app = angular.module('odalic-app');
 
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('fileinput', function (rest, filedata, reporth, formsval) {
+    app.directive('fileinput', function ($filter, rest, filedata, reporth, formsval) {
         return {
             restrict: 'E',
             scope: {
@@ -85,7 +85,7 @@
                                     fallback();
 
                                     // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
-                                    // For some reason "scope.$$phase" gets buggy here and always returns false (not even try-catch block helps...)
+                                    // TODO: For some reason "scope.$$phase" gets buggy here and always returns false (not even try-catch block helps...)
                                     scope.$apply();
                                 }
                             });
@@ -117,7 +117,7 @@
                             name = text.randomId();
                         }
 
-                        this.identifier = name;
+                        this.identifier =  $filter('conform')(name, '-a-zA-Z0-9_., ');
                         if (!scope.$$phase) {
                             scope.$apply();
                         }

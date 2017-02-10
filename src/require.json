@@ -40,6 +40,8 @@
   "services/reporth/reporth.js",
   "filters/shortstr/filter.js",
   "filters/nonempty/filter.js",
+  "filters/clean/filter.js",
+  "filters/conform/filter.js",
   "services/authentication.js",
   "templates/templates.js"
 ]
