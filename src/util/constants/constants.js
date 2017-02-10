@@ -58,7 +58,7 @@ var constants = {
     get formats() {
         return {
             get date() {
-                return String('yyyy-MM-dd HH:mm');
+                return new String('yyyy-MM-dd HH:mm');
             }
         }
     },
