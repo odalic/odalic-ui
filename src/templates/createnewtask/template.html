@@ -25,7 +25,7 @@
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
-                               ng-disabled="!templFormat.creating" pattern="[-a-zA-Z0-9_.,\s]*" required>
+                               ng-disabled="!templFormat.creating" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
                         <div ng-messages="taskCreationForm.taskIdentifier.$error" ng-if='taskCreationForm.taskIdentifier.$dirty' role="alert">
                             <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
                             <div ng-message="pattern"><error-msg>Task name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>

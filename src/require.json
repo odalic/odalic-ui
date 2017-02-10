@@ -28,6 +28,7 @@
   "directives/compareto/compareto.js",
   "directives/afake/afake.js",
   "directives/confirm/confirm.js",
+  "directives/focused/focused.js",
   "services/ioc/ioc.js",
   "services/sharedata/sharedata.js",
   "services/filedata/filedata.js",
