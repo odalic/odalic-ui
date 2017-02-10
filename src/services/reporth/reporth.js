@@ -25,7 +25,7 @@
             var parsed = (typeof(response) === 'object') ? response : JSON.parse(response);
 
             return (new String()).concat(
-                text.safe(info), ' Error details: ', text.dotted(parsed.payload.text, 50)
+                text.safe(info), ' Error details: ', text.dotted(parsed.payload.text, 150)
             );
         };
     });
