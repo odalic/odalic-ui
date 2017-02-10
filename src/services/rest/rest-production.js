@@ -340,7 +340,7 @@ $.defineModule(function () {
                         },
                         retrieve: {
                             exec: function (success, failure) {
-                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', success, failure);
+                                requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', success, failure, 'application/json');
                             }
                         },
                         execute: {
@@ -452,7 +452,7 @@ $.defineModule(function () {
                         },
                         exists: function (yes, no) {
                             // Use get-task-configuration request for finding out whether the task exists or not
-                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', yes, no);
+                            requests.quickRequest(text.urlConcat(root, 'tasks', identifier), 'GET', yes, no, 'application/json');
                         }
                     };
                 },

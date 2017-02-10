@@ -247,7 +247,7 @@
                     // Primary KB
                     $scope.primaryKB = config['primaryBase']['name'];
 
-                    //statistical data flag
+                    // Statistical data flag
                     $scope.statistical= config['statistical'];
 
                     // Phase complete
