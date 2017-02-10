@@ -120,24 +120,21 @@
             You are about to overwrite an existing task definition. Continue?
         </confirm>
 
-        <!-- Submit -->
-        <div class="col-md-offset-10 col-md-2">
-            <!-- When creating a new task -->
-            <div ng-if="templFormat.creating">
-                <div class="col-md-8">
-                    <button-load button-class="btn btn-lg" action="templFormat.createAndRun" disabled="false">Create and run</button-load>
+        <!-- Submit, when creating a new task -->
+        <div class="col-md-offset-8 col-md-4" ng-if="templFormat.creating">
+            <div class="col-md-offset-1 col-md-11">
+                <div class="col-md-7">
+                    <button-load button-class="col-md-12 btn btn-lg" action="templFormat.createAndRun" disabled="false">Create and run</button-load>
                 </div>
-                <div class="col-md-4">
-                    <button-load button-class="btn btn-lg" action="templFormat.createTask" disabled="false">Create</button-load>
+                <div class="col-md-5">
+                    <button-load button-class="col-md-12 btn btn-lg" action="templFormat.createTask" disabled="false">Create</button-load>
                 </div>
             </div>
+        </div>
 
-            <!-- When editing an existing task -->
-            <div ng-if="!templFormat.creating">
-                <div class="col-md-offset-8 col-md-4">
-                    <button-load button-class="btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>
-                </div>
-            </div>
+        <!-- Submit, when editing an existing task -->
+        <div class="col-md-offset-10 col-md-2" ng-if="!templFormat.creating">
+            <button-load button-class="col-md-offset-4 col-md-8 btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>
         </div>
 
         <!-- Blank space pushing footer further below -->
