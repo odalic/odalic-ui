@@ -51,7 +51,7 @@
                 // Displaying / hiding the modal's title
                 var setTitle = function (display) {
                     if (display) {
-                        $('h2', modTitle).html(display);
+                        $('.modal-title', modTitle).html(display);
                         modTitle.show();
                     } else {
                         modTitle.hide();
@@ -96,6 +96,11 @@
                 scope.bind['open'] = function (title, content) {
                     queue.push({title: title, content: content});
                     openModal();
+                };
+
+                // Closing the modal
+                scope.close = function (state) {
+                    modElem.modal('hide');
                 };
 
                 // On closing the modal

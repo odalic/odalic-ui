@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="warning in result.warnings">
+                    <tr ng-repeat="warning in result.warnings track by $index">
                         <td>{{ $index }}</td>
                         <td>{{ warning }}</td>
                     </tr>
