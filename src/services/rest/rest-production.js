@@ -248,7 +248,7 @@ $.defineModule(function () {
                         },
                         remove: {
                             exec: function (success, failure) {
-                                requests.quickRequest(text.urlConcat(root, 'files', identifier), 'DELETE', success, failure);
+                                requests.quickRequest(text.urlConcat(root, 'files', identifier), 'DELETE', success, failure, 'application/json');
                             }
                         },
                         retrieve: {
