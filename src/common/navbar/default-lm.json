@@ -8,8 +8,18 @@
   {
     "id": "files",
     "title": "Files",
-    "link": "#/filelist",
-    "menu": []
+    "menu": [
+      {
+        "title": "Add new",
+        "link": "#/addfile"
+      },
+      {
+      },
+      {
+        "title": "File list",
+        "link": "#/filelist"
+      }
+    ]
   },
   {
     "id": "tasks",

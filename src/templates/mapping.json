@@ -60,6 +60,11 @@
         "controller": "odalic-filelist-ctrl"
     },
     {
+        "route": "/addfile",
+        "folder": "addfile",
+        "controller": "odalic-addfile-ctrl"
+    },
+    {
         "route": "/createnewtask",
         "folder": "createnewtask",
         "controller": "createnewtask-ctrl"

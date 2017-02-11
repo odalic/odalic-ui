@@ -1,0 +1,34 @@
+<!-- Prepared messages to display to user in case of a situation -->
+<injector for="msgtxt.createFailure">An error occurred while creating the task.</injector>
+<injector for="msgtxt.startFailure">An error occurred while starting the task. The task has been successfully created, though.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="tasks" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <div class="container-fluid">
+        <!-- Headline -->
+        <h2>Add file</h2>
+
+        <!-- The main form -->
+        <form class="form-horizontal" role="form" name="taskImportForm" ng-init="setForm(this, 'taskImportForm')">
+
+            <!-- Input file -->
+            <fieldset>
+                <legend>Input file</legend>
+
+                <div class="form-group col-md-12">
+                    <fileinput bind="fileinput" form="taskCreationForm" />
+                </div>
+            </fieldset>
+
+        </form>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>
