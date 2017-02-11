@@ -21,10 +21,10 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
-                        <input class="form-control" type="text" name="taskIdentifier" ng-model="taskImport.identifier" pattern="[a-zA-Z0-9_.]*" required>
+                        <input class="form-control" type="text" name="taskIdentifier" ng-model="taskImport.identifier" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
                         <div ng-messages="taskImportForm.taskIdentifier.$error" ng-if='taskImportForm.taskIdentifier.$dirty' role="alert">
                             <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
-                            <div ng-message="pattern"><error-msg>Task name must consist only of alphanumeric characters and '_', '.'.</error-msg></div>
+                            <div ng-message="pattern"><error-msg>Task name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
                         </div>
                     </div>
                 </div>
@@ -55,12 +55,14 @@
         </confirm>
 
         <!-- Submit -->
-        <div class="col-md-offset-10 col-md-2">
-            <div class="col-md-8">
-                <button-load button-class="btn btn-lg" action="taskImport.importAndRun" disabled="false">Import and run</button-load>
-            </div>
-            <div class="col-md-4">
-                <button-load button-class="btn btn-lg" action="taskImport.import" disabled="false">Import</button-load>
+        <div class="col-md-offset-8 col-md-4">
+            <div class="col-md-offset-1 col-md-11">
+                <div class="col-md-7">
+                    <button-load button-class="col-md-12 btn btn-lg" action="taskImport.importAndRun" disabled="false">Import and run</button-load>
+                </div>
+                <div class="col-md-5">
+                    <button-load button-class="col-md-12 btn btn-lg" action="taskImport.import" disabled="false">Import</button-load>
+                </div>
             </div>
         </div>
 

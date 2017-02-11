@@ -25,10 +25,10 @@
                     <label class="col-md-2 control-label">Task name:</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
-                               ng-disabled="!templFormat.creating" pattern="[a-zA-Z0-9_.]*" required>
+                               ng-disabled="!templFormat.creating" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
                         <div ng-messages="taskCreationForm.taskIdentifier.$error" ng-if='taskCreationForm.taskIdentifier.$dirty' role="alert">
                             <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
-                            <div ng-message="pattern"><error-msg>Task name must consist only of alphanumeric characters and '_', '.'.</error-msg></div>
+                            <div ng-message="pattern"><error-msg>Task name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 <legend>Input file</legend>
 
                 <div class="form-group">
-                    <fileinput bind="fileinput" form="taskCreationForm" />
+                    <fileinput bind="fileinput" form="taskCreationForm" selection="true" />
                 </div>
             </fieldset>
 
@@ -120,23 +120,28 @@
             You are about to overwrite an existing task definition. Continue?
         </confirm>
 
-        <!-- Submit -->
-        <div class="col-md-offset-10 col-md-2">
-            <!-- When creating a new task -->
-            <div ng-if="templFormat.creating">
-                <div class="col-md-8">
-                    <button-load button-class="btn btn-lg" action="templFormat.createAndRun" disabled="false">Create and run</button-load>
+        <!-- Submit, when creating a new task -->
+        <div class="col-md-offset-7 col-md-5" ng-if="templFormat.creating">
+            <div class="col-md-offset-1 col-md-11">
+                <div class="col-md-6">
+                    <button-load button-class="col-md-12 btn btn-lg" action="templFormat.createAndRun" disabled="false">Create and run</button-load>
                 </div>
-                <div class="col-md-4">
-                    <button-load button-class="btn btn-lg" action="templFormat.createTask" disabled="false">Create</button-load>
+                <div class="col-md-3">
+                    <button-load button-class="col-md-12 btn btn-lg" action="templFormat.createTask" disabled="false">Create</button-load>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="col-md-12 btn btn-lg" ng-click="templFormat.goBack()">Cancel</button>
                 </div>
             </div>
+        </div>
 
-            <!-- When editing an existing task -->
-            <div ng-if="!templFormat.creating">
-                <div class="col-md-offset-8 col-md-4">
-                    <button-load button-class="btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>
-                </div>
+        <!-- Submit, when editing an existing task -->
+        <div class="col-md-offset-9 col-md-3" ng-if="!templFormat.creating">
+            <div class="col-md-6">
+                <button-load button-class="col-md-12 btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="col-md-12 btn btn-lg" ng-click="templFormat.goBack()">Cancel</button>
             </div>
         </div>
 

@@ -4,7 +4,15 @@
 
             <!-- Headline -->
             <div class="modal-header">
-                <h2>{{ title }}</h2>
+                <h2>
+                    <span class="col-md-11">
+                        {{ title }}
+                    </span>
+                    <span class="col-md-1">
+                        <!-- Close icon -->
+                        <modal-closing closing-function="close" args="[false]"/>
+                    </span>
+                </h2>
             </div>
 
             <!-- Body -->

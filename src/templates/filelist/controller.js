@@ -48,7 +48,15 @@
         // Handling errors for file download
         $scope.fileerror = function (response) {
             $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.downloadFailure'], response.data));
-        }
+        };
+
+        // Miscellaneous
+        $scope.misc = {
+            addNew: function () {
+                window.location = text.urlConcat('#', 'addfile');
+            }
+        };
+
     });
 
 })();

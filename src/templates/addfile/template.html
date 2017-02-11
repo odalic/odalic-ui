@@ -1,0 +1,36 @@
+<!-- Prepared messages to display to user in case of a situation -->
+<injector for="msgtxt.createFailure">An error occurred while creating the task.</injector>
+<injector for="msgtxt.startFailure">An error occurred while starting the task. The task has been successfully created, though.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="files" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <div class="container-fluid">
+        <!-- Headline -->
+        <h2>Add file</h2>
+
+        <!-- Form -->
+        <form class="form-horizontal" role="form" name="flInputForm" ng-init="setForm(this, 'flInputForm')">
+            <fieldset>
+                <legend>Settings</legend>
+
+                <div class="form-group col-md-12">
+                    <fileinput bind="fileinput" form="flInputForm" selection="false" />
+                </div>
+            </fieldset>
+        </form>
+
+        <!-- Button(s) on the right -->
+        <div class="col-md-offset-10 col-md-2">
+            <button type="button" class="col-md-offset-4 col-md-8 btn btn-lg" ng-click="addfl.goBack()">Cancel</button>
+        </div>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

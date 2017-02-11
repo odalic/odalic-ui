@@ -3,9 +3,6 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // Load submodules
-    loadhelp.loadDefault();
-
     // Create a controller for task-creation screen
     app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
 
@@ -260,6 +257,11 @@
                     f();
                 }
             );
+        };
+
+        // Going back
+        $scope.templFormat.goBack = function () {
+            window.location.href = text.urlConcat('#', 'taskconfigs', $scope.templFormat.creating ? new String() : text.safe($scope.taskCreation.identifier));
         };
 
         // Preloading form controls (if applicable), or creation of a completely new task

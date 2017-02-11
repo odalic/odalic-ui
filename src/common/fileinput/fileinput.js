@@ -4,7 +4,7 @@
     var app = angular.module('odalic-app');
 
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('fileinput', function (rest, filedata, reporth, formsval) {
+    app.directive('fileinput', function ($filter, rest, filedata, reporth, formsval) {
         return {
             restrict: 'E',
             scope: {
@@ -29,6 +29,9 @@
 
                 // File list
                 scope.fileList = {
+                    // File selection enabled?
+                    fileSelection: (iAttrs['selection'] === 'true'),
+
                     // List of (uploaded or attached) file identifiers
                     identifiers: [],
 
@@ -85,7 +88,7 @@
                                     fallback();
 
                                     // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
-                                    // For some reason "scope.$$phase" gets buggy here and always returns false (not even try-catch block helps...)
+                                    // TODO: For some reason "scope.$$phase" gets buggy here and always returns false (not even try-catch block helps...)
                                     scope.$apply();
                                 }
                             });
@@ -99,9 +102,6 @@
                 scope.fileUpload = {
                     // Id of the input-file element
                     inputFileId: 'concreteFile',
-
-                    // Are we uploading a file at the moment?
-                    uploadingFile: false,
 
                     // Button for file uploading disabled?
                     isUploadDisabled: true,
@@ -117,24 +117,22 @@
                             name = text.randomId();
                         }
 
-                        this.identifier = name;
+                        this.identifier =  $filter('conform')(name, '-a-zA-Z0-9_., ');
                         if (!scope.$$phase) {
                             scope.$apply();
                         }
                     },
 
                     // Upload the selected file
-                    uploadFile: function () {
+                    uploadFile: function (f) {
                         // Validate
                         if (!formsval.validate(scope.localFileForm)) {
+                            f();
                             return;
                         }
 
                         // Reference to self
-                        var _ref = this;
-
-                        // The file is now uploading. Hide the 'upload' button to prevent multiple uploads.
-                        _ref.uploadingFile = true;
+                        var _ref = scope.fileUpload;
 
                         // Uploading the file asynchronously
                         sendData = function (fileData) {
@@ -155,7 +153,7 @@
                                         scope.form.localFileForm.$setPristine();
 
                                         // Another file may be uploaded again
-                                        _ref.uploadingFile = false;
+                                        f();
                                         _ref.isUploadDisabled = true;
 
                                         // Clear chosen file
@@ -168,7 +166,7 @@
                                     scope.messages.push('error', reporth.constrErrorMsg(scope['msgtxt.uploadFailure'], response.data));
 
                                     // A file may be uploaded again
-                                    _ref.uploadingFile = false;
+                                    f();
                                 }
                             );
                         };
@@ -185,23 +183,18 @@
                                     scope.messages.push('error', (new String()).concat(scope['msgtxt.uploadFailure'], ' ', response));
 
                                     // A file may be uploaded again
-                                    _ref.uploadingFile = false;
+                                    f();
                                 }
                             );
                         };
 
                         // Insert the file, if everything is OK
-                        testOverwrite(_ref.identifier, process, function () {
-                            _ref.uploadingFile = false;
-                        });
+                        testOverwrite(_ref.identifier, process, f);
                     }
                 };
 
                 // Remote file attaching
                 scope.fileAttach = {
-                    // Are we attaching a file at the moment?
-                    attachingFile: false,
-
                     // Identifier of the file to be attached
                     identifier: String(),
 
@@ -209,12 +202,9 @@
                     location: String(),
 
                     // Attach the selected file
-                    attachFile: function () {
+                    attachFile: function (f) {
                         // Reference to self
-                        var _ref = this;
-
-                        // The file is now attaching. Hide the 'attach' button to prevent multiple attachments.
-                        _ref.attachingFile = true;
+                        var _ref = scope.fileAttach;
 
                         // Send the REST request
                         var process = function () {
@@ -235,7 +225,7 @@
                                         scope.form.remoteFileForm.$setPristine();
 
                                         // Another file may be uploaded again
-                                        _ref.attachingFile = false;
+                                        f();
                                     });
                                 },
                                 // Failure
@@ -244,15 +234,13 @@
                                     scope.messages.push('error', reporth.constrErrorMsg(scope['msgtxt.attachFailure'], response.data));
 
                                     // A file may be uploaded again
-                                    _ref.attachingFile = false;
+                                    f();
                                 }
                             );
                         };
 
                         // Attach the file, if everything is OK
-                        testOverwrite(_ref.identifier, process, function () {
-                            _ref.attachingFile = false;
-                        });
+                        testOverwrite(_ref.identifier, process, f);
                     }
                 };
 

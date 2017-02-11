@@ -63,6 +63,9 @@ var tableComponent = function (scope, rest, reporth) {
                 if (callback) {
                     callback();
                 }
+
+                // Update pagination directive
+                scope.$broadcast('pagination');
             }
         },
 

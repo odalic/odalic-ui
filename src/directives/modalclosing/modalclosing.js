@@ -5,7 +5,10 @@
 
     /** Icon for closing of a modal window
      *
-     *  Usage: <modal-closing close-function = "close"/>
+     *  Usage: <modal-closing close-function="close"/>
+     *
+     *  Providing additional arguments for the closing function:
+     *  <modal-closing close-function="close" args="[1, 2, 3]"/>
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('modalClosing', function () {
@@ -13,12 +16,12 @@
             restrict: 'E',
             templateUrl: currentFolder + 'modalclosing.html',
             scope: {
-                closingFunction: '='
+                closingFunction: '=',
+                args: '='
             },
             link: function ($scope, iElement, iAttrs) {
-                $scope.close = function()
-                {
-                    $scope.closingFunction();
+                $scope.close = function() {
+                    $scope.closingFunction.apply(null, objhelp.getFirstArg($scope.args, []));
                 };
             }
         }
