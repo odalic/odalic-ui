@@ -29,6 +29,9 @@
 
                 // File list
                 scope.fileList = {
+                    // File selection enabled?
+                    fileSelection: (iAttrs['selection'] === 'true'),
+
                     // List of (uploaded or attached) file identifiers
                     identifiers: [],
 

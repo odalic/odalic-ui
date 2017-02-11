@@ -80,7 +80,7 @@
 </div>
 
 <!-- Selecting file from the list -->
-<div class="form-group">
+<div class="form-group" ng-if="fileList.fileSelection">
     <label class="col-md-2 control-label">Selected file:</label>
     <div class="col-md-8">
         <select class="form-control fs-aclass" name="fileSelectList" ng-model="fileList.selectedFile" ng-options="file.id for file in fileList.identifiers" required>
