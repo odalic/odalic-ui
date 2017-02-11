@@ -80,12 +80,14 @@
         <!-- Pagination -->
         <pagination bind="filesProxy" />
 
-        <!-- Notice -->
-        <p>Please note that files may be added to the list only during a task creation.</p>
-
         <!-- Reporting situations to a user -->
         <div class="col-md-12">
             <alert-group bind="messages" disappearing="3"/>
+        </div>
+
+        <!-- Additional content below the table -->
+        <div class="col-md-offset-10 col-md-2">
+            <button type="button" class="col-md-offset-4 col-md-8 btn btn-lg" ng-click="misc.addNew()">Add new</button>
         </div>
 
         <!-- Blank space pushing footer further below -->
