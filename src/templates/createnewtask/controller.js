@@ -262,6 +262,11 @@
             );
         };
 
+        // Going back
+        $scope.templFormat.goBack = function () {
+            window.location.href = text.urlConcat('#', 'taskconfigs', $scope.templFormat.creating ? new String() : text.safe($scope.taskCreation.identifier));
+        };
+
         // Preloading form controls (if applicable), or creation of a completely new task
         (function () {
             var TaskID = $routeParams['taskid'];

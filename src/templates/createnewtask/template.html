@@ -121,20 +121,28 @@
         </confirm>
 
         <!-- Submit, when creating a new task -->
-        <div class="col-md-offset-8 col-md-4" ng-if="templFormat.creating">
+        <div class="col-md-offset-7 col-md-5" ng-if="templFormat.creating">
             <div class="col-md-offset-1 col-md-11">
-                <div class="col-md-7">
+                <div class="col-md-6">
                     <button-load button-class="col-md-12 btn btn-lg" action="templFormat.createAndRun" disabled="false">Create and run</button-load>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-3">
                     <button-load button-class="col-md-12 btn btn-lg" action="templFormat.createTask" disabled="false">Create</button-load>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="col-md-12 btn btn-lg" ng-click="templFormat.goBack()">Cancel</button>
                 </div>
             </div>
         </div>
 
         <!-- Submit, when editing an existing task -->
-        <div class="col-md-offset-10 col-md-2" ng-if="!templFormat.creating">
-            <button-load button-class="col-md-offset-4 col-md-8 btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>
+        <div class="col-md-offset-9 col-md-3" ng-if="!templFormat.creating">
+            <div class="col-md-6">
+                <button-load button-class="col-md-12 btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="col-md-12 btn btn-lg" ng-click="templFormat.goBack()">Cancel</button>
+            </div>
         </div>
 
         <!-- Blank space pushing footer further below -->
