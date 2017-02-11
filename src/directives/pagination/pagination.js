@@ -28,6 +28,9 @@
             },
             link: function (scope, iElement, iAttrs) {
 
+                // Initialization
+                scope.pgn = {};
+
                 // Default values
                 var data = [];
                 var perPage = 100;
@@ -43,11 +46,12 @@
                         perPage = _perPage;
                         pages = Math.floor(data.length / perPage) + (data.length % perPage == 0 ? 0 : 1);
                     }
+                    var current = objhelp.getFirstArg(scope.pgn.current, 1);
 
                     // Pagination data
                     scope.pgn = {
                         // Model (index shifted by 1)
-                        current: 1,
+                        current: current <= pages ? current : current - 1,
 
                         // Amount of pages (e.g.: 90 = 9, 91 = 10, 89 = 9, etc.)
                         total: pages * 10,
@@ -60,6 +64,9 @@
                             // Empty so far...
                         }
                     };
+
+                    // Additional actions
+                    current = scope.pgn.current;
                 };
 
                 // Watch for changes
