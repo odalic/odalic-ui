@@ -46,14 +46,8 @@
                     <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
                 </div>
             </div>
-            <div class="col-md-2 text-center">
-                <!-- Button 'upload' -->
-                <button ng-hide="fileUpload.uploadingFile" type="button" class="form-control"
-                        ng-click="fileUpload.uploadFile()" ng-disabled="fileUpload.isUploadDisabled">
-                    Upload
-                </button>
-                <!-- Icon 'loading' -->
-                <i ng-show="fileUpload.uploadingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+            <div class="col-md-2">
+                <button-load button-class="col-md-12 form-control" action="fileUpload.uploadFile" disabled="fileUpload.isUploadDisabled">Upload</button-load>
             </div>
         </div>
     </ng-form>
@@ -78,14 +72,8 @@
                     <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
                 </div>
             </div>
-            <div class="col-md-2 text-center">
-                <!-- Button 'attach' -->
-                <button ng-hide="fileAttach.attachingFile" type="button" class="form-control"
-                        ng-click="fileAttach.attachFile()" ng-disabled="!remoteFileForm.$valid">
-                    Attach
-                </button>
-                <!-- Icon 'loading' -->
-                <i ng-show="fileAttach.attachingFile" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+            <div class="col-md-2">
+                <button-load button-class="form-control" action="fileAttach.attachFile" disabled="!remoteFileForm.$valid">Attach</button-load>
             </div>
         </div>
     </ng-form>
