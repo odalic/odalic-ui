@@ -3,7 +3,7 @@
 
         <thead>
         <tr ng-class="'headerRow'">
-            <td ng-repeat="cell in ['Column','Predicate','Options']">
+            <td ng-repeat="cell in ['Column','Predicate','Action']">
                 {{cell}}
             </td>
         </tr>
@@ -16,33 +16,40 @@
                 {{predicateObj.label}}
             </td>
             <td>
-                <div ng-style="backgroundColor(primaryKB)">
+                <span ng-style="backgroundColor(primaryKB)">
                     <span>{{ predicateObj.predicate.chosen[primaryKB][0].entity.label + ' '+ '('}}</span>
                     <a targer="_blank" href="{{predicateObj.predicate.chosen[primaryKB][0].entity.resource}}">
                         {{predicateObj.predicate.chosen[primaryKB][0].entity.prefixed}}
                     </a>
                     <span>)</span>
-                </div>
-            </td>
-            <td>
+                </span>
+
                 <div class="pull-right">
                     <!-- Propose icon -->
-                    <a ng-click="openStatisticalRProposal(predicateObj.index)" class="odalic-cursor-pointer">
-                        <span class="fa fa-plus-square-o"></span>
-                    </a>
+                    <tooltip msg="Propose" place="top">
+                        <a ng-click="openStatisticalRProposal(predicateObj.index)" class="odalic-cursor-pointer">
+                            <span class="fa fa-plus-square-o"></span>
+                        </a>
+                    </tooltip>
 
                     <!--Lock icon-->
                     <r-lock current-lock="locked" click="gvdata.update" column2="predicateObj.index"/>
 
                     <!-- Details icon -->
-                    <a ng-click="openStaticalRSelection(predicateObj.index)" class="odalic-cursor-pointer">
-                        <span class="glyphicon glyphicon-new-window"></span>
-                    </a>
-
-
-                    <a ng-click="moveToNone(predicateObj)" class="odalic-cursor-pointer">
-                        <span class="fa fa-times"></span>
-                    </a>
+                    <tooltip msg="Details" place="top">
+                        <a ng-click="openStaticalRSelection(predicateObj.index)" class="odalic-cursor-pointer">
+                            <span class="glyphicon glyphicon-new-window"></span>
+                        </a>
+                    </tooltip>
+                </div>
+            </td>
+            <td>
+                <div class="pull-right">
+                    <tooltip msg="Remove from table" place="top">
+                        <a class="btn btn-default" ng-click="moveToNone(predicateObj)">
+                            <span class="fa fa-times"></span>
+                        </a>
+                    </tooltip>
                 </div>
             </td>
         </tr>
@@ -61,6 +68,6 @@
         </select>
     </div>
     <div class="col-md-8">
-        <button ng-click="pickedRow.component[primaryKB] = type"> Add to {{type|lowercase}}s</button>
+        <button class="btn btn " ng-click="pickedRow.component[primaryKB] = type"> Add to {{type|lowercase}}s</button>
     </div>
 </div>

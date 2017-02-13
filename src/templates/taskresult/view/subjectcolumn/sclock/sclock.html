@@ -1,3 +1,5 @@
-<a ng-click="changeLocking($event)" class="odalic-cursor-pointer">
-    <span ng-class="(isLocked() == true ) ? 'fa fa-lock' :'fa fa-unlock'"></span>
-</a>
+<tooltip msg="Lock" place="top">
+    <a ng-click="changeLocking($event)" class="odalic-cursor-pointer">
+        <span ng-class="(isLocked() == true ) ? 'fa fa-lock' :'fa fa-unlock'"></span>
+    </a>
+</tooltip>
