@@ -17,14 +17,14 @@
                     ng-click="selectSubjectColumn($index,kb)">
                     {{ cell }}
                     <!--allows to lock and unlock subject column -->
-                    <span class="pull-right" ng-show ="$index == result.subjectColumnPositions[kb].index" >
+                    <span class="pull-right" ng-show="$index == result.subjectColumnPositions[kb].index">
                         <s-c-lock locked="locked.subjectColumns" k-b="{{kb}}" column="{{$index }}"></s-c-lock>
                     </span>
                 </td>
             </tr>
             </thead>
             <tbody>
-            <!--shows only the first two rows of table-->
+            <!--shows only the first two rows of table as example-->
             <tr ng-repeat="row in inputFile.rows| limitTo: 2">
                 <td ng-repeat="cell in row"
                     ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' : ''"
@@ -33,6 +33,13 @@
                 </td>
             </tr>
             </tbody>
+            <tfoot>
+            <!--shows footer of table-->
+            <td ng-repeat="cell in inputFile.columns"  ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' :''"
+                ng-click="selectSubjectColumn($index,kb)">
+                ...
+            </td>
+            </tfoot>
         </table>
     </div>
 </div>

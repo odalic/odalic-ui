@@ -204,7 +204,7 @@
                     actions.push(setsData);
 
                     //TODO jak pockat i na inputfile
-                    if($scope.statistical == true) {
+                    if ($scope.statistical == true) {
                         for (var index in $scope.result.statisticalAnnotations) {
                             var predicateObj = $scope.result.statisticalAnnotations[index];
                             var predicate = predicateObj.predicate;
@@ -248,7 +248,16 @@
                     $scope.primaryKB = config['primaryBase']['name'];
 
                     // Statistical data flag
-                    $scope.statistical= config['statistical'];
+                    $scope.statistical = config['statistical'];
+
+                    //statistical data have only 2 result pages (classification table and tables for data cube)
+                    //nonstatistical data have 3 result pages(classification table, subject column page and relation graph)
+                    if ($scope.statistical == true) {
+                        $scope.numberOfPages = 1;
+                    }
+                    else {
+                        $scope.numberOfPages = 2;
+                    }
 
                     // Phase complete
                     dataLoaded(phases.kb);
@@ -409,7 +418,7 @@
             var fbrel = $scope.serverFeedback.dataCubeComponents;
             for (var index in fbrel) {
                 var column = fbrel[index].position.index;
-                $scope.locked.statisticalData[column]  = 1;
+                $scope.locked.statisticalData[column] = 1;
             }
         };
         //endregion
@@ -486,10 +495,10 @@
         $scope.openRProposal = function (index) {
             //sets non existing chosen domain and range to empty string
             var chosenD = $scope.result.headerAnnotations[$scope.selectedRelation.column1].chosen[$scope.primaryKB];
-            var domain = (chosenD.length == 0) ? "": chosenD[0].entity.prefixed;
+            var domain = (chosenD.length == 0) ? "" : chosenD[0].entity.resource;
 
             var chosenR = $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB]
-            var range =(chosenR.length == 0) ?  "" : chosenR[0].entity.prefixed;
+            var range = (chosenR.length == 0) ? "" : chosenR[0].entity.resource;
 
             $uibModal.open({
                 templateUrl: "src/templates/taskresult/view/relations/rmodalselection/rmodalproposal/rmodalproposal.html",
@@ -499,9 +508,9 @@
                         return {
                             gvdata: $scope.gvdata,
                             selectedRelation: $scope.selectedRelation,
-                            domain : domain,
-                            range : range,
-                            locked: function() {
+                            domain: domain,
+                            range: range,
+                            locked: function () {
                                 $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1
                             },
                             currentRelation: $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2],
@@ -569,7 +578,7 @@
                         return {
                             gvdata: $scope.gvdata,
                             primaryKB: $scope.primaryKB,
-                            locked:  $scope.locked.graphEdges[$scope.selectedRelation.column1],
+                            locked: $scope.locked.graphEdges[$scope.selectedRelation.column1],
                             selectedRelation: $scope.selectedRelation,
                             result: $scope.result,
                             currentRelation: currentRelation,
