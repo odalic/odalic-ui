@@ -16,7 +16,8 @@
                 {{predicateObj.label}}
             </td>
             <td>
-                <div ng-style="backgroundColor(primaryKB)">
+                <!--only one predicate can be chosen-->
+                <div ng-if="predicateObj.predicate.chosen[primaryKB].length == 1" ng-style="backgroundColor(primaryKB)">
                     <span>{{ predicateObj.predicate.chosen[primaryKB][0].entity.label + ' '+ '('}}</span>
                     <a targer="_blank" href="{{predicateObj.predicate.chosen[primaryKB][0].entity.resource}}">
                         {{predicateObj.predicate.chosen[primaryKB][0].entity.prefixed}}
