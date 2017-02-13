@@ -22,23 +22,23 @@
 
                         <!-- VIEW: Sets classifications and disambiguations -->
                         <div ng-switch-when="1">
-                            <subject-column-tables/>
-                        </div>
-
-                        <!-- VIEW: Relations -->
-                        <div ng-switch-when="2">
-                            <div ng-if="statistical == true">
+                            <div ng-if="statistical == false">
+                                <subject-column-tables/>
+                            </div>
+                            <div ng-if="statistical == true ">
                                 <h2>Step 3: Setting the statistical data cube</h2>
                                 <!--data cube-->
                                 <include src="src/templates/taskresult/view/statisticaldata/statisticaldata.html"/>
                             </div>
-                            <div ng-if="statistical == false ">
-                                <h2>Step 3: Reviewing suggested relations between the subject column and other
-                                    columns</h2>
-                                <!-- Graph visualiser -->
-                                <graphvis bind="gvdata"></graphvis>
-                            </div>
 
+                        </div>
+
+                        <!-- VIEW: Relations -->
+                        <div ng-switch-when="2">
+                            <h2>Step 3: Reviewing suggested relations between the subject column and other
+                                columns</h2>
+                            <!-- Graph visualiser -->
+                            <graphvis bind="gvdata"></graphvis>
                         </div>
 
                     </div>
