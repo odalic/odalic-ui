@@ -1,88 +1,90 @@
-<div class="modal-header">
-    <div class="row" id="modal-title">
-        <h2 class="col-md-11">Propose relation</h2>
-        <h2 class=" col-md-1">
-            <modal-closing closing-function="close"/>
-        </h2>
+<div class="odalic-content-wide">
+    <div class="modal-header">
+        <div class="row" id="modal-title">
+            <h2 class="col-md-11">Propose relation</h2>
+            <h2 class=" col-md-1">
+                <modal-closing closing-function="close"/>
+            </h2>
+        </div>
     </div>
-</div>
-<div class="container-fluid" id="modal-body">
-    <form name="rProposeForm" novalidate class="form-horizontal" role="form">
-        <div class="container-fluid">
-            <br/>
-            <div class="form-group">
-                <label class="col-md-4 control-label" title="required">Label *</label>
-                <div class="col-md-8">
-                    <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
-                    <div ng-messages="(rProposeForm.$submitted || rProposeForm.label.$dirty) && rProposeForm.label.$error"
-                         role="alert">
-                        <div ng-message="required">
-                            <error-msg>Label is mandatory</error-msg>
+    <div class="container-fluid" id="modal-body">
+        <form name="rProposeForm" novalidate class="form-horizontal" role="form">
+            <div class="container-fluid">
+                <br/>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" title="required">Label *</label>
+                    <div class="col-md-8">
+                        <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
+                        <div ng-messages="(rProposeForm.$submitted || rProposeForm.label.$dirty) && rProposeForm.label.$error"
+                             role="alert">
+                            <div ng-message="required">
+                                <error-msg>Label is mandatory</error-msg>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-md-4 control-label">Alternative label</label>
-                <div class="col-md-8">
-                    <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Alternative label</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
+                    </div>
                 </div>
-            </div>
 
-            <!--<div class="form-group">-->
-            <!--<label class="col-md-4 control-label">Type:</label>-->
-            <!--<div class="col-md-8">-->
-            <!--<label class="radio-inline">-->
-            <!--<input type="radio" ng-model="type" value="dogs">Data type property-->
-            <!--</label>-->
-            <!--<label class="radio-inline">-->
-            <!--<input type="radio" ng-model="type" value="tuts">Object propery-->
-            <!--</label>-->
-            <!--</div>-->
-            <!--</div>-->
+                <!--<div class="form-group">-->
+                <!--<label class="col-md-4 control-label">Type:</label>-->
+                <!--<div class="col-md-8">-->
+                <!--<label class="radio-inline">-->
+                <!--<input type="radio" ng-model="type" value="dogs">Data type property-->
+                <!--</label>-->
+                <!--<label class="radio-inline">-->
+                <!--<input type="radio" ng-model="type" value="tuts">Object propery-->
+                <!--</label>-->
+                <!--</div>-->
+                <!--</div>-->
 
 
-            <div class="form-group">
-                <label class="col-md-4 control-label">Domain</label>
-                <div class="col-md-8">
-                    <input class="form-control" type="text"
-                           ng-model="domain">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Domain</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text"
+                               ng-model="domain">
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="form-group">
-                <label class="col-md-4 control-label">Range</label>
-                <div class="col-md-8">
-                    <input class="form-control" type="text"
-                           ng-model="range">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Range</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text"
+                               ng-model="range">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label class="col-md-4 control-label">Custom URL suffix</label>
-                <div class="col-md-8">
-                    <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Custom URL suffix</label>
+                    <div class="col-md-8">
+                        <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl">
+                    </div>
+                    <br>
                 </div>
-                <br>
-            </div>
 
-            <br/>
+                <br/>
 
-            <button type="submit" class="btn btn-lg col-md-2 col-lg-offset-10 " ng-click="setProposal(proposal)">
-                OK
-            </button>
+                <button type="submit" class="btn btn-lg col-md-2 col-lg-offset-10 " ng-click="setProposal(proposal)">
+                    OK
+                </button>
 
 
-            <div class="form-group">
-                <div class="col-md-12">
-                    <alert bind="serverResponse">
-                        {{messege}}
-                    </alert>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <alert bind="serverResponse">
+                            {{messege}}
+                        </alert>
+                    </div>
                 </div>
-            </div>
 
-        </div>
-    </form>
+            </div>
+        </form>
+    </div>
 </div>
