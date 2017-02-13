@@ -22,6 +22,18 @@
             visible: true,
         };
 
+        $scope.dialogTitle = function()
+        {
+
+            if ($scope.selectedPosition.row == -1) {
+                return "classification";
+            }
+            else{
+                return "disambiguation";
+            }
+
+        }
+
         $scope.columnClass = $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB];
 
         $scope.disableDisambCondition = $scope.selectedPosition.row != -1 && $scope.columnClass.length == 0
