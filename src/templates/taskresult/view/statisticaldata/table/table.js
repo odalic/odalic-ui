@@ -65,7 +65,7 @@
                         $scope.locked[rowIndex] = 1
                     };
                     var chosen = $scope.result.headerAnnotations[rowIndex].chosen[$scope.primaryKB];
-                    var range = (chosen.length == 0) ? "" : chosen[0].entity.resource;
+                    var range = (chosen.length == 0) ? "" : chosen[0].entity.prefixed;
                     $uibModal.open({
                         templateUrl: "src/templates/taskresult/view/relations/rmodalselection/rmodalproposal/rmodalproposal.html",
                         controller: 'rProposeController',
