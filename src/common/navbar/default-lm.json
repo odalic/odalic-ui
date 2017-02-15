@@ -7,7 +7,7 @@
   },
   {
     "id": "files",
-    "title": "Files",
+    "title": "Input files",
     "menu": [
       {
         "title": "Add new",
@@ -16,7 +16,7 @@
       {
       },
       {
-        "title": "File list",
+        "title": "List of files",
         "link": "#/filelist"
       }
     ]
@@ -26,7 +26,7 @@
     "title": "Tasks",
     "menu": [
       {
-        "title": "Create new",
+        "title": "Add new",
         "link": "#/createnewtask"
       },
       {
@@ -36,7 +36,7 @@
       {
       },
       {
-        "title": "Task configurations",
+        "title": "List of tasks",
         "link": "#/taskconfigs"
       }
     ]
