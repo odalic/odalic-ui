@@ -458,7 +458,7 @@ $.defineModule(function () {
                 },
                 list: {
                     exec: function (success, failure) {
-                        requests.quickRequest(text.urlConcat(root, 'tasks') + '?states=true', 'GET', success, failure);
+                        requests.quickRequest(text.urlConcat(root, 'tasks') + '?states=true&orderedBy=created', 'GET', success, failure);
                     }
                 },
                 states: {
