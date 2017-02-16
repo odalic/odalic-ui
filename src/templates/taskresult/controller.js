@@ -199,27 +199,13 @@
                 // Success
                 function (response) {
                     $scope.result = response;
-                    // Prepare data for graphvis component
-                    actions.push(setsData);
 
-                    //TODO jak pockat i na inputfile
-                    if ($scope.statistical == true) {
-                        for (var index in $scope.result.statisticalAnnotations) {
-                            var predicateObj = $scope.result.statisticalAnnotations[index];
-                            var predicate = predicateObj.predicate;
-
-                            predicate.candidates = {};
-                            predicate.candidates[$scope.primaryKB] = angular.copy(predicate[$scope.primaryKB]);
-                            predicate.chosen = {};
-                            predicate.chosen[$scope.primaryKB] = angular.copy(predicate[$scope.primaryKB]);
-
-
-                            var header = $scope.inputFile.columns[index];
-                            predicateObj.label = header;
-                            predicateObj.index = index;
-                        }
-                    }
-
+                    // Prepare data for graphvis component and data cube
+                    actions.push(function () {
+                        setsData();
+                        setsDataCube();
+                    });
+                    
                     // Phase complete
                     dataLoaded(phases.result);
                 },
@@ -290,6 +276,29 @@
             );
             //endregion
         })();
+
+        //prepares json for page with data cube
+        setsDataCube = function () {
+            if ($scope.statistical == true) {
+                for (var index in $scope.result.statisticalAnnotations) {
+                    var predicateObj = $scope.result.statisticalAnnotations[index];
+                    var predicate = predicateObj.predicate;
+
+                    //adds level candidate and chosen because of same interface as relation
+                    predicate.candidates = {};
+                    predicate.candidates[$scope.primaryKB] = angular.copy(predicate[$scope.primaryKB]);
+                    predicate.chosen = {};
+                    predicate.chosen[$scope.primaryKB] = angular.copy(predicate[$scope.primaryKB]);
+
+
+                    var header = $scope.inputFile.columns[index];
+                    //adds headers for data cube table
+                    predicateObj.label = header;
+                    //adds index because we need to know which item is modified
+                    predicateObj.index = index;
+                }
+            }
+        }
 
         $scope.serverFeedback = {};
 
