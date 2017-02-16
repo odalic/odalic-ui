@@ -19,7 +19,7 @@
 
         // Pagination settings
         $scope.filesProxy = {
-            perPage: 10
+            perPage: 5
         };
 
         // Table button functions

@@ -1,102 +1,104 @@
-<!-- Headline -->
-<div class="modal-header">
-    <div class="row" id="modal-title">
-        <h2 class="col-md-10">Relations</h2>
-        <h2 class="col-md-2">
+<div class="odalic-content-wide">
+    <!-- Headline -->
+    <div class="modal-header">
+        <div class="row" id="modal-title">
+            <h2 class="col-md-10">Relations</h2>
+            <h2 class="col-md-2">
             <span class="col-md-6">
                  <r-lock
                          click="gvdata.update"
                          current-lock="locked"
-                         column2 = "selectedRelation.column2"/>
+                         column2="selectedRelation.column2"/>
             </span>
-            <span class="col-md-6">
+                <span class="col-md-6">
                 <modal-closing closing-function="close"/>
             </span>
-        </h2>
-    </div>
-</div>
-
-<div class="container-fluid" id="modal-body">
-
-    <div class="row">
-        <!-- Selection of a candidate(s) for the primary knowledge base -->
-        <div class="col-md-12">
-            <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary knowledge base)"}}</h3>
+            </h2>
         </div>
     </div>
 
-    <div class="row">
-        <!-- Primary Knowledge Base -->
-        <div class="col-md-12">
-            <r-select-box current-lock="locksLock"
-                          current-relation="currentRelation"
-                          gvdata="gvdata"
-                          knowledge-base="{{primaryKB}}"/>
+    <div class="container-fluid" id="modal-body">
+
+        <div class="row">
+            <!-- Selection of a candidate(s) for the primary knowledge base -->
+            <div class="col-md-12">
+                <h3 ng-class="'boldPrimaryKB'">{{ primaryKB + " (Primary knowledge base)"}}</h3>
+            </div>
         </div>
-    </div>
 
-
-    <!--collapse label-->
-    <div class="row">
-
-        <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedPKB = false"
-             ng-click="isCollapsedPKB = !isCollapsedPKB">
-            <i class="fa fa-angle-down "></i>
-            <span>Search {{primaryKB}}</span>
+        <div class="row">
+            <!-- Primary Knowledge Base -->
+            <div class="col-md-12">
+                <r-select-box current-lock="locksLock"
+                              current-relation="currentRelation"
+                              gvdata="gvdata"
+                              knowledge-base="{{primaryKB}}"/>
+            </div>
         </div>
-    </div>
-    <!-- search for the primary knowledge base -->
-    <div uib-collapse="isCollapsedPKB">
-        <r-suggestions current-lock="locksLock"
-                       current-relation="currentRelation"
-                       knowledge-base="{{primaryKB}}" ,
-                       gvdata="gvdata"/>
-    </div>
 
-    <div class="row">
-        <div class="col-md-3 col-md-offset-9">
-            <button class="form-control" ng-click="openRProposal(selectedRelation.column2)">
-                Propose
-            </button>
+
+        <!--collapse label-->
+        <div class="row">
+
+            <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedPKB = false"
+                 ng-click="isCollapsedPKB = !isCollapsedPKB">
+                <i class="fa fa-angle-down "></i>
+                <span>Search {{primaryKB}}</span>
+            </div>
         </div>
-    </div>
+        <!-- search for the primary knowledge base -->
+        <div uib-collapse="isCollapsedPKB">
+            <r-suggestions current-lock="locksLock"
+                           current-relation="currentRelation"
+                           knowledge-base="{{primaryKB}}" ,
+                           gvdata="gvdata"/>
+        </div>
 
-    <!-- Separate div for each knowledge base -->
-    <div ng-repeat="(knowledgeBase, candidates) in currentRelation.candidates">
-        <div ng-if="knowledgeBase != primaryKB">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-9">
+                <button class="form-control" ng-click="openRProposal(selectedRelation.column2)">
+                    Propose
+                </button>
+            </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>{{ knowledgeBase }}</h3>
+        <!-- Separate div for each knowledge base -->
+        <div ng-repeat="(knowledgeBase, candidates) in currentRelation.candidates">
+            <div ng-if="knowledgeBase != primaryKB">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>{{ knowledgeBase }}</h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Selection of a candidate(s) for the current knowledge base -->
+                        <r-select-box current-lock="locksLock"
+                                      current-relation="currentRelation"
+                                      gvdata="gvdata"
+                                      knowledge-base="{{knowledgeBase}}"/>
+                    </div>
+                </div>
+                <!--collapse label-->
+                <div class="row">
+                    <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedKB = true"
+                         ng-click="isCollapsedKB = !isCollapsedKB">
+                        <i class=" fa fa-angle-down "></i>
+                        <span>Search {{ knowledgeBase }}</span>
+                    </div>
+                </div>
+                <!-- search for the primary knowledge base -->
+                <div uib-collapse="isCollapsedKB">
+                    <r-suggestions current-lock="locksLock"
+                                   current-relation="currentRelation"
+                                   knowledge-base="{{knowledgeBase}}" ,
+                                   gvdata="gvdata"/>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Selection of a candidate(s) for the current knowledge base -->
-                    <r-select-box current-lock="locksLock"
-                                  current-relation="currentRelation"
-                                  gvdata="gvdata"
-                                  knowledge-base="{{knowledgeBase}}"/>
-                </div>
-            </div>
-            <!--collapse label-->
-            <div class="row">
-                <div class="col-md-12 odalic-cursor-pointer " ng-init="isCollapsedKB = true"
-                     ng-click="isCollapsedKB = !isCollapsedKB">
-                    <i class=" fa fa-angle-down "></i>
-                    <span>Search {{ knowledgeBase }}</span>
-                </div>
-            </div>
-            <!-- search for the primary knowledge base -->
-            <div uib-collapse="isCollapsedKB">
-                <r-suggestions current-lock="locksLock"
-                               current-relation="currentRelation"
-                               knowledge-base="{{knowledgeBase}}" ,
-                               gvdata="gvdata"/>
-            </div>
         </div>
-    </div>
 
-    <!-- 'Hack-fix': form-group overflows modal if there are no elements below -->
+        <!-- 'Hack-fix': form-group overflows modal if there are no elements below -->
+    </div>
 </div>
