@@ -1,10 +1,6 @@
-<div class="form-group odalic-hr-pushbtm">
+<div class="col-md-12 form-group odalic-hr-pushbtm">
+    <!-- Buttons on the left -->
     <div class="col-md-2">
-        <button class="btn btn-lg btn-block" ng-click="reexecute()">
-            Reexecute
-        </button>
-    </div>
-    <div class="col-md-2 col-md-offset-6">
         <button class="btn btn-lg btn-block" ng-click="state = state - 1" ng-disabled="state <= 0">
             Previous step
         </button>
@@ -12,6 +8,23 @@
     <div class="col-md-2">
         <button class="btn btn-lg btn-block" ng-click="state = state + 1" ng-disabled="state >= numberOfPages">
             Next step
+        </button>
+    </div>
+
+    <!-- Buttons on the right -->
+    <div class="col-md-offset-2 col-md-2">
+        <button class="btn btn-lg btn-block" ng-click="reexecute()">
+            Reexecute
+        </button>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-lg btn-block odalic-text-strikethrough">
+            Save
+        </button>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-lg btn-block" ng-click="miscellaneous.goBack()">
+            Cancel
         </button>
     </div>
 </div>

@@ -591,6 +591,13 @@
 
             });
         }
+        
+        // Miscellaneous functions
+        $scope.miscellaneous = {
+            goBack: function () {
+                window.location.href = text.urlConcat('#', 'taskconfigs');
+            }
+        };
     });
 
 })();
