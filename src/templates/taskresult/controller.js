@@ -199,7 +199,6 @@
                 // Success
                 function (response) {
                     $scope.result = response;
-
                     // Prepare data for graphvis component
                     actions.push(setsData);
 
