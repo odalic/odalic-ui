@@ -16,21 +16,11 @@
                 {{predicateObj.label}}
             </td>
             <td>
-
-                <!--only one predicate can be chosen-->
-                <span ng-if="predicateObj.predicate.chosen[primaryKB].length == 1" ng-style="backgroundColor(primaryKB)">
-                    <span>{{ predicateObj.predicate.chosen[primaryKB][0].entity.label + ' '+ '('}}</span>
-                    <a targer="_blank" href="{{predicateObj.predicate.chosen[primaryKB][0].entity.resource}}">
-                        {{predicateObj.predicate.chosen[primaryKB][0].entity.prefixed}}
-                    </a>
-                    <span>)</span>
-                </span>
-
-                <div class="pull-right">
+                <div class="pull-right text-nowrap">
                     <!-- Propose icon -->
                     <tooltip msg="Propose" place="top">
                         <a ng-click="openStatisticalRProposal(predicateObj.index)" class="odalic-cursor-pointer">
-                            <span class="fa fa-plus-square-o"></span>
+                            <span class="up fa fa-plus-square-o"></span>
                         </a>
                     </tooltip>
 
@@ -40,10 +30,24 @@
                     <!-- Details icon -->
                     <tooltip msg="Details" place="top">
                         <a ng-click="openStaticalRSelection(predicateObj.index)" class="odalic-cursor-pointer">
-                            <span class="glyphicon glyphicon-new-window"></span>
+                            <span class="up glyphicon glyphicon-new-window"></span>
                         </a>
                     </tooltip>
                 </div>
+
+                <!--only one predicate can be chosen-->
+                <span class="bigRightPadding" ng-if="predicateObj.predicate.chosen[primaryKB].length == 1">
+                <span ng-style="backgroundColor(primaryKB)">
+                    <span>{{ predicateObj.predicate.chosen[primaryKB][0].entity.label + ' '}}</span>
+                    <span class="text-nowrap">
+                    <span>(</span>
+                    <a targer="_blank" href="{{predicateObj.predicate.chosen[primaryKB][0].entity.resource}}">
+                        {{predicateObj.predicate.chosen[primaryKB][0].entity.prefixed}}
+                    </a>
+                    <span>)</span>
+                    </span>
+                </span>
+                </span>
             </td>
             <td>
                 <div class="pull-right">

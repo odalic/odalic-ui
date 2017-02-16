@@ -199,7 +199,6 @@
                 // Success
                 function (response) {
                     $scope.result = response;
-
                     // Prepare data for graphvis component
                     actions.push(setsData);
 
@@ -591,6 +590,13 @@
 
             });
         }
+        
+        // Miscellaneous functions
+        $scope.miscellaneous = {
+            goBack: function () {
+                window.location.href = text.urlConcat('#', 'taskconfigs');
+            }
+        };
     });
 
 })();

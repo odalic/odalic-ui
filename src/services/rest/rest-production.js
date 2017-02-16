@@ -371,14 +371,14 @@ $.defineModule(function () {
                         input: {
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback', 'input'), 'GET', success, failure);
+                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback', 'input'), 'GET', success, failure, 'application/json');
                                 }
                             }
                         },
                         result: {
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'result'), 'GET', success, failure);
+                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'result'), 'GET', success, failure, 'application/json');
                                 }
                             },
                             export: {
@@ -432,7 +432,7 @@ $.defineModule(function () {
                             },
                             retrieve: {
                                 exec: function (success, failure) {
-                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'), 'GET', success, failure);
+                                    requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'configuration', 'feedback'), 'GET', success, failure, 'application/json');
                                 }
                             }
                         },
@@ -458,7 +458,7 @@ $.defineModule(function () {
                 },
                 list: {
                     exec: function (success, failure) {
-                        requests.quickRequest(text.urlConcat(root, 'tasks') + '?states=true', 'GET', success, failure);
+                        requests.quickRequest(text.urlConcat(root, 'tasks') + '?states=true&orderedBy=created', 'GET', success, failure);
                     }
                 },
                 states: {

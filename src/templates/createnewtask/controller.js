@@ -152,6 +152,29 @@
             }
         };
 
+        // Running task upon save/creation
+        var runTask = function (errorMsg) {
+            // Prepare
+            var taskId = $scope.taskCreation.identifier;
+            var handler = function () {
+                // Just continue to the taskconfigs screen
+                window.location.href = '#/taskconfigs/' + taskId;
+            };
+
+            // Start the task
+            rest.tasks.name(taskId).execute.exec(
+                // Execution started successfully
+                function (response) {
+                    handler();
+                },
+                // Error while starting the execution
+                function (response) {
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope[errorMsg], response.data));
+                    f();
+                }
+            );
+        };
+
         // Task creation
         $scope.templFormat.createTask = function (f, callback) {
             // Validate the form
@@ -211,30 +234,12 @@
         // Task creation + run
         $scope.templFormat.createAndRun = function (f) {
             $scope.templFormat.createTask(f, function () {
-                // Prepare
-                var taskId = $scope.taskCreation.identifier;
-                var handler = function () {
-                    // Just continue to the taskconfigs screen
-                    window.location.href = '#/taskconfigs/' + taskId;
-                };
-
-                // Start the task
-                rest.tasks.name(taskId).execute.exec(
-                    // Execution started successfully
-                    function (response) {
-                        handler();
-                    },
-                    // Error while starting the execution
-                    function (response) {
-                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.startFailure'], response.data));
-                        f();
-                    }
-                );
+                runTask('msgtxt.startFailure');
             });
         };
 
         // Task saving
-        $scope.templFormat.saveTask = function (f) {
+        $scope.templFormat.saveTask = function (f, callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
                 f();
@@ -248,6 +253,12 @@
             rest.tasks.name(taskid).create($scope.wholeForm.getTaskObject()).exec(
                 // Success
                 function (response) {
+                    // Don't handle if further action was specified
+                    if (callback) {
+                        callback();
+                        return;
+                    }
+
                     // The task has been updated, redirect to the task configurations screen
                     window.location.href = '#/taskconfigs/' + $scope.taskCreation.identifier;
                 },
@@ -257,6 +268,13 @@
                     f();
                 }
             );
+        };
+
+        // Task save + run
+        $scope.templFormat.saveAndRun = function (f) {
+            $scope.templFormat.saveTask(f, function () {
+                runTask('msgtxt.startFailure');
+            });
         };
 
         // Going back

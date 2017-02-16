@@ -19,7 +19,7 @@
                 <legend>Basic settings</legend>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Task name:</label>
+                    <label class="col-md-2 control-label">Task identifier:</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskImport.identifier" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
                         <div ng-messages="taskImportForm.taskIdentifier.$error" ng-if='taskImportForm.taskIdentifier.$dirty' role="alert">

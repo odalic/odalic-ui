@@ -1,16 +1,13 @@
 <td ng-repeat="cell in row track by $index"
     ng-init="columnIndex = $index"
     ng-class="(rowIndex == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
-    ng-mouseover="selectPosition( rowIndex,$index)"
->
+    ng-mouseover="selectPosition( rowIndex,$index)">
 
-    <span>{{ cell }}</span>
-
-    <div class="pull-right">
+    <div class="pull-right text-nowrap" >
         <!-- Propose icon -->
         <tooltip msg="Propose" place="top">
             <a ng-click="proposal()" class="odalic-cursor-pointer">
-                <span class="fa fa-plus-square-o"></span>
+                <span class="up fa fa-plus-square-o"></span>
             </a>
         </tooltip>
 
@@ -19,40 +16,64 @@
 
         <!-- Details icon -->
         <tooltip msg="Details" place="top">
-            <a ng-click="suggestion()"  class="odalic-cursor-pointer">
-                <span class="glyphicon glyphicon-new-window"></span>
+            <a ng-click="suggestion()" class="odalic-cursor-pointer">
+                <span class="up glyphicon glyphicon-new-window"></span>
             </a>
         </tooltip>
     </div>
+
+    <div class="bigRightPadding">{{ cell }}</div>
 
 
     <!--  Primary knowledge base disambiguation -->
     <div ng-class="'boldPrimaryKB'" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
          ng-repeat="disam in concreteData[columnIndex].chosen[primaryKB]">
+
         <!-- Remove icon -->
-        <a ng-click="removeClass(concreteData[columnIndex].chosen[primaryKB],columnIndex,$index)" class="odalic-cursor-pointer pull-right">
-            <span ng-class="'fa fa-trash'"></span>
-        </a>
+        <span class=" pull-right">
+              <tooltip msg="Remove" place="top">
+                <a ng-click="removeClass(concreteData[columnIndex].chosen[primaryKB],columnIndex,$index)"
+                   class=" up fa fa-trash odalic-cursor-pointer ">
+                </a>
+            </tooltip>
+        </span>
 
         <!-- row of cell in format: label (url)-->
-        <span>{{ disam.entity.label + ' ' + '('}}</span>
-        <a target="_blank" href = "{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
-        <span>)</span>
-
+        <span  class="rightPadding">
+            <span>{{ disam.entity.label + ' ' }}</span>
+            <span class="text-nowrap">
+                 <span>(</span>
+                    <a target="_blank" href="{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
+                 <span>)</span>
+            </span>
+        </span>
     </div>
+
+
     <!-- other knowledge base disambiguation  -->
     <div ng-repeat="(KB,data) in concreteData[columnIndex].chosen ">
         <div ng-if="KB != primaryKB">
-            <div ng-style="backgroundColor(KB)" ng-repeat="disam in data" ng-init="itemIndex = $index" >
-                <!-- Remove icon -->
-                <a ng-click="removeClass(concreteData[columnIndex].chosen[KB],columnIndex,$index)" class="odalic-cursor-pointer pull-right">
-                    <span ng-class="'fa fa-trash'"></span>
-                </a>
-                <!-- row of cell in format: label (url)-->
-                <span>{{ disam.entity.label + ' ' + '('}}</span>
-                <a target="_blank" href = "{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
-                <span>)</span>
+            <div ng-style="backgroundColor(KB)" ng-repeat="disam in data" ng-init="itemIndex = $index">
 
+
+                <!-- Remove icon -->
+                <div class=" pull-right ">
+                    <tooltip msg="Remove" place="top">
+                        <a ng-click="removeClass(concreteData[columnIndex].chosen[KB],columnIndex,$index)"
+                           class="up odalic-cursor-pointer  fa fa-trash">
+                        </a>
+                    </tooltip>
+                </div>
+
+                <!-- row of cell in format: label (url)-->
+                <span  class="rightPadding">
+                    <span>{{ disam.entity.label + ' '}}</span>
+                    <span class="text-nowrap">
+                        <span>(</span>
+                        <a target="_blank" href="{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
+                        <span>)</span>
+                    </span>
+                </span>
             </div>
         </div>
     </div>
