@@ -22,7 +22,7 @@
                 <legend>Basic settings</legend>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Task name:</label>
+                    <label class="col-md-2 control-label">Task identifier:</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
                                ng-disabled="!templFormat.creating" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
@@ -136,12 +136,17 @@
         </div>
 
         <!-- Submit, when editing an existing task -->
-        <div class="col-md-offset-9 col-md-3" ng-if="!templFormat.creating">
-            <div class="col-md-6">
-                <button-load button-class="col-md-12 btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>
-            </div>
-            <div class="col-md-6">
-                <button type="button" class="col-md-12 btn btn-lg" ng-click="templFormat.goBack()">Cancel</button>
+        <div class="col-md-offset-7 col-md-5" ng-if="!templFormat.creating">
+            <div class="col-md-offset-1 col-md-11">
+                <div class="col-md-6">
+                    <button-load button-class="col-md-12 btn btn-lg" action="templFormat.saveAndRun" disabled="false">Save and run</button-load>
+                </div>
+                <div class="col-md-3">
+                    <button-load button-class="col-md-12 btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="col-md-12 btn btn-lg" ng-click="templFormat.goBack()">Cancel</button>
+                </div>
             </div>
         </div>
 

@@ -6,12 +6,14 @@
     // Subcomponent for displaying buttons (send feedback, reexecute, ...)
     // and handling feedback sending
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('controlButtons',['rest', function (rest) {
+    app.directive('controlButtons', ['rest', function (rest) {
         return {
             restrict: 'E',
             templateUrl: currentFolder + 'controlbuttons.html',
             link: function ($scope, iElement, iAttrs) {
-                // TODO: [critical] Feedback saving not working when a user actually makes a change.
+                // Initialization
+                $scope.messages = {};
+
                 // Set the feedback according to UI
                 sendFeedback = function (success, error) {
                     // Subjects columns
@@ -133,13 +135,25 @@
                     rest.tasks.name($scope.taskID).feedback.store($scope.feedback).exec(success, error);
                 };
 
+                // Save feedback
+                $scope.saveFeedback = function (f) {
+                    sendFeedback(
+                        // Feedback sent successfully
+                        function (response) {
+                            f();
+                            $scope.messages.push('success', $scope['msgtxt.feedbackSaved']);
+                        },
 
+                        // Failure while sending feedback
+                        function (response) {
+                            f();
+                            $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.sendFailure'], response.data));
+                        }
+                    );
+                };
 
                 // Reexecute
-                $scope.reexecute = function () {
-                    // TODO: Error reporting should be improved.
-
-                    // Send feedback
+                $scope.reexecute = function (f) {
                     sendFeedback(
                         // Feedback sent successfully
                         function (response) {
@@ -152,14 +166,16 @@
 
                                 // Error while starting the execution
                                 function (response) {
-                                    throw new Error('Error while trying to run the task; cannot continue.');
+                                    f();
+                                    $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.startFailure'], response.data));
                                 }
                             );
                         },
 
                         // Failure while sending feedback
                         function (response) {
-                            throw new Error('Error while saving feedback; cannot continue.');
+                            f();
+                            $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.sendFailure'], response.data));
                         }
                     );
                 };

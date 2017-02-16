@@ -205,8 +205,7 @@
                         setsData();
                         setsDataCube();
                     });
-
-
+                    
                     // Phase complete
                     dataLoaded(phases.result);
                 },
@@ -600,6 +599,13 @@
 
             });
         }
+        
+        // Miscellaneous functions
+        $scope.miscellaneous = {
+            goBack: function () {
+                window.location.href = text.urlConcat('#', 'taskconfigs');
+            }
+        };
     });
 
 })();

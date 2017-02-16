@@ -1,10 +1,6 @@
-<div class="form-group odalic-hr-pushbtm">
+<div class="col-md-12 form-group odalic-hr-pushbtm">
+    <!-- Buttons on the left -->
     <div class="col-md-2">
-        <button class="btn btn-lg btn-block" ng-click="reexecute()">
-            Reexecute
-        </button>
-    </div>
-    <div class="col-md-2 col-md-offset-6">
         <button class="btn btn-lg btn-block" ng-click="state = state - 1" ng-disabled="state <= 0">
             Previous step
         </button>
@@ -13,5 +9,35 @@
         <button class="btn btn-lg btn-block" ng-click="state = state + 1" ng-disabled="state >= numberOfPages">
             Next step
         </button>
+    </div>
+
+    <!-- Buttons on the right -->
+    <div class="col-md-offset-2 col-md-2">
+        <button-load button-class="btn btn-lg btn-block" action="reexecute" disabled="false">
+            Reexecute
+        </button-load>
+    </div>
+    <div class="col-md-2">
+        <button-load button-class="btn btn-lg btn-block" action="saveFeedback" disabled="false">
+            Save
+        </button-load>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-lg btn-block" ng-click="miscellaneous.goBack()">
+            Cancel
+        </button>
+    </div>
+
+    <!-- Blank space -->
+    <div class="col-md-12 odalic-hstyle-medium"/>
+
+    <!-- Prepared messages to display to a user in case of a situation -->
+    <injector for="msgtxt.sendFailure">An error occurred while sending the feedback to the server.</injector>
+    <injector for="msgtxt.startFailure">An error occurred while trying to re-run the task. Feedback was sent, however.</injector>
+    <injector for="msgtxt.feedbackSaved">Feedback saved successfully.</injector>
+
+    <!-- Reporting situations to a user -->
+    <div class="col-md-12">
+        <alert-group bind="messages" disappearing="3"/>
     </div>
 </div>
