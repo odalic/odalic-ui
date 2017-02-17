@@ -36,6 +36,8 @@
   "services/formsval/formsval.js",
   "services/reporth/reporth.js",
   "services/authentication.js",
+  "filters/propsfilter/filter.js",
+  "filters/nullornumber/filter.js",
   "filters/shortstr/filter.js",
   "filters/nonempty/filter.js",
   "filters/clean/filter.js",

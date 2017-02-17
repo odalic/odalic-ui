@@ -15,6 +15,7 @@
         $scope.fileconfig = {};
         $scope.files = [];
         $scope.messages = {};
+        $scope.dataload = {};
         table.refreshList();
 
         // Pagination settings
