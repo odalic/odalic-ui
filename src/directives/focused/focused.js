@@ -4,6 +4,8 @@
     var app = angular.module('odalic-app');
 
     /** Making input control focused.
+     *  Usage:
+     *      <input type="text" ng-model="identifier" focused/>
      */
     app.directive('focused', function () {
         return {
@@ -26,7 +28,6 @@
 
                     // Watch for the corresponding value
                     scope.$watch(scope.model, function (value) {
-                        console.log('value=', value);
                         focusfn(value);
                     });
 

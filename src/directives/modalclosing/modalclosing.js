@@ -5,10 +5,10 @@
 
     /** Icon for closing of a modal window
      *
-     *  Usage: <modal-closing close-function="close"/>
+     *  Usage: <modal-closing closing-function="close"/>
      *
      *  Providing additional arguments for the closing function:
-     *  <modal-closing close-function="close" args="[1, 2, 3]"/>
+     *  <modal-closing closing-function="close" args="[1, 2, 3]"/>
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('modalClosing', function () {
