@@ -131,8 +131,7 @@
                     // Prepare data for pagination
                     actions.push(function () {
                         $scope.inputFileProxy = {
-                            model: $scope.inputFile.rows,
-                            perPage: 5
+                            model: $scope.inputFile.rows
                         };
                     });
 

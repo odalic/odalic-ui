@@ -9,10 +9,9 @@
      *      <span ng-repeat="word in myobj.getView()">
      *          {{ word }}
      *      </span>
-     *      <pagination bind="myobj" />
+     *      <pagination bind="myobj" per-page="10"/>
      *
      *      $scope.myobj.model = ["Hi", "this", "is", "an", "array", "of", "words"];
-     *      $scope.myobj.perPage = 3;
      *
      *      // Will show only 'words' (counted from 0)
      *      $scope.myobj.setPage(2);
@@ -30,20 +29,18 @@
 
                 // Initialization
                 scope.pgn = {};
+                var perPage = text.safeInt(iAttrs['perPage'], 100);
 
                 // Default values
                 var data = [];
-                var perPage = 100;
                 var pages = 1;
 
                 // Prepare data to use by the pagination directive
                 var prepare = function () {
                     // Initialization
                     var _model = scope.bind.model;
-                    var _perPage = scope.bind.perPage;
-                    if (_model && _perPage) {
+                    if (_model) {
                         data = _model;
-                        perPage = _perPage;
                         pages = Math.floor(data.length / perPage) + (data.length % perPage == 0 ? 0 : 1);
                     }
                     var current = objhelp.getFirstArg(scope.pgn.current, 1);
@@ -71,7 +68,7 @@
 
                 // Watch for changes
                 prepare();
-                scope.$watch('bind', function(nv, ov) {
+                scope.$watch('bind[model]', function(nv, ov) {
                     prepare();
                 });
 
