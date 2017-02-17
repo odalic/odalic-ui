@@ -30,6 +30,9 @@ var tableComponent = function (scope, rest, reporth) {
                     // Update pagination directive
                     scope.filesProxy.model = scope.files;
                     scope.$broadcast('pagination');
+
+                    // Display the table
+                    scope.dataload.show = true;
                 },
                 // Error
                 function (response) {

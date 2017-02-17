@@ -25,17 +25,18 @@
         <!-- Unknown bug - a first useless tooltip has to be written for some reason -->
         <tooltip msg="bug-fixer" />
 
-        <!-- The table of tasks -->
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>Date created</th>
-                <th>File name</th>
-                <th>Action</th>
-                <th>Type</th>
-            </tr>
-            </thead>
-            <tbody>
+        <!-- The table of files -->
+        <loadico bind="dataload" size="5" center="true" showtxt="true">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Date created</th>
+                    <th>File name</th>
+                    <th>Action</th>
+                    <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
                 <!-- A single file -->
                 <tr ng-repeat="file in filesProxy.getView()">
                     <td class="col-md-2">{{ file.uploaded }}</td>
@@ -74,8 +75,9 @@
                         </div>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </loadico>
 
         <!-- Pagination -->
         <pagination bind="filesProxy" />

@@ -18,6 +18,7 @@
         // Initialize
         $scope.taskconfigs = [];
         $scope.messages = {};
+        $scope.dataload = {};
 
         // Pagination settings
         $scope.taskconfigsProxy = {
