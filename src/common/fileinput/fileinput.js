@@ -89,7 +89,9 @@
 
                                     // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
                                     // TODO: For some reason "scope.$$phase" gets buggy here and always returns false (not even try-catch block helps...)
-                                    scope.$apply();
+                                    if (!scope.$root.$$phase) {
+                                        scope.$apply();
+                                    }
                                 }
                             });
                         },
