@@ -11,7 +11,7 @@
         <form name="cDProposeForm" novalidate class="form-horizontal" role="form">
             <br/>
             <div ng-if="disableDisambCondition==true">
-                <alert bind="missingColumnClass" closable="false">
+                <alert bind="missingColumnClass" type="error" closable="false">
                     You cannot propose disambiguation, if a column classification for the primary knowledge base is not
                     set.
                     Please, first set the column classification!
@@ -110,7 +110,7 @@
 
                 <div class="form-group">
                     <div class="col-md-12">
-                        <alert bind="serverResponse">
+                        <alert bind="serverResponse" type="success">
                             {{messege}}
                         </alert>
                     </div>

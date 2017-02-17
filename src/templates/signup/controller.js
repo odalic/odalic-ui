@@ -41,10 +41,7 @@
 
         // E-mail sent
         $scope.emsent = {
-            alert: {
-                type: 'success',
-                visible: true
-            }
+            alert: {}
         };
 
         // Redirect to login screen, if already logged

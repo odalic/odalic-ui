@@ -41,10 +41,7 @@
 
         // User already logged in
         $scope.logged = {
-            alert: {
-                type: 'neutral',
-                visible: true
-            },
+            alert: {},
             logout: function () {
                 $auth.logout();
                 $scope.status = 'login';

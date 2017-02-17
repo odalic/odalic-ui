@@ -4,11 +4,9 @@
     var app = angular.module('odalic-app');
 
     /** Aler directive, for displaying bootstrap alert panel.
-     *  Usage: <alert bind="myvar">Hooray!</alert>
+     *  Usage: <alert bind="myvar" type="neutral">Hooray!</alert>
      *
      *  $scope.myvar = {
-     *      type: 'neutral',
-     *      visible: true,
      *      close: function() {
      *          // Action on close
      *      }
@@ -22,6 +20,19 @@
      *
      *  Non-closable alert: <alert bind="myvar" closable="false">Hooray!</alert>
      *
+     *  All settings available from a controller:
+     *  $scope.myvar = {
+     *      type: 'success',
+     *      visible: false
+     *      close: function() {
+     *          // Action on close
+     *      }
+     *  };
+     *
+     *  Neither 'type' nor 'visible' have to be specified
+     *  Note the alert is visible by default.
+     *  Also note, the HTML attributes are prioritized to settings from a controller.
+     *
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('alert', function () {
@@ -34,9 +45,6 @@
             transclude: true,
             link: function (scope, iElement, iAttrs) {
                 // Initialize
-                if (!scope.bind) {
-                    scope.bind = {};
-                }
                 var defaults = {
                     type: 'neutral',
                     visible: true
@@ -46,6 +54,11 @@
                         scope.bind[key] = value;
                     }
                 });
+
+                // Attribute type present in HTML?
+                if ('type' in iAttrs) {
+                    scope.bind.type = iAttrs['type'];
+                }
 
                 // Closable?
                 scope.closable = true;
