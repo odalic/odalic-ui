@@ -7,7 +7,7 @@
     loadhelp.loadDefault();
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest, responsep, $uibModal) {
+    app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, requests, rest, responsep, $uibModal) {
 
         // The task's ID
         var TaskID = $routeParams['taskid'];

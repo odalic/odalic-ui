@@ -3,28 +3,28 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Simple inversion of control to be used as an Angular service.
+    /** ioc
+     *  Description:
+     *      (Very) simplified implementation of 'inversion of control' pattern.
      *
-     *  Basic usage:
-     *  - define a new module in modules.json, e.g.:
-     *  {
-     *      "name": "my-module",
-     *      "source": "../../templates/testing/mytestingmodule.js",
-     *      "args": ['Hello World!', 'Hello, IoC!'],
-     *      "description": "This module is just for testing purposes only."
-     *  }
+     *  Usage:
+     *      # Defining a new module in the configuration file (modules.json)
+     *      {
+     *          "name": "my-module",
+     *          "source": "../../templates/testing/mytestingmodule.js",
+     *          "args": ['Hello World!', 'Hello, IoC!'],
+     *          "description": "This module is just for testing purposes only."
+     *      }
      *
-     *  - define function of the module in the corresponding file, e.g. in "../../templates/testing/mytestingmodule.js":
-     *  $.defineModule(function (str1, str2) {
-     *      return 'This module returns a string.' + str1 + str2;
-     *  });
      *
-     *  - inject the service into the controller in which it is needed, e.g.:
-     *  app.controller('tes-ctrl', function ($scope, ioc) { ... }
+     *      # Defining the module in a corresponding file ("../../templates/testing/mytestingmodule.js")
+     *      $.defineModule(function (str1, str2) {
+     *          return 'This module returns a string.' + str1 + str2;
+     *      });
      *
-     *  - use the module, e.g.:
-     *  var myString = ioc['my-module'];
      *
+     *      # Using the module
+     *      var myString = ioc['my-module'];
      */
     var currentFolder = $.getPathForRelativePath('');
     app.service('ioc', function () {

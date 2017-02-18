@@ -3,20 +3,26 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** A service for parsing a generic server response.
-     *  Should be versatile and able to handle several scenarios.
+    /** responsep
+     *  Description:
+     *      A service for parsing a generic server response.
+     *      Should be versatile and able to handle several scenarios.
      *
-     *  Usage: var obj = responsep(responseObject);
-     *  Returns an object of the following format:
-     *  {
-     *      status - status code
-     *      result - main returned object or message
-     *      description - usually more detailed description of an error, if happened
-     *      otherdata - miscellaneous data, rarely present
-     *      message - generic message generated from the status code
-     *  }
+     *  Usage:
+     *      # Example 01
+     *      var obj = responsep(responseObject);
+
+     *      // Returns an object of the following format:
+     *      // {
+     *      //   status - status code
+     *      //   result - main returned object or message
+     *      //   description - usually more detailed description of an error, if happened
+     *      //   otherdata - miscellaneous data, rarely present
+     *      //   message - generic message generated from the status code
+     *      // }
      *
-     *  Each of the properties of the object may be null, so beware.
+     *  Remarks:
+     *      - Each of the properties of the object returned may be null.
      */
     app.service('responsep', function () {
         return function (response) {

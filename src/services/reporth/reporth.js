@@ -3,7 +3,26 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** A helper service for reporting errors to a user. */
+    /** reporth
+     *  Description:
+     *      A helper service for reporting errors to a user.
+     *      This is mostly for asynchronous requests to which server responded with an error. The response is parsed
+     *      and returned as a string of a format similar to this: 'Error details: <<error description, max 150 chars>>'.
+     *
+     *  Usage:
+     *      # Usage for a typical scenario with alert-group directive
+     *      rest.tasks.name(taskid).create(myFile).exec(
+     *          // Success
+     *          function (response) {
+     *              ...
+     *          },
+     *          // Failure
+     *          function (response) {
+     *              // An alert will be pushed with a description similar to this: 'An error occured. Error details: <<desc>>'
+     *              $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg('An error occured.', response.data));
+     *          }
+     *      );
+     */
     var currentFolder = $.getPathForRelativePath('');
     app.service('reporth', function () {
         /** Constructs a quick string similar to the following example:

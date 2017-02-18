@@ -1,70 +1,90 @@
 (function () {
 
-    // Main module
-    var app = angular.module('odalic-app');
-
-    /** Peristence service
+    /** persist
+     *  Description:
+     *      Peristence service
      *
-     *  Consider several templates/pages: tp1, tp2 and tp3.
-     *  Let's say we want to share data between the pages.
-     *  The data is created on tp1; upon accessing tp2 we get the data;
-     *  The data may be changed in tp2; upon accessing tp3 we get the changed data.
-     *  However, when a completely different page is accessed (e.g. /home), the chain is broken,
-     *  the data is deleted and needs to be created again by accessing tp1.
+     *      Consider several templates/pages: tp1, tp2 and tp3.
+     *      Let's say we want to share data between the pages.
+     *      The data is created on tp1; upon accessing tp2 we get the data;
+     *      The data may be changed in tp2; upon accessing tp3 we get the changed data.
+     *      However, when a completely different page is accessed (e.g. /home), the chain is broken, the data is
+     *      deleted and needs to be created again by accessing tp1.
      *
-     *  This 'persistence service' provides such a mechanism.
-     *  Where can it be useful?
-     *  - when data needs to be created on 1 page and accessed on a 2nd one,
-     *   i.e. a strict sequence of page accesses is defined
-     *   (create-new-task, task-result)
-     *  - a single page is accessed, but it gets reloaded (warning: not 'refreshed',
-     *   the service would not help there); it can be useful to save a long-running
-     *   computation this way and just reload the result
-     *
+     *      This 'persistence service' provides such a mechanism.
+     *      Where can it be useful?
+     *      - when data needs to be created on 1 page and accessed on a 2nd one, i.e. a strict sequence of page
+     *      accesses is defined (create-new-task -> loading -> task-result)
+     *      - a single page is accessed, but it gets reloaded (warning: not 'refreshed', this service would not help
+     *      there); it can be useful to save a long-running computation this way and just reload the result
      *
      *  Usage:
-     *  - tp1:
-     *  // define a chain
-     *  var data = persist.chain('pagegroup').scope($scope);
+     *      # Accessing pages {tp1, tp2}
+     *      - tp1 -
+     *      // define a chain (all pages belonging to the chain need to define this; the chain is broken upon accessing a page which does not)
+     *      var data = persist.chain('pagegroup').scope($scope);
      *
-     *  $scope.mystate = data.callOnce(function () {
-     *      // this message will appear only once, until the chain is broken:
-     *      console.log('long running computation...');
+     *      $scope.mystate = data.callOnce(function () {
+     *          // this message will appear only once (if the chain is not broken)
+     *          console.log('long running computation...');
      *
-     *      return 'Hello, World!';
-     *  }, 'unique-function-name');
+     *          return 'Hello, World!';
+     *      }, 'unique-function-name');
      *
-     * - tp2:
-     *  // chain
-     *  var data = persist.chain('pagegroup').scope($scope);
+     *      - tp2 -
+     *      // define a chain
+     *      var data = persist.chain('pagegroup').scope($scope);
      *
-     *  // if the chain was broken, null is returned instead of 'Hello, World!'
-     *  $scope.mystate = data.getFunctionData('unique-function-name');
+     *      // if the chain was broken, null is returned instead of 'Hello, World!'
+     *      $scope.mystate = data.getFunctionData('unique-function-name');
      *
      *
-     *  Info: 'data' is an object, i.e. own properties may be defined.
+     *      # Strict order of pages tp1 -> tp2 -> tp3
+     *      - tp1 -
+     *      // define a chain (we will define chain called 'pagegroup' solely on screens tp1, tp2, tp3 and nowhere else)
+     *      var data = persist.chain('pagegroup').scope($scope);
      *
-     *  Warning: Each page in a chain has to access the function
-     *   'persist.chain('mychain').scope($scope);', otherwise the data gets destroyed.
+     *      // this is the first accessed page; save custom data
+     *      data['where'] = 'tp1';
      *
-     *  Warning: The service will not work properly if rerouting is used between pages
-     *   in a chain.
+     *      - tp2 -
+     *      // define a chain
+     *      var data = persist.chain('pagegroup').scope($scope);
      *
-     * Additionally, the service allows defining an own callback when a window changes.
-     *  // chain
-     *  var data = persist.chain('pagegroup').scope($scope);
-     *
-     *  // custom callback
-     *  data.window.watch(function (win) {
-     *      if (win.current != win.history[0]) {
-     *          console.log('I cannot do this anymore, I quit.');
-     *          win.clearWatchers();
+     *      // was a previous page tp1?
+     *      if (data['where'] === 'tp1') {
+     *          // this is the second accessed page
+     *          data['where'] = 'tp2';
      *      }
-     *  });
      *
-     *  Warning: The custom callback does not depend on any unbroken chain and will always be called.
+     *      - tp3 -
+     *      // define a chain
+     *      var data = persist.chain('pagegroup').scope($scope);
      *
+     *      // was a previous page tp2?
+     *      if (data['where'] === 'tp2') {
+     *          // do something...
+     *      }
+     *
+     *
+     *      # Defining custom event handlers for screen change
+     *      // define a chain (in this case does not play any major role)
+     *      var data = persist.chain('pagegroup').scope($scope);
+     *
+     *      // defining a custom event (will get called automatically upon any screen change; watchers should be therefore cleared)
+     *      data.window.watch(function (win) {
+     *          if (win.current != win.history[0]) {
+     *               console.log('Does anybody actually read this? I am curious.');
+     *               win.clearWatchers();
+     *          }
+     *      });
+     *
+     *  Remarks:
+     *      - This service does not work properly if rerouting mechanism is used.
      */
+
+    // Main module
+    var app = angular.module('odalic-app');
     app.service('persist', function ($location) {
 
         var pers = {};

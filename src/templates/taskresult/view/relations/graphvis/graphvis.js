@@ -5,7 +5,7 @@
 
     // graphvis directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('graphvis', function (sharedata) {
+    app.directive('graphvis', function () {
         return {
             restrict: 'E',
             templateUrl: currentFolder + 'graphvis.html',
