@@ -3,14 +3,22 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Injector directive.
-     *  Injects a value set in an HTML template into a corresponding controller.
+    /** injector
+     *  Description:
+     *      Injects a string into a variable on a current scope.
+     *
      *  Usage:
+     *      # Example 1
+     *      - template -
      *      <injector for="myval">Hello, world!</injector>
      *
-     *      ...
-     *      console.log($scope.myval); // Prints "Hello, world!"
+     *      - controller -
+     *      // prints "Hello, world!"
+     *      console.log($scope.myval);
      *
+     *  Arguments:
+     *      for
+     *      - A name of a variable on a current scope to inject the string into.
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('injector', function () {

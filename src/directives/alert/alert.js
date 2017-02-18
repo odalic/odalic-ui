@@ -3,36 +3,66 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Aler directive, for displaying bootstrap alert panel.
-     *  Usage: <alert bind="myvar" type="neutral">Hooray!</alert>
+    /** alert
+     *  Description:
+     *      A simplification of bootstrap's alerts.
+     *      Serves mostly visual purpose (i.e. displaying messages to a user) with (optional) possibility to be closed.
      *
-     *  $scope.myvar = {
-     *      close: function() {
-     *          // Action on close
+     *  Usage:
+     *      # Example 1
+     *      - template -
+     *      <alert bind="myvar" type="neutral">Hooray!</alert>
+     *
+     *      - controller -
+     *      $scope.myvar = {
+     *          // function called upon a user closing the alert
+     *          close: function() {
+     *            $scope.myvar.visible = false;
+     *          }
+     *      };
+     *
+     *
+     *      # Example 2
+     *      - template -
+     *      <!-- this alert may not be closed -->
+     *      <alert bind="myvar" closable="false" type="success">Hooray!</alert>
+     *
+     *      - controller -
+     *      // the alert still needs to be initialized due to the nature how it works
+     *      $scope.myvar = {};
+     *
+     *
+     *      # Example 3
+     *      - template -
+     *      <alert bind="myvar">Hooray!</alert>
+     *
+     *      - controller -
+     *      // initialize to hidden
+     *      $scope.myvar = {
+     *          type: 'success',
+     *          visible: 'false'
+     *      };
+     *
+     *      // on certain event (e.g. mapped to a button click) display the alert
+     *      $scope.myevent = function() {
+     *          $scope.myvar.visible = true;
      *      }
-     *  };
      *
-     *  If function close is defined, it is called on alert close.
-     *  If it is not defined, the default action is called ("visible = false;").
+     *  Arguments:
+     *      bind
+     *      - An object on scope. May be empty, but has to be defined.
+     *      Properties:
+     *          - type (get/set): equivalent to 'type' argument
+     *          - visible (get/set): whether is the alert currently visible, or not; by default set to true
+     *          - close (set): a function, if provided, will be called upon a user closing the alert, if not, a default
+     *          close action is taken instead (which simply sets 'visible' to false)
      *
-     *  Available types:
-     *  'neutral', 'success', 'error', 'warning'
+     *      type (optional)
+     *      - A type of the alert (affects color scheme of the alert). May be 'neutral', 'success', 'error' or
+     *      'warning'.
      *
-     *  Non-closable alert: <alert bind="myvar" closable="false">Hooray!</alert>
-     *
-     *  All settings available from a controller:
-     *  $scope.myvar = {
-     *      type: 'success',
-     *      visible: false
-     *      close: function() {
-     *          // Action on close
-     *      }
-     *  };
-     *
-     *  Neither 'type' nor 'visible' have to be specified
-     *  Note the alert is visible by default.
-     *  Also note, the HTML attributes are prioritized to settings from a controller.
-     *
+     *      closable (optional)
+     *      - If provided and set to false, the alert is not closable by a user.
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('alert', function () {

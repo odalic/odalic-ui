@@ -3,46 +3,24 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Making input control focused.
+    /** focused
+     *  Description:
+     *      Sets focus to a control in which it is used.
+     *
      *  Usage:
-     *      <input type="text" ng-model="identifier" focused/>
+     *      # Example 1
+     *      - template -
+     *      <input type="text" focused/>
+     *
+     *  Arguments:
+     *      none
      */
     app.directive('focused', function () {
         return {
             restrict: 'A',
-            scope: {
-                model: '=focused'
-            },
+            scope: {},
             link: function (scope, iElement, iAttrs) {
-
-                // Behaviour depending on the attribute 'model'
-                if (typeof(scope.model) !== 'undefined') {
-                    // Initialization
-                    var focusfn = function (focused) {
-                        if (focused === true) {
-                            window.setTimeout(function () {
-                                iElement[0].focus();
-                            });
-                        }
-                    };
-
-                    // Watch for the corresponding value
-                    scope.$watch(scope.model, function (value) {
-                        focusfn(value);
-                    });
-
-                    // On losing focus change the value
-                    iElement.bind('blur', function () {
-                        scope.$apply(scope.model.assign(scope, false));
-                    });
-
-                    // Start focused?
-                    focusfn(scope.model);
-                } else {
-                    // Set focus automatically if the attribute is not set
-                    iElement[0].focus();
-                }
-
+                iElement[0].focus();
             }
         }
     });

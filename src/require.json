@@ -18,7 +18,6 @@
   "directives/include/include.js",
   "directives/shortened/shortened.js",
   "directives/errormsg/errormsg.js",
-  "directives/frankctive/frankctive.js",
   "directives/buttonload/buttonload.js",
   "directives/pagination/pagination.js",
   "directives/compareto/compareto.js",

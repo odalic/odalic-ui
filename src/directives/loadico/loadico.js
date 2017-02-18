@@ -3,21 +3,36 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Loading icon directive.
+    /** loadico
+     *  Description:
+     *      A wrapper around a portion of an HTML code to be replaced by a spinner icon, until ready.
      *
-     *  Usage: <loadico bind="myvar" size="2">Content to be hidden until loaded</loadico>
+     *  Usage:
+     *      # Example 1
+     *      - template -
+     *      <loadico bind="myvar" size="2" center="true" showtxt="false">Content to be hidden until loaded</loadico>
      *
-     *  Option 1:
-     *  $scope.myvar.load = function(callback) {
-     *      PerformAjaxRequest(callback, function() { ...error... });
-     *  }
+     *      - controller -
+     *      // Lengthy calculations...
+     *      ...
      *
-     *  Option 2:
-     *  PerformAjaxRequest(function() { $scope.myvar.show = true; }, function() { ...error... });
+     *      // When finished, display the content
+     *      $scope.myvar.show = true;
      *
-     *  Styling:
-     *  <loadico bind="myvar" size="2" center="true" showtxt="false">Content</loadico>
+     *  Arguments:
+     *      center (optional)
+     *      - Whether to put the spinner icon to the center, or not.
      *
+     *      showtxt (optional)
+     *      - Whether to show 'Loading...' text below the icon, or not.
+     *
+     *      size
+     *      - Size of the spinner icon, from range of [1..5].
+     *
+     *      bind
+     *      - An object on scope. Has to be defined (as empty) and is filled by properties automatically.
+     *      Properties:
+     *          - show (get/set): if true, the content is displayed, if false, the spinner icon is displayed instead
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('loadico', function () {

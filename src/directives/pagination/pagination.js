@@ -3,19 +3,39 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Pagination directive, simplifying a usage of the bootstrap-ui pagination.
+    /** pagination
+     *  Description:
+     *      A wrapper around ui-bootstrap's pagination directive for a simplified usage.
      *
      *  Usage:
-     *      <span ng-repeat="word in myobj.getView()">
-     *          {{ word }}
-     *      </span>
-     *      <pagination bind="myobj" per-page="10"/>
+     *      # Example 1
+     *      - template -
+     *      <span ng-repeat="word in myobj.getView()">{{ word }}</span>
      *
+     *      <pagination bind="myobj" per-page="3"/>
+     *
+     *      - controller -
      *      $scope.myobj.model = ["Hi", "this", "is", "an", "array", "of", "words"];
      *
-     *      // Will show only 'words' (counted from 0)
+     *      // will show only 'words'
      *      $scope.myobj.setPage(2);
      *
+     *  Arguments:
+     *      per-page
+     *      - Amount of items to be displayed on a single 'page'.
+     *
+     *      bind
+     *      - An object on scope. Has to be defined (may be empty) and is filled by functions and properties automatically.
+     *      Properties:
+     *          - model (get/set): an array of all items
+     *      Functions:
+     *          - setPage(index): a 'page' to set the pagination to; counted from 0
+     *          - getPage(): returns a current 'page' number
+     *          - getView(): returns a subarray of the 'model' consisting only of items corresponding to the current
+     *          'page'
+     *          - getModelIndex(viewIndex): index of the first item corresponding to the current page in the 'model'
+     *          plus 'viewIndex' (e.g. for model ["Hi", "this", "is", "an", "array", "of", "words"] for page 2 and 3
+     *          items per page, the index is 6 + 'viewIndex')
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('pagination', function () {

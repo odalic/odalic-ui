@@ -3,18 +3,42 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Shortened directive, for displaying long text, but shortened.
+    /** shortened
+     *  Description:
+     *      Shortens a long text, displaying only several first characters.
+     *      Additionally provides a 'Show more' button which clicking upon shows the whole text.
      *
-     *  Usage: <shortened text="textobj" length="30" class="bold" />
-     *      - text: text object in the current scope
-     *      - length: to which length to shorten
-     *      - class: styling
+     *  Usage:
+     *      # Example 1
+     *      - template -
+     *      <shortened text="textobj" length="30" class="bold"/>
      *
-     *  Advanced usage: <shortened text="textobj" short-class="normal" expand-class="bold" />
-     *      - length attribute does not need to be set, neither does class attribute
-     *      - short-class: styling of the non-expanded text
-     *      - expand-class: styling of the expanded text
+     *      - controller -
+     *      $scope.textobj = 'A long text ...';
      *
+     *
+     *      # Example 2
+     *      - template -
+     *      <shortened text="textobj" short-class="normal" expand-class="bold"/>
+     *
+     *      - controller -
+     *      $scope.textobj = 'A long text ...';
+     *
+     *  Arguments:
+     *      text
+     *      - String variable on a current scope.
+     *
+     *      length (optional)
+     *      - Amount of characters to display for the shortened variant of the text. By default 50 characters are shown.
+     *
+     *      class (optional)
+     *      - Styling of the text.
+     *
+     *      short-class (optional)
+     *      - Styling of the non-expanded text.
+     *
+     *      expand-class (optional)
+     *      - Styling of the expanded text.
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('shortened', function () {
