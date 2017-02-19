@@ -162,14 +162,12 @@
                             // Locks
                             setLock: function (node1, node2, locked) {
                                 applyOnColIdcs(node1, node2, function (column1, column2) {
-                                    // TODO: The data structure seems to be illogical. Why negate?
                                     scope.bind.lockobj[column1][column2] = !locked;
                                 });
                             },
                             getLock:  function (node1, node2) {
                                 var result = null;
                                 applyOnColIdcs(node1, node2, function (column1, column2) {
-                                    // TODO: The data structure seems to be illogical. Why negate?
                                     result = !scope.bind.lockobj[column1][column2];
                                 });
                                 return result;

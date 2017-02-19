@@ -41,7 +41,7 @@ var unorderedarr = function () {
         }
 
         return arrmap[id];
-    }
+    };
 
     /** Adds an item to the array
      *
@@ -76,4 +76,4 @@ var unorderedarr = function () {
         delete arrmap[id];
         this.arr.pop();
     };
-}
+};

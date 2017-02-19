@@ -52,7 +52,7 @@
                     if (diff == 1) {
                         result[module.name] = defined[defined.length - 1];
                     } else if (diff > 1) {
-                        console.error("Fatal error: multiple module definitions in a single file " + module.source);
+                        throw new Error("Fatal error: multiple module definitions in a single file " + module.source);
                     } else {
                         console.warn("Warning: no module definitions in a file " + module.source);
                     }
