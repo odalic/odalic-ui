@@ -37,7 +37,6 @@
   "filters/nullornumber/filter.js",
   "filters/shortstr/filter.js",
   "filters/nonempty/filter.js",
-  "filters/clean/filter.js",
   "filters/conform/filter.js",
   "common/navbar/navbar.js",
   "common/maincnt/maincnt.js",

@@ -3,7 +3,10 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // Filter for a string matching in the select boxes
+    /** props-filter
+     *  Description:
+     *      Filter for a string matching in the select boxes.
+     */
     app.filter('propsFilter', function () {
         return function (items, props) {
             var out = [];
