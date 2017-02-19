@@ -1,3 +1,4 @@
+/** Functions for computing specific things from area of euclidean geometry */
 var eucgeom = {
     /** Computes 2nd power of a number */
     sqr: function (n) {

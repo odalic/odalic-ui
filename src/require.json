@@ -6,7 +6,6 @@
   "util/text/text.js",
   "util/timed/timed.js",
   "util/loadhelp/loadhelp.js",
-  "util/eventbuilder/eventbuilder.js",
   "util/sets/sets.js",
   "directives/alert/alert.js",
   "directives/alertgroup/alertgroup.js",

@@ -1,3 +1,4 @@
+/** Constants used throughout the application */
 var constants = {
     get addresses() {
         return {
