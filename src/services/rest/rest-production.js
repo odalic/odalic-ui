@@ -89,7 +89,6 @@ $.defineModule(function () {
                             };
                         },
                         password: {
-                            // TODO: Wrong use of API; the documentation on grips is incomplete.
                             replace: function (passwordOld, passwordNew) {
                                 return {
                                     exec: function (success, failure) {

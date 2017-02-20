@@ -68,7 +68,7 @@
             <!-- Already logged in -->
             <div ng-switch-when="logged">
                 <div class="col-md-6 col-md-offset-3">
-                    <alert bind="logged.alert" closable="false">
+                    <alert bind="logged.alert" closable="false" type="neutral">
                         <span class="glyphicon glyphicon-user"/> <strong>Logged in.</strong> You are now logged in. <a ng-click="logged.logout()" class="odalic-cursor-pointer">Log out?</a> <a href="#/chngpasswd">Change password?</a>
                     </alert>
                 </div>

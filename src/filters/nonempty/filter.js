@@ -3,14 +3,28 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Filter for 'decorating' non-empty text.
+    /** nonempty
+     *  Description:
+     *      A filter for 'decorating' non-empty text.
+     *      This is useful when dealing with separators, but it is not yet known whether one will be needed, since the
+     *      string to be separated may be empty, as demonstrated by an example:
+     *
+     *      <!-- item2 may be empty, so the comma may not be needed after all -->
+     *      {{ item1 }}, {{ item2 }}
+     *
      *  Usage:
-     *      first{{ maybeGetString() | nonempty:', ' }}
-     *      This will result in "first, example" or "first"; "example" being the string returned by "maybeGetString()".
+     *      # Example 1: Separation of two strings
+     *      first{{ maybe_string | nonempty:', ' }}
      *
-     *      Additionally may be used for appending text as well:
-     *      first{{ maybeGetString() | nonempty:'before':'after' }}
+     *      # Example 2: Decorated string from both sides
+     *      {{ maybe_string | nonempty:'before':'after' }}
      *
+     *  Arguments:
+     *      before
+     *      - A string to prepend the string with if the given string is not empty.
+     *
+     *      append
+     *      - A string to put after the given string if the given string is not empty.
      */
     app.filter('nonempty', function () {
         return function (item, pre, post) {

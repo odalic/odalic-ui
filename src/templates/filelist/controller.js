@@ -16,12 +16,8 @@
         $scope.files = [];
         $scope.messages = {};
         $scope.dataload = {};
+        $scope.filesProxy = {};
         table.refreshList();
-
-        // Pagination settings
-        $scope.filesProxy = {
-            perPage: 5
-        };
 
         // Table button functions
         $scope.fdownload = function (f, s, identifier) {

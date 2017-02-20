@@ -3,12 +3,36 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Icon for closing of a modal window
+    /** modal-closing
+     *  Description:
+     *      Represents an 'x' button of modal windows (for closing modal windows).
      *
-     *  Usage: <modal-closing close-function="close"/>
+     *  Usage:
+     *      # Example 1
+     *      - template -
+     *      <modal-closing closing-function="close"/>
      *
-     *  Providing additional arguments for the closing function:
-     *  <modal-closing close-function="close" args="[1, 2, 3]"/>
+     *      - controller -
+     *      $scope.close = function() {
+     *          // close the modal
+     *      };
+     *
+     *
+     *      # Example 2
+     *      - template -
+     *      <modal-closing closing-function="close" args="[1, 2, 3]"/>
+     *
+     *      - controller -
+     *      $scope.close = function(a, b, c) {
+     *          // close the modal
+     *      };
+     *
+     *  Arguments:
+     *      closing-function
+     *      - A function to call upon clicking the 'x' button.
+     *
+     *      args (optional)
+     *      - An array or arguments to pass to the 'closing-function'.
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('modalClosing', function () {

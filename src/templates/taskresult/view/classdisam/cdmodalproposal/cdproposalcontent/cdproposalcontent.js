@@ -13,14 +13,10 @@
 
         //sets parameters for the alert directive
         $scope.serverResponse = {
-            type: 'success',
             visible: false
         };
 
-        $scope.missingColumnClass = {
-            type: 'error',
-            visible: true,
-        };
+        $scope.missingColumnClass = {};
 
         $scope.dialogTitle = function()
         {

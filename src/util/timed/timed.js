@@ -1,7 +1,8 @@
+/** Support time-based functions */
 var timed = {
     /** Calls a user-defined function once a given condition returns true.
-     *  This method should be used for scenarios like testing whether a certain object is defined.
-     *  Polling a state is an example of 'anti-usage' of the method.
+     *  This method should be used for scenarios like testing whether a certain object is defined, if the object takes
+     *  longer to initialize.
      *
      * @param cnd   A condition to evaluate (function returning boolean).
      * @param f     A function to call once the condition returns true.
