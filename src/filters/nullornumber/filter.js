@@ -10,7 +10,7 @@
     app.filter('nullOrNumber', function ($filter) {
         return function (input, fractionSize) {
             if (input == null) {
-                return new String();
+                return "";
             } else {
                 return $filter('number')(input, fractionSize);
             }
