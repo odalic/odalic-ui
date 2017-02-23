@@ -19,11 +19,7 @@
         $scope.taskconfigs = [];
         $scope.messages = {};
         $scope.dataload = {};
-
-        // Pagination settings
-        $scope.taskconfigsProxy = {
-            perPage: 10
-        };
+        $scope.taskconfigsProxy = {};
 
         // Load the data into the table
         table.refreshList(statepoll.setPolling);

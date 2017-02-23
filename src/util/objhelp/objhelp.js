@@ -1,4 +1,4 @@
-/** Supporting methods for JavaScript object handling */
+/** Miscellaneous support functions for JavaScript object handling */
 var objhelp = {
     /** Executes forEach designed for objects.
      *  Only iterates via own object properties.
@@ -11,27 +11,6 @@ var objhelp = {
             if (obj.hasOwnProperty(item)) {
                 callback(item, obj[item]);
             }
-        }
-    },
-
-    /** Accesses any item (fist one) in the given object.
-     *
-     * @param obj           object to access an item of
-     * @param callback      a callback function that should accept the following arguments: "key", "value"
-     */
-    objGetAny: function (obj, callback) {
-        var accessed = false;
-
-        for (var item in obj) {
-            if (obj.hasOwnProperty(item)) {
-                callback(item, obj[item]);
-                accessed = true;
-                return;
-            }
-        }
-
-        if (!accessed) {
-            throw new Error('The object is empty.');
         }
     },
 
@@ -152,19 +131,6 @@ var objhelp = {
             var tt = (new String()).concat(String(arg), ' ', args[0]);
             if (!eval(tt)) {
                 return fallback;
-            }
-        }
-    },
-
-    /** Calls the first argument that is defined and is a function.
-     *  This function is variadic.
-     *
-     */
-    callFirstArg: function () {
-        for (var i = 0; i < arguments.length; i++) {
-            if (typeof(arguments[i]) === 'function') {
-                arguments[i]();
-                return;
             }
         }
     },

@@ -11,14 +11,8 @@
         $scope.dataload = {};
         $scope.status = 'default';
         $scope.confirmation = {
-            alertSuccess: {
-                type: 'success',
-                visible: true
-            },
-            alertFailure: {
-                type: 'error',
-                visible: true
-            }
+            alertSuccess: {},
+            alertFailure: {}
         };
 
         // Actions to take upon page load

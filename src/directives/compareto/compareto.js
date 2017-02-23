@@ -3,17 +3,25 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Compare-to directive.
-     *  Usage:
+    /** compare-to
+     *  Description:
+     *      Compares value of a current control with another one. If the values differ, sets validity of "compare" to
+     *      false.
+     *      To be used only with ng-messages directive.
      *
+     *  Usage:
+     *      # Example 1
+     *      - template -
      *      <input type="password" name="password1" ng-model="signup.password" />
-     *      <input type="password" name="password2" ng-model="signup.password2" compare-to="signup.password" />
+     *      <input type="password" name="password2" ng-model="signup.password2" compare-to="signup.password"/>
      *
      *      <div ng-messages="signupForm.password2.$error" role="alert">
      *          <div ng-message="compare">Passwords do not match.</div>
      *      </div>
      *
-     *  Note the model has to be set in "password2".
+     *  Arguments:
+     *      compare-to
+     *      - A model to compare a current model's value against. Note the model has to be set in a current control.
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('compareTo', function () {

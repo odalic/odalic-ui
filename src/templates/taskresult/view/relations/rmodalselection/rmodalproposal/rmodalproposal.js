@@ -17,7 +17,6 @@
 
         //sets parameters for the alert directive
         $scope.serverResponse = {
-            type: 'success',
             visible: false
         };
 

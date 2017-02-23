@@ -10,16 +10,6 @@
         "controller": "reroute"
     },
     {
-        "route": "/test",
-        "folder": "test",
-        "controller": "generic"
-    },
-    {
-        "route": "/ngtest",
-        "folder": "ngtest",
-        "controller": "odalic-ngtest-ctrl"
-    },
-    {
         "route": "/login",
         "folder": "login",
         "controller": "odalic-login-ctrl"
@@ -83,15 +73,5 @@
         "route": "/taskresult/:taskid",
         "folder": "taskresult",
         "controller": "taskresult-ctrl"
-    },
-    {
-        "route": "/loading",
-        "folder": "loading",
-        "controller": "loading-ctrl"
-    },
-    {
-        "route": "/genericerror",
-        "folder": "genericerror",
-        "controller": "genericerror-ctrl"
     }
 ]

@@ -3,21 +3,49 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Include directive.
+    /** include
+     *  Description:
+     *      Includes a portion of HTML code from an external resource.
      *
-     *  Usage 1: <include src="myresource.html"/>
-     *   Includes the requested resource into a template.
+     *  Usage:
+     *      # Example 1
+     *      - template -
+     *      <include src="src/templates/taskresult/template.html"/>
      *
-     *  Usage 2: <include src="myresource.html" for="obj" />
-     *   Includes the requested resource into a variable "$scope.obj".
      *
-     *  Usage 3: <include res="obj" />
-     *   Includes a resource from "$scope.obj" into a template.
-     *   Automatically watches "obj" for changes.
+     *      # Example 2
+     *      - template -
+     *      <include src="myresource.html" for="obj"/>
+     *      {{ obj }}
      *
-     *  Notice: When using a different resource than HTML, you have to specify "type":
-     *  <include src="myresource.txt" type="text"/>
      *
+     *      # Example 3
+     *      - template -
+     *      <include res="obj"/>
+     *
+     *      - controller -
+     *      $scope.obj = '<b>text</b>';
+     *
+     *
+     *      # Example 4
+     *      - template -
+     *      <!-- resource other than HTML -->
+     *      <include src="myresource.txt" type="text"/>
+     *
+     *  Arguments:
+     *      src (optional)
+     *      - Absolute path to the resource to be included.
+     *
+     *      for (optional)
+     *      - Variable on a current scope to include the resource into. If specified, the resource is not included
+     *      into the template.
+     *
+     *      res (optional)
+     *      - Variable on a current scope to include the code from. Automatically watches the variable for changes,
+     *      i.e. this is an equivalent of using '{{ variable }}' syntax.
+     *
+     *      type (optional)
+     *      - Type of the resource. Has to be specified, if the resource is of a different type, than HTML.
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('include', function ($compile) {

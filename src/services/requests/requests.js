@@ -3,7 +3,11 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // A service for creating REST requests in a convenient way
+    /** requests
+     *  Description:
+     *      A service for creating AJAX requests in a convenient way.
+     *      Default behaviour is affected by 'requests' module (see ioc/modules.json).
+     */
     app.service('requests', function ($http, ioc) {
 
         /** Format of "request_package" object parameter.

@@ -3,7 +3,18 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // A service for reading data from files in a convenient way
+    /** filedata
+     *  Description:
+     *      Easies work with files.
+     *
+     *  Usage:
+     *      # Reading file object
+     *      - template -
+     *      <input type="file" id="concreteFile" name="fileSelector" required/>
+     *
+     *      - controller -
+     *      rest.tasks.name(taskId).configuration.import(filedata.fileObject('concreteFile')).exec(...);
+     */
     app.service('filedata', function () {
         // Reference to self
         var _ref = this;
@@ -65,7 +76,7 @@
             var res = _ref.fileObject(inputFileElementId);
             if (res) {
                 return res.name;
-            };
+            }
 
             return null;
         };

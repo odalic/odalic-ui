@@ -3,17 +3,43 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /* Confirmation modal.
+    /* confirm
+     * Description:
+     *      Represents a confirmation modal window (acting as a yes/no dialog).
+     *      A user may answer by using 'accept' or 'reject' buttons.
+     *      If user clicks outside the modal, or uses 'x' button in the upper-right corner, the answer is assumed as if
+     *      'reject' button was clicked.
+     *
      * Usage:
-     *      <confirm bind="myobj" title="Title" />
+     *      # Example 1
+     *      - template -
+     *      <confirm bind="myobj" title="Title">Is it nice outside?</confirm>
      *
+     *      - controller -
+     *      // initialize
      *      scope.myobj = {};
-     *      ...
      *
-     *      // opens the modal
-     *      scope.myobj.open(function (response) {
-     *          // called back upon modal close
-     *      });
+     *      // on certain event open the modal
+     *      $scope.myevent = function() {
+     *          // opens the modal
+     *          scope.myobj.open(function (response) {
+     *              if (response) {
+     *                  console.log('A user answered yes');
+     *              } else {
+     *                  console.log('A user answered no');
+     *              }
+     *          });
+     *      };
+     *
+     * Arguments:
+     *      title
+     *      - A headline of the modal window.
+     *
+     *      bind
+     *      - An object on scope. Has to be defined (as empty) and is filled by functions automatically.
+     *      Functions:
+     *         - open(callback): opens the modal; upon closing the modal 'callback' function is called automatically
+     *         (with either true or false passed argument, depending on a user's choice)
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('confirm', function () {

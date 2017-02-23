@@ -7,7 +7,7 @@
     loadhelp.loadDefault();
 
     // Create a controller for taskconfig
-    app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, sharedata, requests, rest, responsep, $uibModal) {
+    app.controller('taskresult-ctrl', function ($scope, $routeParams, $location, $window, requests, rest, responsep, $uibModal) {
 
         // The task's ID
         var TaskID = $routeParams['taskid'];
@@ -131,8 +131,7 @@
                     // Prepare data for pagination
                     actions.push(function () {
                         $scope.inputFileProxy = {
-                            model: $scope.inputFile.rows,
-                            perPage: 5
+                            model: $scope.inputFile.rows
                         };
                     });
 
