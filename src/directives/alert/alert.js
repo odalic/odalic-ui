@@ -3,7 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Aler directive, for displaying bootstrap alert panel.
+    /** Alert directive, for displaying bootstrap alert panel.
      *  Usage: <alert bind="myvar">Hooray!</alert>
      *
      *  $scope.myvar = {
