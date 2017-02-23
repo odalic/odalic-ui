@@ -112,21 +112,25 @@
                         }
                     }
 
-
+                    //data cube feedback without candidates and chosen
                     $scope.feedback.dataCubeComponents = [];
                     for (var index in $scope.locked.statisticalData) {
                             var lock  = $scope.locked.statisticalData[index];
                             if (lock == 1) {
                                 var predicateObj = $scope.result.statisticalAnnotations[index];
+                                var newPredicate = angular.copy(predicateObj.predicate);
+
+                                delete newPredicate.chosen;
+                                delete newPredicate.candidates;
+
                                 var obj = {
-                                    "position": { "index":  index},
+                                    "position": { "index": index},
                                     "annotation": {"component":predicateObj.component,
-                                        "predicate": predicateObj.predicate}
+                                        "predicate": newPredicate }
 
                                 };
                                 obj.annotation.predicate[$scope.primaryKB] = angular.copy(predicateObj.predicate.chosen[$scope.primaryKB]);
-                                delete obj.annotation.predicate.chosen;
-                                delete obj.annotation.predicate.candidates;
+
                                 $scope.feedback.dataCubeComponents.push(obj);
                             }
                     }
