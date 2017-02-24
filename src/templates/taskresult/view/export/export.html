@@ -5,32 +5,31 @@
 <fieldset ng-disabled="feedbackChanged">
     <legend class="col-md-12">Export</legend>
 
-    <div class="row">
-        <div class="col-md-3">
-            <div class="col-md-5">
-                <a-fake ajax="exporting.csv" type="text/csv">
-                    <button class="btn">Extended CSV</button>
-                </a-fake>
-            </div>
 
-            <div class="col-md-offset-1 col-md-5">
-                <a-fake ajax="exporting.json" type="application/json">
-                    <button class="btn">JSON Annotations</button>
-                </a-fake>
-            </div>
+    <div class="col-md-12">
+        <div class="pull-left">
+            <a-fake ajax="exporting.csv" type="text/csv">
+                <a class="btn btn-default">Extended CSV</a>
+            </a-fake>
+            &nbsp
         </div>
-        <div class="col-md-3">
-            <div class="col-md-5">
-                <a-fake ajax="exporting.turtle" type="text/turtle">
-                    <button class="btn">RDF (Turtle)</button>
-                </a-fake>
-            </div>
 
-            <div class="col-md-offset-1 col-md-5">
-                <a-fake ajax="exporting.jsonld" type="application/ld+json">
-                    <button class="btn">RDF (JSON-LD)</button>
-                </a-fake>
-            </div>
+        <div class="pull-left">
+            <a-fake ajax="exporting.json" type="application/json">
+                <a class="btn btn-default">JSON Annotations</a>
+            </a-fake>
+            &nbsp
+        </div>
+        <div class="pull-left">
+            <a-fake ajax="exporting.turtle" type="text/turtle">
+                <a class="btn btn-default">RDF (Turtle)</a>
+            </a-fake>
+            &nbsp
+        </div>
+        <div class="pull-left">
+            <a-fake ajax="exporting.jsonld" type="application/ld+json">
+                <a class="btn btn-default">RDF (JSON-LD)</a>
+            </a-fake>
         </div>
     </div>
 </fieldset>

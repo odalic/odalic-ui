@@ -42,6 +42,14 @@
         // User already logged in
         $scope.logged = {
             alert: {},
+            account: {
+                getUsername: function () {
+                    return $auth.getPayload()['sub'];
+                },
+                getToken: function () {
+                    return $auth.getToken();
+                }
+            },
             logout: function () {
                 $auth.logout();
                 $scope.status = 'login';
