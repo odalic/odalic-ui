@@ -1,6 +1,6 @@
-# Odalic UI
+# Odalic User Interface
 
-Odalic UI serves as a graphical user interface to the Odalic Semantic Table Interpretation backend ( https://github.com/odalic/sti ).
+Odalic UI serves as a graphical user interface to the [Odalic Semantic Table Interpretation](https://github.com/odalic/sti) backend.
 
 It is a web application allowing its users to extract and export Linked Data from provided CSV files. Backed by the Odalic STI, it features:
 - Pleasant single-page user interface
