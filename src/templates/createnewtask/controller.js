@@ -21,6 +21,7 @@
 
         // Additional variables
         var kbListLoaded = false;
+        var formerTaskObj = {};
 
         // Dealing with knowledge bases
         (function () {
@@ -123,23 +124,24 @@
                 return formsval.validateNonNested($scope.taskCreationForm);
             },
 
-            getTaskObject: function () {
+            getTaskObject: function (forcedFeedback) {
                 var fileId = $scope.fileinput.getSelectedFile();
                 var taskId = $scope.taskCreation.identifier;
+                var emptyFeedback = {
+                    columnIgnores: [],
+                    classifications: [],
+                    columnAmbiguities: [],
+                    ambiguities: [],
+                    disambiguations: [],
+                    columnRelations: []
+                };
 
                 return {
                     id: String(taskId),
                     created: (new Date()).toString("yyyy-MM-dd HH:mm"),
                     configuration: {
                         input: fileId,
-                        feedback: {
-                            columnIgnores: [],
-                            classifications: [],
-                            columnAmbiguities: [],
-                            ambiguities: [],
-                            disambiguations: [],
-                            columnRelations: []
-                        },
+                        feedback: objhelp.getFirstArg(forcedFeedback, emptyFeedback),
                         primaryBase: {
                             name: $scope.kbs.primaryKB.name
                         },
@@ -248,26 +250,54 @@
 
             // Generic preparations
             var taskid = $scope.taskCreation.identifier;
+            var taskObj = $scope.wholeForm.getTaskObject();
+            var taskObjDiff = objhelp.objCompare(formerTaskObj, taskObj);
 
-            // Insert the task
-            rest.tasks.name(taskid).create($scope.wholeForm.getTaskObject()).exec(
-                // Success
-                function (response) {
-                    // Don't handle if further action was specified
-                    if (callback) {
-                        callback();
-                        return;
+            // On error
+            var error = function (response) {
+                $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                f();
+            };
+
+            // Inserting the task
+            var insert = function (taskObj) {
+                rest.tasks.name(taskid).create(taskObj).exec(
+                    // Success
+                    function (response) {
+                        // Don't handle if further action was specified
+                        if (callback) {
+                            callback();
+                            return;
+                        }
+
+                        // The task has been updated, redirect to the task configurations screen
+                        window.location.href = '#/taskconfigs/' + $scope.taskCreation.identifier;
+                    },
+                    // Failure
+                    function (response) {
+                        error(response);
                     }
+                );
+            };
 
-                    // The task has been updated, redirect to the task configurations screen
-                    window.location.href = '#/taskconfigs/' + $scope.taskCreation.identifier;
-                },
-                // Failure
-                function (response) {
-                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                    f();
-                }
-            );
+            // Possible to save the task without nullifying already-computed result?
+            if ((taskObjDiff.length <= 1) &&
+                (taskObjDiff.length == 0 || taskObjDiff[0] == 'description')) {
+                // Load the current feedback and then use it to create a new task object
+                rest.tasks.name(taskid).feedback.retrieve.exec(
+                    // Success
+                    function (response) {
+                        insert($scope.wholeForm.getTaskObject(response));
+                    },
+                    // Failure
+                    function (response) {
+                        error(response);
+                    }
+                );
+            } else {
+                // Save the task using empty feedback
+                insert(taskObj);
+            }
         };
 
         // Task save + run
@@ -329,6 +359,7 @@
                         timed.ready(function () {
                             return timedTasks <= 0;
                         }, function () {
+                            formerTaskObj = $scope.wholeForm.getTaskObject();
                             if (!$scope.$$phase) {
                                 $scope.$apply();
                             }

@@ -99,6 +99,70 @@ var objhelp = {
         });
     },
 
+    /** Recursive comparison of values of 2 objects.
+     *  An array of properties, in which the two objects differ, is returned.
+     *
+     * @param obj1      First object.
+     * @param obj2      Second object, to compare against the first one.
+     * @returns {Array} Array of properties, in which the objects differ.
+     */
+    objCompare: function (obj1, obj2) {
+        // Check passed arguments
+        if (!obj1 || !obj2 || (typeof(obj1) !== 'object') || (typeof(obj2) !== 'object')) {
+            throw new Error('objCompare: illegal arguments');
+        }
+
+        // Gather all properties, being either in obj1 or obj2
+        var props = [];
+        var included = {};
+        var gatherProperties = function (obj) {
+            objhelp.objForEach(obj, function (key, value) {
+                if (!(key in included)) {
+                    included[key] = true;
+                    props.push(key);
+                }
+            });
+        };
+        gatherProperties(obj1);
+        gatherProperties(obj2);
+
+        // Compare
+        var differences = [];
+        props.forEach(function (key) {
+            // Property present in both objects?
+            if (!(key in obj2) || !(key in obj1)) {
+                differences.push(key);
+            } else {
+                // Property differs in objects?
+                var value1 = obj1[key];
+                var value2 = obj2[key];
+
+                // Recursive object comparison?
+                if ((typeof(value1) === 'object') && (typeof(value2) === 'object')) {
+                    // Non-null values?
+                    if (!!value1 && !!value2) {
+                        var r = objhelp.objCompare(value1, value2);
+                        r.forEach(function (item) {
+                            differences.push(new String().concat(key, '.', item));
+                        });
+                    } else {
+                        // Both are null?
+                        if (!value1 != !value2) {
+                            differences.push(key);
+                        }
+                    }
+                } else {
+                    if (value1 != value2) {
+                        differences.push(key);
+                    }
+                }
+            }
+        });
+
+        // Result
+        return differences;
+    },
+
     /** Performs a test of a passed argument by passed tests.
      *  If the argument passes all of the passed tests, it is returned, otherwise the fallback is returned.
      *  Example:
