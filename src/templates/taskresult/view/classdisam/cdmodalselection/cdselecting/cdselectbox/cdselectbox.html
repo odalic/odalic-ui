@@ -15,7 +15,7 @@
              ng-src="{{ lodLiveBrowserIcon }}"
              class="selectBoxIcon uism-aclass"/>
 
-        <a  class="selectBoxLink"  title="shows resource detail" target="_blank" href = "{{$item.entity.resource}}">
+        <a  class="selectBoxLink" ng-click="$event.stopPropagation();"  title="shows resource detail" target="_blank" href = "{{$item.entity.resource}}">
             <span class="fa fa-info-circle fa-lg"> </span>
         </a>
         &nbsp
@@ -32,7 +32,7 @@
              ng-src="{{ lodLiveBrowserIcon }}"
              ng-class="'selectBoxIcon'">
 
-        <a class="selectBoxLink" title="shows resource detail" target="_blank" href = "{{opt.entity.resource}}">
+        <a class="selectBoxLink" ng-click="$event.stopPropagation();" title="shows resource detail" target="_blank" href = "{{opt.entity.resource}}">
             <span class="fa fa-info-circle fa-lg"> </span>
         </a>
         &nbsp
