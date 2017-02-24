@@ -45,6 +45,9 @@
             account: {
                 getUsername: function () {
                     return $auth.getPayload()['sub'];
+                },
+                getToken: function () {
+                    return $auth.getToken();
                 }
             },
             logout: function () {

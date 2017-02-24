@@ -69,8 +69,13 @@
             <div ng-switch-when="logged">
                 <div class="col-md-6 col-md-offset-3">
                     <alert bind="logged.alert" closable="false" type="neutral">
-                        <span class="glyphicon glyphicon-user"/> <strong>Logged in as {{ logged.account.getUsername() }}.</strong> <a ng-click="logged.logout()" class="odalic-cursor-pointer">Log out?</a> <a href="#/chngpasswd">Change password?</a>
+                        <span class="glyphicon glyphicon-user"/> <strong>Logged in as {{ logged.account.getUsername() }}.</strong> <a ng-click="logged.logout()" class="odalic-cursor-pointer">Log out?</a> <a href="#/chngpasswd">Change password?</a> <a data-toggle="collapse" data-target="#tokenDiv" class="odalic-cursor-pointer">Show token?</a><br/>
                     </alert>
+
+                    <!-- Token -->
+                    <div id="tokenDiv" class="collapse odalic-text-wrap well well-sm">
+                        {{ logged.account.getToken() }}
+                    </div>
                 </div>
             </div>
 
