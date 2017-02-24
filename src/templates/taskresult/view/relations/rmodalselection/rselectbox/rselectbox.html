@@ -6,7 +6,7 @@
         ng-disabled=" currentRelation.candidates[knowledgeBase].length == 0"
         ng-change="gvdata.mc(); lockRelation()">
     <ui-select-match placeholder="Select candidate or search its label/prefixed url">
-        <a  class="selectBoxLink"  title="shows resource detail" target="_blank" href = "{{$item.entity.resource}}">
+        <a  class="selectBoxLink" ng-click="$event.stopPropagation();" title="shows resource detail" target="_blank" href = "{{$item.entity.resource}}">
             <span class="fa fa-info-circle fa-lg"> </span>
         </a>
         &nbsp
@@ -17,7 +17,7 @@
     <ui-select-choices
             repeat="opt in  currentRelation.candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search}">
 
-        <a class="selectBoxLink" title="shows resource detail" target="_blank" href = "{{opt.entity.resource}}">
+        <a class="selectBoxLink" ng-click="$event.stopPropagation();" title="shows resource detail" target="_blank" href = "{{opt.entity.resource}}">
             <span class="fa fa-info-circle fa-lg"> </span>
         </a>
         &nbsp
