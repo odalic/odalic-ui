@@ -45,26 +45,24 @@
             templateUrl: currentFolder + 'cdtablerow.html',
             link: function (scope, iElement, iAttrs) {
 
-                //returns title with information about  the success of algorithm classification
+                //returns title with information about type of column
                 scope.getTitle = function (columnIndex) {
                     if (scope.rowIndex == -1) {
                         var types = scope.columnTypes[columnIndex].processingType;
-                        var title = [];
-                        for (var kb in types) {
-                            title.push("Values of ",kb);
-                            switch (types[kb]) {
-                                case "IGNORED":
-                                    title.push(" were ignored.\n");
-                                    break;
-                                case "NAMED_ENTITY":
-                                    title.push(" were determined.\n");
-                                    break;
-                                case "NON_NAMED_ENTITY":
-                                    title.push(" cannot be determined.\n");
-                                    break;
-                            }
+                        var title;
+                        //type of column determines type of primary knowledge base
+                        switch (types[scope.primaryKB]) {
+                            case "IGNORED":
+                                title = "Ignored column";
+                                break;
+                            case "NAMED_ENTITY":
+                                title = "Named entity";
+                                break;
+                            case "NON_NAMED_ENTITY":
+                                title = "Non-named entity";
+                                break;
                         }
-                        return title.join("");
+                        return title;
                     }
                     return "";
                 };
