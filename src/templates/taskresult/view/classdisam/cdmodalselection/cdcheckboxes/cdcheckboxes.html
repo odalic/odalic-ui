@@ -3,10 +3,11 @@
     <div ng-if="(selectedPosition.row == -1)">
         <div class="checkbox">
             <div class="col-md-12">
-                <label>
+                <label  title="{{title}}">
                     <input type="checkbox"
                            ng-model="ignoredColumn[selectedPosition.column]"
-                           ng-change="lockCell()">
+                           ng-change="lockCell()"
+                           ng-disabled="isSubjectColumnLocked()">
                     Ignore Column
                 </label>
             </div>
