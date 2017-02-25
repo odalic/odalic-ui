@@ -1,8 +1,4 @@
 <h2>Step 2: Reviewing suggested subject (main) column</h2>
-<!--<pre>{{locked.subjectColumns}}</pre>-->
-<!--&lt;!&ndash;<pre>{{feedback.subjectColumnPositions}}</pre>&ndash;&gt;-->
-<!--"subjectColumnPositions": { "DBpedia": { position: { index: 6 } }, "wikidata": { position: { index: 3 } }, ...},-->
-<!--<pre>{{feedback}}</pre>-->
 
 <div ng-repeat="kb in chosenKBs">
     <h3>{{kb}}</h3>
@@ -14,12 +10,21 @@
                 <!--shows headers of table-->
                 <td ng-repeat="cell in inputFile.columns"
                     ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' :''"
-                    ng-click="selectSubjectColumn($index,kb)">
-                    {{ cell }}
-                    <!--allows to lock and unlock subject column -->
-                    <span class="pull-right" ng-show="$index == result.subjectColumnPositions[kb].index">
-                        <s-c-lock locked="locked.subjectColumns" k-b="{{kb}}" column="{{$index }}"></s-c-lock>
+                    ng-click="selectSubjectColumn($index,kb)"
+                    ng-mouseleave="open[kb][$index]=0">
+                    <div
+                            popover-trigger="'none'"
+                            popover-is-open="open[kb][$index]"
+                            popover-popup-close-delay="200"
+                            uib-popover="Column is ignored. It cannot be set as subject column.">
+
+                        {{ cell }}
+                        <!--allows to lock and unlock subject column -->
+                        <span class="pull-right" ng-show="$index == result.subjectColumnPositions[kb].index">
+                        <s-c-lock locked="locked.subjectColumns" k-b="{{kb}}" column="{{$index }}"
+                                  ignored="isIgnored($index)">
                     </span>
+                    </div>
                 </td>
             </tr>
             </thead>
@@ -28,15 +33,18 @@
             <tr ng-repeat="row in inputFile.rows| limitTo: 2">
                 <td ng-repeat="cell in row"
                     ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' : ''"
-                    ng-click="selectSubjectColumn($index,kb)">
+                    ng-click="selectSubjectColumn($index,kb)"
+                    ng-mouseleave="open[kb][$index]=0">
                     {{ cell }}
                 </td>
             </tr>
             </tbody>
             <tfoot>
             <!--shows footer of table-->
-            <td ng-repeat="cell in inputFile.columns"  ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' :''"
-                ng-click="selectSubjectColumn($index,kb)">
+            <td ng-repeat="cell in inputFile.columns"
+                ng-class="($index == result.subjectColumnPositions[kb].index) ? 'markedColumn' :''"
+                ng-click="selectSubjectColumn($index,kb)"
+                ng-mouseleave="open[kb][$index]=0">
                 ...
             </td>
             </tfoot>
