@@ -22,15 +22,19 @@
         </tooltip>
     </div>
 
-    <div class="bigRightPadding" title="{{getTitle(columnIndex)}}">{{ cell }}</div>
+    <div class="bigRightPadding">
+        <tooltip msg="{{ getTitle(columnIndex) }}">
+            <span class="odalic-font-darkgrey">{{ cell }}</span>
+        </tooltip>
+    </div>
 
 
     <!--  Primary knowledge base disambiguation -->
-    <div class="odalic-text-bold" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
-         ng-repeat="disam in concreteData[columnIndex].chosen[primaryKB]">
-
-        <!-- Remove icon -->
-        <span class=" pull-right">
+    <tooltip source="primaryKB">
+        <div class="odalic-text-bold" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
+             ng-repeat="disam in concreteData[columnIndex].chosen[primaryKB]">
+            <!-- Remove icon -->
+            <span class="pull-right">
               <tooltip msg="Remove" place="top">
                 <a ng-click="removeClass(concreteData[columnIndex].chosen[primaryKB],columnIndex,$index)"
                    class=" up fa fa-trash odalic-cursor-pointer ">
@@ -39,7 +43,7 @@
         </span>
 
         <!-- row of cell in format: label (url)-->
-        <span  class="rightPadding">
+        <span class="rightPadding">
             <span>{{ disam.entity.label + ' ' }}</span>
             <span class="text-nowrap">
                  <span>(</span>
@@ -47,26 +51,26 @@
                  <span>)</span>
             </span>
         </span>
-    </div>
-
+        </div>
+    </tooltip>
 
     <!-- other knowledge base disambiguation  -->
-    <div ng-repeat="(KB,data) in concreteData[columnIndex].chosen ">
-        <div ng-if="KB != primaryKB">
-            <div ng-style="backgroundColor(KB)" ng-repeat="disam in data" ng-init="itemIndex = $index">
+    <div ng-repeat="(KB,data) in concreteData[columnIndex].chosen">
+        <tooltip source="KB">
+            <div ng-if="KB != primaryKB">
+                <div ng-style="backgroundColor(KB)" ng-repeat="disam in data" ng-init="itemIndex = $index">
 
+                    <!-- Remove icon -->
+                    <div class=" pull-right ">
+                        <tooltip msg="Remove" place="top">
+                            <a ng-click="removeClass(concreteData[columnIndex].chosen[KB],columnIndex,$index)"
+                               class="up odalic-cursor-pointer  fa fa-trash">
+                            </a>
+                        </tooltip>
+                    </div>
 
-                <!-- Remove icon -->
-                <div class=" pull-right ">
-                    <tooltip msg="Remove" place="top">
-                        <a ng-click="removeClass(concreteData[columnIndex].chosen[KB],columnIndex,$index)"
-                           class="up odalic-cursor-pointer  fa fa-trash">
-                        </a>
-                    </tooltip>
-                </div>
-
-                <!-- row of cell in format: label (url)-->
-                <span  class="rightPadding">
+                    <!-- row of cell in format: label (url)-->
+                    <span  class="rightPadding">
                     <span>{{ disam.entity.label + ' '}}</span>
                     <span class="text-nowrap">
                         <span>(</span>
@@ -74,7 +78,8 @@
                         <span>)</span>
                     </span>
                 </span>
+                </div>
             </div>
-        </div>
+        </tooltip>
     </div>
 </td>
