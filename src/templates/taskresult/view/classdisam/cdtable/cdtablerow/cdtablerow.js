@@ -56,10 +56,10 @@
                                 title = "Ignored column";
                                 break;
                             case "NAMED_ENTITY":
-                                title = "Named entity";
+                                title = "Named entity column";
                                 break;
                             case "NON_NAMED_ENTITY":
-                                title = "Non-named entity";
+                                title = "Non-named entity column";
                                 break;
                         }
                         return title;

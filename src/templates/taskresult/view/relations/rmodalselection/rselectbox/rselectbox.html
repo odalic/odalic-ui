@@ -5,7 +5,7 @@
         on-select="switchRelation($item, knowledgeBase);lockRelation()"
         ng-disabled=" currentRelation.candidates[knowledgeBase].length == 0"
         ng-change="gvdata.mc(); lockRelation()">
-    <ui-select-match placeholder="Select candidate or search its label/prefixed url">
+    <ui-select-match placeholder="Select, search, or propose candidate">
         <a  class="selectBoxLink" ng-click="$event.stopPropagation();" title="shows resource detail" target="_blank" href = "{{$item.entity.resource}}">
             <span class="fa fa-info-circle fa-lg"> </span>
         </a>

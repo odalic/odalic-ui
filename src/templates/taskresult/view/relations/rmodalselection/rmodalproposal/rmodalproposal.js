@@ -90,7 +90,7 @@
         var success = function () {
             $scope.serverResponse.type = 'success';
             $scope.serverResponse.visible = true;
-            $scope.messege = "Propose was saved";
+            $scope.messege = "Proposed relation was saved";
         }
         //sets parameters for the alert directive
         var fail = function (info) {
