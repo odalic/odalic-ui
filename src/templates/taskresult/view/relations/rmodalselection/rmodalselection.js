@@ -3,6 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
+    //shows modal window with details of relation
     app.controller('rSelectionController', function ($scope, $uibModalInstance, rest, data) {
         $scope.selectedRelation =data.selectedRelation;
         $scope.gvdata = data.gvdata;
@@ -17,10 +18,6 @@
         $scope.locksLock = function() {
             $scope.locked[$scope.selectedRelation.column2] = 1
         };
-        // //locks relation
-        // $scope.lockRelation = function () {
-        //     $scope.currentLock = 1;
-        // };
 
     });
 })();
