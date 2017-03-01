@@ -31,8 +31,6 @@
 
                 // switchs lock/unlock
                 $scope.changeLocking = function($event) {
-                    // TODO nefunguje ven
-                    //$event.stopPropagation();
                     $scope.currentLock[$scope.column2] ^= 1;
 
                     // Additional action as declared in the 'click' attribute

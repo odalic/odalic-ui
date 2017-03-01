@@ -26,6 +26,7 @@
                 }
                 //sets locks and result after user change subject column
                 $scope.selectSubjectColumn = function (column, kb) {
+                    //controls if the column is not ignored ( ignored column cannot be subject column)
                     if ( $scope.isIgnored(column)) {
                         $scope.open[kb][column] = true;
                         return;

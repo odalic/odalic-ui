@@ -3,6 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
+    //allows to propose own classification or disambiguation
     app.controller('cDProposeController', function ($scope, $uibModalInstance, rest, data) {
         $scope.selectedPosition = data.selectedPosition;
         $scope.result = data.result;
