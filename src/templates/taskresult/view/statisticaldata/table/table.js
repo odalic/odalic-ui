@@ -3,9 +3,8 @@
     // Main module
     var app = angular.module('odalic-app');
 
+
     app.filter('get', function () {
-        // function to invoke by Angular each time
-        // Angular passes in the `items` which is our Array
         return function (items, primaryKB, type, headers) {
             // Create a new Array
             var filtered = [];
@@ -24,6 +23,7 @@
         };
     });
 
+    //generates table for measure or dimension
     var currentFolder = $.getPathForRelativePath('');
     app.directive('sTable', function ($uibModal) {
         return {
@@ -39,27 +39,31 @@
             templateUrl: currentFolder + 'table.html',
             link: function ($scope, iElement, iAttrs) {
 
+                //sets color via knowledge base
                 $scope.backgroundColor = function (KB) {
                     var index = $scope.chosenKBs.indexOf(KB);
                     var color = constants.kbColorsArray[index];
                     return {"background-color": color, "border-radius": "5px", "opacity": "1"};
                 };
+                //fictive object, because we used the functions designed for relations
                 $scope.gvdata = {
                     mc: function () {
                     }, update: function () {
                     }
                 };
+                //sets data cube object as NONE
                 $scope.moveToNone = function (predicateObj) {
                     predicateObj.component[$scope.primaryKB] = 'NONE'
                     $scope.locked[predicateObj.index] = 1;
                 }
+                //sets concrete type to object
                 $scope.moveToType = function () {
                     $scope.pickedRow.component[$scope.primaryKB] = $scope.type
                     $scope.locked[$scope.pickedRow.index] = 1;
                 }
 
 
-                //calls cd proposal modal window
+                //calls cd proposal modal window to propose own predicate
                 $scope.openStatisticalRProposal = function (rowIndex) {
                     var locksLock = function () {
                         $scope.locked[rowIndex] = 1
@@ -84,7 +88,7 @@
                         }
                     });
                 };
-
+                //calls detail of chosen predicate
                 $scope.openStaticalRSelection = function (rowIndex) {
                     $uibModal.open({
                         ariaLabelledBy: 'modal-title',

@@ -3,7 +3,10 @@
     ng-class="(rowIndex == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
     ng-mouseover="selectPosition( rowIndex,$index)">
 
-    <div class="pull-right text-nowrap">
+    <!--There is bug in the class of responsive table. Sometimes the table ignore width of div with class=pull-right (it is a div with icons)  -->
+    <!--So there is a little hack with css. Each text div has right padding (bigRightPadding for three icons, rightPadding for trash icon)-->
+    <!--So the text does not overlap the icons. Class up sets the icons on the top of text div.-->
+    <div class="pull-right text-nowrap" >
         <!-- Propose icon -->
         <tooltip msg="Propose new resource" place="top">
             <a ng-click="proposal()" class="odalic-cursor-pointer">

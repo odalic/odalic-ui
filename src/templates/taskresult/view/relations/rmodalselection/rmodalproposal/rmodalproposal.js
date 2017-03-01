@@ -3,6 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
+    //allows to propose own relation
     app.controller('rProposeController', function ($scope, $uibModalInstance, rest, data) {
         $scope.selectedRelation = data.selectedRelation;
         $scope.result = data.result;

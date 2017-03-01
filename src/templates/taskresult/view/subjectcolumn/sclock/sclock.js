@@ -29,6 +29,7 @@
                 // switchs lock/unlock
                 scope.changeLocking = function($event)
                 {
+                    //controls if the column is not ignored ( ignored column cannot be subject column)
                    if(scope.ignored == 0) {
                        scope.locked[scope.kB][scope.column] ^= 1;
                    }

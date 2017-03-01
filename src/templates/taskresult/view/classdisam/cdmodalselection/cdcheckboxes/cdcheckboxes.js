@@ -24,6 +24,7 @@
                 };
 
                 $scope.title =""
+                //controls if the column is not subject column (subject column cannot be ignored)
                 $scope.isSubjectColumnLocked= function()
                 {
                     var lockedColumn =  $scope.locked.subjectColumns;
