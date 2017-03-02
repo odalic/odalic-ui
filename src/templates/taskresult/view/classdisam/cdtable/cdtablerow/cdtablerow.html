@@ -2,6 +2,7 @@
     ng-init="columnIndex = $index"
     ng-class="(rowIndex == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
     ng-mouseover="selectPosition( rowIndex,$index)">
+
     <!--There is bug in the class of responsive table. Sometimes the table ignore width of div with class=pull-right (it is a div with icons)  -->
     <!--So there is a little hack with css. Each text div has right padding (bigRightPadding for three icons, rightPadding for trash icon)-->
     <!--So the text does not overlap the icons. Class up sets the icons on the top of text div.-->
@@ -32,11 +33,11 @@
 
 
     <!--  Primary knowledge base disambiguation -->
-    <tooltip source="primaryKB">
-        <div class="odalic-text-bold" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
-             ng-repeat="disam in concreteData[columnIndex].chosen[primaryKB]">
-            <!-- Remove icon -->
-            <span class="pull-right">
+
+    <div class="odalic-text-bold" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
+         ng-repeat="disam in concreteData[columnIndex].chosen[primaryKB]">
+        <!-- Remove icon -->
+        <span class="pull-right">
               <tooltip msg="Remove" place="top">
                 <a ng-click="removeClass(concreteData[columnIndex].chosen[primaryKB],columnIndex,$index)"
                    class=" up fa fa-trash odalic-cursor-pointer ">
@@ -46,42 +47,46 @@
 
         <!-- row of cell in format: label (url)-->
         <span class="rightPadding">
-            <span>{{ disam.entity.label + ' ' }}</span>
+            <tooltip source="primaryKB">
+                <span ng-style="{color:'black'}">{{ disam.entity.label + ' ' }}</span>
+            </tooltip>
             <span class="text-nowrap">
                  <span>(</span>
                     <a target="_blank" href="{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
                  <span>)</span>
             </span>
         </span>
-        </div>
-    </tooltip>
+    </div>
+
 
     <!-- other knowledge base disambiguation  -->
     <div ng-repeat="(KB,data) in concreteData[columnIndex].chosen">
-        <tooltip source="KB">
-            <div ng-if="KB != primaryKB">
-                <div ng-style="backgroundColor(KB)" ng-repeat="disam in data" ng-init="itemIndex = $index">
 
-                    <!-- Remove icon -->
-                    <div class=" pull-right ">
-                        <tooltip msg="Remove" place="top">
-                            <a ng-click="removeClass(concreteData[columnIndex].chosen[KB],columnIndex,$index)"
-                               class="up odalic-cursor-pointer  fa fa-trash">
-                            </a>
-                        </tooltip>
-                    </div>
+        <div ng-if="KB != primaryKB">
+            <div ng-style="backgroundColor(KB)" ng-repeat="disam in data" ng-init="itemIndex = $index">
 
-                    <!-- row of cell in format: label (url)-->
-                    <span  class="rightPadding">
-                    <span>{{ disam.entity.label + ' '}}</span>
+                <!-- Remove icon -->
+                <div class=" pull-right ">
+                    <tooltip msg="Remove" place="top">
+                        <a ng-click="removeClass(concreteData[columnIndex].chosen[KB],columnIndex,$index)"
+                           class="up odalic-cursor-pointer  fa fa-trash">
+                        </a>
+                    </tooltip>
+                </div>
+
+                <!-- row of cell in format: label (url)-->
+                <span class="rightPadding">
+                    <tooltip source="KB">
+                        <span  ng-style="{color:'black'}">{{ disam.entity.label + ' '}}</span>
+                    </tooltip>
                     <span class="text-nowrap">
                         <span>(</span>
                         <a target="_blank" href="{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
                         <span>)</span>
                     </span>
                 </span>
-                </div>
             </div>
-        </tooltip>
+        </div>
+
     </div>
 </td>
