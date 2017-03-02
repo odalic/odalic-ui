@@ -3,33 +3,44 @@
     // Main module
     var app = angular.module('odalic-app');
 
+    //allows to propose own classification or disambiguation
     app.controller('cDProposeController', function ($scope, $uibModalInstance, rest, data) {
         $scope.selectedPosition = data.selectedPosition;
         $scope.result = data.result;
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
+        $scope.close = $uibModalInstance.close;
+
 
         //sets parameters for the alert directive
-        $scope.serverResponse= {
-            type: 'success',
+        $scope.serverResponse = {
             visible: false
         };
 
-        $scope.missingColumnClass= {
-            type: 'error',
-            visible: true,
-        };
+        $scope.missingColumnClass = {};
+
+        $scope.dialogTitle = function()
+        {
+
+            if ($scope.selectedPosition.row == -1) {
+                return "classification";
+            }
+            else{
+                return "disambiguation";
+            }
+
+        }
 
         $scope.columnClass = $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB];
-        $scope.disableDisambCondition =   $scope.selectedPosition.row != -1 &&  $scope.columnClass.length==0
+
+        $scope.disableDisambCondition = $scope.selectedPosition.row != -1 && $scope.columnClass.length == 0
+
         //region proposal settings
         $scope.setProposal = function (proposal) {
 
 
             // Is proposal defined?
-            if (proposal) {
-                //TOTO prefix kde ho vezmu co s nim?????
-                var prefixUrl = "";
+            if (proposal && $scope.cDProposeForm.$valid) {
 
                 var url = proposal.suffixUrl;
 
@@ -71,28 +82,27 @@
 
         //saves new propose class
         var classes = function (obj) {
+
             rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
                     var newObj = {
-                        "entity": {
-                            "resource": response.resource,
-                            "label": response.label
-                        },
+                        "entity": response,
                         "score": {
-                            "value": 0
+                            "value": null
                         }
                     };
 
+                    var currentClassification =  $scope.result.headerAnnotations[$scope.selectedPosition.column];
                     //adds classification into rusult
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                    $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
+                    currentClassification.candidates[$scope.primaryKB].push(newObj);
+                    currentClassification.chosen[$scope.primaryKB] = [newObj];
 
                     //locks cell
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
                     //deletes form fields
-                    $scope.proposal={};
+                    $scope.proposal = {};
 
                     //success message
                     success();
@@ -101,7 +111,7 @@
                 function (response) {
                     //because of a delayed response server
                     var info = JSON.parse(response.data);
-                       fail(info);
+                    fail(info);
                 }
             );
         };
@@ -111,24 +121,23 @@
             rest.base($scope.primaryKB).entities.resources.update(obj).exec(
                 function (response) {
                     var newObj = {
-                        "entity": {
-                            "resource": response.resource,
-                            "label": response.label
-                        },
+                        "entity": response,
                         "score": {
-                            "value": 0
+                            "value": null
                         }
                     };
+
+                    var currentDisambiguation = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column];
                     //adds disambiguation into result
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].candidates[$scope.primaryKB].push(newObj);
-                    $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column].chosen[$scope.primaryKB] = [newObj];
+                    currentDisambiguation.candidates[$scope.primaryKB].push(newObj);
+                    currentDisambiguation.chosen[$scope.primaryKB] = [newObj];
 
 
                     //locks cell
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
 
                     //deletes form fields
-                    $scope.proposal={};
+                    $scope.proposal = {};
 
                     //success message
                     success();
@@ -136,22 +145,20 @@
                 // Error
                 function (response) {
                     var info = JSON.parse(response.data);
-                        //fail message
-                        fail(info);
+                    //fail message
+                    fail(info);
                 }
             );
         };
 
         //sets parameters for the alert directive
-        var success = function()
-        {
+        var success = function () {
             $scope.serverResponse.type = 'success';
             $scope.serverResponse.visible = true;
             $scope.messege = "Proposed resource was successfully saved in the knowledge base";
         }
         //sets parameters for the alert directive
-        var fail = function(info)
-        {
+        var fail = function (info) {
             $scope.serverResponse.type = 'error';
             $scope.serverResponse.visible = true;
             $scope.messege = info.payload.text;

@@ -1,0 +1,106 @@
+<!-- Specifying a source (upload/remote) -->
+<div class="form-group">
+    <label class="control-label col-md-2">
+        Source:
+    </label>
+    <div class="col-md-5">
+        <label class="radio-inline">
+            <input type="radio" ng-model="fileProvision" value="local" />
+            Uploaded or selected file
+        </label>
+    </div>
+    <div class="col-md-5">
+        <label class="radio-inline">
+            <input type="radio" ng-model="fileProvision" value="remote"/>
+            Remote file
+        </label>
+    </div>
+</div>
+
+<!-- Remote location placeholder -->
+<injector for="deflocation">http://</injector>
+
+<!-- Modal for file configuration -->
+<file-settings bind="fileconfig" />
+
+<!-- Confirm modal when overwriting file (does not matter whether local or remote) -->
+<confirm bind="confirm" title="File overwrite">
+    You are about to overwrite an existing file. Continue?
+</confirm>
+
+<div ng-switch="fileProvision" ng-init="fileProvision = 'local'">
+    <!-- Local file -->
+    <ng-form name="localFileForm" ng-init="setForm(this, 'localFileForm')" ng-switch-when="local">
+        <div class="form-group">
+            <label class="col-md-2 control-label">Upload a new file:</label>
+            <div class="col-md-8">
+                <input type="file" id="concreteFile" name="fileSelector" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Identifier:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="localFileID" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" pattern="[-a-zA-Z0-9_.,\s]*" required/>
+                <div ng-messages="localFileForm.localFileID.$error" ng-if='localFileForm.localFileID.$dirty' role="alert">
+                    <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
+                    <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button-load button-class="col-md-12 form-control" action="fileUpload.uploadFile" disabled="fileUpload.isUploadDisabled">Upload</button-load>
+            </div>
+        </div>
+    </ng-form>
+
+    <!-- Remote file -->
+    <ng-form name="remoteFileForm" ng-switch-when="remote">
+        <div class="form-group">
+            <label class="col-md-2 control-label">Location:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="text" name="remoteFileSrc" ng-model="fileAttach.location" ng-init="fileAttach.location = deflocation" required />
+                <div ng-messages="remoteFileForm.remoteFileSrc.$error" ng-if='remoteFileForm.remoteFileSrc.$dirty' role="alert">
+                    <div ng-message="required"><error-msg>Location has to be set.</error-msg></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Identifier:</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="remoteFileID" ng-model="fileAttach.identifier" pattern="[-a-zA-Z0-9_.,\s]*" required/>
+                <div ng-messages="remoteFileForm.remoteFileID.$error" ng-if='remoteFileForm.remoteFileID.$dirty' role="alert">
+                    <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
+                    <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button-load button-class="form-control" action="fileAttach.attachFile" disabled="!remoteFileForm.$valid">Attach</button-load>
+            </div>
+        </div>
+    </ng-form>
+</div>
+
+<!-- Selecting file from the list -->
+<div class="form-group" ng-if="fileList.fileSelection">
+    <label class="col-md-2 control-label">Selected file:</label>
+    <div class="col-md-8">
+        <select class="form-control fs-aclass" name="fileSelectList" ng-model="fileList.selectedFile" ng-options="file.id for file in fileList.identifiers" required>
+            <option value="">Select file</option>
+        </select>
+        <div ng-if="form.fileSelectList.$invalid && form.fileSelectList.$dirty">
+            <error-msg>A file has to be selected.</error-msg>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="form-control" ng-click="configureFile()" ng-disabled="form.fileSelectList.$invalid">
+            Configure
+        </button>
+    </div>
+</div>
+
+<!--  Alerts displaying notifications to a user -->
+<injector for="msgtxt.uploadSuccessful">The file has been successfully uploaded and saved.</injector>
+<injector for="msgtxt.attachSuccessful">The file has been successfully attached and saved.</injector>
+<injector for="msgtxt.uploadFailure">An error occured while uploading the file.</injector>
+<injector for="msgtxt.attachFailure">An error occured while attaching the file.</injector>
+
+<alert-group bind="messages" disappearing="3"/>

@@ -13,7 +13,8 @@
             scope: {
                 locked: '=',
                 kB: '@',
-                column: '@'
+                column: '@',
+                ignored:'='
             },
 
             templateUrl: currentFolder + 'sclock.html',
@@ -28,9 +29,10 @@
                 // switchs lock/unlock
                 scope.changeLocking = function($event)
                 {
-                    // TODO nefunguje ven
-                    //$event.stopPropagation();
-                    scope.locked[scope.kB][scope.column] ^= 1;
+                    //controls if the column is not ignored ( ignored column cannot be subject column)
+                   if(scope.ignored == 0) {
+                       scope.locked[scope.kB][scope.column] ^= 1;
+                   }
                 }
             }
         }

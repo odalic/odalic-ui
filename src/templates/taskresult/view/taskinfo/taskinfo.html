@@ -1,0 +1,25 @@
+<div>
+    <!-- Warnings -->
+    <span ng-if="taskinfo.showWarning && (result.warnings.length > 0)">
+        <!-- Text -->
+        <span class="bg-danger">There were some problems processing the current task.</span> <a ng-click="taskinfo.modal.open()" class="odalic-cursor-pointer">Learn more</a> <a ng-click="taskinfo.showWarning = false" class="odalic-cursor-pointer">[x]</a>
+
+        <!-- Modal showing the problems -->
+        <modal bind="taskinfo.modal" title="Warnings">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="warning in result.warnings track by $index">
+                        <td>{{ $index }}</td>
+                        <td>{{ warning }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </modal>
+    </span>
+</div>

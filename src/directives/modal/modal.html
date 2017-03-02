@@ -4,7 +4,15 @@
 
             <!-- Headline -->
             <div class="modal-header">
-                <h2></h2>
+                <h2>
+                    <span class="col-md-11 modal-title">
+                        <!-- Title filled by controller -->
+                    </span>
+                    <span class="col-md-1">
+                        <!-- Close icon -->
+                        <modal-closing closing-function="close"/>
+                    </span>
+                </h2>
             </div>
 
             <!-- Body -->
@@ -15,7 +23,9 @@
 
             <!-- Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="col-md-offset-8 col-md-4 form-group">
+                    <button type="button" class="form-control" data-dismiss="modal">Dismiss</button>
+                </div>
             </div>
         </div>
     </div>

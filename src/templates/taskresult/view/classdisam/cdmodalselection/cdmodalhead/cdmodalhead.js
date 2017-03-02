@@ -3,7 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    //
+    //sets title for modal window
     var currentFolder = $.getPathForRelativePath('');
     app.directive('cDModalHead', function () {
         return {

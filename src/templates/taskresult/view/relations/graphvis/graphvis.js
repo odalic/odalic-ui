@@ -5,7 +5,7 @@
 
     // graphvis directive
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('graphvis', function (sharedata) {
+    app.directive('graphvis', function () {
         return {
             restrict: 'E',
             templateUrl: currentFolder + 'graphvis.html',
@@ -162,14 +162,12 @@
                             // Locks
                             setLock: function (node1, node2, locked) {
                                 applyOnColIdcs(node1, node2, function (column1, column2) {
-                                    // TODO: The data structure seems to be illogical. Why negate?
                                     scope.bind.lockobj[column1][column2] = !locked;
                                 });
                             },
                             getLock:  function (node1, node2) {
                                 var result = null;
                                 applyOnColIdcs(node1, node2, function (column1, column2) {
-                                    // TODO: The data structure seems to be illogical. Why negate?
                                     result = !scope.bind.lockobj[column1][column2];
                                 });
                                 return result;
@@ -251,16 +249,23 @@
 
                         // Construct predicate label for a given KB and a candidate
                         var handleCandidate = function (kb, candidate) {
-                            var concept = candidate['label'];
-                            if (!concept) {
-                                var resource = candidate['resource'];
-                                try {
-                                    concept = text.uri(resource).page;
-                                } catch (e) {
-                                    concept = text.dotted(resource, 20);
+                            var prefix = candidate['prefixed'];
+                            if (prefix) {
+                                // Display the prefix on edge, if defined
+                                labels.push(prefix);
+                            } else {
+                                // The old way - display "label (KB)"
+                                var concept = candidate['label'];
+                                if (!concept) {
+                                    var resource = candidate['resource'];
+                                    try {
+                                        concept = text.uri(resource).page;
+                                    } catch (e) {
+                                        concept = text.dotted(resource, 20);
+                                    }
                                 }
+                                labels.push((new String()).concat(concept, '(', kb, ')'));
                             }
-                            labels.push(kb + ':' + concept);
                         };
 
                         // Retrieve selected predicate labels

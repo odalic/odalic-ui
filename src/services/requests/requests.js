@@ -3,8 +3,12 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // A service for creating REST requests in a convenient way
-    app.service('requests', function ($http) {
+    /** requests
+     *  Description:
+     *      A service for creating AJAX requests in a convenient way.
+     *      Default behaviour is affected by 'requests' module (see ioc/modules.json).
+     */
+    app.service('requests', function ($http, ioc) {
 
         /** Format of "request_package" object parameter.
          *
@@ -30,10 +34,10 @@
                 data: request_package.formData
             }).then(
                 function (response) {
-                    request_package.success(response)
+                    ioc['requests'].success(response, request_package.success);
                 },
                 function (response) {
-                    request_package.failure(response)
+                    ioc['requests'].failure(response, request_package.failure);
                 }
             );
         }
@@ -45,15 +49,21 @@
          * @param method        GET / POST / PUT / DELETE
          * @param success       Success function
          * @param failure       Failure function
+         * @param acceptType    Content-type of data accepted (in header)
+         * @param type          Content-type of data sent (in header)
+         * @param data          Data to be sent to server
          */
-        this.quickRequest = function (url, method, success, failure) {
-            $http({
+        this.quickRequest = function (url, method, success, failure, acceptType, type, data) {
+            generic_request({
                 method: method,
-                url: url
-            }).then(
-                success,
-                failure
-            );
+                address: url,
+                formData: data,
+                success: success,
+                failure: failure
+            }, {
+                'Content-Type': type,
+                'Accept': acceptType
+            });
         };
 
         /** Helps to prepare "multipart/form-data" payload.
@@ -126,6 +136,34 @@
          */
         this.reqRDF = function (request_package) {
             generic_request(request_package, {'Content-Type': 'text/turtle', 'Accept': 'text/turtle'});
+        };
+
+        /** A simple generic request wrapper that ignores default
+         *  behaviour specified by IOC.
+         *  Serves ONLY for requests that are an exception from rules
+         *  set by the server, e.g. wrapped response, etc.
+         *
+         * @param url           Url of the resource
+         * @param method        GET / POST / PUT / DELETE
+         * @param success       Success function
+         * @param failure       Failure function
+         * @param acceptType    Content-type of data accepted (in header)
+         * @param type          Content-type of data sent (in header)
+         * @param data          Data to be sent to server
+         */
+        this.pureRequest = function (url, method, success, failure, acceptType, type, data) {
+            $http({
+                method: method,
+                url: url,
+                headers: {
+                    'Content-Type': type,
+                    'Accept': acceptType
+                },
+                transformResponse: [function (data) {
+                    return data;
+                }],
+                data: data
+            }).then(success, failure);
         };
     });
 

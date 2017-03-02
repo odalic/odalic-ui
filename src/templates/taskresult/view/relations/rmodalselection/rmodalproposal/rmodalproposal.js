@@ -3,16 +3,21 @@
     // Main module
     var app = angular.module('odalic-app');
 
+    //allows to propose own relation
     app.controller('rProposeController', function ($scope, $uibModalInstance, rest, data) {
         $scope.selectedRelation = data.selectedRelation;
         $scope.result = data.result;
-        $scope.locked = data.locked;
+        $scope.range = data.range;
+        $scope.domain = data.domain;
+        $scope.currentLock = data.locked;
         $scope.primaryKB = data.primaryKB;
         $scope.gvdata = data.gvdata;
+        $scope.currentRelation =  data.currentRelation;
+        $scope.close = $uibModalInstance.close;
+
 
         //sets parameters for the alert directive
         $scope.serverResponse = {
-            type: 'success',
             visible: false
         };
 
@@ -20,7 +25,7 @@
         $scope.setProposal = function (proposal) {
 
             // Is proposal defined?
-            if (proposal) {
+            if (proposal && $scope.rProposeForm.$valid) {
 
                 var url = proposal.suffixUrl;
 
@@ -37,9 +42,11 @@
                     "alternativeLabels": alternativeLabels,
                     "suffix": url,
                     "superProperty": null,
-                    "domain": $scope.result.headerAnnotations[$scope.selectedRelation.column1].chosen[$scope.primaryKB][0].entity,
-                    "range": $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB][0].entity
+                    "domain":  $scope.domain,
+                    "range":  $scope.range
                 };
+
+
                 properties(obj);
             }
         };
@@ -52,34 +59,19 @@
                 function (response) {
 
                     var newObj = {
-                        "entity": {
-                            "resource": response.resource,
-                            "label": response.label
-                        },
+                        "entity": response,
                         "score": {
-                            "value": 0
+                            "value": null
                         }
                     };
-
-                    //creates levels of json if they are missing
-                    objhelp.objRecurAccess($scope.result.columnRelationAnnotations, $scope.selectedRelation.column1, $scope.selectedRelation.column2, 'candidates');
-                    var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
-                    if (!currentRelation.candidates.hasOwnProperty($scope.primaryKB)) {
-                        currentRelation.candidates[$scope.primaryKB] = [];
-                    }
-
-                    objhelp.objRecurAccess(currentRelation, 'chosen');
-                    if (!currentRelation.chosen.hasOwnProperty($scope.primaryKB)) {
-                        currentRelation.chosen[$scope.primaryKB] = [];
-                    }
-
+                    
                     //adds classification into result
-                    currentRelation.candidates[$scope.primaryKB].push(newObj);
-                    currentRelation.chosen[$scope.primaryKB] = [newObj];
+                    $scope.currentRelation.candidates[$scope.primaryKB].push(newObj);
+                    $scope.currentRelation.chosen[$scope.primaryKB] = [newObj];
                     $scope.gvdata.mc();
 
                     //locks
-                    $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+                    $scope.currentLock();
                     $scope.gvdata.update();
 
                     //success message
@@ -99,7 +91,7 @@
         var success = function () {
             $scope.serverResponse.type = 'success';
             $scope.serverResponse.visible = true;
-            $scope.messege = "Propose was saved";
+            $scope.messege = "Proposed relation was saved";
         }
         //sets parameters for the alert directive
         var fail = function (info) {

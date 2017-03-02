@@ -3,23 +3,42 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Alert-group directive, for displaying bootstrap several alerts below each other.
-     *  Usage: <alert-group bind="myvar" disappearing="5" />
+    /** alert-group
+     *  Description:
+     *      A group of alert directives.
+     *      Serves for displaying a chain of messages (e.g. when several requests may go wrong).
+     *      The alerts may be set to automatically disappear after a while.
      *
-     *  $scope.myvar = {];
+     *  Usage:
+     *      # Example 1
+     *      - template -
+     *      <!-- displays messages for 5 seconds -->
+     *      <alert-group bind="myvar" disappearing="5" />
      *
-     *  ...
-     *  $scope.myvar.push('error', 'Something went wrong...');
-     *  $scope.myvar.push('success', 'But also something succeeded!');
+     *      - controller -
+     *      // initialize
+     *      $scope.myvar = {];
      *
-     *  ...
-     *  $scope.myvar.clear();
+     *      // on certain event add new messages
+     *      $scope.myevent = function() {
+     *          $scope.myvar.push('error', 'Something went wrong...');
+     *          $scope.myvar.push('success', '...but something also succeeded!');
+     *      };
      *
-     *  Attribute "disappearing":
-     *      After what amount of seconds should the alerts automatically disappear.
-     *      When omitted or set to 0, the alerts stay there forever until closed by a user.
+     *      // on another event clear
+     *      $scope.myevent2 = function() {
+     *          $scope.myvar.clear();
+     *      }
      *
-     *  See alert directive for further details.
+     *  Arguments:
+     *      bind
+     *      - An object on scope. May be empty, but has to be defined.
+     *      Functions:
+     *          - push(type, msg): adds a new alert to the group of type 'type' with message 'msg'
+     *          - clear(): removes all current alerts from the group
+     *
+     *      disappearing (optional)
+     *      - Time interval (seconds) for individual alerts to disappear.
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('alertGroup', function () {

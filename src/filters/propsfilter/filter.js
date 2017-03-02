@@ -3,7 +3,10 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // Filter
+    /** props-filter
+     *  Description:
+     *      Filter for a string matching in the select boxes.
+     */
     app.filter('propsFilter', function () {
         return function (items, props) {
             var out = [];
@@ -19,8 +22,6 @@
 
                         var text = props[keys[i]].toLowerCase();
 
-                        // TODO: Kata, meaning of this?
-                        // lower Case nebezpecne
                         if (item[prop[0]][prop[1]].toString().toLowerCase().indexOf(text) !== -1) {
                             itemMatches = true;
                             break;

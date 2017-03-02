@@ -1,14 +1,15 @@
 <!-- Prepared messages to display to a user in case of a situation -->
 <injector for="msgtxt.removeFailure">An error occurred while removing the file.</injector>
+<injector for="msgtxt.downloadFailure">An error occurred while downloading the file.</injector>
 
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="1" lmenu="default-lm.json" rmenu="default-rm.json" />
+    <navbar selected="files" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <!-- Content -->
     <div class="container-fluid">
-        <h2>File list</h2>
+        <h2>List of files</h2>
 
         <!-- Modal for file configuration -->
         <file-settings bind="fileconfig" />
@@ -24,26 +25,31 @@
         <!-- Unknown bug - a first useless tooltip has to be written for some reason -->
         <tooltip msg="bug-fixer" />
 
-        <!-- The table of tasks -->
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>Date created</th>
-                <th>File name</th>
-                <th>Action</th>
-                <th>Type</th>
-            </tr>
-            </thead>
-            <tbody>
+        <!-- The table of files -->
+        <loadico bind="dataload" size="5" center="true" showtxt="true">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Date created</th>
+                    <th>File name</th>
+                    <th>Actions</th>
+                    <th>Type</th>
+                </tr>
+                </thead>
+                <tbody>
                 <!-- A single file -->
-                <tr ng-repeat="file in files">
+                <tr ng-repeat="file in filesProxy.getView()">
                     <td class="col-md-2">{{ file.uploaded }}</td>
                     <td class="col-md-7">{{ file.id }}</td>
 
                     <!-- Actions -->
                     <td class="col-md-2">
                         <tooltip source="actiontext.download" place="top">
-                            <a class="btn btn-default" ng-click="fdownload(file.id)"><i class="fa fa-external-link fa-lg"></i></a>
+                            <a-fake ajax="fdownload" args="file.id" catcher="fileerror" type="text/csv">
+                                <a class="btn btn-default">
+                                    <i class="fa fa-download fa-lg"></i>
+                                </a>
+                            </a-fake>
                         </tooltip>
                         <tooltip source="actiontext.configure" place="top">
                             <a class="btn btn-default" ng-click="fconfigure(file.id)"><i class="fa fa-cog fa-lg"></i></a>
@@ -58,26 +64,32 @@
                         <div ng-switch="file.cached">
                             <div ng-switch-when="true">
                                 <tooltip source="statetext.local" place="top">
-                                    <a class="btn odalic-cursor-normal"><i class="fa fa-map-marker fa-lg"></i></a>
+                                    <a class="odalic-cursor-normal"><i class="fa fa-map-marker fa-lg"></i></a>
                                 </tooltip>
                             </div>
                             <div ng-switch-when="false">
                                 <tooltip source="statetext.remote" place="top">
-                                    <a class="btn odalic-cursor-normal"><i class="fa fa-globe fa-lg"></i></a>
+                                    <a class="odalic-cursor-normal"><i class="fa fa-globe fa-lg"></i></a>
                                 </tooltip>
                             </div>
                         </div>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </loadico>
 
-        <!-- Notice -->
-        <p>Please note that files may be added to the list only during a task creation.</p>
+        <!-- Pagination -->
+        <pagination bind="filesProxy" per-page="5"/>
 
         <!-- Reporting situations to a user -->
         <div class="col-md-12">
             <alert-group bind="messages" disappearing="3"/>
+        </div>
+
+        <!-- Additional content below the table -->
+        <div class="col-md-offset-10 col-md-2">
+            <button type="button" class="col-md-offset-2 col-md-10 btn btn-lg" ng-click="misc.addNew()">Add new</button>
         </div>
 
         <!-- Blank space pushing footer further below -->

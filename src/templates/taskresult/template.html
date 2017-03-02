@@ -1,7 +1,7 @@
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="-1" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
+    <navbar selected="none" lmenu="default-lm.json" rmenu="default-rm.json"></navbar>
 
     <div class="container-fluid">
         <!-- Content -->
@@ -9,25 +9,34 @@
             <div ng-switch="resview">
                 <!-- Result display -->
                 <div ng-switch-when="view">
+                    <!-- Task information, warning messages, etc. -->
+                    <task-info result="result"/>
+
                     <!-- VIEW -->
                     <div ng-switch="state" ng-init="state = 0">
 
                         <!-- VIEW: Sets subject column  -->
                         <div ng-switch-when="0">
-
                             <include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include>
-
                         </div>
 
                         <!-- VIEW: Sets classifications and disambiguations -->
                         <div ng-switch-when="1">
-                            <subject-column-tables/>
+                            <div ng-if="statistical == false">
+                                <subject-column-tables/>
+                            </div>
+                            <div ng-if="statistical == true ">
+                                <h2>Step 3: Setting the statistical data cube</h2>
+                                <!--data cube-->
+                                <include src="src/templates/taskresult/view/statisticaldata/statisticaldata.html"/>
+                            </div>
+
                         </div>
 
                         <!-- VIEW: Relations -->
                         <div ng-switch-when="2">
-                            <h2>Step 3: Reviewing suggested relations between the subject column and other columns</h2>
-
+                            <h2>Step 3: Reviewing suggested relations between the subject column and other
+                                columns</h2>
                             <!-- Graph visualiser -->
                             <graphvis bind="gvdata"></graphvis>
                         </div>

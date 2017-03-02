@@ -45,20 +45,20 @@ var pollerComponent = function (rest) {
                 // The task has been handled; are we the last one to be handled?
                 if (++handled == tasksnum) {
                     // Handle "ToAdd" tasks
-                    addprepared(taskId);
+                    addprepared();
 
                     // Handle "ToRemove" tasks
                     toremove.forEach(function (item) {
                         if (!(item in states)) {
                             return;
                         }
-                        delete states[taskId];
+                        delete states[item];
                         tasksnum--;
                     });
                     toremove = [];
 
                     handled = null;
-                };
+                }
             },
             // Failure
             function (response) {
@@ -69,12 +69,12 @@ var pollerComponent = function (rest) {
 
     // Poll for all of the tasks' states
     var poll = function () {
-        // The tasks are still 'handling' from a previous call; dismiss
+        // The tasks are still 'handling' from a previous call? => Dismiss.
         if (handled !== null) {
             return;
         }
 
-        // Are there even any tasks to handle?
+        // Are there any tasks to handle?
         if (tasksnum === 0) {
             if (toadd.length > 0) {
                 addprepared();

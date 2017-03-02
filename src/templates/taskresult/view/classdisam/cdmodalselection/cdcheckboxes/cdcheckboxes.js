@@ -21,8 +21,25 @@
                 // On checkbox check changed
                 $scope.lockCell = function() {
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
-                    console.log($scope.ignoredColumn);
                 };
+
+                $scope.title =""
+                //controls if the column is not subject column (subject column cannot be ignored)
+                $scope.isSubjectColumnLocked= function()
+                {
+                    var lockedColumn =  $scope.locked.subjectColumns;
+                    for(var kb in lockedColumn)
+                    {
+                        if(lockedColumn[kb][$scope.selectedPosition.column] == 1)
+                        {
+                            $scope.title="Subject column cannot be ignored."
+                            return true;
+                        }
+
+                    }
+                    $scope.title="";
+                    return false;
+                }
             }
         }
     });

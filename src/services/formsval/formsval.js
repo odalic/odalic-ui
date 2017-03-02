@@ -3,7 +3,22 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // A service for sharing data between pages
+    /** formsval
+     *  Description:
+     *      Easing built-in angular support for forms validation.
+     *
+     *  Usage:
+     *      # Ensuring proper form initialization (to be able to use the built-in angular support)
+     *      - template -
+     *      <form name="signupForm" ng-init="setForm(this, 'signupForm')">
+     *
+     *      - controller -
+     *      formsval.toScope($scope);
+     *
+     *
+     *      # Form validation
+     *      var formValid = formsval.validate($scope.signupForm);
+     */
     app.service('formsval', function () {
 
         /** Creates some useful functions and pushes them into the scope.
@@ -57,6 +72,28 @@
             // Return
             return valid;
         };
+
+        /** Returns whether a form is valid.
+        *  Sets dirty flag in the controls that report an error.
+        *
+        *  @param form        The form object to validate.
+        *  @returns {boolean} Whether the form is valid.
+        */
+        this.validate = function (form) {
+            var valid = true;
+
+            // Force validation
+            objhelp.objForEach(form.$error, function (key, value) {
+                value.forEach(function (item) {
+                    item.$setDirty();
+                    valid = false;
+                })
+            });
+
+            // Return
+            return valid;
+        };
+
     });
 
 })();

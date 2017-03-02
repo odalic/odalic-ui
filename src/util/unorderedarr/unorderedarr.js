@@ -1,3 +1,4 @@
+/** An implementation of 'unordered array', i.e. the items are never sorted, but allows for O(1) adding/removal of items */
 var unorderedarr = function () {
 
     /* Private members */
@@ -40,7 +41,7 @@ var unorderedarr = function () {
         }
 
         return arrmap[id];
-    }
+    };
 
     /** Adds an item to the array
      *
@@ -75,4 +76,4 @@ var unorderedarr = function () {
         delete arrmap[id];
         this.arr.pop();
     };
-}
+};

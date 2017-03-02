@@ -1,3 +1,4 @@
+/** Constants used throughout the application */
 var constants = {
     get addresses() {
         return {
@@ -58,7 +59,7 @@ var constants = {
     get formats() {
         return {
             get date() {
-                return String('yyyy-MM-dd HH:mm');
+                return new String('yyyy-MM-dd HH:mm');
             }
         }
     },

@@ -1,5 +1,5 @@
 <loadico bind="dataload" size="2" center="true">
-    <button type="button" class="form-control" ng-click="buttonClick()" ng-disabled="disabled" ng-transclude>
+    <button type="{{ buttonType || 'button' }}" class="{{ buttonClass }}" ng-click="buttonClick()" ng-disabled="disabled" ng-transclude>
         <!-- Button text from outside -->
     </button>
 </loadico>

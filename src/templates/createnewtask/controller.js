@@ -3,16 +3,11 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // Load submodules
-    loadhelp.loadDefault();
-
     // Create a controller for task-creation screen
     app.controller('createnewtask-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
 
-        // Template initialization
-        $scope['taskCreation'] = {};
-
         // Initialization
+        $scope.taskCreation = {};
         $scope.templFormat = {
             createTask: null,
             saveTask: null,
@@ -20,60 +15,105 @@
         };
         $scope.linesLimit = {};
         $scope.fileinput = {};
+        $scope.statistical = {};
+        $scope.confirm = {};
         formsval.toScope($scope);
 
-        //TODO smazat az bude na vyber,tj.
-        //az to bude server umet, tak se dostupne kbs nastavi ze serveru
+        // Additional variables
+        var kbListLoaded = false;
+        var formerTaskObj = {};
 
-        //Supported knowledge bases
-        // TODO: Temporarily this way! Improvement needed!
-        // Fallback to default:
-        $scope.kbs = {
-            modifiableKBs:[],
-            availableKBs: [
-                // { name: 'DBpedia' },
-                // { name: 'DBpedia Clone' },
-                // { name: 'German DBpedia' }
-            ],
-            primaryKB: null,
-            setDefault: function () {
-                if (this.modifiableKBs && this.modifiableKBs.length > 0) {
-                    this.primaryKB = this.modifiableKBs[0];
+        // Dealing with knowledge bases
+        (function () {
+            // Supported knowledge bases
+            $scope.kbs = {
+                modifiableSelectedKBs: [],      // KBs that a primary base can be chosen from
+                chosenKBs: [],                  // KBs that were selected
+
+                availableKBs: [],               // All KBs
+                modifiableKBs: [],              // KBs that can serve as a primary base
+                primaryKB: null,
+                
+                // Change list of available KBs that can serve as a primary base upon selection change
+                selectionChanged: function () {
+                    var ref = this;
+                    ref.modifiableSelectedKBs = [];
+
+                    // Not the optimal algorithm, but the amount of KBs is assumed to be small
+                    if (ref.modifiableKBs) {
+                        ref.modifiableKBs.forEach(function (modifiableKB) {
+                            if (ref.chosenKBs) {
+                                ref.chosenKBs.forEach(function (kb) {
+                                    if (kb.name === modifiableKB.name) {
+                                        ref.modifiableSelectedKBs.push(modifiableKB);
+                                    }
+                                });
+                            }
+                        });
+                    }
+                },
+
+                // Updates "chosenKBs" and "primaryKB" according to arguments (string names of KBs); chosenKBs has to be an array
+                setBases: function (chosenKBs, primaryKB) {
+                    if (!this.availableKBs) {
+                        return;
+                    }
+
+                    var ref = this;
+                    var chosenKBsObjs = [];
+
+                    // Again not the most optimal approach, but should not matter...
+                    chosenKBs.forEach(function (kbString) {
+                        ref.availableKBs.forEach(function (kbObj) {
+                            if (kbObj.name === kbString.name) {
+                                chosenKBsObjs.push(kbObj);
+                            }
+                        })
+                    });
+                    
+                    ref.chosenKBs = chosenKBsObjs;
+                    ref.selectionChanged();
+
+                    // Find the primary base among "modifiableKBs" list
+                    if (ref.modifiableKBs) {
+                        ref.modifiableKBs.forEach(function (kbObj) {
+                            if (kbObj.name === primaryKB.name) {
+                                ref.primaryKB = kbObj;
+                            }
+                        })
+                    }
                 }
-            }
-        };
-        rest.bases.list(false).exec(
-            // Success
-            function (response) {
-                console.log(response);
-                $scope.kbs.availableKBs = response;
-            },
+            };
 
-            // Failure
-            function (response) {
-                // Log and ignore. Hopefully won't happen.
-                console.warn('Could not load KB list. Reponse:');
-            }
-        );
+            // Retrieve the list of KBs from server
+            rest.bases.list(false).exec(
+                // Success
+                function (response) {
+                    // Set available KBs
+                    $scope.kbs.availableKBs = response;
 
-        rest.bases.list(true).exec(
-            // Success
-            function (response) {
-                console.log(response);
-                $scope.kbs.modifiableKBs = response;
-                $scope.kbs.setDefault();
-            },
+                    // Retrieve list of KBs that can serve as a primary KB
+                    rest.bases.list(true).exec(
+                        // Success
+                        function (response) {
+                            $scope.kbs.modifiableKBs = response;
+                            kbListLoaded = true;
+                        },
 
-            // Failure
-            function (response) {
-                // Log and ignore. Hopefully won't happen.
-                console.warn('Could not load KB list. Reponse:');
-                console.warn(response);
-                $scope.kbs.setDefault();
-            }
-        );
-
-
+                        // Failure
+                        function (response) {
+                            $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.kbLoadFailure'], response.data));
+                            kbListLoaded = true;
+                        }
+                    );
+                },
+                // Failure
+                function (response) {
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.kbLoadFailure'], response.data));
+                    kbListLoaded = true;
+                }
+            );
+        })();
 
         $scope.wholeForm = {
             // Messages for a user
@@ -84,113 +124,192 @@
                 return formsval.validateNonNested($scope.taskCreationForm);
             },
 
-            getTaskObject: function () {
+            getTaskObject: function (forcedFeedback) {
                 var fileId = $scope.fileinput.getSelectedFile();
                 var taskId = $scope.taskCreation.identifier;
+                var emptyFeedback = {
+                    columnIgnores: [],
+                    classifications: [],
+                    columnAmbiguities: [],
+                    ambiguities: [],
+                    disambiguations: [],
+                    columnRelations: []
+                };
 
                 return {
                     id: String(taskId),
                     created: (new Date()).toString("yyyy-MM-dd HH:mm"),
                     configuration: {
                         input: fileId,
-                        feedback: {
-                            columnIgnores: [],
-                            classifications: [],
-                            columnAmbiguities: [],
-                            ambiguities: [],
-                            disambiguations: [],
-                            columnRelations: []
-                        },
+                        feedback: objhelp.getFirstArg(forcedFeedback, emptyFeedback),
                         primaryBase: {
                             name: $scope.kbs.primaryKB.name
                         },
-                        rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null
+                        usedBases: $scope.kbs.chosenKBs,
+                        rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null,
+                        statistical: $scope.statistical.value
                     },
                     description: text.safe($scope.taskCreation.description)
                 };
             }
         };
 
+        // Running task upon save/creation
+        var runTask = function (errorMsg) {
+            // Prepare
+            var taskId = $scope.taskCreation.identifier;
+            var handler = function () {
+                // Just continue to the taskconfigs screen
+                window.location.href = '#/taskconfigs/' + taskId;
+            };
+
+            // Start the task
+            rest.tasks.name(taskId).execute.exec(
+                // Execution started successfully
+                function (response) {
+                    handler();
+                },
+                // Error while starting the execution
+                function (response) {
+                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope[errorMsg], response.data));
+                    f();
+                }
+            );
+        };
+
         // Task creation
-        $scope.templFormat.createTask = function (callback) {
+        $scope.templFormat.createTask = function (f, callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
+                f();
                 return;
             }
 
             // Generic preparations
             var taskId = $scope.taskCreation.identifier;
 
-            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
+            // Task creation
+            var create = function () {
+                rest.tasks.name(taskId).create($scope.wholeForm.getTaskObject()).exec(
+                    // Success
+                    function (response) {
+                        // Don't handle if further action was specified
+                        if (callback) {
+                            callback();
+                            return;
+                        }
 
-            // Insert the task
-            rest.tasks.name(taskId).create($scope.wholeForm.getTaskObject()).exec(
-                // Success
-                function (response) {
-                    // Don't handle if further action was specified
-                    if (callback) {
-                        callback();
-                        return;
+                        // The task has been created, redirect to the task configurations screen
+                        window.location.href = '#/taskconfigs/' + taskId;
+                    },
+                    // Failure
+                    function (response) {
+                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
+                        f();
                     }
+                );
+            };
 
-                    // The task has been created, redirect to the task configurations screen
-                    window.location.href = '#/taskconfigs/' + taskId;
+            // Insert the task, if everything is OK
+            rest.tasks.name(taskId).exists(
+                // The task already exists => confirm overwrite
+                function () {
+                    $scope.confirm.open(function (response) {
+                        if (response === true) {
+                            create();
+                        } else {
+                            f();
+
+                            // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                        }
+                    });
                 },
-                // Failure
-                function (response) {
-                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
-                }
+
+                // The task does not exist yet => create without any prompt
+                create
             );
         };
 
         // Task creation + run
-        $scope.templFormat.createAndRun = function () {
-            $scope.templFormat.createTask(function () {
-                // Prepare
-                var taskId = $scope.taskCreation.identifier;
-                var handler = function () {
-                    // Just continue to the taskconfigs screen
-                    window.location.href = '#/taskconfigs/' + taskId;
-                };
-
-                // Start the task
-                rest.tasks.name(taskId).execute.exec(
-                    // Execution started successfully
-                    function (response) {
-                        handler();
-                    },
-                    // Error while starting the execution
-                    function (response) {
-                        $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.startFailure'], response.data));
-                    }
-                );
+        $scope.templFormat.createAndRun = function (f) {
+            $scope.templFormat.createTask(f, function () {
+                runTask('msgtxt.startFailure');
             });
         };
 
         // Task saving
-        $scope.templFormat.saveTask = function () {
+        $scope.templFormat.saveTask = function (f, callback) {
             // Validate the form
             if (!$scope.wholeForm.validate()) {
+                f();
                 return;
             }
 
             // Generic preparations
             var taskid = $scope.taskCreation.identifier;
+            var taskObj = $scope.wholeForm.getTaskObject();
+            var taskObjDiff = objhelp.objCompare(formerTaskObj, taskObj);
 
-            // TODO: A loading icon should be displayed until the task is actually inserted on the server. If an error arises a tooltip / alert should be displayed.
+            // On error
+            var error = function (response) {
+                $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                f();
+            };
 
-            // Insert the task
-            rest.tasks.name(taskid).create($scope.wholeForm.getTaskObject()).exec(
-                // Success
-                function (response) {
-                    // The task has been updated, redirect to the task configurations screen
-                    window.location.href = '#/taskconfigs/' + $scope.taskCreation.identifier;
-                },
-                // Failure
-                function (response) {
-                    $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                }
-            );
+            // Inserting the task
+            var insert = function (taskObj) {
+                rest.tasks.name(taskid).create(taskObj).exec(
+                    // Success
+                    function (response) {
+                        // Don't handle if further action was specified
+                        if (callback) {
+                            callback();
+                            return;
+                        }
+
+                        // The task has been updated, redirect to the task configurations screen
+                        window.location.href = '#/taskconfigs/' + $scope.taskCreation.identifier;
+                    },
+                    // Failure
+                    function (response) {
+                        error(response);
+                    }
+                );
+            };
+
+            // Possible to save the task without nullifying already-computed result?
+            if ((taskObjDiff.length <= 1) &&
+                (taskObjDiff.length == 0 || taskObjDiff[0] == 'description')) {
+                // Load the current feedback and then use it to create a new task object
+                rest.tasks.name(taskid).feedback.retrieve.exec(
+                    // Success
+                    function (response) {
+                        insert($scope.wholeForm.getTaskObject(response));
+                    },
+                    // Failure
+                    function (response) {
+                        error(response);
+                    }
+                );
+            } else {
+                // Save the task using empty feedback
+                insert(taskObj);
+            }
+        };
+
+        // Task save + run
+        $scope.templFormat.saveAndRun = function (f) {
+            $scope.templFormat.saveTask(f, function () {
+                runTask('msgtxt.startFailure');
+            });
+        };
+
+        // Going back
+        $scope.templFormat.goBack = function () {
+            window.location.href = text.urlConcat('#', 'taskconfigs', $scope.templFormat.creating ? new String() : text.safe($scope.taskCreation.identifier));
         };
 
         // Preloading form controls (if applicable), or creation of a completely new task
@@ -200,6 +319,9 @@
                 rest.tasks.name(TaskID).retrieve.exec(
                     // Success
                     function (response) {
+                        // $scope.apply after all timed tasks are finished
+                        var timedTasks = 2;
+
                         // We are now editing an existing task, not creating a new one
                         var config = response.configuration;
                         $scope.templFormat.creating = false;
@@ -207,12 +329,22 @@
                         // Basic settings
                         objhelp.objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
                         $scope.taskCreation.description = response.description;
+                        $scope.statistical.value = config.statistical;
 
                         // Selected file
                         timed.ready(function () {
                             return !!$scope.fileinput.setSelectedFile;
                         }, function () {
                             $scope.fileinput.setSelectedFile(config.input);
+                            timedTasks--;
+                        });
+
+                        // Selected knowledge bases
+                        timed.ready(function () {
+                            return kbListLoaded;
+                        }, function () {
+                            $scope.kbs.setBases(config.usedBases, config.primaryBase);
+                            timedTasks--;
                         });
 
                         // Lines limit
@@ -222,6 +354,16 @@
                                 value: config.rowsLimit
                             };
                         }
+
+                        // When all of the timed tasks are finished, update
+                        timed.ready(function () {
+                            return timedTasks <= 0;
+                        }, function () {
+                            formerTaskObj = $scope.wholeForm.getTaskObject();
+                            if (!$scope.$$phase) {
+                                $scope.$apply();
+                            }
+                        });
                     },
 
                     // Failure to load the task's config

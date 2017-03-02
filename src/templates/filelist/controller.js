@@ -15,11 +15,13 @@
         $scope.fileconfig = {};
         $scope.files = [];
         $scope.messages = {};
+        $scope.dataload = {};
+        $scope.filesProxy = {};
         table.refreshList();
 
         // Table button functions
-        $scope.fdownload = function (fileId) {
-            window.location = rest.files.name(fileId).retrieve.address();
+        $scope.fdownload = function (f, s, identifier) {
+            rest.files.name(identifier).retrieve.exec(f, s);
         };
 
         $scope.fconfigure = function (fileId) {
@@ -39,6 +41,19 @@
                 }
             );
         };
+
+        // Handling errors for file download
+        $scope.fileerror = function (response) {
+            $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.downloadFailure'], response.data));
+        };
+
+        // Miscellaneous
+        $scope.misc = {
+            addNew: function () {
+                window.location = text.urlConcat('#', 'addfile');
+            }
+        };
+
     });
 
 })();

@@ -1,0 +1,33 @@
+<!-- Prepared messages for alert-group -->
+<injector for="msgtxt.failure">An error occured while signing up.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="signup" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <!-- Content -->
+    <div class="container-fluid">
+        <!-- Loading -->
+        <loadico bind="dataload" size="5" center="true" showtxt="true">
+            <div ng-switch="status" class="col-md-6 col-md-offset-3">
+                <!-- On success -->
+                <div ng-switch-when="success">
+                    <alert bind="confirmation.alertSuccess" closable="false" type="success">
+                        <span class="glyphicon glyphicon-user"/> <strong>Welcome!</strong> Your account has been successfully activated! Thank you for using ODALIC. <a href="#/login">Log in now!</a>
+                    </alert>
+                </div>
+
+                <!-- On failure -->
+                <div ng-switch-when="failure">
+                    <alert bind="confirmation.alertFailure" closable="false" type="error">
+                        <span class="glyphicon glyphicon-user"/> <strong>There was an error.</strong> It seems the token you provided is either invalid, or expired. <a href="#/signup">Sign up again?</a>
+                    </alert>
+                </div>
+            </div>
+        </loadico>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

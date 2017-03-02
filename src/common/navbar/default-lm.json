@@ -1,0 +1,44 @@
+[
+  {
+    "id": "home",
+    "title": "Home",
+    "link": "#/",
+    "menu": []
+  },
+  {
+    "id": "files",
+    "title": "Input files",
+    "menu": [
+      {
+        "title": "Add new",
+        "link": "#/addfile"
+      },
+      {
+      },
+      {
+        "title": "List of files",
+        "link": "#/filelist"
+      }
+    ]
+  },
+  {
+    "id": "tasks",
+    "title": "Tasks",
+    "menu": [
+      {
+        "title": "Add new",
+        "link": "#/createnewtask"
+      },
+      {
+        "title": "Import",
+        "link": "#/importtask"
+      },
+      {
+      },
+      {
+        "title": "List of tasks",
+        "link": "#/taskconfigs"
+      }
+    ]
+  }
+]

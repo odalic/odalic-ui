@@ -1,3 +1,4 @@
+/** Functions for easing work with text */
 var text = {
     /** Uses heuristics to find key points for a given URI (domain, language, ...).
      *  Note that this is just an estimate, it may not be accurate.
@@ -180,25 +181,6 @@ var text = {
         return gen() + '-' + gen();
     },
 
-    /** Generates a guid, but not necessarilly unique.
-     *  Beware of the pseudorandom numbers.
-     *
-     * @returns {*}    Randomly generated guid
-     */
-    randomGuid: function () {
-        var gen = function () {
-            return (Math.floor(1 + Math.random()) * 0x10000).toString(16).substr(1);
-        };
-
-        var r = gen() + gen();
-        for (var i = 0; i < 4; ++i) {
-            r += '-' + gen();
-        }
-        r += gen() + gen();
-
-        return r;
-    },
-
     /** Converts a variable to string if defined.
      *  If undefined, returns an empty string.
      *
@@ -249,11 +231,11 @@ var text = {
 
     /** Performs case insensitive and substring form of 'includes' while finding the item that is 'responsible'.
      *  Example:
-     *      var it = text.findInclude(['hello', 'yay'], 'El');  // it is equal to 'hello'
+     *      var it = text.findInclude(['hello', 'yay'], 'El');  // 'it' is equal to 'hello'
      *
      * @param arr           An array of strings.
      * @param arg           A string to find.
-     * @returns {boolean}   True if the string is contained within the array.
+     * @returns {string}    The string that matches, or null, if there are no matches.
      */
     findInclude: function (arr, arg) {
         var result = null;

@@ -6,13 +6,29 @@
     <legend class="col-md-12">Export</legend>
 
     <div class="col-md-12">
-        <div class="col-md-3">
-            <button class="btn col-md-5" ng-click="exporting.csv()">Extended input file (CSV)</button>
-            <button class="btn col-md-offset-1 col-md-5" ng-click="exporting.json()">File annotations (JSON)</button>
+        <div class="pull-left">
+            <a-fake ajax="exporting.csv" type="text/csv">
+                <a class="btn btn-default">Extended CSV</a>
+            </a-fake>
+            &nbsp
         </div>
-        <div class="col-md-3">
-            <button class="btn col-md-5" ng-click="exporting.turtle()">RDF version (Turtle)</button>
-            <button class="btn col-md-offset-1 col-md-5" ng-click="exporting.jsonld()">RDF version (JSON-LD)</button>
+
+        <div class="pull-left">
+            <a-fake ajax="exporting.json" type="application/json">
+                <a class="btn btn-default">Annotations</a>
+            </a-fake>
+            &nbsp
+        </div>
+        <div class="pull-left">
+            <a-fake ajax="exporting.turtle" type="text/turtle">
+                <a class="btn btn-default">RDF (Turtle)</a>
+            </a-fake>
+            &nbsp
+        </div>
+        <div class="pull-left">
+            <a-fake ajax="exporting.jsonld" type="application/ld+json">
+                <a class="btn btn-default">RDF (JSON-LD)</a>
+            </a-fake>
         </div>
     </div>
 </fieldset>

@@ -3,16 +3,14 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // lock directive
     var currentFolder = $.getPathForRelativePath('');
     app.directive('rSuggestions', ['rest', 'reporth', function (rest, reporth) {
         return {
             restrict: 'E',
             scope: {
-                selectedRelation: '=',
-                locked: '=',
+                currentLock: '=',
                 knowledgeBase: '@',
-                result: '=',
+                currentRelation: '=',
                 gvdata: '='
             },
             templateUrl: currentFolder + 'rsuggestions.html',
@@ -34,49 +32,39 @@
 
                     $scope.reporting.clear();
                     var newObj = {
-                        "entity": {"resource": suggestion.resource, "label": suggestion.label},
-                        "score": {"value": 0}
+                        "entity": suggestion,
+                        "score": {"value": null}
                     };
 
-
-                    //creates levels of json if they are missing
-                    objhelp.objRecurAccess($scope.result.columnRelationAnnotations, $scope.selectedRelation.column1, $scope.selectedRelation.column2, 'candidates');
-                    var currentRelation = $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2];
-
-                    if (!currentRelation.candidates.hasOwnProperty($scope.knowledgeBase)) {
-                        currentRelation.candidates[$scope.knowledgeBase] = [];
-                    }
-
-                    objhelp.objRecurAccess(currentRelation, 'chosen');
-                    if (!currentRelation.chosen.hasOwnProperty($scope.knowledgeBase)) {
-                        currentRelation.chosen[$scope.knowledgeBase] = [];
-                    }
-
-
+                    var currentRelation = $scope.currentRelation;
                     var candidates = currentRelation.candidates[$scope.knowledgeBase];
 
-                    //gets from candidates only  array of URLs
-                    var urlList = candidates.map(function (candidate) {
-                        return candidate.entity.resource;
+                    //finds already existing resource
+                    var alreadyExist = candidates.find(function (candidate) {
+                        return candidate.entity.resource == suggestion.resource
                     });
 
-                    //tests  url duplicity
-                    if (!urlList.includes(suggestion.resource)) {
+                    //tests duplicity
+                    if (alreadyExist == null) {
                         //adds new relation among the candidates in a current cell and sets it as the selected candidate
                         candidates.push(newObj);
                         currentRelation.chosen[$scope.knowledgeBase] = [newObj];
-                        $scope.gvdata.mc();
-
-                        //locks current relation
-                        $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
-                        $scope.gvdata.update();
-
-                        $scope.reporting.push('success', 'This relation was added.');
                     }
                     else {
-                        $scope.reporting.push('error', 'This relation is already added');
+                        currentRelation.chosen[$scope.knowledgeBase] = [newObj];
                     }
 
+                    $scope.gvdata.mc();
+
+                    //locks current relation
+                    $scope.currentLock();
+                    $scope.gvdata.update();
+
+                    //deletes form
+                    $scope.suggestions ={};
+                    $scope.string="";
+
+                    $scope.reporting.push('success', 'The relation is used.');
                 }
 
 
@@ -103,7 +91,7 @@
                                 $scope.suggestion = $scope.suggestions[0];
                             }
                             // alertMessage('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
-                            $scope.reporting.push('success', 'Search results arrived. Search found ' + $scope.suggestions.length + ' suggestins.');
+                            $scope.reporting.push('success', 'Search results arrived. Search found ' + $scope.suggestions.length + ' suggestions.');
 
                         },
 

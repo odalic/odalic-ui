@@ -3,15 +3,16 @@
 <injector for="msgtxt.stopFailure">An error occurred while stopping the task.</injector>
 <injector for="msgtxt.removeFailure">An error occurred while removing the task.</injector>
 <injector for="msgtxt.taskdataFailure">An error occurred while retrieving a task's data from the server.</injector>
+<injector for="msgtxt.configdFailure">An error occurred while trying to download the task's configuration.</injector>
 
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="2" lmenu="default-lm.json" rmenu="default-rm.json" />
+    <navbar selected="tasks" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <!-- Content -->
     <div class="container-fluid">
-        <h2>Task configurations</h2>
+        <h2>List of tasks with the results of semantic annotation</h2>
 
         <!-- Tooltip messages -->
         <injector for="statetext.ready">The task is ready to be run.</injector>
@@ -23,6 +24,7 @@
         <injector for="actiontext.run">Run the task</injector>
         <injector for="actiontext.stop">Stop the running task</injector>
         <injector for="actiontext.result">Go to result</injector>
+        <injector for="actiontext.download">Download task configuration</injector>
         <injector for="actiontext.configure">Configure the task</injector>
         <injector for="actiontext.remove">Remove the task</injector>
 
@@ -30,44 +32,64 @@
         <tooltip msg="bug-fixer" />
 
         <!-- The table of tasks -->
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>Date created</th>
-                <th>Task name</th>
-                <th>Task description</th>
-                <th>Action</th>
-                <th>State</th>
-            </tr>
-            </thead>
-            <tbody>
+        <loadico bind="dataload" size="5" center="true" showtxt="true">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Last modification</th>
+                    <th>Task identifier</th>
+                    <th>Task description</th>
+                    <th>Knowledge bases</th>
+                    <th>Actions</th>
+                    <th>State</th>
+                </tr>
+                </thead>
+                <tbody>
                 <!-- A single task configuration -->
-                <tr ng-repeat="taskconfig in taskconfigs" ng-class="{'odalic-trstyle-lightgrey': taskconfig.id == misc.selected}">
+                <tr ng-repeat="taskconfig in taskconfigsProxy.getView()" ng-class="{'odalic-trstyle-lightgrey': taskconfig.id == misc.selected}">
                     <td class="col-md-1">{{ taskconfig.created }}</td>
                     <td class="col-md-2">{{ taskconfig.id }}</td>
-                    <td class="col-md-6">{{ taskconfig.description }}</td>
-
+                    <td class="col-md-4">{{ taskconfig.description }}</td>
+                    <td class="col-md-2"><strong>{{ table.getPrimaryKB(taskconfig) }}</strong>{{ table.getNonPrimaryKBs(taskconfig).join(', ') | nonempty:', ' }}</td>
                     <td class="col-md-2">
+                        <!-- Run the task -->
                         <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.run" place="top">
                                 <a class="btn btn-default" ng-click="frun(taskconfig.id)"><i class="fa fa-play fa-lg"></i></a>
                             </tooltip>
                         </span>
+
+                        <!-- Stop running task -->
                         <span ng-show="['RUNNING'].includes(taskconfig.state)">
                             <tooltip source="actiontext.stop" place="top">
                                 <a class="btn btn-default" ng-click="fstop(taskconfig.id)"><i class="fa fa-stop fa-lg"></i></a>
                             </tooltip>
                         </span>
+
+                        <!-- Go to result -->
                         <span ng-show="['SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.result" place="top">
                                 <a class="btn btn-default" ng-click="fresult(taskconfig.id)"><i class="fa fa-external-link fa-lg"></i></a>
                             </tooltip>
                         </span>
+
+                        <!-- Download configuration -->
+                        <span>
+                            <tooltip source="actiontext.download" place="top">
+                                <a-fake ajax="fdownload" args="taskconfig.id" catcher="configderror" type="text/turtle">
+                                    <a class="btn btn-default"><i class="fa fa-download fa-lg"></i></a>
+                                </a-fake>
+                            </tooltip>
+                        </span>
+
+                        <!-- Configure the task -->
                         <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.configure" place="top">
                                 <a class="btn btn-default" ng-click="fconfigure(taskconfig.id)"><i class="fa fa-cog fa-lg"></i></a>
                             </tooltip>
                         </span>
+
+                        <!-- Remove the task -->
                         <span ng-show="['READY', 'SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
                             <tooltip source="actiontext.remove" place="top">
                                 <a class="btn btn-default" ng-click="fremove(taskconfig.id)"><i class="fa fa-trash fa-lg"></i></a>
@@ -106,8 +128,12 @@
                         </div>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </loadico>
+
+        <!-- Pagination -->
+        <pagination bind="taskconfigsProxy" per-page="5"/>
 
         <!-- Reporting situations to a user -->
         <div class="col-md-12">
@@ -115,8 +141,8 @@
         </div>
 
         <!-- Additional content below the table -->
-        <div class="col-md-offset-11 col-md-1">
-            <button type="button" class="btn btn-lg" ng-click="misc.gotocnt()">Create a new</button>
+        <div class="col-md-offset-10 col-md-2">
+            <button type="button" class="col-md-offset-2 col-md-10 btn btn-lg" ng-click="misc.gotocnt()">Add new</button>
         </div>
 
         <!-- Blank space pushing footer further below -->

@@ -10,65 +10,39 @@
 }
 
 
-/* Not cursors. Whatever. */
-.selectBoxIcon {
-    width: 15px;
-    height: 15px;
-    /*float: right;*/
+/*
+ * Text
+ */
+.odalic-text-strikethrough {
+    text-decoration: line-through;
 }
 
-.markedColumn {
-    background-color: WhiteSmoke;
-}
-
-/*TODO mozna jiny typ oznaceni*/
-.markedCell {
-    background-color: PapayaWhip ;
-}
-
-.boldPrimaryKB {
+.odalic-text-bold {
     font-weight: bold;
 }
 
-.evenRow {
-    background-color: WhiteSmoke;
+.odalic-text-wrap {
+    word-wrap: break-word;
 }
 
-.headerRow {
-    background-color: Gainsboro;
+
+/*
+ * Centralizing element over another element
+ *
+ * Usage:
+ *  <span class="odalic-centralize-wrapper">
+ *      <span>Real element</span>
+ *      <span class="odalic-centralize-sibling">Element to centralize over the 'real' one</span>
+ *  </span>
+ */
+.odalic-centralize-wrapper {
+    position: relative
 }
 
-/* Graphical separation of buttons */
-/* TODO: Generalize and put to *.LESS */
-.odalic-hr-separator {
+.odalic-centralize-sibling {
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
-    border-bottom: 1px solid lightgrey;
-    margin-top: 5px;
-    margin-bottom: 5px;
     text-align: center;
-}
-
-.odalic-hr-pushtop {
-    margin-top: 75px;
-}
-
-.odalic-hr-pushbtm {
-    margin-bottom: 15px;
-}
-
-/* lod iframe */
-iframe {
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    width: 100%;
-    height: 100%;
-    z-index: 2000;
-    background-color: #FFF;
-}
-
-/* Modal Content/Box */
-.modal-content {
-    margin: 0% auto; /* 15% from the top and centered */
-    padding: 20px;
 }

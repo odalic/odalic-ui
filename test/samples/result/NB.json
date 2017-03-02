@@ -1,0 +1,5806 @@
+{
+	"subjectColumnPositions": {
+		"ADEQUATe": {
+			"index": 6
+		},
+		"DBpedia": {
+			"index": 6
+		},
+		"German DBpedia": {
+			"index": 6
+		}
+	},
+	"headerAnnotations": [{
+			"candidates": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e460b47b-9992-4d74-bda5-9e0bdd3e0390",
+							"label": "NUTS1"
+						},
+						"score": {
+							"value": 2.582539682539683
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Identifikationscode",
+							"label": "Identifikationscode"
+						},
+						"score": {
+							"value": 2.011111111111112
+						}
+					}
+				],
+				"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/dbtax/Mine",
+							"label": "Mine"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/ArtificialSatellite",
+							"label": "ArtificialSatellite"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/CelestialBody",
+							"label": "celestial body"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Location",
+							"label": "Location"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Mine",
+							"label": "mine"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Place",
+							"label": "place"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Satellite",
+							"label": "Satellite"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Weapon",
+							"label": "weapon"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}, {
+						"entity": {
+							"resource": "http://schema.org/Place",
+							"label": "Place"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}
+				],
+				"German DBpedia": []
+			},
+			"chosen": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e460b47b-9992-4d74-bda5-9e0bdd3e0390",
+							"label": "NUTS1"
+						},
+						"score": {
+							"value": 2.582539682539683
+						}
+					}
+				],
+				"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Place",
+							"label": "place"
+						},
+						"score": {
+							"value": 1.4142135623730956
+						}
+					}
+				],
+				"German DBpedia": []
+			}
+		}, {
+			"candidates": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/1b20a0e3-56ff-4541-bf12-21b6643d61ff",
+							"label": "NUTS2"
+						},
+						"score": {
+							"value": 2.582539682539683
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Identifikationscode",
+							"label": "Identifikationscode"
+						},
+						"score": {
+							"value": 2.011111111111112
+						}
+					}
+				],
+				"DBpedia": [],
+				"German DBpedia": []
+			},
+			"chosen": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/1b20a0e3-56ff-4541-bf12-21b6643d61ff",
+							"label": "NUTS2"
+						},
+						"score": {
+							"value": 2.582539682539683
+						}
+					}
+				],
+				"DBpedia": [],
+				"German DBpedia": []
+			}
+		}, {
+			"candidates": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/a8a124fd-74af-4962-a54c-1db90a5be6c2",
+							"label": "NUTS3"
+						},
+						"score": {
+							"value": 2.5910068846815832
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Identifikationscode",
+							"label": "Identifikationscode"
+						},
+						"score": {
+							"value": 2.0195783132530116
+						}
+					}
+				],
+				"DBpedia": [],
+				"German DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/nutsCode",
+							"label": ""
+						},
+						"score": {
+							"value": 0.26666666666666666
+						}
+					}, {
+						"entity": {
+							"resource": "http://de.dbpedia.org/property/nuts",
+							"label": ""
+						},
+						"score": {
+							"value": 0.04444444444444444
+						}
+					}
+				]
+			},
+			"chosen": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/a8a124fd-74af-4962-a54c-1db90a5be6c2",
+							"label": "NUTS3"
+						},
+						"score": {
+							"value": 2.5910068846815832
+						}
+					}
+				],
+				"DBpedia": [],
+				"German DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/nutsCode",
+							"label": ""
+						},
+						"score": {
+							"value": 0.26666666666666666
+						}
+					}
+				]
+			}
+		}, {
+			"candidates": {
+				"ADEQUATe": [],
+				"DBpedia": [],
+				"German DBpedia": []
+			},
+			"chosen": {
+				"ADEQUATe": [],
+				"DBpedia": [],
+				"German DBpedia": []
+			}
+		}, {
+			"candidates": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/ebc69997-e3d4-4b4d-93f5-fbcdc25beaa0",
+							"label": "Bezirk"
+						},
+						"score": {
+							"value": 1.997477453033436
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Bezirk",
+							"label": "Bezirk"
+						},
+						"score": {
+							"value": 1.997477453033436
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Ort",
+							"label": "Ort"
+						},
+						"score": {
+							"value": 1.997477453033436
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/f7e851c2-9f4d-4d53-b4cf-283edf27d1f3",
+							"label": "Steiermark"
+						},
+						"score": {
+							"value": 1.8777777777777784
+						}
+					}
+				],
+				"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/dbtax/Article",
+							"label": "Article"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Article",
+							"label": "article"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Location",
+							"label": "Location"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Place",
+							"label": "place"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/PopulatedPlace",
+							"label": "populated place"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Settlement",
+							"label": "settlement"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Town",
+							"label": "town"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}, {
+						"entity": {
+							"resource": "http://schema.org/Place",
+							"label": "Place"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}, {
+						"entity": {
+							"resource": "http://www.wikidata.org/entity/Q3957",
+							"label": "Q 3957"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}, {
+						"entity": {
+							"resource": "http://www.wikidata.org/entity/Q486972",
+							"label": "Q 486972"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}
+				],
+				"German DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/district",
+							"label": ""
+						},
+						"score": {
+							"value": 1.4
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/wikiPageWikiLink",
+							"label": ""
+						},
+						"score": {
+							"value": 0.36444444444444446
+						}
+					}, {
+						"entity": {
+							"resource": "http://www.w3.org/2004/02/skos/core#broader",
+							"label": ""
+						},
+						"score": {
+							"value": 0.28888888888888886
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/municipality",
+							"label": ""
+						},
+						"score": {
+							"value": 0.06666666666666667
+						}
+					}, {
+						"entity": {
+							"resource": "http://de.dbpedia.org/property/gemeinde",
+							"label": ""
+						},
+						"score": {
+							"value": 0.06666666666666667
+						}
+					}, {
+						"entity": {
+							"resource": "http://purl.org/dc/terms/subject",
+							"label": ""
+						},
+						"score": {
+							"value": 0.06666666666666667
+						}
+					}, {
+						"entity": {
+							"resource": "http://www.w3.org/2002/07/owl#sameAs",
+							"label": ""
+						},
+						"score": {
+							"value": 0.06666666666666667
+						}
+					}
+				]
+			},
+			"chosen": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Ort",
+							"label": "Ort"
+						},
+						"score": {
+							"value": 1.997477453033436
+						}
+					}
+				],
+				"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Article",
+							"label": "article"
+						},
+						"score": {
+							"value": 2.1222222222222227
+						}
+					}
+				],
+				"German DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/district",
+							"label": ""
+						},
+						"score": {
+							"value": 1.4
+						}
+					}
+				]
+			}
+		}, {
+			"candidates": {
+				"ADEQUATe": [],
+				"DBpedia": [],
+				"German DBpedia": []
+			},
+			"chosen": {
+				"ADEQUATe": [],
+				"DBpedia": [],
+				"German DBpedia": []
+			}
+		}, {
+			"candidates": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/f7e851c2-9f4d-4d53-b4cf-283edf27d1f3",
+							"label": "Steiermark"
+						},
+						"score": {
+							"value": 1.7295478594865108
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Ort",
+							"label": "Ort"
+						},
+						"score": {
+							"value": 1.7295478594865108
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/ebc69997-e3d4-4b4d-93f5-fbcdc25beaa0",
+							"label": "Bezirk"
+						},
+						"score": {
+							"value": 0.14166666666666666
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Bezirk",
+							"label": "Bezirk"
+						},
+						"score": {
+							"value": 0.14166666666666666
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e715b51b-1d89-41e4-a404-6edeee455936",
+							"label": "NUTS3_Name"
+						},
+						"score": {
+							"value": 0.0
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Identifikationscode",
+							"label": "Identifikationscode"
+						},
+						"score": {
+							"value": 0.0
+						}
+					}, {
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/NUTS3_Name",
+							"label": "NUTS 3 Name"
+						},
+						"score": {
+							"value": 0.0
+						}
+					}
+				],
+				"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Location",
+							"label": "Location"
+						},
+						"score": {
+							"value": 1.850446428496998
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Place",
+							"label": "place"
+						},
+						"score": {
+							"value": 1.850446428496998
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/PopulatedPlace",
+							"label": "populated place"
+						},
+						"score": {
+							"value": 1.850446428496998
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Settlement",
+							"label": "settlement"
+						},
+						"score": {
+							"value": 1.850446428496998
+						}
+					}, {
+						"entity": {
+							"resource": "http://schema.org/Place",
+							"label": "Place"
+						},
+						"score": {
+							"value": 1.850446428496998
+						}
+					}, {
+						"entity": {
+							"resource": "http://www.wikidata.org/entity/Q486972",
+							"label": "Q 486972"
+						},
+						"score": {
+							"value": 1.850446428496998
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/dbtax/Article",
+							"label": "Article"
+						},
+						"score": {
+							"value": 0.28425925925925927
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Article",
+							"label": "article"
+						},
+						"score": {
+							"value": 0.28425925925925927
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Town",
+							"label": "town"
+						},
+						"score": {
+							"value": 0.14351851851851852
+						}
+					}, {
+						"entity": {
+							"resource": "http://www.wikidata.org/entity/Q3957",
+							"label": "Q 3957"
+						},
+						"score": {
+							"value": 0.14351851851851852
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/dbtax/Attraction",
+							"label": "Attraction"
+						},
+						"score": {
+							"value": 0.14074074074074075
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/dbtax/Place",
+							"label": "Place"
+						},
+						"score": {
+							"value": 0.14074074074074075
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/dbtax/Policy",
+							"label": "Policy"
+						},
+						"score": {
+							"value": 0.14074074074074075
+						}
+					}, {
+						"entity": {
+							"resource": "http://dbpedia.org/dbtax/Site",
+							"label": "Site"
+						},
+						"score": {
+							"value": 0.14074074074074075
+						}
+					}
+				],
+				"German DBpedia": []
+			},
+			"chosen": {
+				"ADEQUATe": [{
+						"entity": {
+							"resource": "http://adequate.project-pp.semantic-web.at/ADEQUATe/Ort",
+							"label": "Ort"
+						},
+						"score": {
+							"value": 1.7295478594865108
+						}
+					}
+				],
+				"DBpedia": [{
+						"entity": {
+							"resource": "http://dbpedia.org/ontology/Settlement",
+							"label": "settlement"
+						},
+						"score": {
+							"value": 1.850446428496998
+						}
+					}
+				],
+				"German DBpedia": []
+			}
+		}, {
+			"candidates": {
+				"ADEQUATe": [],
+				"DBpedia": [],
+				"German DBpedia": []
+			},
+			"chosen": {
+				"ADEQUATe": [],
+				"DBpedia": [],
+				"German DBpedia": []
+			}
+		}, {
+			"candidates": {
+				"ADEQUATe": [],
+				"DBpedia": [],
+				"German DBpedia": []
+			},
+			"chosen": {
+				"ADEQUATe": [],
+				"DBpedia": [],
+				"German DBpedia": []
+			}
+		}
+	],
+	"cellAnnotations": [[{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2b414860-7277-4353-8be3-5afb270b85c7",
+								"label": "AT221"
+							},
+							"score": {
+								"value": 2.125
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2b414860-7277-4353-8be3-5afb270b85c7",
+								"label": "AT221"
+							},
+							"score": {
+								"value": 2.125
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/a44dd973-2f41-4eb7-adce-cefb4ffe0103",
+								"label": "Graz-Stadt"
+							},
+							"score": {
+								"value": 1.7954951288348662
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Innere_Stadt_(Graz)",
+								"label": "Innere Stadt (Graz)@de"
+							},
+							"score": {
+								"value": 1.4822351977656703
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Ehrenringträger_der_Stadt_Graz",
+								"label": "Ehrenringträger der Stadt Graz@de"
+							},
+							"score": {
+								"value": 1.3788397774916215
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Stadt_Graz_–_Historisches_Zentrum_und_Schloss_Eggenberg",
+								"label": "Stadt Graz – Historisches Zentrum und Schloss Eggenberg@de"
+							},
+							"score": {
+								"value": 1.1680574751819524
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Stadt_Graz_–_Historisches_Zentrum_und_Schloss_Eggenberg",
+								"label": "Stadt Graz – Historisches Zentrum und Schloss Eggenberg@de"
+							},
+							"score": {
+								"value": 1.1680574751819524
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/a44dd973-2f41-4eb7-adce-cefb4ffe0103",
+								"label": "Graz-Stadt"
+							},
+							"score": {
+								"value": 1.7954951288348662
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Innere_Stadt_(Graz)",
+								"label": "Innere Stadt (Graz)@de"
+							},
+							"score": {
+								"value": 1.4822351977656703
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e6c3e132-b9c6-425b-9fd6-f26525e0be8c",
+								"label": "Graz"
+							},
+							"score": {
+								"value": 2.111111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Graz",
+								"label": "Graz"
+							},
+							"score": {
+								"value": 2.111111111111111
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Graz",
+								"label": "Graz"
+							},
+							"score": {
+								"value": 2.611111111111111
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Gratz_(Pennsylvania)",
+								"label": "Graz"
+							},
+							"score": {
+								"value": 2.333333333333333
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Graz",
+								"label": "Graz"
+							},
+							"score": {
+								"value": 2.111111111111111
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e6c3e132-b9c6-425b-9fd6-f26525e0be8c",
+								"label": "Graz"
+							},
+							"score": {
+								"value": 2.111111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Graz",
+								"label": "Graz"
+							},
+							"score": {
+								"value": 2.111111111111111
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Graz",
+								"label": "Graz"
+							},
+							"score": {
+								"value": 2.611111111111111
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/3cff2077-d365-43b9-a0e4-63cf8dfe2322",
+								"label": "Aibl"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Aibl",
+								"label": "Aibl"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/3cff2077-d365-43b9-a0e4-63cf8dfe2322",
+								"label": "Aibl"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Aibl",
+								"label": "Aibl"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.125
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.125
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.4444444444444446
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.125
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.125
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.4444444444444446
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/ff3688ec-e0a0-4d5c-b3bc-36292ff01e73",
+								"label": "Eibiswald"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Eibiswald",
+								"label": "Eibiswald"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Eibiswald",
+								"label": "Eibiswald"
+							},
+							"score": {
+								"value": 2.333333333333333
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Eibiswald",
+								"label": "Eibiswald"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Schloss_Eibiswald",
+								"label": "Eibiswald"
+							},
+							"score": {
+								"value": 2.0277777777777777
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/ff3688ec-e0a0-4d5c-b3bc-36292ff01e73",
+								"label": "Eibiswald"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Eibiswald",
+								"label": "Eibiswald"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Eibiswald",
+								"label": "Eibiswald"
+							},
+							"score": {
+								"value": 2.333333333333333
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/4217365a-6baf-400f-8957-5af8c81c3a81",
+								"label": "Bad Gams"
+							},
+							"score": {
+								"value": 1.7071067811865475
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Bad_Gams",
+								"label": "Bad Gams"
+							},
+							"score": {
+								"value": 1.857886903645444
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Bad_Gams",
+								"label": "Bad Gams"
+							},
+							"score": {
+								"value": 1.8162923871050585
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/4217365a-6baf-400f-8957-5af8c81c3a81",
+								"label": "Bad Gams"
+							},
+							"score": {
+								"value": 1.7071067811865475
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Bad_Gams",
+								"label": "Bad Gams"
+							},
+							"score": {
+								"value": 1.857886903645444
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Bad_Gams",
+								"label": "Bad Gams"
+							},
+							"score": {
+								"value": 1.8162923871050585
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/8864938e-e211-4f3e-827e-3e9fc94edfdc",
+								"label": "Garanas"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Garanas",
+								"label": "Garanas"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Garanas",
+								"label": "Garanas"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/8864938e-e211-4f3e-827e-3e9fc94edfdc",
+								"label": "Garanas"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Garanas",
+								"label": "Garanas"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Garanas",
+								"label": "Garanas"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/67d388b3-6dde-4ace-9798-69638405775e",
+								"label": "Georgsberg"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Georgsberg",
+								"label": "Georgsberg"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Georgsberg",
+								"label": "Georgsberg"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/67d388b3-6dde-4ace-9798-69638405775e",
+								"label": "Georgsberg"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Georgsberg",
+								"label": "Georgsberg"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Georgsberg",
+								"label": "Georgsberg"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/793f62b2-89a3-4798-889c-c60110f15b90",
+								"label": "Greisdorf"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Greisdorf",
+								"label": "Greisdorf"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Greisdorf",
+								"label": "Greisdorf"
+							},
+							"score": {
+								"value": 2.1984126984126986
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/793f62b2-89a3-4798-889c-c60110f15b90",
+								"label": "Greisdorf"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Greisdorf",
+								"label": "Greisdorf"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Greisdorf",
+								"label": "Greisdorf"
+							},
+							"score": {
+								"value": 2.1984126984126986
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/3a5a2ef9-aff5-4919-844d-28a84d17d0b7",
+								"label": "Gressenberg"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Gressenberg",
+								"label": "Gressenberg"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Gressenberg",
+								"label": "Gressenberg"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/3a5a2ef9-aff5-4919-844d-28a84d17d0b7",
+								"label": "Gressenberg"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Gressenberg",
+								"label": "Gressenberg"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Gressenberg",
+								"label": "Gressenberg"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/a74d3208-d2a0-4ac4-bdfe-cee22ed9ef0f",
+								"label": "Gundersdorf"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Gundersdorf",
+								"label": "Gundersdorf"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Gundersdorf",
+								"label": "Gundersdorf"
+							},
+							"score": {
+								"value": 2.1984126984126986
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/a74d3208-d2a0-4ac4-bdfe-cee22ed9ef0f",
+								"label": "Gundersdorf"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Gundersdorf",
+								"label": "Gundersdorf"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Gundersdorf",
+								"label": "Gundersdorf"
+							},
+							"score": {
+								"value": 2.1984126984126986
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/cbf376ff-1090-493d-b8f3-71e97f3af3fa",
+								"label": "Hollenegg"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Hollenegg",
+								"label": "Hollenegg"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Schloss_Hollenegg",
+								"label": "Hollenegg"
+							},
+							"score": {
+								"value": 2.1805555555555554
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/cbf376ff-1090-493d-b8f3-71e97f3af3fa",
+								"label": "Hollenegg"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Hollenegg",
+								"label": "Hollenegg"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Schloss_Hollenegg",
+								"label": "Hollenegg"
+							},
+							"score": {
+								"value": 2.1805555555555554
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/639c05d9-3d2c-4cd1-928d-8362c3db90df",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Kloster,_Styria",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kloster_(Gemeinde_Deutschlandsberg)",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.507936507936508
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kloster",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0277777777777777
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kloster_(Saalburg-Ebersdorf)",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0277777777777777
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Langenzenn",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0277777777777777
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Kloster",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Liste_der_Baudenkmale_in_Blankensee_(Mecklenburg)",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Liste_der_Baudenkmale_in_Rambin",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Liste_der_Baudenkmale_in_Zahrensdorf",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Liste_der_Kulturdenkmale_in_Kiel-Altstadt",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Liste_der_Kulturdenkmale_in_Schleswig",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/639c05d9-3d2c-4cd1-928d-8362c3db90df",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Kloster,_Styria",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.170634920634921
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kloster_(Gemeinde_Deutschlandsberg)",
+								"label": "Kloster"
+							},
+							"score": {
+								"value": 2.507936507936508
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		], [{
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Ekspress_AT2",
+								"label": "Ekspress AT2@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/44f421cd-ab78-4d4e-96cb-860ea5807acb",
+								"label": "AT2"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/AT2_mine",
+								"label": "AT2 mine@en"
+							},
+							"score": {
+								"value": 1.4142135623730951
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Express_(Satellit)",
+								"label": "Express AT2@de"
+							},
+							"score": {
+								"value": 1.4253246734842062
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/7d0f3723-2fa4-480e-9edd-ceb28987d886",
+								"label": "AT22"
+							},
+							"score": {
+								"value": 2.011111111111111
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/c4e4e1e7-30fb-4b1e-81cb-eec44ac9e324",
+								"label": "AT225"
+							},
+							"score": {
+								"value": 2.0120481927710845
+							}
+						}
+					],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/e2356056-7cde-4359-adc9-0050c4cd3acd",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Burg_Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.0238095238095237
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/2a45c47f-01ba-4c87-bcdb-c44454c14e68",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.011904761904762
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.2738095238095237
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Deutschlandsberg",
+								"label": "Deutschlandsberg"
+							},
+							"score": {
+								"value": 2.761904761904762
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/ea8d98c3-9bdd-41eb-9fa1-a48178de866a",
+								"label": "Lannach"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Lannach",
+								"label": "Lannach"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Lannach",
+								"label": "Lannach"
+							},
+							"score": {
+								"value": 2.3055555555555554
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Kategorie:Lannach",
+								"label": "Lannach"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://adequate-project-pp.semantic-web.at/ADEQUATe_KB/ea8d98c3-9bdd-41eb-9fa1-a48178de866a",
+								"label": "Lannach"
+							},
+							"score": {
+								"value": 2.0
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/resource/Lannach",
+								"label": "Lannach"
+							},
+							"score": {
+								"value": 2.1527777777777777
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://de.dbpedia.org/resource/Lannach",
+								"label": "Lannach"
+							},
+							"score": {
+								"value": 2.3055555555555554
+							}
+						}
+					]
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}, {
+				"candidates": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				},
+				"chosen": {
+					"ADEQUATe": [],
+					"DBpedia": [],
+					"German DBpedia": []
+				}
+			}
+		]],
+	"columnRelationAnnotations": {
+		"6": {
+			"2": {
+				"candidates": {
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/nutsCode",
+								"label": ""
+							},
+							"score": {
+								"value": 0.26666666666666666
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/property/nuts",
+								"label": ""
+							},
+							"score": {
+								"value": 0.04444444444444444
+							}
+						}
+					]
+				},
+				"chosen": {
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/nutsCode",
+								"label": ""
+							},
+							"score": {
+								"value": 0.26666666666666666
+							}
+						}
+					]
+				}
+			},
+			"4": {
+				"candidates": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://www.w3.org/2004/02/skos/core#prefLabel",
+								"label": ""
+							},
+							"score": {
+								"value": 0.07777777777777777
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/district",
+								"label": ""
+							},
+							"score": {
+								"value": 1.8222222222222222
+							}
+						}, {
+							"entity": {
+								"resource": "http://www.w3.org/2000/01/rdf-schema#label",
+								"label": ""
+							},
+							"score": {
+								"value": 0.07777777777777777
+							}
+						}, {
+							"entity": {
+								"resource": "http://xmlns.com/foaf/0.1/name",
+								"label": ""
+							},
+							"score": {
+								"value": 0.07777777777777777
+							}
+						}, {
+							"entity": {
+								"resource": "http://www.w3.org/2000/01/rdf-schema#seeAlso",
+								"label": ""
+							},
+							"score": {
+								"value": 0.03333333333333333
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/district",
+								"label": ""
+							},
+							"score": {
+								"value": 1.4
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/wikiPageWikiLink",
+								"label": ""
+							},
+							"score": {
+								"value": 0.36444444444444446
+							}
+						}, {
+							"entity": {
+								"resource": "http://www.w3.org/2004/02/skos/core#broader",
+								"label": ""
+							},
+							"score": {
+								"value": 0.28888888888888886
+							}
+						}, {
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/municipality",
+								"label": ""
+							},
+							"score": {
+								"value": 0.06666666666666667
+							}
+						}, {
+							"entity": {
+								"resource": "http://de.dbpedia.org/property/gemeinde",
+								"label": ""
+							},
+							"score": {
+								"value": 0.06666666666666667
+							}
+						}, {
+							"entity": {
+								"resource": "http://purl.org/dc/terms/subject",
+								"label": ""
+							},
+							"score": {
+								"value": 0.06666666666666667
+							}
+						}, {
+							"entity": {
+								"resource": "http://www.w3.org/2002/07/owl#sameAs",
+								"label": ""
+							},
+							"score": {
+								"value": 0.06666666666666667
+							}
+						}
+					]
+				},
+				"chosen": {
+					"ADEQUATe": [{
+							"entity": {
+								"resource": "http://www.w3.org/2004/02/skos/core#prefLabel",
+								"label": ""
+							},
+							"score": {
+								"value": 0.07777777777777777
+							}
+						}
+					],
+					"DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/district",
+								"label": ""
+							},
+							"score": {
+								"value": 1.8222222222222222
+							}
+						}
+					],
+					"German DBpedia": [{
+							"entity": {
+								"resource": "http://dbpedia.org/ontology/district",
+								"label": ""
+							},
+							"score": {
+								"value": 1.4
+							}
+						}
+					]
+				}
+			}
+		}
+	},
+	"warnings": []
+}

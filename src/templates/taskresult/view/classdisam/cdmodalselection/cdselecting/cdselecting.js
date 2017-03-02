@@ -3,7 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    //displays selectboxes for classifications/disambiguations
+    //displays selectboxes and search dialog for classifications/disambiguations
     var currentFolder = $.getPathForRelativePath('');
     app.directive('cDSelecting',['rest','$uibModal',function (rest,$uibModal) {
         return {

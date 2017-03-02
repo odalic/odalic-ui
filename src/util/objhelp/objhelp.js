@@ -1,4 +1,4 @@
-/** Supporting methods for JavaScript object handling */
+/** Miscellaneous support functions for JavaScript object handling */
 var objhelp = {
     /** Executes forEach designed for objects.
      *  Only iterates via own object properties.
@@ -11,27 +11,6 @@ var objhelp = {
             if (obj.hasOwnProperty(item)) {
                 callback(item, obj[item]);
             }
-        }
-    },
-
-    /** Accesses any item (fist one) in the given object.
-     *
-     * @param obj           object to access an item of
-     * @param callback      a callback function that should accept the following arguments: "key", "value"
-     */
-    objGetAny: function (obj, callback) {
-        var accessed = false;
-
-        for (var item in obj) {
-            if (obj.hasOwnProperty(item)) {
-                callback(item, obj[item]);
-                accessed = true;
-                return;
-            }
-        }
-
-        if (!accessed) {
-            throw new Error('The object is empty.');
         }
     },
 
@@ -120,6 +99,70 @@ var objhelp = {
         });
     },
 
+    /** Recursive comparison of values of 2 objects.
+     *  An array of properties, in which the two objects differ, is returned.
+     *
+     * @param obj1      First object.
+     * @param obj2      Second object, to compare against the first one.
+     * @returns {Array} Array of properties, in which the objects differ.
+     */
+    objCompare: function (obj1, obj2) {
+        // Check passed arguments
+        if (!obj1 || !obj2 || (typeof(obj1) !== 'object') || (typeof(obj2) !== 'object')) {
+            throw new Error('objCompare: illegal arguments');
+        }
+
+        // Gather all properties, being either in obj1 or obj2
+        var props = [];
+        var included = {};
+        var gatherProperties = function (obj) {
+            objhelp.objForEach(obj, function (key, value) {
+                if (!(key in included)) {
+                    included[key] = true;
+                    props.push(key);
+                }
+            });
+        };
+        gatherProperties(obj1);
+        gatherProperties(obj2);
+
+        // Compare
+        var differences = [];
+        props.forEach(function (key) {
+            // Property present in both objects?
+            if (!(key in obj2) || !(key in obj1)) {
+                differences.push(key);
+            } else {
+                // Property differs in objects?
+                var value1 = obj1[key];
+                var value2 = obj2[key];
+
+                // Recursive object comparison?
+                if ((typeof(value1) === 'object') && (typeof(value2) === 'object')) {
+                    // Non-null values?
+                    if (!!value1 && !!value2) {
+                        var r = objhelp.objCompare(value1, value2);
+                        r.forEach(function (item) {
+                            differences.push(new String().concat(key, '.', item));
+                        });
+                    } else {
+                        // Both are null?
+                        if (!value1 != !value2) {
+                            differences.push(key);
+                        }
+                    }
+                } else {
+                    if (value1 != value2) {
+                        differences.push(key);
+                    }
+                }
+            }
+        });
+
+        // Result
+        return differences;
+    },
+
     /** Performs a test of a passed argument by passed tests.
      *  If the argument passes all of the passed tests, it is returned, otherwise the fallback is returned.
      *  Example:
@@ -156,19 +199,6 @@ var objhelp = {
         }
     },
 
-    /** Calls the first argument that is defined and is a function.
-     *  This function is variadic.
-     *
-     */
-    callFirstArg: function () {
-        for (var i = 0; i < arguments.length; i++) {
-            if (typeof(arguments[i]) === 'function') {
-                arguments[i]();
-                return;
-            }
-        }
-    },
-
     /** Creates a two-sided mirror from an array.
      *  Example:
      *      var m = objhelp.tsmirros([['1', 'a'], ['2', 'b'], ['3', 'c']]);
@@ -189,5 +219,50 @@ var objhelp = {
         });
 
         return mirror;
+    },
+
+    /** Returns an array created from items of a passed array using a selector function.
+     *  This is basically a map function.
+     *  Example:
+     *      var newArr = objhelp.select(arr, function(item) {
+     *          return item.id;
+     *      });
+     *
+     * @param arr           An original array.
+     * @param selector      Function applicable on each array item.
+     * @returns {Array}     A new array.
+     */
+    select: function (arr, selector) {
+        var result = [];
+        arr.forEach(function (item) {
+            result.push(selector(item));
+        });
+
+        return result;
+    },
+
+    /** Calls a function passed as an argument, if defined.
+     *  Any amount of arguments to be passed to the function may be specified.
+     *  Example:
+     *      var s = objhelp.callDefined(text.safe, 'My string');
+     *
+     * @param f     Function to call if defined.
+     * @returns {*} Undefined, if function is undefined, or what "f" would return.
+     */
+    callDefined: function (f) {
+        // If undefined or null, return
+        if (!f) {
+            return;
+        }
+
+        var args = Array.prototype.splice.call(arguments, 1);
+        return f.apply(null, args);
+    },
+
+    /** Function that does... nothing.
+     *
+     */
+    emptyFunction: function () {
+
     }
 };

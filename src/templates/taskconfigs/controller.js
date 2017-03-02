@@ -18,6 +18,10 @@
         // Initialize
         $scope.taskconfigs = [];
         $scope.messages = {};
+        $scope.dataload = {};
+        $scope.taskconfigsProxy = {};
+
+        // Load the data into the table
         table.refreshList(statepoll.setPolling);
 
         // Table button functions
@@ -52,6 +56,10 @@
             window.location = '#/taskresult/' + taskId;
         };
 
+        $scope.fdownload = function (s, f, taskId) {
+            rest.tasks.name(taskId).configuration.retrieve.exec(s, f);
+        };
+
         $scope.fconfigure = function (taskId) {
             window.location = '#/createnewtask/' + taskId;
         };
@@ -67,6 +75,11 @@
                     $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.removeFailure'], response.data));
                 }
             );
+        };
+
+        // Handling configuration download error
+        $scope.configderror = function (response) {
+            $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.configdFailure'], response.data));
         };
 
         // Miscellaneous

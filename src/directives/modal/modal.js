@@ -3,25 +3,56 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    /** Modal directive.
-     *  Usage: <modal bind="myObj" title="Title">Content</modal>
+    /** modal
+     *  Description:
+     *      Represents a modal window.
      *
-     *  In controller we can now use the following:
-     *  $scope.myObj.open();                            // Opens the modal.
-     *  $scope.myObj.title = "New title.";              // Changes the title of the modal.
-     *  $scope.myObj.content = "<p>New content.</p>";   // Changes the content of the modal.
+     *  Usage:
+     *      # Example 1
+     *      - template -
+     *      <modal bind="myObj" title="Title">Content</modal>
      *
-     *  The following opens the modal with title set to 't' and content set to 'c'.
-     *  Beware, the method changes the title and content of the modal permanently.
-     *  $scope.myObj.open('t', 'c');
+     *      - controller -
+     *      // opens the modal
+     *      $scope.myObj.open();
      *
-     *  We can even open multiple consecutive modals!
-     *  Be careful though, since this can annoy a user.
-     *  $scope.myObj.open('t0', 'c0');
-     *  $scope.myObj.open('t1', 'c1');
      *
-     *  Several modal directives are completely independent and may actually be opened simultaneously.
+     *      # Example 2
+     *      - template -
+     *      <modal bind="myObj"/>
      *
+     *      - controller -
+     *      // set the title and content of the modal
+     *      $scope.myObj.title = "New title.";
+     *      $scope.myObj.content = "<p>New content.</p>";
+     *
+     *
+     *      # Example 3
+     *      - template -
+     *      <modal bind="myObj"/>
+     *
+     *      - controller -
+     *      // opens the modal with title set to 't' and content set to 'c'
+     *      $scope.myObj.open('t', 'c');
+     *
+     *      // this will not open the modal until the previous one is closed
+     *      $scope.myObj.open('t1', 'c1');
+     *
+     *  Arguments:
+     *      title (optional)
+     *      - Modal window headline.
+     *
+     *      bind
+     *      - An object on scope. Has to be defined (may be empty) and is filled by functions and properties automatically.
+     *      Properties:
+     *          - title (get/set): headline of the modal; may be null
+     *          - content (get/set): content of the modal
+     *      Functions:
+     *          - open(): opens a new instance of the modal (if not already opened); several consequent modals may be
+     *          opened
+     *          - open(title, content): opens a new instance of the modal (if not already opened); sets content and
+     *          title of the modal as in arguments; several consequent modals may be opened (each with different title
+     *          and content set); note, the function changes the 'title' and 'content' properties of the 'bind' object
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('modal', function () {
@@ -51,7 +82,7 @@
                 // Displaying / hiding the modal's title
                 var setTitle = function (display) {
                     if (display) {
-                        $('h2', modTitle).html(display);
+                        $('.modal-title', modTitle).html(display);
                         modTitle.show();
                     } else {
                         modTitle.hide();
@@ -96,6 +127,11 @@
                 scope.bind['open'] = function (title, content) {
                     queue.push({title: title, content: content});
                     openModal();
+                };
+
+                // Closing the modal
+                scope.close = function (state) {
+                    modElem.modal('hide');
                 };
 
                 // On closing the modal

@@ -1,38 +1,47 @@
 <!-- SelectBox with only one possibility to choose from -->
 <ui-select
+        title="Choose from the remaining candidates ({{data.candidates[knowledgeBase].length - data.chosen[knowledgeBase].length}})"
         ng-model="data.chosen[knowledgeBase]"
         multiple limit="1" theme="bootstrap"
-        search-enabled="true"
         ng-change="lockCell()"
         on-select="switchChosen($item, knowledgeBase);lockCell() "
+        ng-disabled = "data.candidates[knowledgeBase].length == 0"
         class="uis-aclass">
 
     <!-- Currently selected concept -->
-    <ui-select-match placeholder="">
+    <ui-select-match placeholder="Select, search, or propose candidate">
         <img ng-click="createIframe($item.entity,knowledgeBase,$event)"
-             title="lodlive browser"
+             title="Browse via LodLive"
              ng-src="{{ lodLiveBrowserIcon }}"
              class="selectBoxIcon uism-aclass"/>
+
+        <a  class="selectBoxLink" ng-click="$event.stopPropagation();"  title="Show resource's detail" target="_blank" href = "{{$item.entity.resource}}">
+            <span class="fa fa-info-circle fa-lg"> </span>
+        </a>
         &nbsp
-        <span title="label">{{ $item.entity.label | shortstr: maxlen }}</span>  &nbsp
-        <span title="score">{{ $item.score.value| number:2}}</span> <br/>
-        <span title={{$item.entity.resource}}>({{ $item.entity.resource | shortstr: maxlen }})</span>
+        <span title="label">{{ $item.entity.label  }}</span>  &nbsp
+        <span title="score">{{ $item.score.value| nullOrNumber:2}}</span> <br/>
+        <span title={{$item.entity.resource}}>({{ $item.entity.prefixed}})</span>
     </ui-select-match>
 
     <!-- Menu to choose the concept from (basically a ComboBox) -->
     <ui-select-choices
             repeat="opt in data.candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search, 'entity.label': $select.search}">
         <img ng-click="createIframe(opt,knowledgeBase,$event)"
-             title="lodlive browser"
+             title="Browse via LodLive"
              ng-src="{{ lodLiveBrowserIcon }}"
              ng-class="'selectBoxIcon'">
+
+        <a class="selectBoxLink" ng-click="$event.stopPropagation();" title="Show resource's detail" target="_blank" href = "{{opt.entity.resource}}">
+            <span class="fa fa-info-circle fa-lg"> </span>
+        </a>
         &nbsp
         <span title="label"
               ng-bind-html="opt.entity.label | highlight: $select.search"></span>
         &nbsp
-        <span title="score">{{opt.score.value | number:2}}</span>
+        <span title="score">{{opt.score.value | nullOrNumber:2}}</span>
         <br/>
         <div title={{opt.entity.resource}}
-             ng-bind-html="'(' + opt.entity.resource + ')' | highlight: $select.search"></div>
+             ng-bind-html="'(' + opt.entity.prefixed + ')' | highlight: $select.search"></div>
     </ui-select-choices>
 </ui-select>

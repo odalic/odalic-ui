@@ -1,0 +1,36 @@
+<div class="modal fade" role="dialog">
+    <div class="modal-dialog lg">
+        <div class="modal-content">
+
+            <!-- Headline -->
+            <div class="modal-header">
+                <h2>
+                    <span class="col-md-11">
+                        {{ title }}
+                    </span>
+                    <span class="col-md-1">
+                        <!-- Close icon -->
+                        <modal-closing closing-function="close" args="[false]"/>
+                    </span>
+                </h2>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <div class="container-fluid" ng-transclude>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer">
+                <div class="form-group pull-left col-md-4">
+                    <button type="button" class="form-control" ng-click="close(true)">Confirm</button>
+                </div>
+                <div class="form-group pull-right col-md-4">
+                    <button type="button" class="form-control" ng-click="close(false)">Reject</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

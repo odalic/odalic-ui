@@ -1,0 +1,80 @@
+<div class="table-responsive">
+    <table class="table table-bordered">
+
+        <thead>
+        <tr ng-class="'headerRow'">
+            <td ng-repeat="cell in ['Column','Predicate','Action']">
+                {{cell}}
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr ng-class-even="'evenRow'"
+            ng-repeat="predicateObj in result.statisticalAnnotations|get:primaryKB:type:headers">
+            <td>
+                {{predicateObj.label}}
+            </td>
+            <td>
+                <div class="pull-right text-nowrap">
+                    <!-- Propose icon -->
+                    <tooltip msg="Propose new dimension/measure" place="top">
+                        <a ng-click="openStatisticalRProposal(predicateObj.index)" class="odalic-cursor-pointer">
+                            <span class="up fa fa-plus-square-o"></span>
+                        </a>
+                    </tooltip>
+
+                    <!--Lock icon-->
+                    <r-lock current-lock="locked" click="gvdata.update" column2="predicateObj.index"/>
+
+                    <!-- Details icon -->
+                    <tooltip msg="Details" place="top">
+                        <a ng-click="openStaticalRSelection(predicateObj.index)" class="odalic-cursor-pointer">
+                            <span class="up glyphicon glyphicon-new-window"></span>
+                        </a>
+                    </tooltip>
+                </div>
+
+                <!--only one predicate can be chosen-->
+                <span class="bigRightPadding" ng-if="predicateObj.predicate.chosen[primaryKB].length == 1">
+                <span ng-style="backgroundColor(primaryKB)">
+                    <span>{{ predicateObj.predicate.chosen[primaryKB][0].entity.label + ' '}}</span>
+                    <span class="text-nowrap">
+                    <span>(</span>
+                    <a targer="_blank" href="{{predicateObj.predicate.chosen[primaryKB][0].entity.resource}}">
+                        {{predicateObj.predicate.chosen[primaryKB][0].entity.prefixed}}
+                    </a>
+                    <span>)</span>
+                    </span>
+                </span>
+                </span>
+            </td>
+            <td>
+                <div class="pull-right">
+                    <tooltip msg="Remove from table" place="top">
+                        <a class="btn btn-default" ng-click="moveToNone(predicateObj)">
+                            <span class="fa fa-trash"></span>
+                        </a>
+                    </tooltip>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+        </tbody>
+
+
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <select class="form-control"
+                ng-model="pickedRow"
+                ng-options=" predicateObj.label for predicateObj in result.statisticalAnnotations|get:primaryKB:'NONE':headers ">
+        </select>
+    </div>
+    <div class="col-md-8">
+        <button class="btn btn " ng-click="pickedRow.component[primaryKB] = type"> Add to {{type|lowercase}}s</button>
+    </div>
+</div>

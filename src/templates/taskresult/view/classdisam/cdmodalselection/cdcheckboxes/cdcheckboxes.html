@@ -3,10 +3,11 @@
     <div ng-if="(selectedPosition.row == -1)">
         <div class="checkbox">
             <div class="col-md-12">
-                <label>
+                <label  title="{{title}}">
                     <input type="checkbox"
                            ng-model="ignoredColumn[selectedPosition.column]"
-                           ng-change="lockCell()">
+                           ng-change="lockCell()"
+                           ng-disabled="isSubjectColumnLocked()">
                     Ignore Column
                 </label>
             </div>
@@ -16,7 +17,7 @@
                     <input type="checkbox"
                            ng-model="noDisambiguationColumn[selectedPosition.column]"
                            ng-change="lockCell()">
-                    Skip disambiguation in all cell of this collumn
+                    Skip disambiguation of all cells in this column
                 </label>
             </div>
         </div>
@@ -30,7 +31,7 @@
                     <input type="checkbox"
                               ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"
                               ng-change="lockCell()">
-                    Skip disambiguation in the cell
+                    Skip disambiguation of the cell
                 </label>
             </div>
         </div>

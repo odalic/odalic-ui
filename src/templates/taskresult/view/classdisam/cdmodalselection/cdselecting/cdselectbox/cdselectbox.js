@@ -3,6 +3,7 @@
     // Main module
     var app = angular.module('odalic-app');
 
+
     // directive represets ui-select box for classification and disambiguation
     // attribute 'data' has to contain data related to cell of table (classifications and disambiguations from result)
     var currentFolder = $.getPathForRelativePath('');
@@ -33,45 +34,6 @@
                     $scope.data.chosen[knowledgeBase] = [newSelection];
                 };
 
-                // Maximal length for the <ui-select-match> according to screen size
-                (function () {
-
-                    //region Manual constants (cannot be extracted exactly, so use trial-and-error method)
-                    // Borders
-                    var uisBorders = 30;
-
-                    // Maximal font character width
-                    var charWidth = 6;
-
-                    // Default maximal length
-                    var defLength = 70;
-                    //endregion
-
-                    // The UI-Select element
-                    var getUisElement = function () {
-                        return $('.uis-aclass', iElement.get(0)).get(0);
-                    };
-
-                    // What should happen on the element resize
-                    var uiseResized = function () {
-                        var uisWidth = getUisElement().offsetWidth;
-                        $scope.maxlen = uisWidth ? ((uisWidth - uisBorders) / charWidth) : defLength;
-                    };
-                    uiseResized();
-
-                    // Attach to window.onresize
-                    var uiseResize = function () {
-                        var uisElement = getUisElement();
-                        if (!uisElement) {
-                            window.removeEventListener('resize', uiseResize);
-                            return;
-                        }
-
-                        uiseResized();
-                    };
-                    window.addEventListener('resize', uiseResize);
-
-                })();
 
                 //region LODLIVE communication
                 // **************************************************
@@ -101,9 +63,6 @@
                 };
 
                 function listener(event) {
-                    //TODO kontrola nefunguje event.origin ==null
-                    // if ( event.origin !== "http://localhost:8080" )
-                    //   return
 
                     // json result sends from lodlive: {action: close/returnUrl, data: "www.dbpedia..."}
                     if (event.data.action != 'close') {
@@ -127,9 +86,7 @@
                             //adds new concept to others results
                             candidates.push(newObj);
                             $scope.data.chosen[selectedKB] = [newObj];
-                            //TODO hlaska o pridani vlevy dolni rohu viz cvut angular
                         }
-                        //TODO  hezci hlaska - o existenci vlevy dolni rohu viz cvut angular
                         else {
                             // Hlaska je zbytocna; ng-message je nevhodny a alert-group sa mi hadzat kvoli tomuto nechce. wont fix
                             //alert("This url is already in the selection.");

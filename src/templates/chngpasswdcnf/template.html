@@ -1,0 +1,33 @@
+<!-- Prepared messages for alert-group -->
+<injector for="msgtxt.failure">An error occurred while changing password.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="none" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <!-- Content -->
+    <div class="container-fluid">
+        <!-- Loading -->
+        <loadico bind="dataload" size="5" center="true" showtxt="true">
+            <div ng-switch="status" class="col-md-6 col-md-offset-3">
+                <!-- On success -->
+                <div ng-switch-when="success">
+                    <alert bind="confirmation.alertSuccess" closable="false" type="success">
+                        <span class="glyphicon glyphicon-ok"/> <strong>Password changed!</strong> Your password has been successfully changed! <a href="#/login">Log in?</a>
+                    </alert>
+                </div>
+
+                <!-- On failure -->
+                <div ng-switch-when="failure">
+                    <alert bind="confirmation.alertFailure" closable="false" type="error">
+                        <span class="glyphicon glyphicon-remove"/> <strong>There was an error.</strong> It seems the token you provided is either invalid, or expired. <a href="#/chngpasswd">Change password again?</a>
+                    </alert>
+                </div>
+            </div>
+        </loadico>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

@@ -12,23 +12,22 @@
             scope:
             {
                 gvdata:'=',
-                selectedRelation: '=',
-                locked: '=',
+                currentRelation: '=',
                 knowledgeBase: '@',
-                result: '='
+                currentLock:'='
             },
 
 
-            templateUrl: currentFolder + 'rSelectBox.html',
+            templateUrl: currentFolder + 'rselectbox.html',
             link: function ($scope, iElement, iAttrs) {
 
                 $scope.switchRelation = function (newSelection, knowledgeBase) {
-                    $scope.result.columnRelationAnnotations[$scope.selectedRelation.column1][$scope.selectedRelation.column2].chosen[knowledgeBase] = [newSelection];
+                    $scope.currentRelation.chosen[knowledgeBase] = [newSelection];
                     $scope.gvdata.mc();
                 };
 
                 $scope.lockRelation = function () {
-                    $scope.locked.graphEdges[$scope.selectedRelation.column1][$scope.selectedRelation.column2] = 1;
+                    $scope.currentLock();
                     $scope.gvdata.update();
                 };
             }
