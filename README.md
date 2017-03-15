@@ -20,4 +20,4 @@ Apache 2.0
 Soon at https://grips.semantic-web.at/ .
 
 ### Installation guide and documentation
-https://odalic.github.io/download/ODALIC.Project.Documentation.pdf
+[PDF version](https://odalic.github.io/download/ODALIC.Project.Documentation.pdf)
