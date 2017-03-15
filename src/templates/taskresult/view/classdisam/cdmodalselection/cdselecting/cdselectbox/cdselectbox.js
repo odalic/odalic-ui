@@ -79,8 +79,14 @@
                         if (!urlList.includes(event.data.data)) {
                             //new concept
                             var newObj = {
-                                "entity": {"resource": event.data.data, "label": ""},
-                                "score": {"value": 0}
+                                "entity": {
+                                    "resource": event.data.data,
+                                    "label": event.data.label,
+                                    "prefix": null,
+                                    "prefixed": event.data.data,
+                                    "tail": null
+                                },
+                                "score": {"value": null}
                             };
 
                             //adds new concept to others results
@@ -88,16 +94,28 @@
                             $scope.data.chosen[selectedKB] = [newObj];
                         }
                         else {
-                            // Hlaska je zbytocna; ng-message je nevhodny a alert-group sa mi hadzat kvoli tomuto nechce. wont fix
-                            //alert("This url is already in the selection.");
+                            //url is already added
+                            //only one should be match
+                            var obj;
+                            for (var objIndex in candidates) {
+                                var candidate = candidates[objIndex];
+                                if (candidate.entity.resource == event.data.data) {
+                                    obj = candidate;
+                                    break;
+                                }
+                            }
+                            $scope.data.chosen[selectedKB] = [obj];
+
                         }
 
+                        $scope.lockCell();
                         $scope.$apply();
                     }
 
                     document.body.removeChild(lodLiveIframe);
 
                 }
+
                 //endregion
             }
         }

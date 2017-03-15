@@ -27,7 +27,7 @@
     <!-- Menu to choose the concept from (basically a ComboBox) -->
     <ui-select-choices
             repeat="opt in data.candidates[knowledgeBase]  | propsFilter : {'entity.resource': $select.search, 'entity.label': $select.search}">
-        <img ng-click="createIframe(opt,knowledgeBase,$event)"
+        <img ng-click="createIframe(opt.entity,knowledgeBase,$event)"
              title="Browse via LodLive"
              ng-src="{{ lodLiveBrowserIcon }}"
              ng-class="'selectBoxIcon'">
