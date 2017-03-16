@@ -37,12 +37,7 @@
 
                 //region LODLIVE communication
                 // **************************************************
-                //sets listener
-                if (window.addEventListener) {
-                    addEventListener("message", listener, false)
-                } else {
-                    attachEvent("onmessage", listener)
-                }
+
 
                 // saves context of odalic for communication
                 var lodLiveIframe;
@@ -52,13 +47,20 @@
                 $scope.createIframe = function (endUrl, currentKB, $event) {
                     $event.stopPropagation();
 
-                    selectedKB = currentKB;
+                   //works for all major browsers, except IE 8 and earlier
+                    if (window.addEventListener) {
 
-                    //LodLive iframe
-                    var allUrl = "../LodLive/app_en.html?" + endUrl.resource;
-                    lodLiveIframe = document.createElement("IFRAME");
-                    lodLiveIframe.setAttribute("src", allUrl);
-                    document.body.appendChild(lodLiveIframe);
+                        //sets a new listener
+                        addEventListener("message", listener, false);
+
+                        selectedKB = currentKB;
+                        var allUrl = "../LodLive/app_en.html?" + endUrl.resource;
+
+                        //sets a new LodLive iframe
+                        lodLiveIframe = document.createElement("IFRAME");
+                        lodLiveIframe.setAttribute("src", allUrl);
+                        document.body.appendChild(lodLiveIframe);
+                    }
 
                 };
 
@@ -79,8 +81,14 @@
                         if (!urlList.includes(event.data.data)) {
                             //new concept
                             var newObj = {
-                                "entity": {"resource": event.data.data, "label": ""},
-                                "score": {"value": 0}
+                                "entity": {
+                                    "resource": event.data.data,
+                                    "label": event.data.label,
+                                    "prefix": null,
+                                    "prefixed": event.data.data,
+                                    "tail": null
+                                },
+                                "score": {"value": null}
                             };
 
                             //adds new concept to others results
@@ -88,16 +96,31 @@
                             $scope.data.chosen[selectedKB] = [newObj];
                         }
                         else {
-                            // Hlaska je zbytocna; ng-message je nevhodny a alert-group sa mi hadzat kvoli tomuto nechce. wont fix
-                            //alert("This url is already in the selection.");
+                            //url is already added
+                            //only one should be match
+                            var obj;
+                            for (var objIndex in candidates) {
+                                var candidate = candidates[objIndex];
+                                if (candidate.entity.resource == event.data.data) {
+                                    obj = candidate;
+                                    break;
+                                }
+                            }
+                            $scope.data.chosen[selectedKB] = [obj];
+
                         }
 
+                        $scope.lockCell();
                         $scope.$apply();
+
                     }
 
                     document.body.removeChild(lodLiveIframe);
+                    //removes listener used for lod live
+                    removeEventListener("message", listener);
 
                 }
+
                 //endregion
             }
         }
