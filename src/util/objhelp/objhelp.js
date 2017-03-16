@@ -99,6 +99,34 @@ var objhelp = {
         });
     },
 
+    /** Returns a (recursive) copy of a an object.
+     *
+     * @param obj   An object to copy.
+     * @return      A (recursive) copy of an object.
+     */
+    objRecurCopy: function (obj) {
+        if (!obj || (typeof(obj) !== 'object')) {
+            throw new Error('objRecurCopy: illegal arguments');
+        }
+
+        // Copy
+        var result = {};
+        objhelp.objForEach(obj, function (key, value) {
+            if (typeof(value) === 'object') {
+                // Recursive object copy?
+                if (!!value) {
+                    result[key] = objhelp.objRecurCopy(obj[key]);
+                } else {
+                    result[key] = null;
+                }
+            } else {
+                result[key] = value;
+            }
+        });
+
+        return result;
+    },
+
     /** Recursive comparison of values of 2 objects.
      *  An array of properties, in which the two objects differ, is returned.
      *
