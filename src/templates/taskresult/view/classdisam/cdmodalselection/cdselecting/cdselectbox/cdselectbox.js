@@ -37,12 +37,7 @@
 
                 //region LODLIVE communication
                 // **************************************************
-                //sets listener
-                if (window.addEventListener) {
-                    addEventListener("message", listener, false)
-                } else {
-                    attachEvent("onmessage", listener)
-                }
+
 
                 // saves context of odalic for communication
                 var lodLiveIframe;
@@ -52,13 +47,20 @@
                 $scope.createIframe = function (endUrl, currentKB, $event) {
                     $event.stopPropagation();
 
-                    selectedKB = currentKB;
+                   //works for all major browsers, except IE 8 and earlier
+                    if (window.addEventListener) {
 
-                    //LodLive iframe
-                    var allUrl = "../LodLive/app_en.html?" + endUrl.resource;
-                    lodLiveIframe = document.createElement("IFRAME");
-                    lodLiveIframe.setAttribute("src", allUrl);
-                    document.body.appendChild(lodLiveIframe);
+                        //sets a new listener
+                        addEventListener("message", listener, false);
+
+                        selectedKB = currentKB;
+                        var allUrl = "../LodLive/app_en.html?" + endUrl.resource;
+
+                        //sets a new LodLive iframe
+                        lodLiveIframe = document.createElement("IFRAME");
+                        lodLiveIframe.setAttribute("src", allUrl);
+                        document.body.appendChild(lodLiveIframe);
+                    }
 
                 };
 
@@ -110,9 +112,12 @@
 
                         $scope.lockCell();
                         $scope.$apply();
+
                     }
 
                     document.body.removeChild(lodLiveIframe);
+                    //removes listener used for lod live
+                    removeEventListener("message", listener);
 
                 }
 
