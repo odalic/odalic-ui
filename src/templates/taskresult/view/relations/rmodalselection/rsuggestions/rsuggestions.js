@@ -90,7 +90,7 @@
                             if ($scope.suggestions.length > 0) {
                                 $scope.suggestion = $scope.suggestions[0];
                             }
-                            // alertMessage('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
+                            // alertMessage('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestions.' );
                             $scope.reporting.push('success', 'Search results arrived. Search found ' + $scope.suggestions.length + ' suggestions.');
 
                         },

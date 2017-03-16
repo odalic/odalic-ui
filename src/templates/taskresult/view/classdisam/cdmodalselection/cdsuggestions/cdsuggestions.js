@@ -123,7 +123,7 @@
                             $scope.suggestion = $scope.suggestions[0];
                         }
 
-                        $scope.reporting.push('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestins.' );
+                        $scope.reporting.push('success','Search results arrived. Search found '+ $scope.suggestions.length+' suggestions.' );
                     };
                 };
 
