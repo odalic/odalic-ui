@@ -14,26 +14,26 @@
                 $scope.feedbackChanged = false;
 
                 // Watch for any feedback changes, in which case the buttons get disabled
-                (function () {
-                    var lockStructure = $scope.locked;
-                    var lockStrFormer = null;
-
-                    timed.ready(function () {
-                        return !!lockStructure.tableCells && !!lockStructure.graphEdges;
-                    }, function () {
-
-                        // Counts
-                        var rowCount = $scope.result.cellAnnotations.length;
-                        var columnCount = $scope.result.cellAnnotations[0].length;
-
-                        // Copy the locked structure for further comparisons
-                        lockStrFormer = objhelp.objRecurCopy($scope.locked);
-
-                        $scope.$watch(function() {
-                            $scope.feedbackChanged = objhelp.objCompare(lockStructure, lockStrFormer).length > 0;
-                        });
-                    });
-                })();
+                // (function () {
+                //     var lockStructure = $scope.locked;
+                //     var lockStrFormer = null;
+                //
+                //     timed.ready(function () {
+                //         return !!lockStructure.tableCells && !!lockStructure.graphEdges;
+                //     }, function () {
+                //
+                //         // Counts
+                //         var rowCount = $scope.result.cellAnnotations.length;
+                //         var columnCount = $scope.result.cellAnnotations[0].length;
+                //
+                //         // Copy the locked structure for further comparisons
+                //         lockStrFormer = objhelp.objRecurCopy($scope.locked);
+                //
+                //         $scope.$watch(function() {
+                //             $scope.feedbackChanged = objhelp.objCompare(lockStructure, lockStrFormer).length > 0;
+                //         });
+                //     });
+                // })();
 
                 // Button actions: exporting to JSON / CSV / RDF
                 $scope.exporting = {
