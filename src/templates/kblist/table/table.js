@@ -5,46 +5,71 @@ var tableComponent = function (scope, rest, reporth) {
 
     var updateMirror = function () {
         mirror = {};
-        for (var i = 0; i < scope.files.length; ++i) {
+        for (var i = 0; i < scope.kbs.length; ++i) {
             (function (j) {
-                var file = scope.files[j];
+                var kb = scope.kbs[j];
 
                 // Add to 'mirror'
-                mirror[file.id] = j;
+                mirror[kb.id] = j;
             })(i);
         }
     };
 
     return {
         refreshList: function (callback) {
-            rest.files.list.exec(
-                // Success
-                function (response) {
-                    scope.files = response;
-                    updateMirror();
+            // TODO: The following statements should be wrapped around a corresponding REST request
 
-                    if (callback) {
-                        callback();
-                    }
+            // TODO: The placeholder KB list is only temporary
+            scope.kbs = [];
+            for (var i = 0; i < 15; i++) {
+                scope.kbs.push({
+                    id: (new String()).concat("kb", i),
+                    name: (new String()).concat("KB Name", " ", i),
+                    description: (new String()).concat("KB Description", " ", i)
+                });
+            }
 
-                    // Update pagination directive
-                    scope.filesProxy.model = scope.files;
-                    scope.$broadcast('pagination');
+            updateMirror();
 
-                    // Display the table
-                    scope.dataload.show = true;
-                },
-                // Error
-                function (response) {
-                    scope.files = [];
-                    mirror = {};
-                }
-            );
+            if (callback) {
+                callback();
+            }
+
+            // Update pagination directive
+            scope.kbsProxy.model = scope.kbs;
+            scope.$broadcast('pagination');
+
+            // Display the table
+            scope.dataload.show = true;
+
+            // rest.files.list.exec(
+            //     // Success
+            //     function (response) {
+            //         scope.files = response;
+            //         updateMirror();
+            //
+            //         if (callback) {
+            //             callback();
+            //         }
+            //
+            //         // Update pagination directive
+            //         scope.filesProxy.model = scope.files;
+            //         scope.$broadcast('pagination');
+            //
+            //         // Display the table
+            //         scope.dataload.show = true;
+            //     },
+            //     // Error
+            //     function (response) {
+            //         scope.files = [];
+            //         mirror = {};
+            //     }
+            // );
         },
 
-        removeRecord: function (fileId, callback) {
-            if (fileId in mirror) {
-                scope.files.splice(mirror[fileId], 1);
+        removeRecord: function (kbID, callback) {
+            if (kbID in mirror) {
+                scope.kbs.splice(mirror[kbID], 1);
                 updateMirror();
 
                 if (callback) {

@@ -1,6 +1,6 @@
-<!--&lt;!&ndash; Prepared messages to display to a user in case of a situation &ndash;&gt;-->
-<!--<injector for="msgtxt.removeFailure">An error occurred while removing the file.</injector>-->
-<!--<injector for="msgtxt.downloadFailure">An error occurred while downloading the file.</injector>-->
+<!-- Prepared messages to display to a user in case of a situation -->
+<injector for="msgtxt.removeFailure">An error occurred while removing the knowledge base configuration.</injector>
+<injector for="msgtxt.unknownFailure">An unknown error occurred.</injector>
 
 <!-- Main Content -->
 <main-cnt>
@@ -54,18 +54,18 @@
         <!-- Pagination -->
         <pagination bind="kbsProxy" per-page="5"/>
 
-        <!--&lt;!&ndash; Reporting situations to a user &ndash;&gt;-->
-        <!--<div class="col-md-12">-->
-            <!--<alert-group bind="messages" disappearing="3"/>-->
-        <!--</div>-->
+        <!-- Reporting situations to a user -->
+        <div class="col-md-12">
+            <alert-group bind="messages" disappearing="3"/>
+        </div>
 
-        <!--&lt;!&ndash; Additional content below the table &ndash;&gt;-->
-        <!--<div class="col-md-offset-10 col-md-2">-->
-            <!--<button type="button" class="col-md-offset-2 col-md-10 btn btn-lg" ng-click="misc.addNew()">Add new</button>-->
-        <!--</div>-->
+        <!-- Additional content below the table -->
+        <div class="col-md-offset-10 col-md-2">
+            <button type="button" class="col-md-offset-2 col-md-10 btn btn-lg" ng-click="fadd()">Add new configuration</button>
+        </div>
 
-        <!--&lt;!&ndash; Blank space pushing footer further below &ndash;&gt;-->
-        <!--<div class="col-md-12 odalic-hstyle-medium"/>-->
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
 
     </div>
 </main-cnt>
