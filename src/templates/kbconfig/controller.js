@@ -6,6 +6,9 @@
     // Create a controller for task-creation screen
     app.controller('odalic-kbconfig-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
 
+        // Initialization
+        formsval.toScope($scope);
+
         // // Initialization
         // $scope.taskCreation = {};
         // $scope.templFormat = {
@@ -17,7 +20,6 @@
         // $scope.fileinput = {};
         // $scope.statistical = {};
         // $scope.confirm = {};
-        // formsval.toScope($scope);
         //
         // // Additional variables
         // var kbListLoaded = false;
