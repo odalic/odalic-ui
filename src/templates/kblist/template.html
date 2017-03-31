@@ -1,0 +1,102 @@
+<!--&lt;!&ndash; Prepared messages to display to a user in case of a situation &ndash;&gt;-->
+<!--<injector for="msgtxt.removeFailure">An error occurred while removing the file.</injector>-->
+<!--<injector for="msgtxt.downloadFailure">An error occurred while downloading the file.</injector>-->
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="files" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <!-- Content -->
+    <div class="container-fluid">
+        <h2>List of knowledge bases</h2>
+
+        <!--&lt;!&ndash; Modal for file configuration &ndash;&gt;-->
+        <!--<file-settings bind="fileconfig" />-->
+
+        <!--&lt;!&ndash; Tooltip messages &ndash;&gt;-->
+        <!--<injector for="statetext.local">Uploaded file</injector>-->
+        <!--<injector for="statetext.remote">Remote file</injector>-->
+
+        <!--<injector for="actiontext.download">Download</injector>-->
+        <!--<injector for="actiontext.configure">File settings</injector>-->
+        <!--<injector for="actiontext.remove">Remove file</injector>-->
+
+        <!--&lt;!&ndash; Unknown bug - a first useless tooltip has to be written for some reason &ndash;&gt;-->
+        <!--<tooltip msg="bug-fixer" />-->
+
+        <!--&lt;!&ndash; The table of files &ndash;&gt;-->
+        <!--<loadico bind="dataload" size="5" center="true" showtxt="true">-->
+            <!--<table class="table table-bordered table-hover">-->
+                <!--<thead>-->
+                <!--<tr>-->
+                    <!--<th>Date created</th>-->
+                    <!--<th>File name</th>-->
+                    <!--<th>Actions</th>-->
+                    <!--<th>Type</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--&lt;!&ndash; A single file &ndash;&gt;-->
+                <!--<tr ng-repeat="file in filesProxy.getView()">-->
+                    <!--<td class="col-md-2">{{ file.uploaded }}</td>-->
+                    <!--<td class="col-md-7">{{ file.id }}</td>-->
+
+                    <!--&lt;!&ndash; Actions &ndash;&gt;-->
+                    <!--<td class="col-md-2">-->
+                        <!--<tooltip source="actiontext.download" place="top">-->
+                            <!--<a-fake ajax="fdownload" args="file.id" catcher="fileerror" type="text/csv">-->
+                                <!--<a class="btn btn-default">-->
+                                    <!--<i class="fa fa-download fa-lg"></i>-->
+                                <!--</a>-->
+                            <!--</a-fake>-->
+                        <!--</tooltip>-->
+                        <!--<tooltip source="actiontext.configure" place="top">-->
+                            <!--<a class="btn btn-default" ng-click="fconfigure(file.id)"><i class="fa fa-cog fa-lg"></i></a>-->
+                        <!--</tooltip>-->
+                        <!--<tooltip source="actiontext.remove" place="top">-->
+                            <!--<a class="btn btn-default" ng-click="fremove(file.id)"><i class="fa fa-trash fa-lg"></i></a>-->
+                        <!--</tooltip>-->
+                    <!--</td>-->
+
+                    <!--&lt;!&ndash; State icons &ndash;&gt;-->
+                    <!--<td class="col-md-1">-->
+                        <!--<div ng-switch="file.cached">-->
+                            <!--<div ng-switch-when="true">-->
+                                <!--<tooltip source="statetext.local" place="top">-->
+                                    <!--<a class="odalic-cursor-normal"><i class="fa fa-map-marker fa-lg"></i></a>-->
+                                <!--</tooltip>-->
+                            <!--</div>-->
+                            <!--<div ng-switch-when="false">-->
+                                <!--<tooltip source="statetext.remote" place="top">-->
+                                    <!--<a class="odalic-cursor-normal"><i class="fa fa-globe fa-lg"></i></a>-->
+                                <!--</tooltip>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
+        <!--</loadico>-->
+
+        <!--&lt;!&ndash; Pagination &ndash;&gt;-->
+        <!--<pagination bind="filesProxy" per-page="5"/>-->
+
+        <!--&lt;!&ndash; Reporting situations to a user &ndash;&gt;-->
+        <!--<div class="col-md-12">-->
+            <!--<alert-group bind="messages" disappearing="3"/>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; Additional content below the table &ndash;&gt;-->
+        <!--<div class="col-md-offset-10 col-md-2">-->
+            <!--<button type="button" class="col-md-offset-2 col-md-10 btn btn-lg" ng-click="misc.addNew()">Add new</button>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; Blank space pushing footer further below &ndash;&gt;-->
+        <!--<div class="col-md-12 odalic-hstyle-medium"/>-->
+
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

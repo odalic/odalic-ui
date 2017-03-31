@@ -22,6 +22,16 @@
     ]
   },
   {
+    "id": "kbs",
+    "title": "Knowledge bases",
+    "menu": [
+      {
+        "title": "List",
+        "link": "#/kblist"
+      }
+    ]
+  },
+  {
     "id": "tasks",
     "title": "Tasks",
     "menu": [

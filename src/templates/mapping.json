@@ -73,5 +73,10 @@
         "route": "/taskresult/:taskid",
         "folder": "taskresult",
         "controller": "taskresult-ctrl"
+    },
+    {
+        "route": "/kblist",
+        "folder": "kblist",
+        "controller": "odalic-kblist-ctrl"
     }
 ]
