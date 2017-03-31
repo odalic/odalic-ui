@@ -75,6 +75,11 @@
         "controller": "taskresult-ctrl"
     },
     {
+        "route": "/kbconfig",
+        "folder": "kbconfig",
+        "controller": "odalic-kbconfig-ctrl"
+    },
+    {
         "route": "/kblist",
         "folder": "kblist",
         "controller": "odalic-kblist-ctrl"

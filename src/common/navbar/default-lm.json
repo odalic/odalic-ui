@@ -26,6 +26,12 @@
     "title": "Knowledge bases",
     "menu": [
       {
+        "title": "Add new",
+        "link": "#/kbconfig"
+      },
+      {
+      },
+      {
         "title": "List",
         "link": "#/kblist"
       }

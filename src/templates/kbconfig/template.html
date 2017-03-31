@@ -1,0 +1,158 @@
+<!--&lt;!&ndash; Prepared messages to display to user in case of a situation &ndash;&gt;-->
+<!--<injector for="msgtxt.saveFailure">An error occurred while saving the task.</injector>-->
+<!--<injector for="msgtxt.createFailure">An error occurred while creating the task.</injector>-->
+<!--<injector for="msgtxt.startFailure">An error occurred while starting the task. The task has been successfully created, though.</injector>-->
+<!--<injector for="msgtxt.loadFailure">Fatal error occurred while loading the task configuration.</injector>-->
+<!--<injector for="msgtxt.kbLoadFailure">Fatal error occurred while loading list of available knowledge bases.</injector>-->
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="tasks" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <div class="container-fluid">
+        <!-- Headline -->
+        <h2>Knowledge base configuration</h2>
+
+        <!--&lt;!&ndash; The main form &ndash;&gt;-->
+        <!--<form class="form-horizontal" role="form" name="taskCreationForm" ng-init="setForm(this, 'taskCreationForm')">-->
+            <!--&lt;!&ndash; Basic settings &ndash;&gt;-->
+            <!--<fieldset>-->
+                <!--<legend>Basic settings</legend>-->
+
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-2 control-label">Task identifier:</label>-->
+                    <!--<div class="col-md-10">-->
+                        <!--<input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"-->
+                               <!--ng-disabled="!templFormat.creating" pattern="[-a-zA-Z0-9_.,\s]*" focused required>-->
+                        <!--<div ng-messages="taskCreationForm.taskIdentifier.$error" ng-if='taskCreationForm.taskIdentifier.$dirty' role="alert">-->
+                            <!--<div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>-->
+                            <!--<div ng-message="pattern"><error-msg>Task name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-2 control-label">Description:</label>-->
+                    <!--<div class="col-md-10">-->
+                        <!--<input class="form-control" type="text" ng-model="taskCreation.description">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</fieldset>-->
+
+            <!--&lt;!&ndash; Input file &ndash;&gt;-->
+            <!--<fieldset>-->
+                <!--<legend>Input file</legend>-->
+
+                <!--<div class="form-group">-->
+                    <!--<fileinput bind="fileinput" form="taskCreationForm" selection="true" />-->
+                <!--</div>-->
+            <!--</fieldset>-->
+
+            <!--&lt;!&ndash; Knowledge base settings &ndash;&gt;-->
+            <!--<fieldset>-->
+                <!--<legend>Knowledge base</legend>-->
+
+                <!--&lt;!&ndash; Used knowledge bases &ndash;&gt;-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-2 control-label">Knowledge bases:</label>-->
+                    <!--<div class="col-md-10">-->
+                        <!--<select class="form-control" name="selectKBs" ng-model="kbs.chosenKBs" ng-options="opt.name for opt in kbs.availableKBs" size="{{ kbs.availableKBs.length }}" ng-change="kbs.selectionChanged()" multiple required>-->
+                        <!--</select>-->
+                        <!--<div ng-if="taskCreationForm.selectKBs.$invalid && taskCreationForm.selectKBs.$dirty">-->
+                            <!--<error-msg>At least 1 knowledge base has to be selected.</error-msg>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash; Primary knowledge base &ndash;&gt;-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-2 control-label">Primary knowledge base:</label>-->
+                    <!--<div class="col-md-10">-->
+                        <!--<select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableSelectedKBs" required>-->
+                            <!--<option value="">Select Knowledge Base</option>-->
+                        <!--</select>-->
+                        <!--<div ng-if="taskCreationForm.selectPrimaryKB.$invalid && taskCreationForm.selectPrimaryKB.$dirty">-->
+                            <!--<error-msg>A knowledge base has to be selected.</error-msg>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</fieldset>-->
+
+            <!--&lt;!&ndash; Processing &ndash;&gt;-->
+            <!--<fieldset>-->
+                <!--<legend>Processing</legend>-->
+
+                <!--&lt;!&ndash; Lines limit &ndash;&gt;-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-2 control-label">Lines processed:</label>-->
+                    <!--<div class="col-md-10">-->
+                        <!--<label class="radio-inline">-->
+                            <!--<input type="radio" ng-model="linesLimit.selection" value="all" ng-init="linesLimit.selection = 'all'" />-->
+                            <!--All-->
+                        <!--</label>-->
+
+                        <!--<label class="radio-inline">-->
+                            <!--<input type="radio" ng-model="linesLimit.selection" value="some" />-->
+                            <!--At most <input type="number" ng-model="linesLimit.value" ng-init="linesLimit.value = 1" min="1" max="2147483647" ng-disabled="linesLimit.selection != 'some'" />-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash; Statistical data &ndash;&gt;-->
+                <!--<div class="form-group">-->
+                    <!--<label class="col-md-2 control-label">Statistical data:</label>-->
+                    <!--<div class="col-md-10 checkbox">-->
+                        <!--<label>-->
+                            <!--<input type="checkbox" ng-model="statistical.value" ng-init="statistical.value = false" />-->
+                        <!--</label>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</fieldset>-->
+
+            <!--&lt;!&ndash;  Alerts displaying notifications for a user regarding the whole form &ndash;&gt;-->
+            <!--<alert-group bind="wholeForm.alerts" disappearing="3"/>-->
+        <!--</form>-->
+
+        <!--&lt;!&ndash; Confirm modal when overwriting task &ndash;&gt;-->
+        <!--<confirm bind="confirm" title="Task overwrite">-->
+            <!--You are about to overwrite an existing task definition. Continue?-->
+        <!--</confirm>-->
+
+        <!--&lt;!&ndash; Submit, when creating a new task &ndash;&gt;-->
+        <!--<div class="col-md-offset-5 col-md-7" ng-if="templFormat.creating">-->
+            <!--<div class="col-md-offset-2 col-md-10">-->
+                <!--<div class="col-md-6">-->
+                    <!--<button-load button-class="col-md-12 btn btn-lg" action="templFormat.createAndRun" disabled="false">Save and run</button-load>-->
+                <!--</div>-->
+                <!--<div class="col-md-3">-->
+                    <!--<button-load button-class="col-md-12 btn btn-lg" action="templFormat.createTask" disabled="false">Save</button-load>-->
+                <!--</div>-->
+                <!--<div class="col-md-3">-->
+                    <!--<button type="button" class="col-md-12 btn btn-lg" ng-click="templFormat.goBack()">Cancel</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; Submit, when editing an existing task &ndash;&gt;-->
+        <!--<div class="col-md-offset-5 col-md-7" ng-if="!templFormat.creating">-->
+            <!--<div class="col-md-offset-2 col-md-10">-->
+                <!--<div class="col-md-6">-->
+                    <!--<button-load button-class="col-md-12 btn btn-lg" action="templFormat.saveAndRun" disabled="false">Save and run</button-load>-->
+                <!--</div>-->
+                <!--<div class="col-md-3">-->
+                    <!--<button-load button-class="col-md-12 btn btn-lg" action="templFormat.saveTask" disabled="false">Save</button-load>-->
+                <!--</div>-->
+                <!--<div class="col-md-3">-->
+                    <!--<button type="button" class="col-md-12 btn btn-lg" ng-click="templFormat.goBack()">Cancel</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash; Blank space pushing footer further below &ndash;&gt;-->
+        <!--<div class="col-md-12 odalic-hstyle-medium"/>-->
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>
