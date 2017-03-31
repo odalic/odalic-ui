@@ -7,6 +7,32 @@
     var currentFolder = $.getPathForRelativePath('');
     app.controller('odalic-kblist-ctrl', function ($scope, rest, reporth) {
 
+        // Initialize
+        $scope.dataload = {};
+        $scope.kbsProxy = {};
+
+        // TODO: The manual show is only temporary
+        $scope.dataload.show = true;
+
+        // TODO: The placeholder KB list is only temporary
+        $scope.kbsProxy.model = [
+            {
+                id: "kb1",
+                name: "KB1",
+                description: "KB1 description"
+            },
+            {
+                id: "kb2",
+                name: "KB2",
+                description: "KB2 description"
+            },
+            {
+                id: "kb3",
+                name: "KB3",
+                description: "KB3 description"
+            }
+        ];
+
         // // Dealing with the table
         // $.getScriptSync(currentFolder + 'table/table.js', function () {});
         // var table = tableComponent($scope, rest, reporth);
@@ -16,7 +42,6 @@
         // $scope.files = [];
         // $scope.messages = {};
         // $scope.dataload = {};
-        // $scope.filesProxy = {};
         // table.refreshList();
         //
         // // Table button functions
