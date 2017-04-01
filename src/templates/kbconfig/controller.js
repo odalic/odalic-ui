@@ -3,8 +3,14 @@
     // Main module
     var app = angular.module('odalic-app');
 
+    // Load submodules
+    loadhelp.loadDefault();
+
+    // Current folder
+    var currentFolder = $.getPathForRelativePath('');
+
     // Create a controller for task-creation screen
-    app.controller('odalic-kbconfig-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
+    app.controller('odalic-kbconfig-ctrl', function ($scope, $uibModal, $routeParams, filedata, rest, formsval, reporth) {
 
         // Initialization actions
         formsval.toScope($scope);
@@ -18,6 +24,23 @@
                 name: (new String()).concat('PS Name', ' ', i)
             });
         }
+
+        // Predicate sets Add
+        $scope.psAdd = function () {
+            $uibModal.open({
+                ariaLabelledBy: 'modal-title',
+                ariaDescribedBy: 'modal-body',
+                templateUrl: text.urlConcat(currentFolder, 'psetconfig', 'psetconfig.html'),
+                controller: 'psetconfig-ctrl',
+                resolve: {
+                    data: function () {
+                        return {
+                            test: 'Hello, World!'
+                        }
+                    }
+                }
+            });
+        };
 
         // // Initialization
         // $scope.taskCreation = {};
