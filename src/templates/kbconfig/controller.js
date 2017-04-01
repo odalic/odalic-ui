@@ -6,8 +6,18 @@
     // Create a controller for task-creation screen
     app.controller('odalic-kbconfig-ctrl', function ($scope, $routeParams, filedata, rest, formsval, reporth) {
 
-        // Initialization
+        // Initialization actions
         formsval.toScope($scope);
+
+        // Variable initialization
+        // TODO: The placeholder predicate sets is only temporary
+        $scope.predicateSets = [];
+        for (var i = 0; i < 5; i++) {
+            $scope.predicateSets.push({
+                selected: (Math.random()*2 > 1) ? true : false,
+                name: (new String()).concat('PS Name', ' ', i)
+            });
+        }
 
         // // Initialization
         // $scope.taskCreation = {};

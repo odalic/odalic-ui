@@ -139,6 +139,10 @@
             <fieldset>
                 <legend>Predicate sets</legend>
 
+                <!-- Tooltip messages -->
+                <injector for="actiontext.configure">Knowledge base settings</injector>
+                <injector for="actiontext.remove">Remove knowledge base</injector>
+
                 <!-- Table of predicates -->
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -150,19 +154,35 @@
                     </thead>
                     <tbody>
                         <!-- A single record -->
-                        <tr>
-                            <td class="col-md-1"><input class="form-control" type="checkbox"/></td>
-                            <td class="col-md-7">record.name</td>
+                        <tr ng-repeat="record in predicateSets" ng-class="{'odalic-trstyle-lightgrey': record.selected}">
+                            <!-- Record selection -->
+                            <td class="col-md-1"><input class="form-control" type="checkbox" ng-model="record.selected"/></td>
+
+                            <!-- Name -->
+                            <td class="col-md-7">{{ record.name }}</td>
+
+                            <!-- Actions -->
                             <td class="col-md-4">
-                                <!-- TODO: Actions -->
+                                <!-- Configure -->
+                                <tooltip source="actiontext.configure" place="top">
+                                    <a class="btn btn-default" ng-click="fconfigure(kb.id)"><i class="fa fa-cog fa-lg"></i></a>
+                                </tooltip>
+
+                                <!-- Remove -->
+                                <tooltip source="actiontext.remove" place="top">
+                                    <a class="btn btn-default" ng-click="fremove(kb.id)"><i class="fa fa-trash fa-lg"></i></a>
+                                </tooltip>
                             </td>
                         </tr>
                     </tbody>
                 </table>
 
-                <!-- Autodetect -->
-                <div class="col-md-offset-10 col-md-2">
-                    <div class="col-md-offset-2 col-md-10">
+                <!-- Buttons -->
+                <div class="col-md-offset-8 col-md-4">
+                    <div class="col-md-6">
+                        <button type="button" class="col-md-12 btn btn-lg">Add</button>
+                    </div>
+                    <div class="col-md-6">
                         <button type="button" class="col-md-12 btn btn-lg">Autodetect</button>
                     </div>
                 </div>
@@ -176,7 +196,7 @@
                     <label class="col-md-2 control-label">Insert enabled:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="checkbox" />
+                        <input class="form-control col-md-2" type="checkbox" />
                     </div>
                 </div>
 
