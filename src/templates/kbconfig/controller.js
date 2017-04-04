@@ -25,6 +25,11 @@
             });
         }
 
+        $scope.data = {
+            name: new String(),
+            description: new String(),
+        };
+
         // Predicate sets Add
         $scope.psAdd = function () {
             $uibModal.open({

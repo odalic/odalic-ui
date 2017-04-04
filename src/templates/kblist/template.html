@@ -1,11 +1,12 @@
 <!-- Prepared messages to display to a user in case of a situation -->
 <injector for="msgtxt.removeFailure">An error occurred while removing the knowledge base configuration.</injector>
 <injector for="msgtxt.unknownFailure">An unknown error occurred.</injector>
+<injector for="msgtxt.configdFailure">An error occurred while trying to download the knowledge base's configuration.</injector>
 
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
-    <navbar selected="files" lmenu="default-lm.json" rmenu="default-rm.json" />
+    <navbar selected="kbs" lmenu="default-lm.json" rmenu="default-rm.json" />
 
     <!-- Content -->
     <div class="container-fluid">
@@ -14,6 +15,7 @@
         <!-- Tooltip messages -->
         <injector for="actiontext.configure">Knowledge base settings</injector>
         <injector for="actiontext.remove">Remove knowledge base</injector>
+        <injector for="actiontext.download">Download knowledge base configuration</injector>
 
         <!-- The table of knowldge bases -->
         <loadico bind="dataload" size="5" center="true" showtxt="true">
@@ -36,6 +38,15 @@
 
                         <!-- Actions -->
                         <td class="col-md-2">
+                            <!-- Download configuration -->
+                            <span>
+                                <tooltip source="actiontext.download" place="top">
+                                    <a-fake ajax="fdownload" args="kb.id" catcher="configderror" type="text/turtle">
+                                        <a class="btn btn-default"><i class="fa fa-download fa-lg"></i></a>
+                                    </a-fake>
+                                </tooltip>
+                            </span>
+
                             <!-- Configure -->
                             <tooltip source="actiontext.configure" place="top">
                                 <a class="btn btn-default" ng-click="fconfigure(kb.id)"><i class="fa fa-cog fa-lg"></i></a>

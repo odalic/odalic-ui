@@ -27,13 +27,20 @@
         };
 
         $scope.fremove = function (kbID) {
-            var response = { data: { payload: { text: "This is only a DEMO." } } };
             table.removeRecord(kbID);
         };
 
         $scope.fadd = function () {
             var response = { data: { payload: { text: "This is only a DEMO." } } };
             $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.unknownFailure'], response.data));
+        };
+
+        $scope.fdownload = function (s, f, kbID) {
+            //rest.tasks.name(kbID).configuration.retrieve.exec(s, f);
+            f({ data: { payload: { text: "This is only a DEMO." } } });
+        };
+        $scope.configderror = function (response) {
+            $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.configdFailure'], response.data));
         };
 
     });
