@@ -47,6 +47,9 @@
                     var value = scope.newItem;
 
                     // Validate
+                    if (value.length == 0) {
+                        return;
+                    }
                     if (validator) {
                         var msg = validator(value);
                         if (msg !== true) {

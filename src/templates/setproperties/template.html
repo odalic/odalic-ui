@@ -1,3 +1,6 @@
+<!-- Prepared messages to display to user in case of a situation -->
+<injector for="msgtxt.saveFailure">An error occurred while saving the set properties.</injector>
+
 <!-- Main Content -->
 <main-cnt>
     <!-- NavBar -->
@@ -8,13 +11,12 @@
         <h2>Set properties</h2>
 
         <form class="form-horizontal" role="form" name="setPropertiesForm" ng-init="setForm(this, 'setPropertiesForm')">
-
             <!-- Name -->
             <div class="form-group">
                 <label class="col-md-2 control-label">Name:</label>
 
                 <div class="col-md-10">
-                    <input class="form-control" type="text" name="spName" pattern="[-a-zA-Z0-9_.,\s]*" focused required />
+                    <input class="form-control" type="text" name="spName" ng-model="pageVariables.name" pattern="[-a-zA-Z0-9_.,\s]*" focused required />
                     <div ng-messages="setPropertiesForm.spName.$error" ng-if='setPropertiesForm.spName.$dirty' role="alert">
                         <div ng-message="required"><error-msg>Name must not be empty.</error-msg></div>
                         <div ng-message="pattern"><error-msg>Name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
@@ -27,7 +29,7 @@
                 <label class="col-md-2 control-label">"label" predicates:</label>
 
                 <div class="col-md-10">
-                    <cilistbox size="5" ng-model="labelPredicates" validator="myval" />
+                    <cilistbox size="3" ng-model="pageVariables.labelPredicates" />
                 </div>
             </div>
 
@@ -36,9 +38,7 @@
                 <label class="col-md-2 control-label">"description" predicates:</label>
 
                 <div class="col-md-10">
-                    <select class="form-control" multiple size="3" required>
-                        <option>http://dbpedia.org/ontology/abstract</option>
-                    </select>
+                    <cilistbox size="3" ng-model="pageVariables.descPredicates" />
                 </div>
             </div>
 
@@ -47,9 +47,7 @@
                 <label class="col-md-2 control-label">"instance of" predicates:</label>
 
                 <div class="col-md-10">
-                    <select class="form-control" multiple size="3" required>
-                        <option>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</option>
-                    </select>
+                    <cilistbox size="3" ng-model="pageVariables.instanceofPredicates" />
                 </div>
             </div>
 
@@ -58,10 +56,7 @@
                 <label class="col-md-2 control-label">Type of classes:</label>
 
                 <div class="col-md-10">
-                    <select class="form-control" multiple size="3" required>
-                        <option>http://www.w3.org/2000/01/rdf-schema#Class</option>
-                        <option>http://www.w3.org/2002/07/owl#Class</option>
-                    </select>
+                    <cilistbox size="3" ng-model="pageVariables.classTypes" />
                 </div>
             </div>
 
@@ -70,24 +65,30 @@
                 <label class="col-md-2 control-label">Type of properties:</label>
 
                 <div class="col-md-10">
-                    <select class="form-control" multiple size="3" required>
-                        <option>http://www.w3.org/1999/02/22-rdf-syntax-ns#Property</option>
-                        <option>http://www.w3.org/2002/07/owl#DatatypeProperty</option>
-                        <option>http://www.w3.org/2002/07/owl#ObjectProperty</option>
-                    </select>
+                    <cilistbox size="3" ng-model="pageVariables.propertiesTypes" />
                 </div>
             </div>
-
         </form>
+
+        <!--  Alerts displaying notifications for a user regarding the whole form -->
+        <alert-group bind="alerts" disappearing="3"/>
+
+        <!-- Confirm modal when overwriting -->
+        <confirm bind="confirm" title="Set properties overwrite">
+            You are about to overwrite an existing set properties definition. Continue?
+        </confirm>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
 
         <!-- Submit, when editing an existing task -->
         <div class="col-md-offset-7 col-md-5">
             <div class="col-md-offset-2 col-md-10">
                 <div class="col-md-6">
-                    <button type="button" class="col-md-12 btn btn-lg">Save</button>
+                    <button-load button-class="col-md-12 btn btn-lg" action="save" disabled="false">Save</button-load>
                 </div>
                 <div class="col-md-6">
-                    <button type="button" class="col-md-12 btn btn-lg">Cancel</button>
+                    <button type="button" class="col-md-12 btn btn-lg" ng-click="cancel()">Cancel</button>
                 </div>
             </div>
         </div>
