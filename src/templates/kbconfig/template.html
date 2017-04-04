@@ -23,7 +23,7 @@
                     <label class="col-md-2 control-label">Name:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" name="kbName" pattern="[-a-zA-Z0-9_.,\s]*" focused required />
+                        <input class="form-control" type="text" name="kbName" ng-model="pageVariables.name" pattern="[-a-zA-Z0-9_.,\s]*" focused required />
                         <div ng-messages="kbConfigForm.kbName.$error" ng-if='kbConfigForm.kbName.$dirty' role="alert">
                             <div ng-message="required"><error-msg>Name must not be empty.</error-msg></div>
                             <div ng-message="pattern"><error-msg>Name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
@@ -35,7 +35,7 @@
                     <label class="col-md-2 control-label">Description:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.description" />
                     </div>
                 </div>
 
@@ -43,7 +43,7 @@
                     <label class="col-md-2 control-label">SPARQL endpoint:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.sparqlEndpoint" />
                     </div>
                 </div>
 
@@ -51,9 +51,9 @@
                     <label class="col-md-2 control-label">Type:</label>
 
                     <div class="col-md-10">
-                        <select class="form-control" required>
-                            <option>DBpedia</option>
-                            <option>SPARQL</option>
+                        <select class="form-control" ng-model="pageVariables.type" required>
+                            <option value="dbpedia">DBpedia</option>
+                            <option value="sparql">SPARQL</option>
                         </select>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                     <label class="col-md-2 control-label">Cache template path:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.cachePath" />
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@
                     <label class="col-md-2 control-label">Stoplist file path:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.stoplistPath" />
                     </div>
                 </div>
 
@@ -83,10 +83,10 @@
                     <label class="col-md-2 control-label">Fulltext mode:</label>
 
                     <div class="col-md-10">
-                        <select class="form-control" required>
-                            <option>No fulltext</option>
-                            <option>Regular expression</option>
-                            <option>bif:contains</option>
+                        <select class="form-control" ng-model="pageVariables.fulltextMode" required>
+                            <option value="nofulltext">No fulltext</option>
+                            <option value="regexp">Regular expression</option>
+                            <option value="bif:contains">bif:contains</option>
                         </select>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                     <label class="col-md-2 control-label">Language suffix:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.languageSuffix" />
                     </div>
                 </div>
 
@@ -103,9 +103,9 @@
                     <label class="col-md-2 control-label">Class type mode:</label>
 
                     <div class="col-md-10">
-                        <select class="form-control" required>
-                            <option>Direct</option>
-                            <option>Indirect</option>
+                        <select class="form-control" ng-model="pageVariables.classTypeMode" required>
+                            <option value="direct">Direct</option>
+                            <option value="indirect">Indirect</option>
                         </select>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                     <label class="col-md-2 control-label">"Instance of" predicate:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.instanceOfPred" />
                     </div>
                 </div>
 
@@ -122,7 +122,7 @@
                     <label class="col-md-2 control-label">"Domain" predicate:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.domainPred" />
                     </div>
                 </div>
 
@@ -130,7 +130,7 @@
                     <label class="col-md-2 control-label">"Range" predicate:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.rangePred" />
                     </div>
                 </div>
             </fieldset>
@@ -144,15 +144,15 @@
 
                     <div class="col-md-10">
                         <div class="col-md-6">
-                            <label class="radio-inline"><input type="radio" ng-model="selectMode" value="autodetect" /> Autodetect</label>
+                            <label class="radio-inline"><input type="radio" ng-model="pageVariables.selectMode" value="autodetect" /> Autodetect</label>
                         </div>
                         <div class="col-md-6">
-                            <label class="radio-inline"><input type="radio" ng-model="selectMode" value="manual" /> Select manually</label>
+                            <label class="radio-inline"><input type="radio" ng-model="pageVariables.selectMode" value="manual" /> Select manually</label>
                         </div>
                     </div>
                 </div>
 
-                <div ng-switch="selectMode">
+                <div ng-switch="pageVariables.selectMode">
                     <div ng-switch-when="autodetect">
                         <div class="col-md-12">
                             <!-- The sets will be selected automatically -->
@@ -186,12 +186,12 @@
                                     <td class="col-md-4">
                                         <!-- Configure -->
                                         <tooltip source="actiontext.configure" place="top">
-                                            <a class="btn btn-default" ng-click="fconfigure(kb.id)"><i class="fa fa-cog fa-lg"></i></a>
+                                            <a class="btn btn-default" ng-click="fconfigure(record.name)"><i class="fa fa-cog fa-lg"></i></a>
                                         </tooltip>
 
                                         <!-- Remove -->
                                         <tooltip source="actiontext.remove" place="top">
-                                            <a class="btn btn-default" ng-click="fremove(kb.id)"><i class="fa fa-trash fa-lg"></i></a>
+                                            <a class="btn btn-default" ng-click="fremove(record.name)"><i class="fa fa-trash fa-lg"></i></a>
                                         </tooltip>
                                     </td>
                                 </tr>
@@ -206,6 +206,7 @@
                 </div>
             </fieldset>
 
+            <!-- Inserting -->
             <fieldset>
                 <legend>Inserting</legend>
 
@@ -213,7 +214,7 @@
                     <label class="col-md-2 control-label">Insert enabled:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="checkbox" />
+                        <input class="form-control" type="checkbox" ng-model="pageVariables.insertEnabled" />
                     </div>
                 </div>
             </fieldset>
@@ -226,7 +227,7 @@
                     <label class="col-md-2 control-label">Insert graph:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.insertGraph" />
                     </div>
                 </div>
 
@@ -234,7 +235,7 @@
                     <label class="col-md-2 control-label">Schema prefix:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.schemaPrefix" />
                     </div>
                 </div>
 
@@ -242,7 +243,7 @@
                     <label class="col-md-2 control-label">Resource prefix:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.resourcePrefix" />
                     </div>
                 </div>
 
@@ -250,7 +251,7 @@
                     <label class="col-md-2 control-label">Default class:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.defaultClass" />
                     </div>
                 </div>
 
@@ -258,7 +259,7 @@
                     <label class="col-md-2 control-label">"label" predicate:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.labelPred" />
                     </div>
                 </div>
 
@@ -266,7 +267,7 @@
                     <label class="col-md-2 control-label">"alt. label" predicate:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.altLabelPred" />
                     </div>
                 </div>
 
@@ -274,7 +275,7 @@
                     <label class="col-md-2 control-label">"subclass of" predicate:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.subclassOfPred" />
                     </div>
                 </div>
 
@@ -282,7 +283,7 @@
                     <label class="col-md-2 control-label">"subproperty of" predicate:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.subpropertyOfPred" />
                     </div>
                 </div>
 
@@ -290,7 +291,7 @@
                     <label class="col-md-2 control-label">Class type:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.classType" />
                     </div>
                 </div>
 
@@ -298,7 +299,7 @@
                     <label class="col-md-2 control-label">Property type:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control" type="text" />
+                        <input class="form-control" type="text" ng-model="pageVariables.propertyType" />
                     </div>
                 </div>
             </fieldset>

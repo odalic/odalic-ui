@@ -9,25 +9,81 @@
     // Create a controller for task-creation screen
     app.controller('odalic-kbconfig-ctrl', function ($scope, $uibModal, $routeParams, filedata, rest, formsval, reporth) {
 
+        // TODO: asi to bude chciet pagination na predicate sets
+        // TODO: confirm modal pri prepisani configu, save + cancel buttons
+        // TODO: ukladanie dat (prechod medzi predsets config)
+        // TODO: pokial je v route zadana sucasna kb
+        // TODO: pokial je v route propertySets zadana sucasna PS
+
         // Initialization actions
         formsval.toScope($scope);
 
-        // Variable initialization
-        // TODO: The placeholder predicate sets is only temporary
-        $scope.predicateSets = [];
-        for (var i = 0; i < 5; i++) {
-            $scope.predicateSets.push({
-                selected: (Math.random()*2 > 1) ? true : false,
-                name: (new String()).concat('PS Name', ' ', i)
-            });
-        }
-
-        $scope.data = {
+        // Data mapping
+        $scope.pageVariables = {
             name: new String(),
             description: new String(),
+            sparqlEndpoint: new String(),
+            type: 'dbpedia',
+            cachePath: new String(),
+            stoplistPath: new String(),
+            fulltextMode: 'nofulltext',
+            languageSuffix: new String(),
+            classTypeMode: 'direct',
+            instanceOfPred: new String(),
+            domainPred: new String(),
+            rangePred: new String(),
+            selectMode: 'autodetect',
+            get predicateSets() {
+                var ps = [];
+                $scope.predicateSets.forEach(function (record) {
+                    if (record.selected) {
+                        ps.push(record);
+                    }
+                });
+
+                return ps;
+            },
+            insertEnabled: false,
+            insertGraph: new String(),
+            schemaPrefix: new String(),
+            resourcePrefix: new String(),
+            defaultClass: new String(),
+            labelPred: new String(),
+            altLabelPred: new String(),
+            subclassOfPred: new String(),
+            subpropertyOfPred: new String(),
+            subpropertyOfPred: new String(),
+            propertyType: new String(),
         };
 
-        // Predicate sets Add
+        // Load predicate sets
+        var loadPredicateSets = function () {
+            // TODO: The placeholder predicate sets is only temporary
+            $scope.predicateSets = [];
+            for (var i = 0; i < 5; i++) {
+                $scope.predicateSets.push({
+                    selected: (Math.random()*2 > 1) ? true : false,
+                    name: (new String()).concat('PS Name', ' ', i)
+                });
+            }
+        };
+
+        // Predicate sets initialization
+        $scope.predicateSets = [];
+        loadPredicateSets();
+
+        // Configure a predicate set
+        $scope.fconfigure = function (psID) {
+            window.location.href = text.urlConcat('#', 'setproperties/', psID);
+        };
+
+        // Remove a predicate set
+        $scope.fremove = function (psID) {
+            // TODO: Remove
+            loadPredicateSets();
+        };
+
+        // Add to predicate sets
         $scope.psAdd = function () {
             // TODO: Save current state
             window.location.href = '#/setproperties/';

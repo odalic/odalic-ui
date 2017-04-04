@@ -98,5 +98,10 @@
         "route": "/setproperties",
         "folder": "setproperties",
         "controller": "odalic-setproperties-ctrl"
+    },
+    {
+        "route": "/setproperties/:spid",
+        "folder": "setproperties",
+        "controller": "odalic-setproperties-ctrl"
     }
 ]
