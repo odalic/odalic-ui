@@ -3,9 +3,6 @@
     // Main module
     var app = angular.module('odalic-app');
 
-    // Load submodules
-    loadhelp.loadDefault();
-
     // Current folder
     var currentFolder = $.getPathForRelativePath('');
 
@@ -32,19 +29,8 @@
 
         // Predicate sets Add
         $scope.psAdd = function () {
-            $uibModal.open({
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: text.urlConcat(currentFolder, 'psetconfig', 'psetconfig.html'),
-                controller: 'psetconfig-ctrl',
-                resolve: {
-                    data: function () {
-                        return {
-                            test: 'Hello, World!'
-                        }
-                    }
-                }
-            });
+            // TODO: Save current state
+            window.location.href = '#/setproperties/';
         };
 
         // // Initialization

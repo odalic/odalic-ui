@@ -88,5 +88,10 @@
         "route": "/kbimport",
         "folder": "kbimport",
         "controller": "odalic-kbimport-ctrl"
+    },
+    {
+        "route": "/setproperties",
+        "folder": "setproperties",
+        "controller": "odalic-setproperties-ctrl"
     }
 ]
