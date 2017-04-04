@@ -11,7 +11,8 @@
             templateUrl: currentFolder + 'cilistbox.html',
             scope: {
                 size: '@',
-                ngModel: '='
+                ngModel: '=',
+                validator: '='
             },
             link: function (scope, iElement, iAttrs) {
 
@@ -32,18 +33,40 @@
                 var getIndex = (function () {
                     var index = scope.ngModel.length;
 
-                    return function() {
+                    return function () {
                         return index++;
                     };
                 })();
 
+                // Validation successful?
+                scope.illegal = false;
+
                 // Add a new item
                 scope.add = function () {
+                    var validator = scope.validator;
+                    var value = scope.newItem;
+
+                    // Validate
+                    if (validator) {
+                        var msg = validator(value);
+                        if (msg !== true) {
+                            if (msg !== false) {
+                                scope.errorMessage = msg;
+                            }
+                            scope.illegal = true;
+                            return;
+                        }
+                    }
+
+                    // Add
                     scope.ngModel.push({
                         id: getIndex(),
-                        value: scope.newItem
+                        value: value
                     });
+
+                    // Clear
                     scope.newItem = new String();
+                    scope.illegal = false;
                 };
 
             }
