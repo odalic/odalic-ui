@@ -27,11 +27,8 @@
                 <label class="col-md-2 control-label">"label" predicates:</label>
 
                 <div class="col-md-10">
-                    <select class="form-control" multiple size="3" required>
-                        <option>http://dbpedia.org/property/name</option>
-                        <option>http://dbpedia.org/property/fullname</option>
-                        <option>http://dbpedia.org/ontology/originalTitle</option>
-                    </select>
+                    <cilistbox size="5" ng-model="labelPredicates" />
+                    <button type="button" ng-click="test()">test</button>
                 </div>
             </div>
 

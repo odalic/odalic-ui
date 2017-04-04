@@ -1,0 +1,28 @@
+<div class="row">
+    <!-- List box -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <select class="form-control" multiple size="{{ size }}" ng-model="selected" ng-options="item.value for item in ngModel" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="form-control" ng-click="remove()">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty space -->
+    <div class="col-md-12 odalic-hstyle-small"/>
+
+    <!-- Add an item to the list box -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-10">
+                <input class="form-control" type="text" ng-model="newItem" />
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="form-control" ng-click="add()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

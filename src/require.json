@@ -23,6 +23,7 @@
   "directives/afake/afake.js",
   "directives/confirm/confirm.js",
   "directives/focused/focused.js",
+  "directives/cilistbox/cilistbox.js",
   "services/ioc/ioc.js",
   "services/filedata/filedata.js",
   "services/requests/requests.js",
