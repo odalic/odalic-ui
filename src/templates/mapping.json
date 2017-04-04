@@ -83,5 +83,10 @@
         "route": "/kblist",
         "folder": "kblist",
         "controller": "odalic-kblist-ctrl"
+    },
+    {
+        "route": "/kbimport",
+        "folder": "kbimport",
+        "controller": "odalic-kbimport-ctrl"
     }
 ]
