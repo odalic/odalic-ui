@@ -1,9 +1,6 @@
-<!--&lt;!&ndash; Prepared messages to display to user in case of a situation &ndash;&gt;-->
-<!--<injector for="msgtxt.saveFailure">An error occurred while saving the task.</injector>-->
-<!--<injector for="msgtxt.createFailure">An error occurred while creating the task.</injector>-->
-<!--<injector for="msgtxt.startFailure">An error occurred while starting the task. The task has been successfully created, though.</injector>-->
-<!--<injector for="msgtxt.loadFailure">Fatal error occurred while loading the task configuration.</injector>-->
-<!--<injector for="msgtxt.kbLoadFailure">Fatal error occurred while loading list of available knowledge bases.</injector>-->
+<!-- Prepared messages to display to user in case of a situation -->
+<injector for="msgtxt.saveFailure">An error occurred while saving the configuration.</injector>
+<injector for="msgtxt.removeFailure">An error occurred while removing the predicate set.</injector>
 
 <!-- Main Content -->
 <main-cnt>
@@ -161,8 +158,8 @@
 
                     <div ng-switch-when="manual">
                         <!-- Tooltip messages -->
-                        <injector for="actiontext.configure">Knowledge base settings</injector>
-                        <injector for="actiontext.remove">Remove knowledge base</injector>
+                        <injector for="actiontext.configure">Edit predicate set</injector>
+                        <injector for="actiontext.remove">Remove predicate set</injector>
 
                         <!-- Table of sets -->
                         <table class="table table-bordered table-hover">
@@ -200,6 +197,9 @@
 
                         <!-- Pagination -->
                         <pagination bind="predicateSetsProxy" per-page="5"/>
+
+                        <!-- Alerts -->
+                        <alert-group bind="predicateSetsAlerts" disappearing="3"/>
 
                         <!-- Buttons -->
                         <div class="col-md-offset-10 col-md-2">
@@ -308,14 +308,22 @@
             </fieldset>
         </form>
 
-        <!-- Submit, when editing an existing task -->
+        <!-- Alerts regarding the whole form -->
+        <alert-group bind="alerts" disappearing="3"/>
+
+        <!-- Confirm modal when overwriting an existing configuration -->
+        <confirm bind="confirm" title="Knowledge base overwrite">
+            You are about to overwrite an existing knowledge base configuration. Continue?
+        </confirm>
+
+        <!-- Buttons -->
         <div class="col-md-offset-7 col-md-5">
             <div class="col-md-offset-2 col-md-10">
                 <div class="col-md-6">
-                    <button type="button" class="col-md-12 btn btn-lg">Save</button>
+                    <button-load button-class="col-md-12 btn btn-lg" action="save" disabled="false">Save</button-load>
                 </div>
                 <div class="col-md-6">
-                    <button type="button" class="col-md-12 btn btn-lg">Cancel</button>
+                    <button type="button" class="col-md-12 btn btn-lg" ng-click="cancel()">Cancel</button>
                 </div>
             </div>
         </div>

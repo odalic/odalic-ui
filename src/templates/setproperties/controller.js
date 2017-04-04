@@ -9,7 +9,7 @@
         // Initialize
         formsval.toScope($scope);
         $scope.alerts = [];
-        $scope.confirm = [];
+        $scope.confirm = {};
 
         // Variables
         $scope.pageVariables = {
@@ -61,7 +61,7 @@
 
             // Creation
             var create = function () {
-                // rest.tasks.name(taskId).create($scope.wholeForm.getTaskObject()).exec(
+                // rest.tasks.name(taskId).create($scope.getTaskObject()).exec(
                 //     // Success
                 //     function (response) {
                 //         // Redirect
@@ -69,7 +69,7 @@
                 //     },
                 //     // Failure
                 //     function (response) {
-                //         $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
+                //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
                 //         f();
                 //     }
                 // );
@@ -96,7 +96,7 @@
 
             // TODO: The action is only temporary
             var response = { data: { payload: { text: "This is only a DEMO." } } };
-            $scope.wholeForm.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.createFailure'], response.data));
+            $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
             f();
         };
 
