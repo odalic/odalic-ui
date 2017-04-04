@@ -22,8 +22,7 @@
 
         // TODO: The placeholder actions have to be modified once the server API is ready
         $scope.fconfigure = function (kbID) {
-            var response = { data: { payload: { text: "This is only a DEMO." } } };
-            $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.unknownFailure'], response.data));
+            window.location.href = text.urlConcat('#', 'kbconfig', kbID);
         };
 
         $scope.fremove = function (kbID) {
@@ -31,8 +30,7 @@
         };
 
         $scope.fadd = function () {
-            var response = { data: { payload: { text: "This is only a DEMO." } } };
-            $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.unknownFailure'], response.data));
+            window.location.href = '#/kbconfig';
         };
 
         $scope.fdownload = function (s, f, kbID) {
