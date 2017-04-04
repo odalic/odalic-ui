@@ -175,7 +175,7 @@
                             </thead>
                             <tbody>
                                 <!-- A single record -->
-                                <tr ng-repeat="record in predicateSets" ng-class="{'odalic-trstyle-lightgrey': record.selected}">
+                                <tr ng-repeat="record in predicateSetsProxy.getView()" ng-class="{'odalic-trstyle-lightgrey': record.selected}">
                                     <!-- Record selection -->
                                     <td class="col-md-1"><input class="form-control" type="checkbox" ng-model="record.selected"/></td>
 
@@ -197,6 +197,9 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                        <!-- Pagination -->
+                        <pagination bind="predicateSetsProxy" per-page="5"/>
 
                         <!-- Buttons -->
                         <div class="col-md-offset-10 col-md-2">

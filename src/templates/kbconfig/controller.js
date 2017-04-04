@@ -11,11 +11,12 @@
 
         // TODO: asi to bude chciet pagination na predicate sets
         // TODO: confirm modal pri prepisani configu, save + cancel buttons
-        // TODO: ukladanie dat (prechod medzi predsets config)
+        // TODO: ukladanie dat (prechod medzi predsets config - zrejme pouzit chain, kedze len 2 obrazovky)
         // TODO: pokial je v route zadana sucasna kb
         // TODO: pokial je v route propertySets zadana sucasna PS
 
-        // Initialization actions
+        // Initialization
+        $scope.predicateSetsProxy = {};
         formsval.toScope($scope);
 
         // Data mapping
@@ -60,12 +61,16 @@
         var loadPredicateSets = function () {
             // TODO: The placeholder predicate sets is only temporary
             $scope.predicateSets = [];
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 15; i++) {
                 $scope.predicateSets.push({
                     selected: (Math.random()*2 > 1) ? true : false,
                     name: (new String()).concat('PS Name', ' ', i)
                 });
             }
+
+            // Update pagination directive
+            $scope.predicateSetsProxy.model = $scope.predicateSets;
+            $scope.$broadcast('pagination');
         };
 
         // Predicate sets initialization
