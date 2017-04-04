@@ -9,7 +9,6 @@
     // Create a controller for task-creation screen
     app.controller('odalic-kbconfig-ctrl', function ($scope, $uibModal, $routeParams, filedata, rest, formsval, reporth) {
 
-        // TODO: buttons v ramci table na predicate sets mozu vyhodit vynimku
         // TODO: ukladanie dat (prechod medzi predsets config - zrejme pouzit chain, kedze len 2 obrazovky)
         // TODO: pokial je v route zadana sucasna kb
         // TODO: pokial je v route propertySets zadana sucasna PS
@@ -86,8 +85,9 @@
 
         // Remove a predicate set
         $scope.fremove = function (psID) {
-            // TODO: Remove
-            loadPredicateSets();
+            // TODO: The action is only temporary
+            var response = { data: { payload: { text: "This is only a DEMO." } } };
+            $scope.predicateSetsAlerts.push('error', reporth.constrErrorMsg($scope['msgtxt.removeFailure'], response.data));
         };
 
         // Add to predicate sets
