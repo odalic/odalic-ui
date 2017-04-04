@@ -40,6 +40,30 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="col-md-2 control-label">SPARQL endpoint:</label>
+
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Type:</label>
+
+                    <div class="col-md-10">
+                        <select class="form-control" required>
+                            <option>DBpedia</option>
+                            <option>SPARQL</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Settings -->
+            <fieldset>
+                <legend>Advanced settings</legend>
+
+                <div class="form-group">
                     <label class="col-md-2 control-label">Cache template path:</label>
 
                     <div class="col-md-10">
@@ -54,30 +78,6 @@
                         <input class="form-control" type="text" />
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Provider:</label>
-
-                    <div class="col-md-10">
-                        <select class="form-control" required>
-                            <option>DBpedia</option>
-                            <option>SPARQL</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-2 control-label">SPARQL endpoint:</label>
-
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" />
-                    </div>
-                </div>
-            </fieldset>
-
-            <!-- Settings -->
-            <fieldset>
-                <legend>Settings</legend>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label">Fulltext mode:</label>
@@ -135,73 +135,95 @@
                 </div>
             </fieldset>
 
-            <!-- Predicate sets -->
+            <!-- Sets -->
             <fieldset>
-                <legend>Predicate sets</legend>
+                <legend>Sets</legend>
 
-                <!-- Tooltip messages -->
-                <injector for="actiontext.configure">Knowledge base settings</injector>
-                <injector for="actiontext.remove">Remove knowledge base</injector>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Mode:</label>
 
-                <!-- Table of predicates -->
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th><!-- Checkbox --></th>
-                            <th>Name</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- A single record -->
-                        <tr ng-repeat="record in predicateSets" ng-class="{'odalic-trstyle-lightgrey': record.selected}">
-                            <!-- Record selection -->
-                            <td class="col-md-1"><input class="form-control" type="checkbox" ng-model="record.selected"/></td>
-
-                            <!-- Name -->
-                            <td class="col-md-7">{{ record.name }}</td>
-
-                            <!-- Actions -->
-                            <td class="col-md-4">
-                                <!-- Configure -->
-                                <tooltip source="actiontext.configure" place="top">
-                                    <a class="btn btn-default" ng-click="fconfigure(kb.id)"><i class="fa fa-cog fa-lg"></i></a>
-                                </tooltip>
-
-                                <!-- Remove -->
-                                <tooltip source="actiontext.remove" place="top">
-                                    <a class="btn btn-default" ng-click="fremove(kb.id)"><i class="fa fa-trash fa-lg"></i></a>
-                                </tooltip>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <!-- Buttons -->
-                <div class="col-md-offset-8 col-md-4">
-                    <div class="col-md-6">
-                        <button type="button" class="col-md-12 btn btn-lg" ng-click="psAdd()">Add</button>
+                    <div class="col-md-10">
+                        <div class="col-md-6">
+                            <label class="radio-inline"><input type="radio" ng-model="selectMode" value="autodetect" /> Autodetect</label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="radio-inline"><input type="radio" ng-model="selectMode" value="manual" /> Select manually</label>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <button type="button" class="col-md-12 btn btn-lg">Autodetect</button>
+                </div>
+
+                <div ng-switch="selectMode">
+                    <div ng-switch-when="autodetect">
+                        <div class="col-md-12">
+                            <!-- The sets will be selected automatically -->
+                        </div>
+                    </div>
+
+                    <div ng-switch-when="manual">
+                        <!-- Tooltip messages -->
+                        <injector for="actiontext.configure">Knowledge base settings</injector>
+                        <injector for="actiontext.remove">Remove knowledge base</injector>
+
+                        <!-- Table of sets -->
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th><!-- Checkbox --></th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- A single record -->
+                                <tr ng-repeat="record in predicateSets" ng-class="{'odalic-trstyle-lightgrey': record.selected}">
+                                    <!-- Record selection -->
+                                    <td class="col-md-1"><input class="form-control" type="checkbox" ng-model="record.selected"/></td>
+
+                                    <!-- Name -->
+                                    <td class="col-md-7">{{ record.name }}</td>
+
+                                    <!-- Actions -->
+                                    <td class="col-md-4">
+                                        <!-- Configure -->
+                                        <tooltip source="actiontext.configure" place="top">
+                                            <a class="btn btn-default" ng-click="fconfigure(kb.id)"><i class="fa fa-cog fa-lg"></i></a>
+                                        </tooltip>
+
+                                        <!-- Remove -->
+                                        <tooltip source="actiontext.remove" place="top">
+                                            <a class="btn btn-default" ng-click="fremove(kb.id)"><i class="fa fa-trash fa-lg"></i></a>
+                                        </tooltip>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Buttons -->
+                        <div class="col-md-offset-10 col-md-2">
+                            <button type="button" class="col-md-12 btn btn-lg" ng-click="psAdd()">Add</button>
+                        </div>
                     </div>
                 </div>
             </fieldset>
 
-            <!-- Additional settings -->
             <fieldset>
-                <legend>Additional settings</legend>
+                <legend>Inserting</legend>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label">Insert enabled:</label>
 
                     <div class="col-md-10">
-                        <input class="form-control col-md-2" type="checkbox" />
+                        <input class="form-control" type="checkbox" />
                     </div>
                 </div>
+            </fieldset>
+
+            <!-- Editing -->
+            <fieldset>
+                <legend>Editing</legend>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Resource prefix:</label>
+                    <label class="col-md-2 control-label">Insert graph:</label>
 
                     <div class="col-md-10">
                         <input class="form-control" type="text" />
@@ -217,7 +239,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Insert graph:</label>
+                    <label class="col-md-2 control-label">Resource prefix:</label>
 
                     <div class="col-md-10">
                         <input class="form-control" type="text" />
