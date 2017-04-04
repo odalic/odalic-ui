@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label">Name:</label>
                     <div class="col-md-10">
-                        <input class="form-control" type="text" name="kbIdentifier" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
+                        <input class="form-control" type="text" name="kbIdentifier" ng-model="kbImport.identifier" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
                         <div ng-messages="kbImportForm.kbIdentifier.$error" ng-if='kbImportForm.kbIdentifier.$dirty' role="alert">
                             <div ng-message="required"><error-msg>Name must not be empty.</error-msg></div>
                             <div ng-message="pattern"><error-msg>Name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
