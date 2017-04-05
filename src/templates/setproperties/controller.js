@@ -6,8 +6,6 @@
     // Create a controller for task-creation screen
     app.controller('odalic-setproperties-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist) {
 
-        // TODO: loadico pre kblist
-
         // Initialize
         formsval.toScope($scope);
         $scope.alerts = [];
