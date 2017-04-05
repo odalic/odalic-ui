@@ -88,7 +88,6 @@
     app.service('persist', function ($location) {
 
         var pers = {};
-
         this.chain = function (id) {
             if (!(id in pers)) {
                 pers[id] = {};
@@ -186,6 +185,30 @@
                 }
             };
         };
+
+        var ctx = {};
+        this.context = {
+            create: function (name) {
+                if (name in ctx) {
+                    throw new Error('Context with the name already exists.');
+                }
+
+                return (ctx[name] = {});
+            },
+
+            contains: function (name) {
+                return (name in ctx);
+            },
+
+            get: function (name) {
+                return ctx[name];
+            },
+
+            remove: function (name) {
+                delete ctx[name];
+            }
+        };
+
     });
 
 })();

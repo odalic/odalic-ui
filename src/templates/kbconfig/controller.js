@@ -7,35 +7,54 @@
     var currentFolder = $.getPathForRelativePath('');
 
     // Create a controller for task-creation screen
-    app.controller('odalic-kbconfig-ctrl', function ($scope, $uibModal, $routeParams, filedata, rest, formsval, reporth) {
+    app.controller('odalic-kbconfig-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist) {
 
-        // TODO: ukladanie dat (prechod medzi predsets config - zrejme pouzit chain, kedze len 2 obrazovky)
+        // TODO: poprepisovat new String() na text.empty()
+        // TODO: chovanie save tlacidla podla toho, ci je $scope.editing true
         // TODO: pokial je v route zadana sucasna kb
         // TODO: pokial je v route propertySets zadana sucasna PS
+        // TODO: spravny prechod (pokial uprava sucasnej kb, tak prechod z propertySets na tuto route)
 
         // Initialization
+        $scope.dataload = {};
         $scope.predicateSetsProxy = {};
         $scope.alerts = [];
         $scope.confirm = {};
         $scope.predicateSetsAlerts = [];
         formsval.toScope($scope);
 
+        // Are we editing an existing configuration, or creating a new one?
+        $scope.editing = !!$routeParams['kbid'];
+
         // Data mapping
         $scope.pageVariables = {
-            name: new String(),
-            description: new String(),
-            sparqlEndpoint: new String(),
+            name: text.empty(),
+            description: text.empty(),
+            sparqlEndpoint: text.empty(),
             type: 'dbpedia',
-            cachePath: new String(),
-            stoplistPath: new String(),
+            cachePath: text.empty(),
+            stoplistPath: text.empty(),
             fulltextMode: 'nofulltext',
-            languageSuffix: new String(),
+            languageSuffix: text.empty(),
             classTypeMode: 'direct',
-            instanceOfPred: new String(),
-            domainPred: new String(),
-            rangePred: new String(),
+            instanceOfPred: text.empty(),
+            domainPred: text.empty(),
+            rangePred: text.empty(),
             selectMode: 'autodetect',
-            get predicateSets() {
+            insertEnabled: false,
+            insertGraph: text.empty(),
+            schemaPrefix: text.empty(),
+            resourcePrefix: text.empty(),
+            defaultClass: text.empty(),
+            labelPred: text.empty(),
+            altLabelPred: text.empty(),
+            subclassOfPred: text.empty(),
+            subpropertyOfPred: text.empty(),
+            subpropertyOfPred: text.empty(),
+            propertyType: text.empty(),
+        };
+        $scope.predicateSetsVariables = {
+            getSelected: function() {
                 var ps = [];
                 $scope.predicateSets.forEach(function (record) {
                     if (record.selected) {
@@ -45,21 +64,21 @@
 
                 return ps;
             },
-            insertEnabled: false,
-            insertGraph: new String(),
-            schemaPrefix: new String(),
-            resourcePrefix: new String(),
-            defaultClass: new String(),
-            labelPred: new String(),
-            altLabelPred: new String(),
-            subclassOfPred: new String(),
-            subpropertyOfPred: new String(),
-            subpropertyOfPred: new String(),
-            propertyType: new String(),
+
+            setSelected: function(ps) {
+                selected = {};
+                objhelp.objForEach(ps, function (index, record) {
+                    selected[record.name] = true;
+                });
+
+                $scope.predicateSets.forEach(function (record) {
+                    record.selected = (selected[record.name] === true);
+                });
+            }
         };
 
         // Load predicate sets
-        var loadPredicateSets = function () {
+        var loadPredicateSets = function (callback) {
             // TODO: The placeholder predicate sets is only temporary
             $scope.predicateSets = [];
             for (var i = 0; i < 15; i++) {
@@ -72,11 +91,12 @@
             // Update pagination directive
             $scope.predicateSetsProxy.model = $scope.predicateSets;
             $scope.$broadcast('pagination');
+
+            callback();
         };
 
         // Predicate sets initialization
         $scope.predicateSets = [];
-        loadPredicateSets();
 
         // Configure a predicate set
         $scope.fconfigure = function (psID) {
@@ -92,7 +112,13 @@
 
         // Add to predicate sets
         $scope.psAdd = function () {
-            // TODO: Save current state
+            // Save state
+            var context = persist.context.create('kbconfig');
+            context.routeParam = $routeParams['kbid'];
+            context.pageVariables = objhelp.objCopy($scope.pageVariables, 0);
+            context.predicateSetsVariables = $scope.predicateSetsVariables.getSelected();
+
+            // Redirect to the corresponding screen
             window.location.href = '#/setproperties/';
         };
 
@@ -149,6 +175,52 @@
             $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
             f();
         };
+
+        // Data loading
+        (function () {
+            // Additional actions once all the data is loaded
+            var afterLoad = function () {
+                persist.context.remove('kbconfig');
+                $scope.dataload.show = true;
+            };
+
+            loadPredicateSets(function () {
+                // Gather data
+                var hasContext = persist.context.contains('kbconfig');
+                var context = objhelp.getFirstArg(persist.context.get('kbconfig'), {});
+                var routeParam = $routeParams['kbid'];
+
+                // Option 1: the page was already visited and has a saved state
+                if (hasContext && (context.routeParam === routeParam)) {
+                    // Load data from the saved state
+                    $scope.pageVariables = objhelp.objCopy(context.pageVariables, 0);
+                    $scope.predicateSetsVariables.setSelected(context.predicateSetsVariables);
+                    afterLoad();
+                }
+                // Option 2: we are editing an existing knowledge base configuration
+                else if (routeParam) {
+                    // Load data from the server
+                    var kbID = routeParam;
+                    // rest.kbs.name(kbID).exec(
+                    //     // Success
+                    //     function (response) {
+                    //         $scope.pageVariables = objhelp.objCopy(response, 0);
+                    //         afterLoad();
+                    //     },
+                    //
+                    //     // Failure
+                    //     function (response) {
+                    //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
+                    //         afterLoad();
+                    //     }
+                    // );
+                }
+                // Option 3: we are creating a completely new knowledge base configuration
+                else {
+                    afterLoad();
+                }
+            });
+        })();
 
     });
 
