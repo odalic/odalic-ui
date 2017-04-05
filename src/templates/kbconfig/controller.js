@@ -90,11 +90,23 @@
             callback();
         };
 
+        // Save state
+        var saveState = function () {
+            var context = persist.context.create('kbconfig');
+            context.routeParam = $scope.edited;
+            context.pageVariables = objhelp.objCopy($scope.pageVariables, 0);
+            context.predicateSetsVariables = $scope.predicateSetsVariables.getSelected();
+        };
+
         // Predicate sets initialization
         $scope.predicateSets = [];
 
         // Configure a predicate set
         $scope.fconfigure = function (psID) {
+            // Save state
+            saveState();
+
+            // Redirect to the corresponding screen
             window.location.href = text.urlConcat('#', 'setproperties', psID);
         };
 
@@ -108,10 +120,7 @@
         // Add to predicate sets
         $scope.psAdd = function () {
             // Save state
-            var context = persist.context.create('kbconfig');
-            context.routeParam = $scope.edited;
-            context.pageVariables = objhelp.objCopy($scope.pageVariables, 0);
-            context.predicateSetsVariables = $scope.predicateSetsVariables.getSelected();
+            saveState();
 
             // Redirect to the corresponding screen
             window.location.href = '#/setproperties/';

@@ -6,7 +6,6 @@
     // Create a controller for task-creation screen
     app.controller('odalic-setproperties-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist) {
 
-        // TODO: nevracia korektne po cancel (hadze na kblist), pokial je v route propertySets zadana sucasna PS
         // TODO: loadico pre kblist
 
         // Initialize
