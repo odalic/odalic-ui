@@ -9,9 +9,6 @@
     // Create a controller for task-creation screen
     app.controller('odalic-kbconfig-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist) {
 
-        // TODO: poprepisovat new String() na text.empty()
-        // TODO: chovanie save tlacidla podla toho, ci je $scope.editing true
-        // TODO: pokial je v route zadana sucasna kb
         // TODO: pokial je v route propertySets zadana sucasna PS
         // TODO: spravny prechod (pokial uprava sucasnej kb, tak prechod z propertySets na tuto route)
 
@@ -138,9 +135,9 @@
             // Generic preparations
             var kbID = $scope.pageVariables.name;
 
-            // Creation
-            var create = function () {
-                // rest.kbs.name(kbID).create().exec(
+            // Editing
+            if ($scope.editing) {
+                // rest.kbs.name(kbID).save().exec(
                 //     // Success
                 //     function (response) {
                 //         $scope.cancel();
@@ -151,29 +148,50 @@
                 //         f();
                 //     }
                 // );
-            };
 
-            // Handle overwrites
-            // rest.kbs.name(kbID).exists(
-            //     function () {
-            //         $scope.confirm.open(function (response) {
-            //             if (response === true) {
-            //                 create();
-            //             } else {
-            //                 f();
-            //                 if (!$scope.$$phase) {
-            //                     $scope.$apply();
-            //                 }
-            //             }
-            //         });
-            //     },
-            //     create
-            // );
+                // TODO: The action is only temporary
+                var response = { data: { payload: { text: "(Editing) This is only a DEMO." } } };
+                $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                f();
+            }
+            // Creating
+            else {
+                var create = function () {
+                    // rest.kbs.name(kbID).create().exec(
+                    //     // Success
+                    //     function (response) {
+                    //         $scope.cancel();
+                    //     },
+                    //     // Failure
+                    //     function (response) {
+                    //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                    //         f();
+                    //     }
+                    // );
+                };
 
-            // TODO: The action is only temporary
-            var response = { data: { payload: { text: "This is only a DEMO." } } };
-            $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-            f();
+                // Handle overwrites
+                // rest.kbs.name(kbID).exists(
+                //     function () {
+                //         $scope.confirm.open(function (response) {
+                //             if (response === true) {
+                //                 create();
+                //             } else {
+                //                 f();
+                //                 if (!$scope.$$phase) {
+                //                     $scope.$apply();
+                //                 }
+                //             }
+                //         });
+                //     },
+                //     create
+                // );
+
+                // TODO: The action is only temporary
+                var response = { data: { payload: { text: "(Creation) This is only a DEMO." } } };
+                $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                f();
+            }
         };
 
         // Data loading
