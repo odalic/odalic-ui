@@ -4,7 +4,7 @@
     var app = angular.module('odalic-app');
 
     // Create a controller for task-creation screen
-    app.controller('odalic-setproperties-ctrl', function ($scope, rest, formsval, reporth) {
+    app.controller('odalic-setproperties-ctrl', function ($scope, rest, formsval, reporth, persist) {
 
         // Initialize
         formsval.toScope($scope);
@@ -45,7 +45,7 @@
         // Cancel
         $scope.cancel = function () {
             // Redirect back to KB definition
-            window.location.href = '#/kbconfig/';
+            window.location.href = text.urlConcat('#', 'kbconfig', text.safe(persist.context.get('kbconfig').routeParam));
         };
 
         // Save

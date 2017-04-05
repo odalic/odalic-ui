@@ -21,7 +21,8 @@
         formsval.toScope($scope);
 
         // Are we editing an existing configuration, or creating a new one?
-        $scope.editing = !!$routeParams['kbid'];
+        $scope.edited = $routeParams['kbid'];
+        $scope.editing = !!$scope.edited;
 
         // Data mapping
         $scope.pageVariables = {
@@ -111,7 +112,7 @@
         $scope.psAdd = function () {
             // Save state
             var context = persist.context.create('kbconfig');
-            context.routeParam = $routeParams['kbid'];
+            context.routeParam = $scope.edited;
             context.pageVariables = objhelp.objCopy($scope.pageVariables, 0);
             context.predicateSetsVariables = $scope.predicateSetsVariables.getSelected();
 
@@ -206,7 +207,7 @@
                 // Gather data
                 var hasContext = persist.context.contains('kbconfig');
                 var context = objhelp.getFirstArg(persist.context.get('kbconfig'), {});
-                var routeParam = $routeParams['kbid'];
+                var routeParam = $scope.edited;
 
                 // Option 1: the page was already visited and has a saved state
                 if (hasContext && (context.routeParam === routeParam)) {
