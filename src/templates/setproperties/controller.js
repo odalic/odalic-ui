@@ -4,12 +4,20 @@
     var app = angular.module('odalic-app');
 
     // Create a controller for task-creation screen
-    app.controller('odalic-setproperties-ctrl', function ($scope, rest, formsval, reporth, persist) {
+    app.controller('odalic-setproperties-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist) {
+
+        // TODO: nevracia korektne po cancel (hadze na kblist), pokial je v route propertySets zadana sucasna PS
+        // TODO: loadico pre kblist
 
         // Initialize
         formsval.toScope($scope);
         $scope.alerts = [];
         $scope.confirm = {};
+        $scope.dataload = {};
+
+        // Are we editing an existing definition, or creating a new one?
+        $scope.edited = $routeParams['spid'];
+        $scope.editing = !!$scope.edited;
 
         // Variables
         $scope.pageVariables = {
@@ -44,6 +52,12 @@
 
         // Cancel
         $scope.cancel = function () {
+            // Was this page accessed from kbconfig?
+            if (!persist.context.contains('kbconfig')) {
+                window.location.href = text.urlConcat('#', 'kblist');
+                return;
+            }
+
             // Redirect back to KB definition
             window.location.href = text.urlConcat('#', 'kbconfig', text.safe(persist.context.get('kbconfig').routeParam));
         };
@@ -59,12 +73,11 @@
             // Generic preparations
             var spID = $scope.pageVariables.name;
 
-            // Creation
-            var create = function () {
-                // rest.tasks.name(taskId).create($scope.getTaskObject()).exec(
+            // Editing
+            if ($scope.editing) {
+                // rest.tasks.name(spID).exec(
                 //     // Success
                 //     function (response) {
-                //         // Redirect
                 //         $scope.cancel();
                 //     },
                 //     // Failure
@@ -73,32 +86,84 @@
                 //         f();
                 //     }
                 // );
+
+                // TODO: The action is only temporary
+                var response = { data: { payload: { text: "(Editing) This is only a DEMO." } } };
+                $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                f();
+            }
+            // Creating
+            else {
+                var create = function () {
+                    // rest.tasks.name(taskId).create($scope.getTaskObject()).exec(
+                    //     // Success
+                    //     function (response) {
+                    //         // Redirect
+                    //         $scope.cancel();
+                    //     },
+                    //     // Failure
+                    //     function (response) {
+                    //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                    //         f();
+                    //     }
+                    // );
+                };
+
+                // Handle overwrites
+                // rest.tasks.name(spID).exists(
+                //     function () {
+                //         $scope.confirm.open(function (response) {
+                //             if (response === true) {
+                //                 create();
+                //             } else {
+                //                 f();
+                //
+                //                 // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
+                //                 if (!$scope.$$phase) {
+                //                     $scope.$apply();
+                //                 }
+                //             }
+                //         });
+                //     },
+                //     create
+                // );
+
+                // TODO: The action is only temporary
+                var response = { data: { payload: { text: "(Creation) This is only a DEMO." } } };
+                $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                f();
+            }
+        };
+
+        // Data loading
+        (function () {
+            // Additional actions once all the data is loaded
+            var afterLoad = function () {
+                $scope.dataload.show = true;
             };
 
-            // Handle overwrites
-            // rest.tasks.name(spID).exists(
-            //     function () {
-            //         $scope.confirm.open(function (response) {
-            //             if (response === true) {
-            //                 create();
-            //             } else {
-            //                 f();
-            //
-            //                 // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
-            //                 if (!$scope.$$phase) {
-            //                     $scope.$apply();
-            //                 }
-            //             }
-            //         });
-            //     },
-            //     create
-            // );
+            // Option 1: Creating  a new definition
+            if (!$scope.editing) {
+                afterLoad();
+            }
+            // Option 2: Editing an existing definition
+            else {
+                // rest.kbs.name(kbID).exec(
+                //     // Success
+                //     function (response) {
+                //         $scope.pageVariables = objhelp.objCopy(response);
+                //         afterLoad();
+                //     },
+                //
+                //     // Failure
+                //     function (response) {
+                //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
+                //         afterLoad();
+                //     }
+                // );
+            }
 
-            // TODO: The action is only temporary
-            var response = { data: { payload: { text: "This is only a DEMO." } } };
-            $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-            f();
-        };
+        })();
 
     });
 

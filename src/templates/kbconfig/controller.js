@@ -9,9 +9,6 @@
     // Create a controller for task-creation screen
     app.controller('odalic-kbconfig-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist) {
 
-        // TODO: pokial je v route propertySets zadana sucasna PS
-        // TODO: spravny prechod (pokial uprava sucasnej kb, tak prechod z propertySets na tuto route)
-
         // Initialization
         $scope.dataload = {};
         $scope.predicateSetsProxy = {};
