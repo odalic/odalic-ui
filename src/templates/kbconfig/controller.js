@@ -26,20 +26,20 @@
             name: text.empty(),
             description: text.empty(),
             sparqlEndpoint: text.empty(),
-            type: 'dbpedia',
+            type: 'sparql',
             cachePath: text.empty(),
             stoplistPath: text.empty(),
-            fulltextMode: 'nofulltext',
-            languageSuffix: text.empty(),
+            fulltextMode: 'fulltext',
+            languageSuffix: 'en',
             classTypeMode: 'direct',
             instanceOfPred: text.empty(),
             domainPred: text.empty(),
             rangePred: text.empty(),
             selectMode: 'autodetect',
             insertEnabled: false,
-            insertGraph: text.empty(),
-            schemaPrefix: text.empty(),
-            resourcePrefix: text.empty(),
+            insertGraph: 'http://odalic.eu/',
+            schemaPrefix: 'http://odalic.eu/schema',
+            resourcePrefix: 'http://odalic.eu/resource',
             defaultClass: text.empty(),
             labelPred: text.empty(),
             altLabelPred: text.empty(),
@@ -47,6 +47,25 @@
             subpropertyOfPred: text.empty(),
             subpropertyOfPred: text.empty(),
             propertyType: text.empty(),
+            skippedAttributes: [{
+                id: 0,
+                value: 'http://www.w3.org/ns/prov#wasDerivedFrom'
+            }, {
+                id: 1,
+                value: 'http://xmlns.com/foaf/0.1/isPrimaryTopicOf'
+            }],
+            skippedClasses: [{
+                id: 0,
+                value: 'http://www.w3.org/2002/07/owl#Thing'
+            }, {
+                id: 1,
+                value: 'http://www.w3.org/2004/02/skos/core#Concept'
+            }, {
+                id: 2,
+                value: 'http://www.opengis.net/gml/_Feature'
+            }],
+            login: text.empty(),
+            password: text.empty()
         };
         $scope.predicateSetsVariables = {
             getSelected: function() {

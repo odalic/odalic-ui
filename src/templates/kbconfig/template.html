@@ -31,7 +31,7 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Identifier:</label>
+                            <label class="col-md-2 control-label">Identifier: *</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="kbName" ng-model="pageVariables.name" pattern="[-a-zA-Z0-9_.,\s]*" focused required/>
@@ -51,10 +51,14 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Endpoint URL:</label>
+                            <label class="col-md-2 control-label">End-point URL: *</label>
 
-                            <div class="col-md-10">
+                            <div class="col-md-8">
                                 <input class="form-control" type="text" ng-model="pageVariables.sparqlEndpoint" />
+                            </div>
+                            <!-- TODO -->
+                            <div class="col-md-2">
+                                <button type="button" ng-click="doSomething">Open</button>
                             </div>
                         </div>
                     </uib-tab>
@@ -64,26 +68,11 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Cache template path:</label>
-
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.cachePath" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Stoplist file path:</label>
-
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.stoplistPath" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Fulltext mode:</label>
+                            <label class="col-md-2 control-label">Method:</label>
 
                             <div class="col-md-10">
                                 <select class="form-control" ng-model="pageVariables.fulltextMode" required>
+                                    <option value="fulltext">Fulltext</option>
                                     <option value="nofulltext">No fulltext</option>
                                     <option value="regexp">Regular expression</option>
                                     <option value="bif:contains">bif:contains</option>
@@ -92,7 +81,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Language suffix:</label>
+                            <label class="col-md-2 control-label">Language tag:</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.languageSuffix" />
@@ -100,39 +89,76 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Class type mode:</label>
+                            <label class="col-md-2 control-label">Skipped attributes:</label>
 
                             <div class="col-md-10">
-                                <select class="form-control" ng-model="pageVariables.classTypeMode" required>
-                                    <option value="direct">Direct</option>
-                                    <option value="indirect">Indirect</option>
-                                </select>
+                                <cilistbox size="5" ng-model="pageVariables.skippedAttributes" />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">"Instance of" predicate:</label>
+                            <label class="col-md-2 control-label">Skipped classes:</label>
 
                             <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.instanceOfPred" />
+                                <cilistbox size="5" ng-model="pageVariables.skippedClasses" />
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">"Domain" predicate:</label>
+                        <!-- Table of predicate groups -->
+                        <formgroup>
+                            <legend>Used predicates and classes groups</legend>
 
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.domainPred" />
+                            <!-- Tooltip messages -->
+                            <injector for="actiontext.configure">Edit predicate set</injector>
+                            <injector for="actiontext.remove">Remove predicate set</injector>
+
+                            <!-- Table of sets -->
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Used</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- A single record -->
+                                <tr ng-repeat="record in predicateSetsProxy.getView()" ng-class="{'odalic-trstyle-lightgrey': record.selected}">
+                                    <!-- Record selection -->
+                                    <td class="col-md-1"><input class="form-control" type="checkbox" ng-model="record.selected"/></td>
+
+                                    <!-- Name -->
+                                    <td class="col-md-7">{{ record.name }}</td>
+
+                                    <!-- Actions -->
+                                    <td class="col-md-4">
+                                        <!-- Configure -->
+                                        <tooltip source="actiontext.configure" place="top">
+                                            <a class="btn btn-default" ng-click="fconfigure(record.name)"><i class="fa fa-cog fa-lg"></i></a>
+                                        </tooltip>
+
+                                        <!-- Remove -->
+                                        <tooltip source="actiontext.remove" place="top">
+                                            <a class="btn btn-default" ng-click="fremove(record.name)"><i class="fa fa-trash fa-lg"></i></a>
+                                        </tooltip>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Pagination -->
+                            <pagination bind="predicateSetsProxy" per-page="5"/>
+
+                            <!-- Alerts -->
+                            <alert-group bind="predicateSetsAlerts" disappearing="3"/>
+
+                            <!-- Buttons -->
+                            <div class="col-md-offset-8 col-md-4">
+                                <!-- TODO -->
+                                <button type="button" class="col-md-6 btn btn-lg" ng-click="psAutodetect()">Autodetect</button>
+                                <button type="button" class="col-md-6 btn btn-lg" ng-click="psAdd()">Add</button>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">"Range" predicate:</label>
-
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.rangePred" />
-                            </div>
-                        </div>
+                        </formgroup>
                     </uib-tab>
 
                     <!-- Propose -->
@@ -140,84 +166,15 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Mode:</label>
+                            <label class="col-md-2 control-label">Insert enabled:</label>
 
                             <div class="col-md-10">
-                                <div class="col-md-6">
-                                    <label class="radio-inline"><input type="radio" ng-model="pageVariables.selectMode" value="autodetect" /> Autodetect</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="radio-inline"><input type="radio" ng-model="pageVariables.selectMode" value="manual" /> Select manually</label>
-                                </div>
+                                <input class="form-control" type="checkbox" ng-model="pageVariables.insertEnabled" />
                             </div>
                         </div>
-
-                        <div ng-switch="pageVariables.selectMode">
-                            <div ng-switch-when="autodetect">
-                                <div class="col-md-12">
-                                    <!-- The sets will be selected automatically -->
-                                </div>
-                            </div>
-
-                            <div ng-switch-when="manual">
-                                <!-- Tooltip messages -->
-                                <injector for="actiontext.configure">Edit predicate set</injector>
-                                <injector for="actiontext.remove">Remove predicate set</injector>
-
-                                <!-- Table of sets -->
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th><!-- Checkbox --></th>
-                                        <th>Name</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <!-- A single record -->
-                                    <tr ng-repeat="record in predicateSetsProxy.getView()" ng-class="{'odalic-trstyle-lightgrey': record.selected}">
-                                        <!-- Record selection -->
-                                        <td class="col-md-1"><input class="form-control" type="checkbox" ng-model="record.selected"/></td>
-
-                                        <!-- Name -->
-                                        <td class="col-md-7">{{ record.name }}</td>
-
-                                        <!-- Actions -->
-                                        <td class="col-md-4">
-                                            <!-- Configure -->
-                                            <tooltip source="actiontext.configure" place="top">
-                                                <a class="btn btn-default" ng-click="fconfigure(record.name)"><i class="fa fa-cog fa-lg"></i></a>
-                                            </tooltip>
-
-                                            <!-- Remove -->
-                                            <tooltip source="actiontext.remove" place="top">
-                                                <a class="btn btn-default" ng-click="fremove(record.name)"><i class="fa fa-trash fa-lg"></i></a>
-                                            </tooltip>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                                <!-- Pagination -->
-                                <pagination bind="predicateSetsProxy" per-page="5"/>
-
-                                <!-- Alerts -->
-                                <alert-group bind="predicateSetsAlerts" disappearing="3"/>
-
-                                <!-- Buttons -->
-                                <div class="col-md-offset-10 col-md-2">
-                                    <button type="button" class="col-md-12 btn btn-lg" ng-click="psAdd()">Add</button>
-                                </div>
-                            </div>
-                        </div>
-                    </uib-tab>
-
-                    <!-- Advanced -->
-                    <uib-tab index="3" heading="Advanced">
-                        <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Insert graph:</label>
+                            <label class="col-md-2 control-label">Insert to graph:</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.insertGraph" />
@@ -225,7 +182,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Schema prefix:</label>
+                            <label class="col-md-2 control-label">User classes prefix:</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.schemaPrefix" />
@@ -233,94 +190,58 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Resource prefix:</label>
+                            <label class="col-md-2 control-label">User resource prefix:</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.resourcePrefix" />
                             </div>
                         </div>
 
+                        <!-- Authorization -->
+                        <formgroup ng-if="pageVariables.insertEnabled">
+                            <legend>Authorization</legend>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Login:</label>
+
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" ng-model="pageVariables.login" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Password:</label>
+
+                                <div class="col-md-10">
+                                    <input class="form-control" type="password" ng-model="pageVariables.password" />
+                                </div>
+                            </div>
+                        </formgroup>
+                    </uib-tab>
+
+                    <!-- Advanced -->
+                    <uib-tab index="3" heading="Advanced">
+                        <div class="col-md-12 odalic-hstyle-medium"/>
+
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Default class:</label>
+                            <label class="col-md-2 control-label">Type:</label>
 
                             <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.defaultClass" />
+                                <select class="form-control" ng-model="pageVariables.type" required>
+                                    <option value="sparql">SPARQL</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">"label" predicate:</label>
+                            <label class="col-md-2 control-label">Additional key-values:</label>
 
                             <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.labelPred" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">"alt. label" predicate:</label>
-
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.altLabelPred" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">"subclass of" predicate:</label>
-
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.subclassOfPred" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">"subproperty of" predicate:</label>
-
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.subpropertyOfPred" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Class type:</label>
-
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.classType" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Property type:</label>
-
-                            <div class="col-md-10">
-                                <input class="form-control" type="text" ng-model="pageVariables.propertyType" />
+                                <!-- TODO: The table -->
                             </div>
                         </div>
                     </uib-tab>
                 </uib-tabset>
-
-                <!-- TODO -->
-                <fieldset>
-                    <legend>Inserting</legend>
-
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Insert enabled:</label>
-
-                        <div class="col-md-10">
-                            <input class="form-control" type="checkbox" ng-model="pageVariables.insertEnabled" />
-                        </div>
-                    </div>
-                </fieldset>
-
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Type:</label>
-
-                    <div class="col-md-10">
-                        <select class="form-control" ng-model="pageVariables.type" required>
-                            <option value="dbpedia">DBpedia</option>
-                            <option value="sparql">SPARQL</option>
-                        </select>
-                    </div>
-                </div>
             </form>
 
             <!-- Alerts regarding the whole form -->
