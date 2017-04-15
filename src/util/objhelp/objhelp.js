@@ -114,19 +114,33 @@ var objhelp = {
             depth = -1;
         }
 
-        // Copy
+        // Prepare
         var result = {};
-        objhelp.objForEach(obj, function (key, value) {
+        var decider = function (value, depth) {
             if (typeof(value) === 'object') {
                 // Recursive object copy?
                 if (!!value && (depth != 0)) {
-                    result[key] = objhelp.objCopy(obj[key], depth - 1);
+                    // Differentiate between an array and a basic object
+                    if (angular.isArray(value)) {
+                        var ra = [];
+                        value.forEach(function (item) {
+                            ra.push(decider(item, depth - 1));
+                        });
+                        return ra;
+                    } else {
+                        return objhelp.objCopy(value, depth - 1);
+                    }
                 } else {
-                    result[key] = value;
+                    return value;
                 }
             } else {
-                result[key] = value;
+                return value;
             }
+        };
+
+        // Copy
+        objhelp.objForEach(obj, function (key, value) {
+            result[key] = decider(value, depth);
         });
 
         return result;
