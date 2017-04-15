@@ -33,6 +33,10 @@
             window.location.href = '#/kbconfig';
         };
 
+        $scope.fimport = function () {
+            window.location.href = '#/kbimport';
+        };
+
         $scope.fdownload = function (s, f, kbID) {
             //rest.tasks.name(kbID).configuration.retrieve.exec(s, f);
             f({ data: { payload: { text: "This is only a DEMO." } } });
