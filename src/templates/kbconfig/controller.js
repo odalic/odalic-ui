@@ -23,30 +23,11 @@
 
         // Data mapping
         $scope.pageVariables = {
-            name: text.empty(),
+            identifier: 'DBpedia',
             description: text.empty(),
-            sparqlEndpoint: text.empty(),
-            type: 'sparql',
-            cachePath: text.empty(),
-            stoplistPath: text.empty(),
-            fulltextMode: 'fulltext',
-            languageSuffix: 'en',
-            classTypeMode: 'direct',
-            instanceOfPred: text.empty(),
-            domainPred: text.empty(),
-            rangePred: text.empty(),
-            selectMode: 'autodetect',
-            insertEnabled: false,
-            insertGraph: 'http://odalic.eu/',
-            schemaPrefix: 'http://odalic.eu/schema',
-            resourcePrefix: 'http://odalic.eu/resource',
-            defaultClass: text.empty(),
-            labelPred: text.empty(),
-            altLabelPred: text.empty(),
-            subclassOfPred: text.empty(),
-            subpropertyOfPred: text.empty(),
-            subpropertyOfPred: text.empty(),
-            propertyType: text.empty(),
+            endpoint: text.empty(),
+            method: 'fulltext',
+            languageTag: 'en',
             skippedAttributes: [{
                 id: 0,
                 value: 'http://www.w3.org/ns/prov#wasDerivedFrom'
@@ -64,8 +45,13 @@
                 id: 2,
                 value: 'http://www.opengis.net/gml/_Feature'
             }],
+            insertEnabled: false,
+            insertGraph: 'http://odalic.eu/',
+            userClassesPrefix: 'http://odalic.eu/schema',
+            userResourcePrefix: 'http://odalic.eu/resource',
             login: text.empty(),
             password: text.empty(),
+            type: 'sparql',
             keyValuePairs: [{
                 key: 'eu.odalic.default.class',
                 value: 'http://www.w3.org/2002/07/owl#Thing',
@@ -120,6 +106,11 @@
             context.routeParam = $scope.edited;
             context.pageVariables = objhelp.objCopy($scope.pageVariables, 0);
             context.predicateSetsVariables = $scope.predicateSetsVariables.getSelected();
+        };
+
+        // Open an end-point URL
+        $scope.fopenEndPoint = function () {
+            window.open($scope.pageVariables.endpoint);
         };
 
         // Predicate sets initialization
