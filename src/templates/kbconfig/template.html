@@ -31,13 +31,13 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Name:</label>
+                            <label class="col-md-2 control-label">Identifier:</label>
 
                             <div class="col-md-10">
-                                <input class="form-control" type="text" name="kbName" ng-model="pageVariables.name" pattern="[-a-zA-Z0-9_.,\s]*" focused required />
+                                <input class="form-control" type="text" name="kbName" ng-model="pageVariables.name" pattern="[-a-zA-Z0-9_.,\s]*" focused required/>
                                 <div ng-messages="kbConfigForm.kbName.$error" ng-if='kbConfigForm.kbName.$dirty' role="alert">
-                                    <div ng-message="required"><error-msg>Name must not be empty.</error-msg></div>
-                                    <div ng-message="pattern"><error-msg>Name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                                    <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
+                                    <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
                                 </div>
                             </div>
                         </div>
@@ -51,21 +51,10 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">SPARQL endpoint:</label>
+                            <label class="col-md-2 control-label">Endpoint URL:</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.sparqlEndpoint" />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Type:</label>
-
-                            <div class="col-md-10">
-                                <select class="form-control" ng-model="pageVariables.type" required>
-                                    <option value="dbpedia">DBpedia</option>
-                                    <option value="sparql">SPARQL</option>
-                                </select>
                             </div>
                         </div>
                     </uib-tab>
@@ -321,6 +310,17 @@
                         </div>
                     </div>
                 </fieldset>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Type:</label>
+
+                    <div class="col-md-10">
+                        <select class="form-control" ng-model="pageVariables.type" required>
+                            <option value="dbpedia">DBpedia</option>
+                            <option value="sparql">SPARQL</option>
+                        </select>
+                    </div>
+                </div>
             </form>
 
             <!-- Alerts regarding the whole form -->
