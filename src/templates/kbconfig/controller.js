@@ -65,7 +65,12 @@
                 value: 'http://www.opengis.net/gml/_Feature'
             }],
             login: text.empty(),
-            password: text.empty()
+            password: text.empty(),
+            keyValuePairs: [{
+                key: 'eu.odalic.default.class',
+                value: 'http://www.w3.org/2002/07/owl#Thing',
+                comment: 'The top of the class hierarchy.'
+            }]
         };
         $scope.predicateSetsVariables = {
             getSelected: function() {
@@ -143,6 +148,21 @@
 
             // Redirect to the corresponding screen
             window.location.href = '#/setproperties/';
+        };
+
+        // Add to key-values
+        $scope.kvAdd = function () {
+            $scope.pageVariables.keyValuePairs.push({
+                key: text.empty(),
+                value: text.empty(),
+                comment: text.empty()
+            });
+        };
+
+        // Remove from key-values
+        $scope.kvRemove = function (record) {
+            var kvp = $scope.pageVariables.keyValuePairs;
+            kvp.splice(kvp.indexOf(record), 1);
         };
 
         // Cancel

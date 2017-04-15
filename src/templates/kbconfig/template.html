@@ -237,7 +237,36 @@
                             <label class="col-md-2 control-label">Additional key-values:</label>
 
                             <div class="col-md-10">
-                                <!-- TODO: The table -->
+                                <!-- The table -->
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Key</th>
+                                        <th>Value</th>
+                                        <th>Comment</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="record in pageVariables.keyValuePairs">
+                                        <td class="col-md-3">
+                                            <input class="form-control" type="text" ng-model="record.key" />
+                                        </td>
+                                        <td class="col-md-4">
+                                            <input class="form-control" type="text" ng-model="record.value" />
+                                        </td>
+                                        <td class="col-md-4">
+                                            <input class="form-control" type="text" ng-model="record.comment" />
+                                        </td>
+                                        <td class="col-md-1">
+                                            <a class="btn btn-default" ng-click="kvRemove(record)"><i class="fa fa-trash fa-lg"></i></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Adding a row -->
+                                <button type="button" class="btn btn-default" ng-click="kvAdd()">Add row</button>
                             </div>
                         </div>
                     </uib-tab>
