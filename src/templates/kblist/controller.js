@@ -38,8 +38,8 @@
         };
 
         $scope.fdownload = function (s, f, kbID) {
-            //rest.tasks.name(kbID).configuration.retrieve.exec(s, f);
-            f({ data: { payload: { text: "This is only a DEMO." } } });
+            // TODO: tries to get ".data" from the actual response... is this OK? (not working well in testing environment)
+            rest.bases.name(kbID).retrieve.exec(s, f);
         };
         $scope.configderror = function (response) {
             $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.configdFailure'], response.data));
