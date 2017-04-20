@@ -471,6 +471,15 @@ $.defineModule(function () {
 
             // Knowledge bases service
             bases: {
+                name: function (identifier) {
+                    return {
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'GET', success, failure);
+                            }
+                        }
+                    };
+                },
                 list: function (modifiable) {
                     return {
                         exec: function (success, failure) {
@@ -480,6 +489,65 @@ $.defineModule(function () {
                 }
             },
 
+            // Advanced base types service
+            abt: {
+                name: function (identifier) {
+                    return {
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'advanced-bas-types', identifier), 'GET', success, failure);
+                            }
+                        }
+                    };
+                },
+                list: {
+                    exec: function (success, failure) {
+                        requests.quickRequest(text.urlConcat(root, 'advanced-bas-types'), 'GET', success, failure);
+                    }
+                }
+            },
+
+            // Predicates and classes groups
+            pcg: {
+                name: function (identifier) {
+                    return {
+                        create: {
+                            exec: function (success, failure) {
+                                requests.reqJSON({
+                                    method: 'PUT',
+                                    address: text.urlConcat(root, 'groups', identifier),
+                                    formData: {
+                                        /* JSON data format */
+                                    },
+                                    success: success,
+                                    failure: failure
+                                });
+                            }
+                        },
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'groups', identifier), 'GET', success, failure);
+                            }
+                        }
+                    };
+                },
+                list: {
+                    detected: function (endpointURL) {
+                        return {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'groups', (new String()).concat('detected', '?endpoint=', endpointURL)), 'GET', success, failure);
+                            }
+                        };
+                    },
+                    all: function () {
+                        return {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'groups'), 'GET', success, failure);
+                            }
+                        };
+                    }
+                }
+            },
 
             base: function (kb) {
                 return {
