@@ -14,7 +14,7 @@
 		"userResourcesPrefix": "",
 		"advancedType": "SPARQL",
 		"advancedProperties": {
-			"eu.odalic.custom.key": "custom value",
+			"eu.odalic.custom.key": "custom value"
 		}
 	},
 	{
@@ -32,7 +32,7 @@
 		"userResourcesPrefix": "",
 		"advancedType": "SPARQL",
 		"advancedProperties": {
-			"eu.odalic.custom.key": "custom value",
+			"eu.odalic.custom.key": "custom value"
 		}
 	}
 ]

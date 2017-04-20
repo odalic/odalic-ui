@@ -41,7 +41,7 @@
                             <!-- Download configuration -->
                             <span>
                                 <tooltip source="actiontext.download" place="top">
-                                    <a-fake ajax="fdownload" args="kb.id" catcher="configderror" type="text/turtle">
+                                    <a-fake ajax="fdownload" args="kb.name" catcher="configderror" type="text/turtle">
                                         <a class="btn btn-default"><i class="fa fa-download fa-lg"></i></a>
                                     </a-fake>
                                 </tooltip>
@@ -49,12 +49,12 @@
 
                             <!-- Configure -->
                             <tooltip source="actiontext.configure" place="top">
-                                <a class="btn btn-default" ng-click="fconfigure(kb.id)"><i class="fa fa-cog fa-lg"></i></a>
+                                <a class="btn btn-default" ng-click="fconfigure(kb.name)"><i class="fa fa-cog fa-lg"></i></a>
                             </tooltip>
 
                             <!-- Remove -->
                             <tooltip source="actiontext.remove" place="top">
-                                <a class="btn btn-default" ng-click="fremove(kb.id)"><i class="fa fa-trash fa-lg"></i></a>
+                                <a class="btn btn-default" ng-click="fremove(kb.name)"><i class="fa fa-trash fa-lg"></i></a>
                             </tooltip>
                         </td>
                     </tr>

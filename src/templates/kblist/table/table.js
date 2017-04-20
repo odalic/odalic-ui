@@ -10,61 +10,37 @@ var tableComponent = function (scope, rest, reporth) {
                 var kb = scope.kbs[j];
 
                 // Add to 'mirror'
-                mirror[kb.id] = j;
+                mirror[kb.name] = j;
             })(i);
         }
     };
 
     return {
         refreshList: function (callback) {
-            // TODO: The following statements should be wrapped around a corresponding REST request
+            // TODO: Modifiable?
+            rest.bases.list(false).exec(
+                // Success
+                function (response) {
+                    scope.kbs = response;
+                    updateMirror();
 
-            // TODO: The placeholder KB list is only temporary
-            scope.kbs = [];
-            for (var i = 0; i < 15; i++) {
-                scope.kbs.push({
-                    id: (new String()).concat("kb", i),
-                    name: (new String()).concat("KB Name", " ", i),
-                    description: (new String()).concat("KB Description", " ", i)
-                });
-            }
+                    if (callback) {
+                        callback();
+                    }
 
-            updateMirror();
+                    // Update pagination directive
+                    scope.kbsProxy.model = scope.kbs;
+                    scope.$broadcast('pagination');
 
-            if (callback) {
-                callback();
-            }
-
-            // Update pagination directive
-            scope.kbsProxy.model = scope.kbs;
-            scope.$broadcast('pagination');
-
-            // Display the table
-            scope.dataload.show = true;
-
-            // rest.files.list.exec(
-            //     // Success
-            //     function (response) {
-            //         scope.files = response;
-            //         updateMirror();
-            //
-            //         if (callback) {
-            //             callback();
-            //         }
-            //
-            //         // Update pagination directive
-            //         scope.filesProxy.model = scope.files;
-            //         scope.$broadcast('pagination');
-            //
-            //         // Display the table
-            //         scope.dataload.show = true;
-            //     },
-            //     // Error
-            //     function (response) {
-            //         scope.files = [];
-            //         mirror = {};
-            //     }
-            // );
+                    // Display the table
+                    scope.dataload.show = true;
+                },
+                // Error
+                function (response) {
+                    scope.kbs = [];
+                    mirror = {};
+                }
+            );
         },
 
         removeRecord: function (kbID, callback) {
