@@ -17,8 +17,7 @@ var tableComponent = function (scope, rest, reporth) {
 
     return {
         refreshList: function (callback) {
-            // TODO: Modifiable?
-            rest.bases.list(false).exec(
+            rest.bases.list().exec(
                 // Success
                 function (response) {
                     scope.kbs = response;

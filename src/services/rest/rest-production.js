@@ -473,17 +473,46 @@ $.defineModule(function () {
             bases: {
                 name: function (identifier) {
                     return {
+                        create: function (data) {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'PUT',
+                                        address: text.urlConcat(root, 'bases', identifier),
+                                        formData: data,
+                                        success: success,
+                                        failure: failure
+                                    });
+                                }
+                            }
+                        },
+                        import: function (data) {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'PUT', success, failure, 'application/json', 'text/turtle', data);
+                                }
+                            }
+                        },
                         retrieve: {
                             exec: function (success, failure) {
                                 requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'GET', success, failure);
                             }
+                        },
+                        remove: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'DELETE', success, failure);
+                            }
+                        },
+                        exists: function (yes, no) {
+                            requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'GET', yes, no, 'application/json');
                         }
                     };
                 },
+                // modifiable = {true|false|undefined}
                 list: function (modifiable) {
                     return {
                         exec: function (success, failure) {
-                            requests.quickRequest(text.urlConcat(root, (new String()).concat('bases', '?modifiable=', modifiable)), 'GET', success, failure);
+                            requests.quickRequest(text.urlConcat(root, (new String()).concat('bases', (typeof (modifiable) !== 'undefined') ? (new String()).concat('?modifiable=', modifiable) : text.empty())), 'GET', success, failure);
                         }
                     }
                 }
@@ -511,28 +540,36 @@ $.defineModule(function () {
             pcg: {
                 name: function (identifier) {
                     return {
-                        create: {
-                            exec: function (success, failure) {
-                                requests.reqJSON({
-                                    method: 'PUT',
-                                    address: text.urlConcat(root, 'groups', identifier),
-                                    formData: {
-                                        /* JSON data format */
-                                    },
-                                    success: success,
-                                    failure: failure
-                                });
-                            }
+                        create: function(data) {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'PUT',
+                                        address: text.urlConcat(root, 'groups', identifier),
+                                        formData: data,
+                                        success: success,
+                                        failure: failure
+                                    });
+                                }
+                            };
                         },
                         retrieve: {
                             exec: function (success, failure) {
                                 requests.quickRequest(text.urlConcat(root, 'groups', identifier), 'GET', success, failure);
                             }
+                        },
+                        remove: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'groups', identifier), 'DELETE', success, failure);
+                            }
+                        },
+                        exists: function (yes, no) {
+                            requests.quickRequest(text.urlConcat(root, 'groups', identifier), 'GET', yes, no, 'application/json');
                         }
                     };
                 },
                 list: {
-                    detected: function (endpointURL) {
+                    endpoint: function (endpointURL) {
                         return {
                             exec: function (success, failure) {
                                 requests.quickRequest(text.urlConcat(root, 'groups', (new String()).concat('detected', '?endpoint=', endpointURL)), 'GET', success, failure);

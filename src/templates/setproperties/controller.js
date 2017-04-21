@@ -4,7 +4,7 @@
     var app = angular.module('odalic-app');
 
     // Create a controller for task-creation screen
-    app.controller('odalic-setproperties-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist) {
+    app.controller('odalic-setproperties-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist, datamap) {
 
         // Initialize
         formsval.toScope($scope);
@@ -47,6 +47,28 @@
             }]
         };
 
+        // Data mapping
+        var mapper = (function () {
+            var mapFromList = function (item, index) {
+                return item.value;
+            };
+            var mapToList = function (item, index) {
+                return {
+                    id: index,
+                    value: item
+                };
+            };
+
+            return datamap.create([
+                ['name', 'id'],
+                ['labelPredicates', 'labelPredicates', mapFromList, mapToList],
+                ['descPredicates', 'descriptionPredicates', mapFromList, mapToList],
+                ['instanceofPredicates', 'instanceOfPredicates', mapFromList, mapToList],
+                ['classTypes', 'classTypes', mapFromList, mapToList],
+                ['propertiesTypes', 'propertyTypes', mapFromList, mapToList]
+            ]);
+        })();
+
         // Cancel
         $scope.cancel = function () {
             // Was this page accessed from kbconfig?
@@ -72,63 +94,53 @@
 
             // Editing
             if ($scope.editing) {
-                // rest.tasks.name(spID).exec(
-                //     // Success
-                //     function (response) {
-                //         $scope.cancel();
-                //     },
-                //     // Failure
-                //     function (response) {
-                //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                //         f();
-                //     }
-                // );
-
-                // TODO: The action is only temporary
-                var response = { data: { payload: { text: "(Editing) This is only a DEMO." } } };
-                $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                f();
+                rest.pcg.name(spID).create(mapper.mapToObject2($scope.pageVariables)).exec(
+                    // Success
+                    function (response) {
+                        $scope.cancel();
+                    },
+                    // Failure
+                    function (response) {
+                        $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                        f();
+                    }
+                );
             }
             // Creating
             else {
                 var create = function () {
-                    // rest.tasks.name(taskId).create($scope.getTaskObject()).exec(
-                    //     // Success
-                    //     function (response) {
-                    //         // Redirect
-                    //         $scope.cancel();
-                    //     },
-                    //     // Failure
-                    //     function (response) {
-                    //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                    //         f();
-                    //     }
-                    // );
+                    rest.pcg.name(spID).create(mapper.mapToObject2($scope.pageVariables)).exec(
+                        // Success
+                        function (response) {
+                            // Redirect
+                            $scope.cancel();
+                        },
+                        // Failure
+                        function (response) {
+                            $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                            f();
+                        }
+                    );
                 };
 
                 // Handle overwrites
-                // rest.tasks.name(spID).exists(
-                //     function () {
-                //         $scope.confirm.open(function (response) {
-                //             if (response === true) {
-                //                 create();
-                //             } else {
-                //                 f();
-                //
-                //                 // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
-                //                 if (!$scope.$$phase) {
-                //                     $scope.$apply();
-                //                 }
-                //             }
-                //         });
-                //     },
-                //     create
-                // );
+                rest.pcg.name(spID).exists(
+                    function () {
+                        $scope.confirm.open(function (response) {
+                            if (response === true) {
+                                create();
+                            } else {
+                                f();
 
-                // TODO: The action is only temporary
-                var response = { data: { payload: { text: "(Creation) This is only a DEMO." } } };
-                $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                f();
+                                // Clicking outside of the modal is not registered by angular, but clicking on the modal button is => manually call digest cycle if necessary
+                                if (!$scope.$$phase) {
+                                    $scope.$apply();
+                                }
+                            }
+                        });
+                    },
+                    create
+                );
             }
         };
 
@@ -145,21 +157,24 @@
             }
             // Option 2: Editing an existing definition
             else {
-                // rest.kbs.name(kbID).exec(
-                //     // Success
-                //     function (response) {
-                //         $scope.pageVariables = objhelp.objCopy(response);
-                //         afterLoad();
-                //     },
-                //
-                //     // Failure
-                //     function (response) {
-                //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
-                //         afterLoad();
-                //     }
-                // );
-            }
+                // Load the data
+                rest.pcg.name($scope.edited).retrieve.exec(
+                    // Success
+                    function (response) {
+                        // Load data
+                        $scope.pageVariables = mapper.mapToObject1(response);
 
+                        // Everything loaded
+                        afterLoad();
+                    },
+
+                    // Failure
+                    function (response) {
+                        $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
+                        afterLoad();
+                    }
+                );
+            }
         })();
 
     });

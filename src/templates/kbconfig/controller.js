@@ -256,19 +256,73 @@
                 else if (routeParam) {
                     // Load data from the server
                     var kbID = routeParam;
-                    // rest.kbs.name(kbID).exec(
-                    //     // Success
-                    //     function (response) {
-                    //         $scope.pageVariables = objhelp.objCopy(response, 0);
-                    //         afterLoad();
-                    //     },
-                    //
-                    //     // Failure
-                    //     function (response) {
-                    //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
-                    //         afterLoad();
-                    //     }
-                    // );
+                    rest.bases.name(kbID).retrieve.exec(
+                        // Success
+                        function (response) {
+                            // TODO: dokoncit toto (namapuj data)
+                            var pv = $scope.pageVariables;
+
+                            pv.identifier = response['name'];
+                            pv.endpoint = response['endpoint'];
+                            pv.description = response['description'];
+                            pv.method = response['textSearchingMethod'];
+                            pv.languageTag = response['languageTag'];
+                            pv.insertEnabled = response['insertEnabled'];
+                            pv.insertGraph = response['insertGraph'];
+                            pv.userClassesPrefix = response['userClassesPrefix'];
+                            pv.userResourcePrefix = response['userResourcesPrefix'];
+                            pv.type = response['advancedType'];
+
+                            // TODO: Not described yet
+                            pv.login = response['login'];
+                            pv.password = response['password'];
+
+                            // {
+                            //     "skippedAttributes": ["http://www.w3.org/ns/prov#wasDerivedFrom", "http://www.w3.org/ns/prov#isDerivedFrom"],
+                            //     "skippedClasses": ["http://www.w3.org/2002/07/owl#Thing"],
+                            //     "advancedProperties": {
+                            //         "eu.odalic.custom.key": "custom value"
+                            //     }
+                            //
+                            //     // PSGroups
+                            //     "selectedGroups": ["RDF"],
+                            // }
+                            //
+                            // // Data mapping
+                            // $scope.pageVariables = {
+                            //     skippedAttributes: [{
+                            //         id: 0,
+                            //         value: 'http://www.w3.org/ns/prov#wasDerivedFrom'
+                            //     }, {
+                            //         id: 1,
+                            //         value: 'http://xmlns.com/foaf/0.1/isPrimaryTopicOf'
+                            //     }],
+                            //     skippedClasses: [{
+                            //         id: 0,
+                            //         value: 'http://www.w3.org/2002/07/owl#Thing'
+                            //     }, {
+                            //         id: 1,
+                            //         value: 'http://www.w3.org/2004/02/skos/core#Concept'
+                            //     }, {
+                            //         id: 2,
+                            //         value: 'http://www.opengis.net/gml/_Feature'
+                            //     }],
+                            //     keyValuePairs: [{
+                            //         key: 'eu.odalic.default.class',
+                            //         value: 'http://www.w3.org/2002/07/owl#Thing',
+                            //         comment: 'The top of the class hierarchy.'
+                            //     }]
+                            // };
+
+                            afterLoad();
+                        },
+
+                        // Failure
+                        function (response) {
+                            $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
+                            afterLoad();
+                        }
+                    );
                 }
                 // Option 3: we are creating a completely new knowledge base configuration
                 else {

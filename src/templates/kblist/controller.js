@@ -26,7 +26,14 @@
         };
 
         $scope.fremove = function (kbID) {
-            table.removeRecord(kbID);
+            rest.bases.name(kbID).remove.exec(
+                function (response) {
+                    table.removeRecord(kbID);
+                },
+                function (response) {
+                    $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.removeFailure'], response.data));
+                }
+            );
         };
 
         $scope.fadd = function () {

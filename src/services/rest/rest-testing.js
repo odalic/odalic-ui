@@ -190,7 +190,6 @@ $.defineModule(function () {
                     return {
                         exec: function (success, failure) {
                             $.getJSON('./test/samples/responses/get-bases.json', function (response) {
-                                console.log(response);
                                 success(response);
                             });
                         }
