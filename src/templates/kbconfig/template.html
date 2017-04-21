@@ -124,18 +124,18 @@
                                     <td class="col-md-1"><input class="form-control" type="checkbox" ng-model="record.selected"/></td>
 
                                     <!-- Name -->
-                                    <td class="col-md-7">{{ record.name }}</td>
+                                    <td class="col-md-7">{{ record.id }}</td>
 
                                     <!-- Actions -->
                                     <td class="col-md-4">
                                         <!-- Configure -->
                                         <tooltip source="actiontext.configure" place="top">
-                                            <a class="btn btn-default" ng-click="fconfigure(record.name)"><i class="fa fa-cog fa-lg"></i></a>
+                                            <a class="btn btn-default" ng-click="fconfigure(record.id)"><i class="fa fa-cog fa-lg"></i></a>
                                         </tooltip>
 
                                         <!-- Remove -->
                                         <tooltip source="actiontext.remove" place="top">
-                                            <a class="btn btn-default" ng-click="fremove(record.name)"><i class="fa fa-trash fa-lg"></i></a>
+                                            <a class="btn btn-default" ng-click="fremove(record.id)"><i class="fa fa-trash fa-lg"></i></a>
                                         </tooltip>
                                     </td>
                                 </tr>
@@ -222,7 +222,7 @@
 
                             <div class="col-md-10">
                                 <select class="form-control" ng-model="pageVariables.type" required>
-                                    <option value="sparql">SPARQL</option>
+                                    <option value="SPARQL">SPARQL</option>
                                 </select>
                             </div>
                         </div>

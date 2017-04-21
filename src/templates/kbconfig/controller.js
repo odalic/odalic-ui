@@ -7,7 +7,7 @@
     var currentFolder = $.getPathForRelativePath('');
 
     // Create a controller for task-creation screen
-    app.controller('odalic-kbconfig-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist) {
+    app.controller('odalic-kbconfig-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist, datamap) {
 
         // Initialization
         $scope.dataload = {};
@@ -21,7 +21,81 @@
         $scope.edited = $routeParams['kbid'];
         $scope.editing = !!$scope.edited;
 
-        // Data mapping
+        // Predicate sets
+        $scope.predicateSets = {
+            data: [],
+            load: function (callback) {
+                rest.pcg.list.all().exec(
+                    // Success
+                    function (response) {
+                        // Copy the data
+                        $scope.predicateSets.data = response;
+
+                        // Update pagination directive
+                        $scope.predicateSetsProxy.model = $scope.predicateSets.data;
+                        $scope.$broadcast('pagination');
+
+                        // Callback
+                        objhelp.callDefined(callback);
+                    },
+                    // Failure
+                    function (response) {
+                        $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
+                    }
+                );
+            },
+            getIndex: function (psID) {
+                var data = $scope.predicateSets.data;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].id === psID) {
+                        return i;
+                    }
+                }
+
+                return -1;
+            },
+            remove: function (psID, callback) {
+                rest.pcg.name(psID).remove.exec(
+                    // Success
+                    function (response) {
+                        // Remove from the array
+                        var ps = $scope.predicateSets;
+                        ps.data.splice(ps.getIndex(psID), 1);
+
+                        // Callback
+                        objhelp.callDefined(callback);
+                    },
+                    // Failure
+                    function (response) {
+                        $scope.predicateSetsAlerts.push('error', reporth.constrErrorMsg($scope['msgtxt.removeFailure'], response.data));
+                    }
+                );
+            },
+            getSelected: function() {
+                var ps = [];
+                $scope.predicateSets.data.forEach(function (item) {
+                    if (item.selected === true) {
+                        ps.push(item.id);
+                    }
+                });
+
+                return ps;
+            },
+            setSelected: function (idArray) {
+                // Fill a data structure for easing the search
+                var selected = {};
+                idArray.forEach(function (item) {
+                    selected[item] = true;
+                });
+
+                // Set 'selected' property
+                $scope.predicateSets.data.forEach(function (item) {
+                    item.selected = !!(item.id in selected);
+                });
+            }
+        };
+
+        // Page variables
         $scope.pageVariables = {
             identifier: 'DBpedia',
             description: text.empty(),
@@ -45,6 +119,7 @@
                 id: 2,
                 value: 'http://www.opengis.net/gml/_Feature'
             }],
+            predicateSets: [],
             insertEnabled: false,
             insertGraph: 'http://odalic.eu/',
             userClassesPrefix: 'http://odalic.eu/schema',
@@ -58,63 +133,80 @@
                 comment: 'The top of the class hierarchy.'
             }]
         };
-        $scope.predicateSetsVariables = {
-            getSelected: function() {
-                var ps = [];
-                $scope.predicateSets.forEach(function (record) {
-                    if (record.selected) {
-                        ps.push(record);
-                    }
-                });
 
-                return ps;
-            },
+        // Data mapping
+        var mapper = (function () {
+            var mapFromList = function (item, index) {
+                return item.value;
+            };
+            var mapToList = function (item, index) {
+                return {
+                    id: index,
+                    value: item
+                };
+            };
 
-            setSelected: function(ps) {
-                selected = {};
-                objhelp.objForEach(ps, function (index, record) {
-                    selected[record.name] = true;
-                });
+            return datamap.create([
+                ['identifier', 'name'],
+                ['description', 'description'],
+                ['endpoint', 'endpoint'],
+                ['method', 'textSearchingMethod'],
+                ['languageTag', 'languageTag'],
+                ['skippedAttributes', 'skippedAttributes', mapFromList, mapToList],
+                ['skippedClasses', 'skippedClasses', mapFromList, mapToList],
+                ['insertEnabled', 'insertEnabled'],
+                ['insertGraph', 'insertGraph'],
+                ['userClassesPrefix', 'userClassesPrefix'],
+                ['userResourcePrefix', 'userResourcesPrefix'],
+                ['type', 'advancedType'],
+                //['login', 'login'],
+                //['password', 'password'],
 
-                $scope.predicateSets.forEach(function (record) {
-                    record.selected = (selected[record.name] === true);
-                });
-            }
-        };
+                // Selected predicate sets
+                ['predicateSets', 'selectedGroups', '1->2', function (object1) {
+                    return $scope.predicateSets.getSelected();
+                }],
+                ['predicateSets', 'selectedGroups', '2->1', function (object2) {
+                    $scope.predicateSets.setSelected(object2);
+                    return $scope.predicateSets.data;
+                }],
 
-        // Load predicate sets
-        var loadPredicateSets = function (callback) {
-            // TODO: The placeholder predicate sets is only temporary
-            $scope.predicateSets = [];
-            for (var i = 0; i < 15; i++) {
-                $scope.predicateSets.push({
-                    selected: (Math.random()*2 > 1) ? true : false,
-                    name: (new String()).concat('PS Name', ' ', i)
-                });
-            }
+                // Custom key-value pairs
+                ['keyValuePairs', 'advancedProperties', '1->2', function (object1) {
+                    var object2 = {};
+                    object1.forEach(function (item) {
+                        object2[item.key] = item.value;
+                    });
 
-            // Update pagination directive
-            $scope.predicateSetsProxy.model = $scope.predicateSets;
-            $scope.$broadcast('pagination');
+                    return object2;
+                }],
+                ['keyValuePairs', 'advancedProperties', '2->1', function (object2) {
+                    var object1 = [];
+                    objhelp.objForEach(object2, function (key, value) {
+                        object1.push({
+                            key: key,
+                            value: value,
+                            comment: text.empty()
+                        });
+                    });
 
-            callback();
-        };
+                    return object1;
+                }]
+            ]);
+        })();
 
         // Save state
         var saveState = function () {
             var context = persist.context.create('kbconfig');
             context.routeParam = $scope.edited;
             context.pageVariables = objhelp.objCopy($scope.pageVariables, 0);
-            context.predicateSetsVariables = $scope.predicateSetsVariables.getSelected();
+            context.predicateSetsVariables = $scope.predicateSets.getSelected();
         };
 
         // Open an end-point URL
         $scope.fopenEndPoint = function () {
             window.open($scope.pageVariables.endpoint);
         };
-
-        // Predicate sets initialization
-        $scope.predicateSets = [];
 
         // Configure a predicate set
         $scope.fconfigure = function (psID) {
@@ -127,9 +219,10 @@
 
         // Remove a predicate set
         $scope.fremove = function (psID) {
-            // TODO: The action is only temporary
-            var response = { data: { payload: { text: "This is only a DEMO." } } };
-            $scope.predicateSetsAlerts.push('error', reporth.constrErrorMsg($scope['msgtxt.removeFailure'], response.data));
+            $scope.predicateSets.remove(psID, function () {
+                // Update pagination directive
+                scope.$broadcast('pagination');
+            });
         };
 
         // Add to predicate sets
@@ -174,60 +267,50 @@
 
             // Editing
             if ($scope.editing) {
-                // rest.kbs.name(kbID).save().exec(
-                //     // Success
-                //     function (response) {
-                //         $scope.cancel();
-                //     },
-                //     // Failure
-                //     function (response) {
-                //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                //         f();
-                //     }
-                // );
-
-                // TODO: The action is only temporary
-                var response = { data: { payload: { text: "(Editing) This is only a DEMO." } } };
-                $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                f();
+                rest.bases.name(kbID).create(mapper.mapToObject2($scope.pageVariables)).exec(
+                    // Success
+                    function (response) {
+                        $scope.cancel();
+                    },
+                    // Failure
+                    function (response) {
+                        $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                        f();
+                    }
+                );
             }
             // Creating
             else {
                 var create = function () {
-                    // rest.kbs.name(kbID).create().exec(
-                    //     // Success
-                    //     function (response) {
-                    //         $scope.cancel();
-                    //     },
-                    //     // Failure
-                    //     function (response) {
-                    //         $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                    //         f();
-                    //     }
-                    // );
+                    rest.bases.name(kbID).create(mapper.mapToObject2($scope.pageVariables)).exec(
+                        // Success
+                        function (response) {
+                            $scope.cancel();
+                        },
+                        // Failure
+                        function (response) {
+                            $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                            f();
+                        }
+                    );
                 };
 
                 // Handle overwrites
-                // rest.kbs.name(kbID).exists(
-                //     function () {
-                //         $scope.confirm.open(function (response) {
-                //             if (response === true) {
-                //                 create();
-                //             } else {
-                //                 f();
-                //                 if (!$scope.$$phase) {
-                //                     $scope.$apply();
-                //                 }
-                //             }
-                //         });
-                //     },
-                //     create
-                // );
-
-                // TODO: The action is only temporary
-                var response = { data: { payload: { text: "(Creation) This is only a DEMO." } } };
-                $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
-                f();
+                rest.bases.name(kbID).exists(
+                    function () {
+                        $scope.confirm.open(function (response) {
+                            if (response === true) {
+                                create();
+                            } else {
+                                f();
+                                if (!$scope.$$phase) {
+                                    $scope.$apply();
+                                }
+                            }
+                        });
+                    },
+                    create
+                );
             }
         };
 
@@ -239,7 +322,8 @@
                 $scope.dataload.show = true;
             };
 
-            loadPredicateSets(function () {
+            // Load the data to table of "Predicate and Class Groups"
+            $scope.predicateSets.load(function () {
                 // Gather data
                 var hasContext = persist.context.contains('kbconfig');
                 var context = objhelp.getFirstArg(persist.context.get('kbconfig'), {});
@@ -249,7 +333,7 @@
                 if (hasContext && (context.routeParam === routeParam)) {
                     // Load data from the saved state
                     $scope.pageVariables = objhelp.objCopy(context.pageVariables, 0);
-                    $scope.predicateSetsVariables.setSelected(context.predicateSetsVariables);
+                    $scope.predicateSets.setSelected(context.predicateSetsVariables);
                     afterLoad();
                 }
                 // Option 2: we are editing an existing knowledge base configuration
@@ -259,61 +343,10 @@
                     rest.bases.name(kbID).retrieve.exec(
                         // Success
                         function (response) {
-                            // TODO: dokoncit toto (namapuj data)
-                            var pv = $scope.pageVariables;
+                            // Load data
+                            $scope.pageVariables = mapper.mapToObject1(response);
 
-                            pv.identifier = response['name'];
-                            pv.endpoint = response['endpoint'];
-                            pv.description = response['description'];
-                            pv.method = response['textSearchingMethod'];
-                            pv.languageTag = response['languageTag'];
-                            pv.insertEnabled = response['insertEnabled'];
-                            pv.insertGraph = response['insertGraph'];
-                            pv.userClassesPrefix = response['userClassesPrefix'];
-                            pv.userResourcePrefix = response['userResourcesPrefix'];
-                            pv.type = response['advancedType'];
-
-                            // TODO: Not described yet
-                            pv.login = response['login'];
-                            pv.password = response['password'];
-
-                            // {
-                            //     "skippedAttributes": ["http://www.w3.org/ns/prov#wasDerivedFrom", "http://www.w3.org/ns/prov#isDerivedFrom"],
-                            //     "skippedClasses": ["http://www.w3.org/2002/07/owl#Thing"],
-                            //     "advancedProperties": {
-                            //         "eu.odalic.custom.key": "custom value"
-                            //     }
-                            //
-                            //     // PSGroups
-                            //     "selectedGroups": ["RDF"],
-                            // }
-                            //
-                            // // Data mapping
-                            // $scope.pageVariables = {
-                            //     skippedAttributes: [{
-                            //         id: 0,
-                            //         value: 'http://www.w3.org/ns/prov#wasDerivedFrom'
-                            //     }, {
-                            //         id: 1,
-                            //         value: 'http://xmlns.com/foaf/0.1/isPrimaryTopicOf'
-                            //     }],
-                            //     skippedClasses: [{
-                            //         id: 0,
-                            //         value: 'http://www.w3.org/2002/07/owl#Thing'
-                            //     }, {
-                            //         id: 1,
-                            //         value: 'http://www.w3.org/2004/02/skos/core#Concept'
-                            //     }, {
-                            //         id: 2,
-                            //         value: 'http://www.opengis.net/gml/_Feature'
-                            //     }],
-                            //     keyValuePairs: [{
-                            //         key: 'eu.odalic.default.class',
-                            //         value: 'http://www.w3.org/2002/07/owl#Thing',
-                            //         comment: 'The top of the class hierarchy.'
-                            //     }]
-                            // };
-
+                            // Everything loaded
                             afterLoad();
                         },
 

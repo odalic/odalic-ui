@@ -93,20 +93,27 @@
                 if ((setting.length == 4) && (typeof (setting[2]) === 'string')) {
                     var way = setting[2];
                     var owMapping = null;
+                    var owName1 = null;
+                    var owName2 = null;
+
                     switch (way) {
                         case '1->2':
                             owMapping = owMapping1;
+                            owName1 = name1;
+                            owName2 = name2;
                             break;
                         case '2->1':
                             owMapping = owMapping2;
+                            owName1 = name2;
+                            owName2 = name1;
                             break;
                         default:
                             throw new Error('Unknown way of 1-way data mapping. Please, use either "1->2" or "2->1".');
                     }
 
                     var transformer = setting[3];
-                    owMapping[name1] = {
-                        name: name2,
+                    owMapping[owName1] = {
+                        name: owName2,
                         transformer: transformer
                     };
                 }
