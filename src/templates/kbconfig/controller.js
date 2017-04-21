@@ -15,6 +15,7 @@
         $scope.alerts = [];
         $scope.confirm = {};
         $scope.predicateSetsAlerts = [];
+        $scope.modalEmptyEndpoint = {};
         formsval.toScope($scope);
 
         // Are we editing an existing configuration, or creating a new one?
@@ -71,7 +72,7 @@
                     }
                 );
             },
-            getSelected: function() {
+            getSelected: function () {
                 var ps = [];
                 $scope.predicateSets.data.forEach(function (item) {
                     if (item.selected === true) {
@@ -232,6 +233,39 @@
 
             // Redirect to the corresponding screen
             window.location.href = '#/setproperties/';
+        };
+
+        // Autodetection
+        $scope.psAutodetect = function (f) {
+            var endpoint = $scope.pageVariables.endpoint;
+
+            // Endpoint set?
+            if (endpoint) {
+                rest.pcg.list.endpoint(endpoint).exec(
+                    // Success
+                    function (response) {
+                        // Construct the array of "set predicates"
+                        var ps = [];
+                        response.forEach(function (item) {
+                            ps.push(item.id);
+                        });
+
+                        // Set selected
+                        $scope.predicateSets.setSelected(ps);
+                        f();
+                    },
+                    // Failure
+                    function (response) {
+                        $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.autodetectFailure'], response.data));
+                        f();
+                    }
+                );
+            }
+            // Endpoint not set => warn the user
+            else {
+                $scope.modalEmptyEndpoint.open();
+                f();
+            }
         };
 
         // Add to key-values

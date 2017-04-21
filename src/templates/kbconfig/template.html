@@ -2,6 +2,7 @@
 <injector for="msgtxt.loadFailure">An error occurred while retrieving data from the server.</injector>
 <injector for="msgtxt.saveFailure">An error occurred while saving the configuration.</injector>
 <injector for="msgtxt.removeFailure">An error occurred while removing the predicate set.</injector>
+<injector for="msgtxt.autodetectFailure">An error occurred during auto-detection.</injector>
 
 <!-- Main Content -->
 <main-cnt>
@@ -104,7 +105,7 @@
 
                             <!-- Autodetection -->
                             <div class="col-md-offset-10 col-md-2">
-                                <button type="button" class="col-md-12 btn btn-lg" ng-click="psAutodetect()">Autodetect</button>
+                                <button-load button-type="button" button-class="col-md-12 btn btn-lg" action="psAutodetect" disabled="false">Autodetect</button-load>
                             </div>
                             <div class="col-md-12 odalic-hstyle-medium"/>
 
@@ -274,6 +275,11 @@
             <div class="col-md-12">
                 <alert-group bind="alerts" disappearing="3"/>
             </div>
+
+            <!-- Modal informing about the empty endpoint -->
+            <modal bind="modalEmptyEndpoint" title="Empty endpoint">
+                Endpoint (main tab) must not be empty for the action to perform.
+            </modal>
 
             <!-- Confirm modal when overwriting an existing configuration -->
             <confirm bind="confirm" title="Knowledge base overwrite">
