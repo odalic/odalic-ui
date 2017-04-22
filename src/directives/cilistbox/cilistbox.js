@@ -8,22 +8,32 @@
     app.directive('cilistbox', function () {
         return {
             restrict: 'E',
+            require: 'ngModel',
             templateUrl: currentFolder + 'cilistbox.html',
             scope: {
                 size: '@',
-                ngModel: '=',
                 validator: '='
             },
-            link: function (scope, iElement, iAttrs) {
+            link: function (scope, iElement, iAttrs, ngModel) {
+
+                // Local model
+                scope.model = [];
+
+                // On ngModel update
+                ngModel.$render = function(){
+                    scope.model = ngModel.$modelValue;
+                };
 
                 // Selected items for removal
                 scope.selected = [];
 
                 // Remove
                 scope.remove = function () {
-                    scope.ngModel = sets.exclusion(scope.ngModel, scope.selected, function (item) {
+                    scope.model = sets.exclusion(scope.model, scope.selected, function (item) {
                         return item.id;
                     });
+
+                    ngModel.$setViewValue(scope.model);
                 };
 
                 // An item to be added
@@ -31,9 +41,10 @@
 
                 // Get a new index
                 var getIndex = (function () {
-                    var index = scope.ngModel.length;
+                    var index = 0;
 
                     return function () {
+                        index = Math.max(scope.model.length, index);
                         return index++;
                     };
                 })();
@@ -62,10 +73,17 @@
                     }
 
                     // Add
-                    scope.ngModel.push({
+                    scope.model = sets.union(scope.model, [{
                         id: getIndex(),
                         value: value
+                    }], function (item) {
+                        return item.id;
                     });
+
+                    // Update the ngModel
+                    ngModel.$setViewValue(scope.model);
+
+                    ngModel.$setViewValue(scope.model);
 
                     // Clear
                     scope.newItem = new String();
