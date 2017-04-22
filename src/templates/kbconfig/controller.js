@@ -98,43 +98,22 @@
 
         // Page variables
         $scope.pageVariables = {
-            identifier: 'DBpedia',
+            identifier: text.empty(),
             description: text.empty(),
             endpoint: text.empty(),
             method: 'fulltext',
             languageTag: 'en',
-            skippedAttributes: [{
-                id: 0,
-                value: 'http://www.w3.org/ns/prov#wasDerivedFrom'
-            }, {
-                id: 1,
-                value: 'http://xmlns.com/foaf/0.1/isPrimaryTopicOf'
-            }],
-            skippedClasses: [{
-                id: 0,
-                value: 'http://www.w3.org/2002/07/owl#Thing'
-            }, {
-                id: 1,
-                value: 'http://www.w3.org/2004/02/skos/core#Concept'
-            }, {
-                id: 2,
-                value: 'http://www.opengis.net/gml/_Feature'
-            }],
+            skippedAttributes: [],
+            skippedClasses: [],
             predicateSets: [],
             insertEnabled: false,
-            insertGraph: 'http://odalic.eu/',
-            userClassesPrefix: 'http://odalic.eu/schema',
-            userResourcePrefix: 'http://odalic.eu/resource',
+            insertGraph: text.empty(),
+            userClassesPrefix: text.empty(),
+            userResourcePrefix: text.empty(),
             login: text.empty(),
             password: text.empty(),
-            type: {
-                name: 'not available'
-            },
-            keyValuePairs: [{
-                key: 'eu.odalic.default.class',
-                value: 'http://www.w3.org/2002/07/owl#Thing',
-                comment: 'The top of the class hierarchy.'
-            }]
+            type: {},
+            keyValuePairs: []
         };
 
         // Data mapping
@@ -355,7 +334,7 @@
             }
 
             // Generic preparations
-            var kbID = $scope.pageVariables.name;
+            var kbID = $scope.pageVariables.identifier;
 
             // Editing
             if ($scope.editing) {
@@ -460,6 +439,9 @@
                 }
                 // Option 3: we are creating a completely new knowledge base configuration
                 else {
+                    // Special case: selected type default to first type
+                    $scope.pageVariables.type = $scope.keyValues.data[0];
+
                     afterLoad();
                 }
 

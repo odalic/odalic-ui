@@ -495,7 +495,12 @@ $.defineModule(function () {
                         },
                         retrieve: {
                             exec: function (success, failure) {
-                                requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'GET', success, failure);
+                                requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'GET', success, failure, 'application/json');
+                            }
+                        },
+                        export: {
+                            exec: function (success, failure) {
+                                requests.pureRequest(text.urlConcat(root, 'bases', identifier), 'GET', success, failure, 'text/turtle');
                             }
                         },
                         remove: {
@@ -524,14 +529,14 @@ $.defineModule(function () {
                     return {
                         retrieve: {
                             exec: function (success, failure) {
-                                requests.quickRequest(text.urlConcat(root, 'advanced-bas-types', identifier), 'GET', success, failure);
+                                requests.quickRequest(text.urlConcat(root, 'advanced-base-types', identifier), 'GET', success, failure);
                             }
                         }
                     };
                 },
                 list: {
                     exec: function (success, failure) {
-                        requests.quickRequest(text.urlConcat(root, 'advanced-bas-types'), 'GET', success, failure);
+                        requests.quickRequest(text.urlConcat(root, 'advanced-base-types'), 'GET', success, failure);
                     }
                 }
             },

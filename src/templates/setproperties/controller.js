@@ -18,33 +18,12 @@
 
         // Variables
         $scope.pageVariables = {
-            name: new String(),
+            name: text.empty(),
             labelPredicates: [],
-            descPredicates: [{
-                id: 0,
-                value: 'http://dbpedia.org/ontology/abstract'
-            }],
-            instanceofPredicates: [{
-                id: 0,
-                value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
-            }],
-            classTypes: [{
-                id: 0,
-                value: 'http://www.w3.org/2000/01/rdf-schema#Class'
-            }, {
-                id: 1,
-                value: 'http://www.w3.org/2002/07/owl#Class'
-            }],
-            propertiesTypes: [{
-                id: 0,
-                value: 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'
-            }, {
-                id: 1,
-                value: 'http://www.w3.org/2002/07/owl#DatatypeProperty'
-            }, {
-                id: 2,
-                value: 'http://www.w3.org/2002/07/owl#ObjectProperty'
-            }]
+            descPredicates: [],
+            instanceofPredicates: [],
+            classTypes: [],
+            propertiesTypes: []
         };
 
         // Data mapping

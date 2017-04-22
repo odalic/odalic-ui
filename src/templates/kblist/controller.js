@@ -20,7 +20,6 @@
         // Load the initial data
         table.refreshList();
 
-        // TODO: The placeholder actions have to be modified once the server API is ready
         $scope.fconfigure = function (kbID) {
             window.location.href = text.urlConcat('#', 'kbconfig', kbID);
         };
@@ -45,8 +44,7 @@
         };
 
         $scope.fdownload = function (s, f, kbID) {
-            // TODO: tries to get ".data" from the actual response... is this OK? (not working well in testing environment)
-            rest.bases.name(kbID).retrieve.exec(s, f);
+            rest.bases.name(kbID).export.exec(s, f);
         };
         $scope.configderror = function (response) {
             $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.configdFailure'], response.data));
