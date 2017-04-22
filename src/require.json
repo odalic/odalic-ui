@@ -25,6 +25,7 @@
   "directives/focused/focused.js",
   "directives/cilistbox/cilistbox.js",
   "directives/helpico/helpico.js",
+  "directives/ajaxspinner/ajaxspinner.js",
   "services/ioc/ioc.js",
   "services/filedata/filedata.js",
   "services/requests/requests.js",
