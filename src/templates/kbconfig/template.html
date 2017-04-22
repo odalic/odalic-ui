@@ -46,7 +46,10 @@
                             <label class="col-md-2 control-label">End-point URL: *</label>
 
                             <div class="col-md-8">
-                                <input class="form-control" type="text" ng-model="pageVariables.endpoint" />
+                                <input class="form-control" type="text" name="kbEndpoint" ng-model="pageVariables.endpoint" required/>
+                                <div ng-messages="kbConfigForm.kbEndpoint.$error" ng-if='kbConfigForm.kbEndpoint.$dirty' role="alert">
+                                    <div ng-message="required"><error-msg>Endpoint must not be empty.</error-msg></div>
+                                </div>
                             </div>
                             <div class="col-md-2">
                                 <button class="form-control" type="button" ng-click="fopenEndPoint()">Open</button>
