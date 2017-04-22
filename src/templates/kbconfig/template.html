@@ -222,8 +222,8 @@
                             <label class="col-md-2 control-label">Type:</label>
 
                             <div class="col-md-10">
-                                <select class="form-control" ng-model="pageVariables.type" required>
-                                    <option value="SPARQL">SPARQL</option>
+                                <select class="form-control" ng-model="pageVariables.type" ng-change="kvFill()"
+                                        ng-options="option.name for option in keyValues.data" required>
                                 </select>
                             </div>
                         </div>

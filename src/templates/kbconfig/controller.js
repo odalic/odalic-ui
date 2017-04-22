@@ -127,7 +127,9 @@
             userResourcePrefix: 'http://odalic.eu/resource',
             login: text.empty(),
             password: text.empty(),
-            type: 'sparql',
+            type: {
+                name: 'not available'
+            },
             keyValuePairs: [{
                 key: 'eu.odalic.default.class',
                 value: 'http://www.w3.org/2002/07/owl#Thing',
@@ -159,7 +161,6 @@
                 ['insertGraph', 'insertGraph'],
                 ['userClassesPrefix', 'userClassesPrefix'],
                 ['userResourcePrefix', 'userResourcesPrefix'],
-                ['type', 'advancedType'],
                 //['login', 'login'],
                 //['password', 'password'],
 
@@ -170,6 +171,15 @@
                 ['predicateSets', 'selectedGroups', '2->1', function (object2) {
                     $scope.predicateSets.setSelected(object2);
                     return $scope.predicateSets.data;
+                }],
+
+                // Type
+                ['type', 'advancedType', '1->2', function (object1) {
+                    return object1.name;
+                }],
+                ['type', 'advancedType', '2->1', function (object2) {
+                    var kv = $scope.keyValues;
+                    return kv.data[kv.getIndex(object2)];
                 }],
 
                 // Custom key-value pairs
@@ -195,6 +205,37 @@
                 }]
             ]);
         })();
+
+        // Key-values
+        $scope.keyValues = {
+            data: [],
+            load: function (callback) {
+                rest.abt.list.exec(
+                    // Success
+                    function (response) {
+                        // Copy the data
+                        $scope.keyValues.data = response;
+
+                        // Callback
+                        objhelp.callDefined(callback);
+                    },
+                    // Failure
+                    function (response) {
+                        $scope.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.loadFailure'], response.data));
+                    }
+                );
+            },
+            getIndex: function (name) {
+                var data = $scope.keyValues.data;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].name === name) {
+                        return i;
+                    }
+                }
+
+                return -1;
+            }
+        };
 
         // Save state
         var saveState = function () {
@@ -266,6 +307,23 @@
                 $scope.modalEmptyEndpoint.open();
                 f();
             }
+        };
+
+        // Fill key-values table with default data
+        $scope.kvFill = function () {
+            var pv = $scope.pageVariables;
+            var type = pv.type;
+
+            var result = [];
+            type.keys.forEach(function (key) {
+                result.push({
+                    key: key,
+                    value: text.safe(type.keysToDefaultValues[key]),
+                    comment: text.safe(type.keysToComments[key])
+                });
+            });
+
+            pv.keyValuePairs = result;
         };
 
         // Add to key-values
@@ -358,6 +416,10 @@
 
             // Load the data to table of "Predicate and Class Groups"
             $scope.predicateSets.load(function () {
+
+            // Load the data for 'advanced type' combobox
+            $scope.keyValues.load(function () {
+
                 // Gather data
                 var hasContext = persist.context.contains('kbconfig');
                 var context = objhelp.getFirstArg(persist.context.get('kbconfig'), {});
@@ -368,6 +430,11 @@
                     // Load data from the saved state
                     $scope.pageVariables = objhelp.objCopy(context.pageVariables, 0);
                     $scope.predicateSets.setSelected(context.predicateSetsVariables);
+
+                    // Special case: selected type (cannot copy an object; must be an object reference for ng-options)
+                    var kv = $scope.keyValues;
+                    $scope.pageVariables.type = kv.data[kv.getIndex($scope.pageVariables.type.name)];
+
                     afterLoad();
                 }
                 // Option 2: we are editing an existing knowledge base configuration
@@ -395,7 +462,8 @@
                 else {
                     afterLoad();
                 }
-            });
+
+            })});;
         })();
 
     });

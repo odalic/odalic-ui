@@ -13,7 +13,8 @@
             scope: {
                 bind: '=',
                 callback: '=',
-                size: '@'
+                size: '@',
+                idleIcon: '@'
             },
             link: function (scope, iElement, iAttrs) {
 
