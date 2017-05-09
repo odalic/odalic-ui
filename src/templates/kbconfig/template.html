@@ -101,15 +101,20 @@
                         <formgroup>
                             <legend>Used predicates and classes groups</legend>
 
+                            <!-- Autodetection -->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Autodetection:</label>
+
+                                <div class="col-md-10">
+                                    <button-load button-type="button" button-class="col-md-2 btn btn-lg" action="psAutodetect" disabled="false">Perform</button-load>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 odalic-hstyle-medium"/>
+
                             <!-- Tooltip messages -->
                             <injector for="actiontext.configure">Edit predicate set</injector>
                             <injector for="actiontext.remove">Remove predicate set</injector>
-
-                            <!-- Autodetection -->
-                            <div class="col-md-offset-10 col-md-2">
-                                <button-load button-type="button" button-class="col-md-12 btn btn-lg" action="psAutodetect" disabled="false">Autodetect</button-load>
-                            </div>
-                            <div class="col-md-12 odalic-hstyle-medium"/>
 
                             <!-- Table of sets -->
                             <table class="table table-bordered table-hover">
