@@ -32,10 +32,7 @@
                     <label class="col-md-2 control-label">"label" predicates:</label>
 
                     <div class="col-md-10">
-                        <cilistbox size="3" name="spLabelPredicates" ng-model="pageVariables.labelPredicates" minlength="1"/>
-                        <div ng-if="setPropertiesForm.spLabelPredicates.$invalid && setPropertiesForm.spLabelPredicates.$dirty">
-                            <error-msg>At least 1 label predicate has to be specified</error-msg>
-                        </div>
+                        <cilistbox size="3" name="spLabelPredicates" ng-model="pageVariables.labelPredicates"/>
                     </div>
                 </div>
 
@@ -44,10 +41,7 @@
                     <label class="col-md-2 control-label">"description" predicates:</label>
 
                     <div class="col-md-10">
-                        <cilistbox size="3" name="spDescriptionPredicates" ng-model="pageVariables.descPredicates" minlength="1"/>
-                        <div ng-if="setPropertiesForm.spDescriptionPredicates.$invalid && setPropertiesForm.spDescriptionPredicates.$dirty">
-                            <error-msg>At least 1 description predicate has to be specified</error-msg>
-                        </div>
+                        <cilistbox size="3" name="spDescriptionPredicates" ng-model="pageVariables.descPredicates"/>
                     </div>
                 </div>
 
@@ -56,10 +50,7 @@
                     <label class="col-md-2 control-label">"instance of" predicates:</label>
 
                     <div class="col-md-10">
-                        <cilistbox size="3" name="spInstancePredicates" ng-model="pageVariables.instanceofPredicates" minlength="1"/>
-                        <div ng-if="setPropertiesForm.spInstancePredicates.$invalid && setPropertiesForm.spInstancePredicates.$dirty">
-                            <error-msg>At least 1 instance predicate has to be specified</error-msg>
-                        </div>
+                        <cilistbox size="3" name="spInstancePredicates" ng-model="pageVariables.instanceofPredicates"/>
                     </div>
                 </div>
 
@@ -68,10 +59,7 @@
                     <label class="col-md-2 control-label">Type of classes:</label>
 
                     <div class="col-md-10">
-                        <cilistbox size="3" name="spTypeClasses" ng-model="pageVariables.classTypes" minlength="1"/>
-                        <div ng-if="setPropertiesForm.spTypeClasses.$invalid && setPropertiesForm.spTypeClasses.$dirty">
-                            <error-msg>At least 1 class type has to be specified</error-msg>
-                        </div>
+                        <cilistbox size="3" name="spTypeClasses" ng-model="pageVariables.classTypes"/>
                     </div>
                 </div>
 
@@ -80,10 +68,7 @@
                     <label class="col-md-2 control-label">Type of properties:</label>
 
                     <div class="col-md-10">
-                        <cilistbox size="3" name="spTypeProperties" ng-model="pageVariables.propertiesTypes" minlength="1"/>
-                        <div ng-if="setPropertiesForm.spTypeProperties.$invalid && setPropertiesForm.spTypeProperties.$dirty">
-                            <error-msg>At least 1 property type has to be specified</error-msg>
-                        </div>
+                        <cilistbox size="3" name="spTypeProperties" ng-model="pageVariables.propertiesTypes"/>
                     </div>
                 </div>
             </form>
