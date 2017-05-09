@@ -16,6 +16,7 @@
         $scope.confirm = {};
         $scope.predicateSetsAlerts = [];
         $scope.modalEmptyEndpoint = {};
+        $scope.active = 0;
         formsval.toScope($scope);
 
         // Are we editing an existing configuration, or creating a new one?
@@ -414,7 +415,18 @@
                     var kv = $scope.keyValues;
                     $scope.pageVariables.type = kv.data[kv.getIndex($scope.pageVariables.type.name)];
 
+                    // Change the active tab to 'Search'
+                    $scope.active = 1;
+
+                    // Everything loaded and set
                     afterLoad();
+
+                    // Scroll to the bottom of the page once DOM is loaded
+                    // Yes, I know this is ugly, but it gets the job done - in JS there is only 1 thread, so after
+                    // angular performs its digest cycle, the following is immediately called due to call order
+                    window.setTimeout(function () {
+                        window.scrollTo(0, document.body.scrollHeight);
+                    }, 1);
                 }
                 // Option 2: we are editing an existing knowledge base configuration
                 else if (routeParam) {
