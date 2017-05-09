@@ -37,6 +37,7 @@
   "filters/shortstr/filter.js",
   "filters/nonempty/filter.js",
   "filters/conform/filter.js",
+  "filters/uissearch/filter.js",
   "common/navbar/navbar.js",
   "common/maincnt/maincnt.js",
   "common/footer/footer.js",
