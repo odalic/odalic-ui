@@ -253,7 +253,7 @@
         $scope.fremove = function (psID) {
             $scope.predicateSets.remove(psID, function () {
                 // Update pagination directive
-                scope.$broadcast('pagination');
+                $scope.$broadcast('pagination');
             });
         };
 
