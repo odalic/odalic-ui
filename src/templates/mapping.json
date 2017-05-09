@@ -85,6 +85,11 @@
         "controller": "odalic-kbconfig-ctrl"
     },
     {
+        "route": "/kbconfig/clone/:kbid",
+        "folder": "kbconfig",
+        "controller": "odalic-kbconfig-ctrl"
+    },
+    {
         "route": "/kblist",
         "folder": "kblist",
         "controller": "odalic-kblist-ctrl"

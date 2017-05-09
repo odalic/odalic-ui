@@ -14,6 +14,7 @@
 
         <!-- Tooltip messages -->
         <injector for="actiontext.configure">Knowledge base settings</injector>
+        <injector for="actiontext.clone">Create a new knowledge base from the current knowledge base settings</injector>
         <injector for="actiontext.remove">Remove knowledge base</injector>
         <injector for="actiontext.download">Download knowledge base configuration</injector>
 
@@ -50,6 +51,11 @@
                             <!-- Configure -->
                             <tooltip source="actiontext.configure" place="top">
                                 <a class="btn btn-default" ng-click="fconfigure(kb.name)"><i class="fa fa-cog fa-lg"></i></a>
+                            </tooltip>
+
+                            <!-- Clone -->
+                            <tooltip source="actiontext.clone" place="top">
+                                <a class="btn btn-default" ng-click="fclone(kb.name)"><i class="fa fa-clone fa-lg"></i></a>
                             </tooltip>
 
                             <!-- Remove -->

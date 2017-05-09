@@ -7,7 +7,7 @@
     var currentFolder = $.getPathForRelativePath('');
 
     // Create a controller for task-creation screen
-    app.controller('odalic-kbconfig-ctrl', function ($scope, $routeParams, rest, formsval, reporth, persist, datamap) {
+    app.controller('odalic-kbconfig-ctrl', function ($scope, $location, $routeParams, rest, formsval, reporth, persist, datamap) {
 
         // Initialization
         $scope.dataload = {};
@@ -22,6 +22,15 @@
         // Are we editing an existing configuration, or creating a new one?
         $scope.edited = $routeParams['kbid'];
         $scope.editing = !!$scope.edited;
+        $scope.cloning = false;
+        if ($scope.editing) {
+            // Maybe we are just cloning an existing configuration?
+            var urlParts = $location.absUrl().split('/');
+            if (urlParts[urlParts.length - 2] === 'clone') {
+                $scope.editing = false;
+                $scope.cloning = true;
+            }
+        }
 
         // Predicate sets
         $scope.predicateSets = {
@@ -221,6 +230,7 @@
         var saveState = function () {
             var context = persist.context.create('kbconfig');
             context.routeParam = $scope.edited;
+            context.wasCloning = $scope.cloning;
             context.pageVariables = objhelp.objCopy($scope.pageVariables, 0);
             context.predicateSetsVariables = $scope.predicateSets.getSelected();
         };

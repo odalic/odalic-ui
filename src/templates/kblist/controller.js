@@ -24,6 +24,10 @@
             window.location.href = text.urlConcat('#', 'kbconfig', kbID);
         };
 
+        $scope.fclone = function (kbID) {
+            window.location.href = text.urlConcat('#', 'kbconfig', 'clone', kbID);
+        };
+
         $scope.fremove = function (kbID) {
             rest.bases.name(kbID).remove.exec(
                 function (response) {

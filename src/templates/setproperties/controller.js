@@ -57,7 +57,12 @@
             }
 
             // Redirect back to KB definition
-            window.location.href = text.urlConcat('#', 'kbconfig', text.safe(persist.context.get('kbconfig').routeParam));
+            var context = persist.context.get('kbconfig');
+            if (context.wasCloning) {
+                window.location.href = text.urlConcat('#', 'kbconfig', 'clone', text.safe(context.routeParam));
+            } else {
+                window.location.href = text.urlConcat('#', 'kbconfig', text.safe(context.routeParam));
+            }
         };
 
         // Save
