@@ -49,7 +49,7 @@
                 if (!scope.bind) {
                     scope.bind = {};
                 }
-                objhelp.objCopy(pif, scope.bind);
+                objhelp.objNRCopyNew(pif, scope.bind);
 
 
                 // Private

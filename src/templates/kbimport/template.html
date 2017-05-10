@@ -1,0 +1,69 @@
+<!-- Prepared messages to display to user in case of a situation -->
+<injector for="msgtxt.createFailure">An error occurred while importing the knowledge base configuration.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="kbs" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <div class="container-fluid">
+        <!-- Headline -->
+        <h2>Knowledge base import</h2>
+
+        <!-- The main form -->
+        <form class="form-horizontal" role="form" name="kbImportForm" ng-init="setForm(this, 'kbImportForm')">
+
+            <!-- Basic settings -->
+            <fieldset>
+                <legend>Basic settings</legend>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Name:</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="kbIdentifier" ng-model="kbImport.identifier" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
+                        <div ng-messages="kbImportForm.kbIdentifier.$error" ng-if='kbImportForm.kbIdentifier.$dirty' role="alert">
+                            <div ng-message="required"><error-msg>Name must not be empty.</error-msg></div>
+                            <div ng-message="pattern"><error-msg>Name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Input file -->
+            <fieldset>
+                <legend>Configuration file</legend>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Configuration file:</label>
+                    <div class="col-md-8">
+                        <input type="file" id="concreteFile" name="fileSelector" required/>
+                        <div ng-messages="kbImportForm.fileSelector.$error" ng-if='kbImportForm.fileSelector.$dirty' role="alert">
+                            <div ng-message="required"><error-msg>A file must be selected.</error-msg></div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!--  Alerts displaying notifications to a user -->
+            <alert-group bind="kbImport.alerts" disappearing="3"/>
+        </form>
+
+        <!-- Confirm modal when overwriting a configuration -->
+        <confirm bind="confirm" title="Knowledge base overwrite">
+            You are about to overwrite an existing knowledge base configuration. Continue?
+        </confirm>
+
+        <!-- Submit -->
+        <div class="col-md-offset-8 col-md-4">
+            <div class="col-md-offset-7 col-md-5">
+                <button-load button-class="col-md-12 btn btn-lg" action="kbImport.import" disabled="false">Import</button-load>
+            </div>
+        </div>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

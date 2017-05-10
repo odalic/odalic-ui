@@ -1,0 +1,315 @@
+<!-- Prepared messages to display to user in case of a situation -->
+<injector for="msgtxt.loadFailure">An error occurred while retrieving data from the server.</injector>
+<injector for="msgtxt.saveFailure">An error occurred while saving the configuration.</injector>
+<injector for="msgtxt.removeFailure">An error occurred while removing the predicate set.</injector>
+<injector for="msgtxt.autodetectFailure">An error occurred during auto-detection.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="kbs" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <div class="container-fluid">
+        <!-- Headline -->
+        <h2>Knowledge base configuration</h2>
+
+        <!-- Data loading icon -->
+        <loadico bind="dataload" size="5" center="true" showtxt="true">
+            <form class="form-horizontal" role="form" name="kbConfigForm" ng-init="setForm(this, 'kbConfigForm')">
+                <!-- Tabs -->
+                <uib-tabset active="active">
+                    <!-- Main -->
+                    <uib-tab index="0" heading="Main">
+                        <div class="col-md-12 odalic-hstyle-medium"/>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Identifier: *</label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" name="kbIdentifier" ng-model="pageVariables.identifier" pattern="[-a-zA-Z0-9_.,\s]*" ng-disabled="editing" focused required/>
+                                <div ng-messages="kbConfigForm.kbIdentifier.$error" ng-if='kbConfigForm.kbIdentifier.$dirty' role="alert">
+                                    <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
+                                    <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Description:</label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" ng-model="pageVariables.description" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">End-point URL: *</label>
+
+                            <div class="col-md-8">
+                                <input class="form-control" type="text" name="kbEndpoint" ng-model="pageVariables.endpoint" required/>
+                                <div ng-messages="kbConfigForm.kbEndpoint.$error" ng-if='kbConfigForm.kbEndpoint.$dirty' role="alert">
+                                    <div ng-message="required"><error-msg>Endpoint must not be empty.</error-msg></div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="form-control" type="button" ng-click="fopenEndPoint()">Open</button>
+                            </div>
+                        </div>
+                    </uib-tab>
+
+                    <!-- Search -->
+                    <uib-tab index="1" heading="Search">
+                        <div class="col-md-12 odalic-hstyle-medium"/>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Method:</label>
+
+                            <div class="col-md-10">
+                                <select class="form-control" ng-model="pageVariables.method" required>
+                                    <option value="fulltext">Fulltext</option>
+                                    <option value="substring">Substring</option>
+                                    <option value="exact">Exact match</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Language tag:</label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" ng-model="pageVariables.languageTag" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Skipped attributes:</label>
+
+                            <div class="col-md-10">
+                                <cilistbox size="5" ng-model="pageVariables.skippedAttributes" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Skipped classes:</label>
+
+                            <div class="col-md-10">
+                                <cilistbox size="5" ng-model="pageVariables.skippedClasses" />
+                            </div>
+                        </div>
+
+                        <!-- Table of predicate groups -->
+                        <formgroup>
+                            <legend>Used predicates and classes groups</legend>
+
+                            <!-- Autodetection -->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Autodetection:</label>
+
+                                <div class="col-md-10">
+                                    <button-load button-type="button" button-class="col-md-2 btn btn-lg" action="psAutodetect" disabled="false">Perform</button-load>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 odalic-hstyle-medium"/>
+
+                            <!-- Tooltip messages -->
+                            <injector for="actiontext.configure">Edit predicate set</injector>
+                            <injector for="actiontext.remove">Remove predicate set</injector>
+
+                            <!-- Table of sets -->
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Used</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- A single record -->
+                                <tr ng-repeat="record in predicateSetsProxy.getView()" ng-class="{'odalic-trstyle-lightgrey': record.selected}">
+                                    <!-- Record selection -->
+                                    <td class="col-md-1"><input class="form-control" type="checkbox" ng-model="record.selected"/></td>
+
+                                    <!-- Name -->
+                                    <td class="col-md-7">{{ record.id }}</td>
+
+                                    <!-- Actions -->
+                                    <td class="col-md-4">
+                                        <!-- Configure -->
+                                        <tooltip source="actiontext.configure" place="top">
+                                            <a class="btn btn-default" ng-click="fconfigure(record.id)"><i class="fa fa-cog fa-lg"></i></a>
+                                        </tooltip>
+
+                                        <!-- Remove -->
+                                        <tooltip source="actiontext.remove" place="top">
+                                            <a class="btn btn-default" ng-click="fremove(record.id)"><i class="fa fa-trash fa-lg"></i></a>
+                                        </tooltip>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Pagination -->
+                            <pagination bind="predicateSetsProxy" per-page="5"/>
+
+                            <!-- Alerts -->
+                            <alert-group bind="predicateSetsAlerts" disappearing="3"/>
+
+                            <!-- Buttons -->
+                            <div class="col-md-offset-10 col-md-2">
+                                <button type="button" class="col-md-12 btn btn-lg" ng-click="psAdd()">Add</button>
+                            </div>
+                        </formgroup>
+                    </uib-tab>
+
+                    <!-- Propose -->
+                    <uib-tab index="2" heading="Propose">
+                        <div class="col-md-12 odalic-hstyle-medium"/>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Insert enabled:</label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="checkbox" ng-model="pageVariables.insertEnabled" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Insert to graph:</label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" ng-model="pageVariables.insertGraph" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">User classes prefix:</label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" ng-model="pageVariables.userClassesPrefix" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">User resource prefix:</label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" ng-model="pageVariables.userResourcePrefix" />
+                            </div>
+                        </div>
+
+                        <!-- Authorization -->
+                        <formgroup ng-if="pageVariables.insertEnabled">
+                            <legend>Authorization</legend>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Login:</label>
+
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" ng-model="pageVariables.login" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Password:</label>
+
+                                <div class="col-md-10">
+                                    <input class="form-control" type="password" ng-model="pageVariables.password" />
+                                </div>
+                            </div>
+                        </formgroup>
+                    </uib-tab>
+
+                    <!-- Advanced -->
+                    <uib-tab index="3" heading="Advanced">
+                        <div class="col-md-12 odalic-hstyle-medium"/>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Type:</label>
+
+                            <div class="col-md-10">
+                                <select class="form-control" ng-model="pageVariables.type" ng-change="kvFill()"
+                                        ng-options="option.name for option in keyValues.data" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Additional key-values:</label>
+
+                            <div class="col-md-10">
+                                <!-- The table -->
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Key</th>
+                                        <th>Value</th>
+                                        <th>Comment</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="record in pageVariables.keyValuePairs">
+                                        <td class="col-md-3">
+                                            <input class="form-control" type="text" ng-model="record.key" />
+                                        </td>
+                                        <td class="col-md-4">
+                                            <input class="form-control" type="text" ng-model="record.value" />
+                                        </td>
+                                        <td class="col-md-4">
+                                            {{ record.comment }}
+                                        </td>
+                                        <td class="col-md-1">
+                                            <a class="btn btn-default" ng-click="kvRemove(record)"><i class="fa fa-trash fa-lg"></i></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Adding a row -->
+                                <button type="button" class="btn btn-default" ng-click="kvAdd()">Add row</button>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+            </form>
+
+            <!-- Empty space -->
+            <div class="col-md-12 odalic-hstyle-medium"/>
+
+            <!-- Alerts regarding the whole form -->
+            <div class="col-md-12">
+                <alert-group bind="alerts" disappearing="3"/>
+            </div>
+
+            <!-- Modal informing about the empty endpoint -->
+            <modal bind="modalEmptyEndpoint" title="Empty endpoint">
+                Endpoint (main tab) must not be empty for the action to perform.
+            </modal>
+
+            <!-- Confirm modal when overwriting an existing configuration -->
+            <confirm bind="confirm" title="Knowledge base overwrite">
+                You are about to overwrite an existing knowledge base configuration. Continue?
+            </confirm>
+
+            <!-- Buttons -->
+            <div class="col-md-offset-7 col-md-5">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-6">
+                        <button-load button-class="col-md-12 btn btn-lg" action="save" disabled="false">Save</button-load>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="col-md-12 btn btn-lg" ng-click="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </loadico>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

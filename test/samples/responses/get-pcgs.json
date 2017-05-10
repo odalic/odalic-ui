@@ -1,0 +1,9 @@
+[{
+		"id": "DBpedia",
+		"labelPredicates": ["http://dbpedia.org/property/name", "http://dbpedia.org/property/something"],
+		"descriptionPredicates": ["http://dbpedia.org/ontology/abstract"],
+		"instanceOfPredicates": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"],
+		"classTypes": ["http://www.w3.org/2000/01/rdf-schema#Class"],
+		"propertyTypes": ["http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"]
+	}
+]
