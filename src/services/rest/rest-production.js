@@ -471,15 +471,125 @@ $.defineModule(function () {
 
             // Knowledge bases service
             bases: {
+                name: function (identifier) {
+                    return {
+                        create: function (data) {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'PUT',
+                                        address: text.urlConcat(root, 'bases', identifier),
+                                        formData: data,
+                                        success: success,
+                                        failure: failure
+                                    });
+                                }
+                            }
+                        },
+                        import: function (data) {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'PUT', success, failure, 'application/json', 'text/turtle', data);
+                                }
+                            }
+                        },
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'GET', success, failure, 'application/json');
+                            }
+                        },
+                        export: {
+                            exec: function (success, failure) {
+                                requests.pureRequest(text.urlConcat(root, 'bases', identifier), 'GET', success, failure, 'text/turtle');
+                            }
+                        },
+                        remove: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'DELETE', success, failure);
+                            }
+                        },
+                        exists: function (yes, no) {
+                            requests.quickRequest(text.urlConcat(root, 'bases', identifier), 'GET', yes, no, 'application/json');
+                        }
+                    };
+                },
+                // modifiable = {true|false|undefined}
                 list: function (modifiable) {
                     return {
                         exec: function (success, failure) {
-                            requests.quickRequest(text.urlConcat(root, (new String()).concat('bases', '?modifiable=', modifiable)), 'GET', success, failure);
+                            requests.quickRequest(text.urlConcat(root, (new String()).concat('bases', (typeof (modifiable) !== 'undefined') ? (new String()).concat('?modifiable=', modifiable) : text.empty())), 'GET', success, failure);
                         }
                     }
                 }
             },
 
+            // Advanced base types service
+            abt: {
+                name: function (identifier) {
+                    return {
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'advanced-base-types', identifier), 'GET', success, failure);
+                            }
+                        }
+                    };
+                },
+                list: {
+                    exec: function (success, failure) {
+                        requests.quickRequest(text.urlConcat(root, 'advanced-base-types'), 'GET', success, failure);
+                    }
+                }
+            },
+
+            // Predicates and classes groups
+            pcg: {
+                name: function (identifier) {
+                    return {
+                        create: function(data) {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'PUT',
+                                        address: text.urlConcat(root, 'groups', identifier),
+                                        formData: data,
+                                        success: success,
+                                        failure: failure
+                                    });
+                                }
+                            };
+                        },
+                        retrieve: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'groups', identifier), 'GET', success, failure);
+                            }
+                        },
+                        remove: {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'groups', identifier), 'DELETE', success, failure);
+                            }
+                        },
+                        exists: function (yes, no) {
+                            requests.quickRequest(text.urlConcat(root, 'groups', identifier), 'GET', yes, no, 'application/json');
+                        }
+                    };
+                },
+                list: {
+                    endpoint: function (endpointURL) {
+                        return {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'groups', (new String()).concat('detected', '?endpoint=', endpointURL)), 'GET', success, failure);
+                            }
+                        };
+                    },
+                    all: function () {
+                        return {
+                            exec: function (success, failure) {
+                                requests.quickRequest(text.urlConcat(root, 'groups'), 'GET', success, failure);
+                            }
+                        };
+                    }
+                }
+            },
 
             base: function (kb) {
                 return {

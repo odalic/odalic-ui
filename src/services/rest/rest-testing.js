@@ -171,6 +171,78 @@ $.defineModule(function () {
                     error: 'ERROR',
                     success: 'SUCCESS'
                 }
+            },
+
+            // Knowledge bases service
+            bases: {
+                name: function (identifier) {
+                    return {
+                        retrieve: {
+                            exec: function (success, failure) {
+                                $.getJSON('./test/samples/bases/' + identifier + '.json', function (response) {
+                                    success(response);
+                                });
+                            }
+                        }
+                    };
+                },
+                list: function (modifiable) {
+                    return {
+                        exec: function (success, failure) {
+                            $.getJSON('./test/samples/responses/get-bases.json', function (response) {
+                                success(response);
+                            });
+                        }
+                    }
+                }
+            },
+
+            // Advanced base types service
+            abt: {
+                name: function (identifier) {
+                    return {
+                        retrieve: {
+                            exec: function (success, failure) {
+                                $.getJSON('./test/samples/abts/' + identifier + '.json', function (response) {
+                                    success(response);
+                                });
+                            }
+                        }
+                    };
+                },
+                list: {
+                    exec: function (success, failure) {
+                        $.getJSON('./test/samples/responses/get-abts.json', function (response) {
+                            success(response);
+                        });
+                    }
+                }
+            },
+
+            // Predicates and classes groups
+            pcg: {
+                name: function (identifier) {
+                    return {
+                        retrieve: {
+                            exec: function (success, failure) {
+                                $.getJSON('./test/samples/pcgs/' + identifier + '.json', function (response) {
+                                    success(response);
+                                });
+                            }
+                        }
+                    };
+                },
+                list: {
+                    all: function () {
+                        return {
+                            exec: function (success, failure) {
+                                $.getJSON('./test/samples/responses/get-pcgs.json', function (response) {
+                                    success(response);
+                                });
+                            }
+                        };
+                    }
+                }
             }
         };
 

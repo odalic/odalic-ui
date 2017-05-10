@@ -73,5 +73,40 @@
         "route": "/taskresult/:taskid",
         "folder": "taskresult",
         "controller": "taskresult-ctrl"
+    },
+    {
+        "route": "/kbconfig",
+        "folder": "kbconfig",
+        "controller": "odalic-kbconfig-ctrl"
+    },
+    {
+        "route": "/kbconfig/:kbid",
+        "folder": "kbconfig",
+        "controller": "odalic-kbconfig-ctrl"
+    },
+    {
+        "route": "/kbconfig/clone/:kbid",
+        "folder": "kbconfig",
+        "controller": "odalic-kbconfig-ctrl"
+    },
+    {
+        "route": "/kblist",
+        "folder": "kblist",
+        "controller": "odalic-kblist-ctrl"
+    },
+    {
+        "route": "/kbimport",
+        "folder": "kbimport",
+        "controller": "odalic-kbimport-ctrl"
+    },
+    {
+        "route": "/setproperties",
+        "folder": "setproperties",
+        "controller": "odalic-setproperties-ctrl"
+    },
+    {
+        "route": "/setproperties/:spid",
+        "folder": "setproperties",
+        "controller": "odalic-setproperties-ctrl"
     }
 ]

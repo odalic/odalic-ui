@@ -245,5 +245,13 @@ var text = {
             }
         });
         return result;
+    },
+
+    /** Returns an empty string.
+     *
+     * @returns {string}
+     */
+    empty: function () {
+        return '';
     }
 };
