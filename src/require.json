@@ -26,6 +26,7 @@
   "directives/cilistbox/cilistbox.js",
   "directives/helpico/helpico.js",
   "directives/ajaxspinner/ajaxspinner.js",
+  "directives/abbrc/abbrc.js",
   "services/ioc/ioc.js",
   "services/filedata/filedata.js",
   "services/requests/requests.js",
