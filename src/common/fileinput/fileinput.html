@@ -1,12 +1,12 @@
 <!-- Specifying a source (upload/remote) -->
 <div class="form-group">
     <label class="control-label col-md-2">
-        Source:
+        <abbrc msg="Local files are uploaded, while remote files are downloaded during each task run.">Source:</abbrc>
     </label>
     <div class="col-md-5">
         <label class="radio-inline">
             <input type="radio" ng-model="fileProvision" value="local" />
-            Uploaded or selected file
+            Local file
         </label>
     </div>
     <div class="col-md-5">
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label">Identifier:</label>
+            <label class="col-md-2 control-label"><abbrc msg="A unique name the file will be referenced by.">Identifier:</abbrc></label>
             <div class="col-md-8">
                 <input type="text" class="form-control" name="localFileID" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" pattern="[-a-zA-Z0-9_.,\s]*" required/>
                 <div ng-messages="localFileForm.localFileID.$error" ng-if='localFileForm.localFileID.$dirty' role="alert">
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label">Identifier:</label>
+            <label class="col-md-2 control-label"><abbrc msg="A unique name the file will be referenced by.">Identifier:</abbrc></label>
             <div class="col-md-8">
                 <input type="text" class="form-control" name="remoteFileID" ng-model="fileAttach.identifier" pattern="[-a-zA-Z0-9_.,\s]*" required/>
                 <div ng-messages="remoteFileForm.remoteFileID.$error" ng-if='remoteFileForm.remoteFileID.$dirty' role="alert">
