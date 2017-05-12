@@ -1,7 +1,7 @@
 $.defineModule(function () {
     return function (requests) {
         // Preparations
-        var root = constants.addresses.odalicroot;
+        var root = constants.configurables.server.address;
 
         // Classification/disambiguation/relation suggestions
         var searchRequest = function (kb, type) {

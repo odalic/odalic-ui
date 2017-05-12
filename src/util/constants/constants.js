@@ -17,12 +17,8 @@ var constants = (function() {
     });
 
     return {
-        get addresses() {
-            return {
-                get odalicroot() {
-                    return configurables.server.address;
-                }
-            }
+        get configurables() {
+            return configurables;
         },
         get colors() {
             return {
