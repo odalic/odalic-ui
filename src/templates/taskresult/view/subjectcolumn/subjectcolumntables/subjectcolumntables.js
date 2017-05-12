@@ -31,14 +31,37 @@
                         $scope.open[kb][column] = true;
                         return;
                     }
-                    if ($scope.result.subjectColumnPositions[kb].index != column) {
 
-                        $scope.locked.subjectColumns[kb][$scope.result.subjectColumnPositions[kb].index] = 0;
-                        $scope.result.subjectColumnPositions[kb].index = column;
-                        $scope.locked.subjectColumns[kb][column] = 1;
+
+                    $scope.isColumnSubject[kb][column ] ^=1;
+                    $scope.locked.subjectColumns[kb][column] ^= 1;
+
+                    if($scope.isColumnSubject[kb][column ] != $scope.locked.subjectColumns[kb][column])
+                    {
+                        $scope.locked.subjectColumns[kb][column] = 0;
                     }
+                    // var oldColumnIndex= $scope.result.subjectColumnPositions[kb].index;
+                    // if (  $scope.locked.subjectColumns[kb][column]== 0 && oldColumnIndex != column) {
+                    //
+                    //
+                    //     if( oldColumnIndex != -1){
+                    //         $scope.locked.subjectColumns[kb][oldColumnIndex] = 0;
+                    //     }
+                    //
+                    //     $scope.result.subjectColumnPositions[kb].index= column;
+                    //     $scope.locked.subjectColumns[kb][column] = 1;
+                    // }
+
 
                 };
+
+                //locks and unlocks the lock
+                $scope.lockColumn = function(column, kb,$event) {
+                    $event.stopPropagation();
+                    $scope.locked.subjectColumns[kb][column] ^= 1;
+                }
+
+
             }
         }
     });

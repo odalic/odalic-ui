@@ -16,9 +16,11 @@
         //region Initialization of objects which save user changes
         $scope.feedback = {};
         $scope.ignoredColumn = {};
+        $scope.compulsory = {};
         $scope.noDisambiguationColumn = {};
         $scope.noDisambiguationCell = {};
         $scope.locked = {};
+        $scope.isColumnSubject = {};
 
         $scope.selectedPosition = {
             column: -1,
@@ -33,13 +35,6 @@
         $scope.inputFile = {
             'columns': [],
             'rows': []
-        };
-        $scope.result = {
-            subjectColumnPositions: {
-                index: 0
-            },
-            headerAnnotations: {},
-            cellAnnotations: {}
         };
         //endregion
 
@@ -281,10 +276,16 @@
         };
 
         setIgnoreThings = function () {
+
             // Column ignores
             var fbcignores = $scope.serverFeedback.columnIgnores;
             fbcignores.forEach(function (c) {
                 $scope.ignoredColumn[c.position.index] = true;
+            });
+
+            var fbcCompulsory = $scope.serverFeedback.columnCompulsory;
+            fbcCompulsory.forEach(function (c) {
+                $scope.compulsory[c.position.index] = true;
             });
 
             // Column ambiguities
@@ -300,6 +301,28 @@
                 var c = l.position.columnPosition.index;
                 objhelp.objRecurAccess($scope.noDisambiguationCell, r)[c] = true;
             });
+
+
+
+
+            var columnCount = $scope.result.cellAnnotations[0].length;
+
+            //sets subject columns  flags from feedback
+            for (var i in $scope.chosenKBs) {
+                var kb = $scope.chosenKBs[i];
+                $scope.isColumnSubject[kb] = {};
+                for (var c = 0; c < columnCount; c++) {
+                    var scp = $scope.serverFeedback.subjectColumnsPositions;
+                    var rscp =  $scope.result.subjectColumnsPositions;
+                    if ((scp.hasOwnProperty(kb) && scp[kb].some(function(e) {return e.index == c})) ||
+                        (rscp.hasOwnProperty(kb) && rscp[kb].some(function(e) {return e.index == c}))) {
+                        $scope.isColumnSubject[kb][c] = 1;
+                    }
+                    else {
+                        $scope.isColumnSubject[kb][c] = 0;
+                    }
+                }
+            }
         };
 
         setLockedFlags = function () {
@@ -334,14 +357,15 @@
                 $scope.locked.tableCells[row][column] = 1;
             }
 
-            //subject column server locking
+
+            //subject columns server locking
             $scope.locked.subjectColumns = {};
             for (var i in $scope.chosenKBs) {
                 var kb = $scope.chosenKBs[i];
                 $scope.locked.subjectColumns[kb] = {};
                 for (var c = 0; c < columnCount; c++) {
-                    var scp = $scope.serverFeedback.subjectColumnPositions;
-                    if (scp.hasOwnProperty(kb) && scp[kb].index == c) {
+                    var scp = $scope.serverFeedback.subjectColumnsPositions;
+                    if (scp.hasOwnProperty(kb) && scp[kb].some(function(e) {return e.index == c})) {
                         $scope.locked.subjectColumns[kb][c] = 1;
                     }
                     else {
@@ -349,6 +373,8 @@
                     }
                 }
             }
+
+
 
             //default relations locking (set to 'no-lock')
             $scope.locked.graphEdges = {};
@@ -498,6 +524,7 @@
                             primaryKB: $scope.primaryKB,
                             openCDProposal: $scope.openCDProposal,
                             ignoredColumn: $scope.ignoredColumn,
+                            compulsory: $scope.compulsory,
                             noDisambiguationCell: $scope.noDisambiguationCell,
                             noDisambiguationColumn: $scope.noDisambiguationColumn
 
