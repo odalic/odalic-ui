@@ -38,7 +38,7 @@
                             }
 
                             // Import successful, redirect to the knowledge base configurations screen
-                            window.location.href = text.urlConcat('#/kblist/', kbID);
+                            window.location.href = text.urlConcat('#/kblist/');
                         },
 
                         // Failure
