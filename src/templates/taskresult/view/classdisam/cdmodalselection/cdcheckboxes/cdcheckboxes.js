@@ -14,6 +14,7 @@
                 ignoredColumn: '=',
                 noDisambiguationColumn: '=',
                 noDisambiguationCell: '=',
+                compulsory: '='
             },
             templateUrl: currentFolder + 'cdcheckboxes.html',
             link: function ($scope, iElement, iAttrs) {

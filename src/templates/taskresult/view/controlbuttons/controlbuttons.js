@@ -6,7 +6,7 @@
     // Subcomponent for displaying buttons (send feedback, reexecute, ...)
     // and handling feedback sending
     var currentFolder = $.getPathForRelativePath('');
-    app.directive('controlButtons', ['rest', function (rest) {
+    app.directive('controlButtons', ['rest', 'reporth', function (rest, reporth) {
         return {
             restrict: 'E',
             templateUrl: currentFolder + 'controlbuttons.html',
@@ -18,21 +18,37 @@
                 sendFeedback = function (success, error) {
                     // Subjects columns
                     $scope.feedback.subjectColumnPositions = {};
+                    $scope.feedback.subjectColumnsPositions = {};
                     for (var KB in $scope.locked.subjectColumns) {
                         for (var columnIndex in $scope.locked.subjectColumns[KB]) {
-                            if ($scope.locked.subjectColumns[KB][columnIndex] == 1) {
-                                $scope.feedback.subjectColumnPositions[KB] = {
-                                    index: columnIndex
+                            // column is locked and it is the main subject column (column can be locked with other (not main) subject columns)
+                            if ($scope.locked.subjectColumns[KB][columnIndex] ==1) {
+                                if(!$scope.feedback.subjectColumnsPositions.hasOwnProperty(KB))
+                                {
+                                    $scope.feedback.subjectColumnsPositions[KB]=[];
                                 }
+                                $scope.feedback.subjectColumnsPositions[KB].push({
+                                    index: columnIndex
+
+                                })
                             }
                         }
                     }
+
 
                     // Ignored columns
                     $scope.feedback.columnIgnores = [];
                     for (var columnNumber in $scope.ignoredColumn) {
                         if ($scope.ignoredColumn[columnNumber] == true) {
                             $scope.feedback.columnIgnores.push({position: {index: columnNumber}});
+                        }
+                    }
+
+                    // Compulsory columns
+                    $scope.feedback.columnCompulsory = [];
+                    for (var columnNumber in $scope.compulsory) {
+                        if ($scope.compulsory[columnNumber] == true) {
+                            $scope.feedback.columnCompulsory.push({position: {index: columnNumber}});
                         }
                     }
 
@@ -115,24 +131,26 @@
                     //data cube feedback without candidates and chosen
                     $scope.feedback.dataCubeComponents = [];
                     for (var index in $scope.locked.statisticalData) {
-                            var lock  = $scope.locked.statisticalData[index];
-                            if (lock == 1) {
-                                var predicateObj = $scope.result.statisticalAnnotations[index];
-                                var newPredicate = angular.copy(predicateObj.predicate);
+                        var lock = $scope.locked.statisticalData[index];
+                        if (lock == 1) {
+                            var predicateObj = $scope.result.statisticalAnnotations[index];
+                            var newPredicate = angular.copy(predicateObj.predicate);
 
-                                delete newPredicate.chosen;
-                                delete newPredicate.candidates;
+                            delete newPredicate.chosen;
+                            delete newPredicate.candidates;
 
-                                var obj = {
-                                    "position": { "index": index},
-                                    "annotation": {"component":predicateObj.component,
-                                        "predicate": newPredicate }
+                            var obj = {
+                                "position": {"index": index},
+                                "annotation": {
+                                    "component": predicateObj.component,
+                                    "predicate": newPredicate
+                                }
 
-                                };
-                                obj.annotation.predicate[$scope.primaryKB] = angular.copy(predicateObj.predicate.chosen[$scope.primaryKB]);
+                            };
+                            obj.annotation.predicate[$scope.primaryKB] = angular.copy(predicateObj.predicate.chosen[$scope.primaryKB]);
 
-                                $scope.feedback.dataCubeComponents.push(obj);
-                            }
+                            $scope.feedback.dataCubeComponents.push(obj);
+                        }
                     }
 
                     // Send the feedback

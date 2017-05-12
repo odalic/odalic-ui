@@ -7,8 +7,18 @@
                     <input type="checkbox"
                            ng-model="ignoredColumn[selectedPosition.column]"
                            ng-change="lockCell()"
-                           ng-disabled="isSubjectColumnLocked()">
+                           ng-disabled="isSubjectColumnLocked() || compulsory[selectedPosition.column]">
                     Ignore Column
+                </label>
+            </div>
+
+            <div class="col-md-12">
+                <label >
+                    <input type="checkbox"
+                           ng-model="compulsory[selectedPosition.column]"
+                           ng-change="lockCell()"
+                           ng-disabled="ignoredColumn[selectedPosition.column]">
+                    Compulsory column
                 </label>
             </div>
 
