@@ -1,5 +1,24 @@
 /** A simple INI file style parser */
 var iniparser = {
+    /** Parses the given textual data in INI format.
+     *  Returns an object similar to the following example:
+     *  ; Beginning of the configuration file
+     *  key1=value1
+     *
+     *  [section1]
+     *  key1=value1
+     *  ; End of the configuration file
+     *
+     *  result = {
+     *      key1: value1,
+     *      section1: {
+     *          key1: value1
+     *      }
+     *  };
+     *
+     * @param data   Textual data in INI format.
+     * @returns {{}} The parsed data.
+     */
     parse: function (data) {
         // Credits go to http://stackoverflow.com/questions/3870019/javascript-parser-for-a-string-which-contains-ini-data
         var regex = {
