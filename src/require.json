@@ -1,4 +1,5 @@
 [
+  "util/iniparser/iniparser.js",
   "util/constants/constants.js",
   "util/unorderedarr/unorderedarr.js",
   "util/eucgeom/eucgeom.js",
