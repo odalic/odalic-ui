@@ -23,7 +23,7 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Identifier: *</label>
+                            <label class="col-md-2 control-label"><abbrc msg="A unique identifier the knowledge base configuration will be referenced by.">Identifier:</abbrc> *</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="kbIdentifier" ng-model="pageVariables.identifier" pattern="[-a-zA-Z0-9_.,\s]*" ng-disabled="editing" focused required/>
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">End-point URL: *</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">End-point URL:</abbrc> *</label>
 
                             <div class="col-md-8">
                                 <input class="form-control" type="text" name="kbEndpoint" ng-model="pageVariables.endpoint" required/>
@@ -62,7 +62,7 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Method:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">Method:</abbrc></label>
 
                             <div class="col-md-10">
                                 <select class="form-control" ng-model="pageVariables.method" required>
@@ -74,7 +74,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Language tag:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">Language tag:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.languageTag" />
@@ -82,7 +82,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Skipped attributes:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">Skipped attributes:</abbrc></label>
 
                             <div class="col-md-10">
                                 <cilistbox size="5" ng-model="pageVariables.skippedAttributes" />
@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Skipped classes:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">Skipped classes:</abbrc></label>
 
                             <div class="col-md-10">
                                 <cilistbox size="5" ng-model="pageVariables.skippedClasses" />
@@ -103,7 +103,7 @@
 
                             <!-- Autodetection -->
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Autodetection:</label>
+                                <label class="col-md-2 control-label"><abbrc msg="TODO">Autodetection:</abbrc></label>
 
                                 <div class="col-md-10">
                                     <button-load button-type="button" button-class="col-md-2 btn btn-lg" action="psAutodetect" disabled="false">Perform</button-load>
@@ -168,7 +168,7 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Insert enabled:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">Insert enabled:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="checkbox" ng-model="pageVariables.insertEnabled" />
@@ -176,7 +176,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Insert to graph:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">Insert to graph:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.insertGraph" />
@@ -184,7 +184,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">User classes prefix:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">User classes prefix:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.userClassesPrefix" />
@@ -192,7 +192,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">User resource prefix:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">User resource prefix:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.userResourcePrefix" />
@@ -204,18 +204,18 @@
                             <legend>Authorization</legend>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Login:</label>
+                                <label class="col-md-2 control-label"><abbrc msg="TODO">Login:</abbrc></label>
 
                                 <div class="col-md-10">
-                                    <input class="form-control" type="text" ng-model="pageVariables.login" />
+                                    <input class="form-control" name="kbclogin" type="text" ng-model="pageVariables.login" />
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Password:</label>
+                                <label class="col-md-2 control-label"><abbrc msg="TODO">Password:</abbrc></label>
 
                                 <div class="col-md-10">
-                                    <input class="form-control" type="password" ng-model="pageVariables.password" />
+                                    <input class="form-control" name="kbcpassword" type="password" ng-model="pageVariables.password" />
                                 </div>
                             </div>
                         </formgroup>
@@ -226,7 +226,7 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Type:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">Type:</abbrc></label>
 
                             <div class="col-md-10">
                                 <select class="form-control" ng-model="pageVariables.type" ng-change="kvFill()"
@@ -236,7 +236,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Additional key-values:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="TODO">Additional key-values:</abbrc></label>
 
                             <div class="col-md-10">
                                 <!-- The table -->

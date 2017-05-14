@@ -16,7 +16,7 @@
             <form class="form-horizontal" role="form" name="setPropertiesForm" ng-init="setForm(this, 'setPropertiesForm')">
                 <!-- Name -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Name:</label>
+                    <label class="col-md-2 control-label"><abbrc msg="A unique identifier for the current set.">Name:</abbrc></label>
 
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="spName" ng-model="pageVariables.name" pattern="[-a-zA-Z0-9_.,\s]*" ng-disabled="editing" focused required />
@@ -29,7 +29,7 @@
 
                 <!-- "label" predicates -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">"label" predicates:</label>
+                    <label class="col-md-2 control-label"><abbrc msg="TODO">"label" predicates:</abbrc></label>
 
                     <div class="col-md-10">
                         <cilistbox size="3" name="spLabelPredicates" ng-model="pageVariables.labelPredicates"/>
@@ -38,7 +38,7 @@
 
                 <!-- "description" predicates -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">"description" predicates:</label>
+                    <label class="col-md-2 control-label"><abbrc msg="TODO">"description" predicates:</abbrc></label>
 
                     <div class="col-md-10">
                         <cilistbox size="3" name="spDescriptionPredicates" ng-model="pageVariables.descPredicates"/>
@@ -47,7 +47,7 @@
 
                 <!-- "instance of" predicates -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">"instance of" predicates:</label>
+                    <label class="col-md-2 control-label"><abbrc msg="TODO">"instance of" predicates:</abbrc></label>
 
                     <div class="col-md-10">
                         <cilistbox size="3" name="spInstancePredicates" ng-model="pageVariables.instanceofPredicates"/>
@@ -56,7 +56,7 @@
 
                 <!-- Type of classes -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Type of classes:</label>
+                    <label class="col-md-2 control-label"><abbrc msg="TODO">Type of classes:</abbrc></label>
 
                     <div class="col-md-10">
                         <cilistbox size="3" name="spTypeClasses" ng-model="pageVariables.classTypes"/>
@@ -65,7 +65,7 @@
 
                 <!-- Type of properties -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Type of properties:</label>
+                    <label class="col-md-2 control-label"><abbrc msg="TODO">Type of properties:</abbrc></label>
 
                     <div class="col-md-10">
                         <cilistbox size="3" name="spTypeProperties" ng-model="pageVariables.propertiesTypes"/>
