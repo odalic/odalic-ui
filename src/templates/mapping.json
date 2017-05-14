@@ -10,6 +10,11 @@
         "controller": "reroute"
     },
     {
+        "route": "/timeout",
+        "folder": "timeout",
+        "controller": "generic"
+    },
+    {
         "route": "/login",
         "folder": "login",
         "controller": "odalic-login-ctrl"
