@@ -456,7 +456,6 @@
             };
         }
 
-
         //calls cd proposal modal window
         $scope.openCDProposal = function () {
             $uibModal.open({
@@ -577,12 +576,26 @@
                 }
 
             });
-        }
+        };
         
         // Miscellaneous functions
         $scope.miscellaneous = {
             goBack: function () {
                 window.location.href = text.urlConcat('#', 'taskconfigs');
+            },
+            reexecute: function () {
+                // Start the task
+                rest.tasks.name($scope.taskID).execute.exec(
+                    // Execution started successfully
+                    function (response) {
+                        window.location.href = '#/taskconfigs/' + $scope.taskID;
+                    },
+
+                    // Error while starting the execution
+                    function (response) {
+                        window.location.href = '#/taskconfigs/';
+                    }
+                );
             }
         };
     });
