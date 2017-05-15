@@ -44,7 +44,7 @@
 
                     // Did the request timeout?
                     var timeNow = new Date().getTime();
-                    if (timeNow - timeStart >= constants.configurables.requests.timeout) {
+                    if (timeNow - timeStart >= constants.configurables.requests.timeout - 500) {
                         status = 'timeout';
                     }
 
