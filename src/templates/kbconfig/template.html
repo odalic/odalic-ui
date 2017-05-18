@@ -23,7 +23,8 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="A unique identifier the knowledge base configuration will be referenced by.">Identifier:</abbrc> *</label>
+                            <label class="col-md-2 control-label"><abbrc msg="A URL friendly identifier of the base.
+Choose one unique to the bases you own.">Identifier:</abbrc> *</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="kbIdentifier" ng-model="pageVariables.identifier" pattern="[-a-zA-Z0-9_.,\s]*" ng-disabled="editing" focused required/>
@@ -43,7 +44,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">End-point URL:</abbrc> *</label>
+                            <label class="col-md-2 control-label"><abbrc msg="A URL of the remote endpoint where the knowledge base is available.
+The URL is accepted in the common form [protocol]://[host]:[port].">End-point URL:</abbrc> *</label>
 
                             <div class="col-md-8">
                                 <input class="form-control" type="text" name="kbEndpoint" ng-model="pageVariables.endpoint" required/>
@@ -62,7 +64,9 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">Method:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="All common bases support the exact and substring method,
+but some proprietary implementation may benefit from proprietary fulltext methods which will speed-up the search.
+Revert back to substring method in case the fulltext is not available.">Text searching method:</abbrc></label>
 
                             <div class="col-md-10">
                                 <select class="form-control" ng-model="pageVariables.method" required>
@@ -74,7 +78,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">Language tag:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="Standard language tag used withing the base.
+Change when using national knowledge bases.">Language tag:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.languageTag" />
@@ -82,7 +87,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">Skipped attributes:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="Attribute URIs skipped during the processing of properties. A good place to put those that lead to unwanted recognized relations or are otherwise unusable. Common prefixes are supported.">Skipped attributes:</abbrc></label>
 
                             <div class="col-md-10">
                                 <cilistbox size="5" ng-model="pageVariables.skippedAttributes" />
@@ -90,7 +95,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">Skipped classes:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="Class URIs skipped when resolving the entities. A good place to put those that are too general or otherwise unusable. Common prefixes are supported.">Skipped classes:</abbrc></label>
 
                             <div class="col-md-10">
                                 <cilistbox size="5" ng-model="pageVariables.skippedClasses" />
@@ -103,7 +108,10 @@
 
                             <!-- Autodetection -->
                             <div class="form-group">
-                                <label class="col-md-2 control-label"><abbrc msg="TODO">Autodetection:</abbrc></label>
+                                <label class="col-md-2 control-label"><abbrc msg="Enable to allow the application to query the base and decied upon suitable groups to use in its queries.
+Disable to select the used groups manually.
+It is best to leave the autodetection on, unless some of the used groups cause unwanted entities to appear in the result.
+There is certain performance penalty for using each group so it is best to select only the groups actually needed or desired.">Autodetection:</abbrc></label>
 
                                 <div class="col-md-10">
                                     <button-load button-type="button" button-class="col-md-2 btn btn-lg" action="psAutodetect" disabled="false">Perform</button-load>
@@ -168,7 +176,7 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">Insert enabled:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="When enabled the application will allow the user to use this base as the primary one (e.g. as a storage of user-defined resources).">Insert enabled:</abbrc></label>
 
                             <div class="col-md-10 checkbox">
                                 <label>
@@ -178,7 +186,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">Insert to graph:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="The graph URI for the user-defined resources">Insert to graph:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.insertGraph" />
@@ -186,7 +194,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">User classes prefix:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="URI prefix for the user-defined classes">User classes prefix:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.userClassesPrefix" />
@@ -194,7 +202,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">User resource prefix:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="URI prefix for the user-defined resources other than classes">User resource prefix:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.userResourcePrefix" />
@@ -206,7 +214,8 @@
                             <legend>Authorization</legend>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label"><abbrc msg="TODO">Login:</abbrc></label>
+                                <label class="col-md-2 control-label"><abbrc msg="Login under which the application will authenticate itself to the base.
+When left blank no attempt to authenticate is made.">Login:</abbrc></label>
 
                                 <div class="col-md-10">
                                     <input class="form-control" name="kbclogin" type="text" ng-model="pageVariables.login" />
@@ -214,7 +223,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-2 control-label"><abbrc msg="TODO">Password:</abbrc></label>
+                                <label class="col-md-2 control-label"><abbrc msg="Password to authenticate the application for the usage of the base">Password:</abbrc></label>
 
                                 <div class="col-md-10">
                                     <input class="form-control" name="kbcpassword" type="password" ng-model="pageVariables.password" />
@@ -228,7 +237,9 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">Type:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="Type of the base.
+The SPARQL-based are the most common, but some may require additional non-standard settings and special support.
+Choose one of the other available types if that is the case.">Type:</abbrc></label>
 
                             <div class="col-md-10">
                                 <select class="form-control" ng-model="pageVariables.type" ng-change="kvFill()"
@@ -238,7 +249,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="TODO">Additional key-values:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="Some of the available base types may require or allow to provide custom parameters.
+Use the table to provide and edit them.">Additional properties:</abbrc></label>
 
                             <div class="col-md-10">
                                 <!-- The table -->

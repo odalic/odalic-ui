@@ -22,7 +22,8 @@
                 <legend>Basic settings</legend>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="A unique identifier the task will be referenced by.">Task identifier:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="A URL friendly identifier of the task.
+Choose one unique to the tasks you created.">Task identifier:</abbrc></label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
                                ng-disabled="!templFormat.creating" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
@@ -34,7 +35,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="A human-readable description of the task.">Description:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="A free-form description of the task.">Description:</abbrc></label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" ng-model="taskCreation.description">
                     </div>
@@ -56,7 +57,7 @@
 
                 <!-- Used knowledge bases -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="Knowledge bases which the file will be annotated against.">Knowledge bases:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="Knowledge bases which the input will be annotated against.">Knowledge bases:</abbrc></label>
                     <div class="col-md-10">
                         <ui-select name="selectKBs" ng-model="kbs.chosenKBs" ng-change="kbs.selectionChanged()" multiple required>
                             <ui-select-match placeholder="Select a knowledge base by typing its identifier...">
@@ -95,7 +96,7 @@
 
                 <!-- Lines limit -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="How many lines from the input CSV file should be annotated.">Lines processed:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="How many lines from the input CSV file should be annotated?">Lines processed:</abbrc></label>
                     <div class="col-md-10">
                         <label class="radio-inline">
                             <input type="radio" ng-model="linesLimit.selection" value="all" ng-init="linesLimit.selection = 'all'" />
@@ -111,7 +112,7 @@
 
                 <!-- Statistical data -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="Whether is the data of a statistical nature.">Statistical data:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="Whether the data is of statistical nature">Statistical data:</abbrc></label>
                     <div class="col-md-10 checkbox">
                         <label>
                             <input type="checkbox" ng-model="statistical.value" ng-init="statistical.value = false" />
