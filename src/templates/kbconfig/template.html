@@ -208,9 +208,68 @@ There is certain performance penalty for using each group so it is best to selec
                                 <input class="form-control" type="text" ng-model="pageVariables.userResourcePrefix" />
                             </div>
                         </div>
+                    </uib-tab>
+
+                    <!-- Advanced -->
+                    <uib-tab index="3" heading="Advanced">
+                        <div class="col-md-12 odalic-hstyle-medium"/>
+
+                        <!-- Type -->
+                        <formgroup>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"><abbrc msg="Type of the base.
+The SPARQL-based are the most common, but some may require additional non-standard settings and special support.
+Choose one of the other available types if that is the case.">Type:</abbrc></label>
+
+                                <div class="col-md-10">
+                                    <select class="form-control" ng-model="pageVariables.type" ng-change="kvFill()"
+                                            ng-options="option.name for option in keyValues.data" required>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Key-values table -->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"><abbrc msg="Some of the available base types may require or allow to provide custom parameters.
+Use the table to provide and edit them.">Additional properties:</abbrc></label>
+
+                                <div class="col-md-10">
+                                    <!-- The table -->
+                                    <table class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>Key</th>
+                                            <th>Value</th>
+                                            <th>Comment</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="record in pageVariables.keyValuePairs">
+                                            <td class="col-md-3">
+                                                <input class="form-control" type="text" ng-model="record.key" />
+                                            </td>
+                                            <td class="col-md-4">
+                                                <input class="form-control" type="text" ng-model="record.value" />
+                                            </td>
+                                            <td class="col-md-4">
+                                                {{ record.comment }}
+                                            </td>
+                                            <td class="col-md-1">
+                                                <a class="btn btn-default" ng-click="kvRemove(record)"><i class="fa fa-trash fa-lg"></i></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <!-- Adding a row -->
+                                    <button type="button" class="btn btn-default" ng-click="kvAdd()">Add row</button>
+                                </div>
+                            </div>
+                        </formgroup>
 
                         <!-- Authorization -->
-                        <formgroup ng-if="pageVariables.insertEnabled">
+                        <formgroup>
                             <legend>Authorization</legend>
 
                             <div class="form-group">
@@ -230,61 +289,6 @@ When left blank no attempt to authenticate is made.">Login:</abbrc></label>
                                 </div>
                             </div>
                         </formgroup>
-                    </uib-tab>
-
-                    <!-- Advanced -->
-                    <uib-tab index="3" heading="Advanced">
-                        <div class="col-md-12 odalic-hstyle-medium"/>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="Type of the base.
-The SPARQL-based are the most common, but some may require additional non-standard settings and special support.
-Choose one of the other available types if that is the case.">Type:</abbrc></label>
-
-                            <div class="col-md-10">
-                                <select class="form-control" ng-model="pageVariables.type" ng-change="kvFill()"
-                                        ng-options="option.name for option in keyValues.data" required>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="Some of the available base types may require or allow to provide custom parameters.
-Use the table to provide and edit them.">Additional properties:</abbrc></label>
-
-                            <div class="col-md-10">
-                                <!-- The table -->
-                                <table class="table table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>Key</th>
-                                        <th>Value</th>
-                                        <th>Comment</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="record in pageVariables.keyValuePairs">
-                                        <td class="col-md-3">
-                                            <input class="form-control" type="text" ng-model="record.key" />
-                                        </td>
-                                        <td class="col-md-4">
-                                            <input class="form-control" type="text" ng-model="record.value" />
-                                        </td>
-                                        <td class="col-md-4">
-                                            {{ record.comment }}
-                                        </td>
-                                        <td class="col-md-1">
-                                            <a class="btn btn-default" ng-click="kvRemove(record)"><i class="fa fa-trash fa-lg"></i></a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-
-                                <!-- Adding a row -->
-                                <button type="button" class="btn btn-default" ng-click="kvAdd()">Add row</button>
-                            </div>
-                        </div>
                     </uib-tab>
                 </uib-tabset>
             </form>
