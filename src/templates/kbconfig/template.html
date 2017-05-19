@@ -113,8 +113,10 @@ Disable to select the used groups manually.
 It is best to leave the autodetection on, unless some of the used groups cause unwanted entities to appear in the result.
 There is certain performance penalty for using each group so it is best to select only the groups actually needed or desired.">Autodetection:</abbrc></label>
 
-                                <div class="col-md-10">
-                                    <button-load button-type="button" button-class="col-md-2 btn btn-lg" action="psAutodetect" disabled="false">Perform</button-load>
+                                <div class="col-md-10 checkbox">
+                                    <label>
+                                        <input type="checkbox" ng-model="pageVariables.autodetect" />
+                                    </label>
                                 </div>
                             </div>
 
@@ -137,7 +139,9 @@ There is certain performance penalty for using each group so it is best to selec
                                 <!-- A single record -->
                                 <tr ng-repeat="record in predicateSetsProxy.getView()" ng-class="{'odalic-trstyle-lightgrey': record.selected}">
                                     <!-- Record selection -->
-                                    <td class="col-md-1"><input class="form-control" type="checkbox" ng-model="record.selected"/></td>
+                                    <td class="col-md-1">
+                                        <input class="form-control" type="checkbox" ng-model="record.selected" ng-disabled="pageVariables.autodetect"/>
+                                    </td>
 
                                     <!-- Name -->
                                     <td class="col-md-7">{{ record.id }}</td>
