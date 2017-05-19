@@ -285,7 +285,7 @@ When left blank no attempt to authenticate is made.">Login:</abbrc></label>
                                 <label class="col-md-2 control-label"><abbrc msg="Password to authenticate the application for the usage of the base">Password:</abbrc></label>
 
                                 <div class="col-md-10">
-                                    <input class="form-control" name="kbcpassword" type="password" ng-model="pageVariables.password" />
+                                    <input class="form-control" name="kbcpassword" type="text" ng-model="pageVariables.password" ng-change="changeToPassword()" />
                                 </div>
                             </div>
                         </formgroup>

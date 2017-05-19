@@ -396,6 +396,19 @@
             }
         };
 
+        // Firefox password pre-fill 'bugfix' (or hack)
+        $scope.changeToPassword = (function() {
+            var changed = false;
+
+            return function () {
+                if (!changed) {
+                    var element = document.getElementsByName('kbcpassword')[0];
+                    element.type = 'password';
+                    changed = true;
+                }
+            };
+        })();
+
         // Data loading
         (function () {
             // Additional actions once all the data is loaded
@@ -467,7 +480,7 @@
                     afterLoad();
                 }
 
-            })});;
+            })});
         })();
 
         // Redirect to login screen if not logged
