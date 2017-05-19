@@ -384,6 +384,13 @@
             var afterLoad = function () {
                 persist.context.remove('kbconfig');
                 $scope.dataload.show = true;
+
+                // Change password type if already filled
+                if (!!$scope.pageVariables.password) {
+                    window.setTimeout(function () {
+                        $scope.changeToPassword();
+                    }, 1);
+                }
             };
 
             // Load the data to table of "Predicate and Class Groups"
