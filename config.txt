@@ -2,4 +2,4 @@
 address=http://localhost:8080/odalic/
 
 [requests]
-timeout=4000
+timeout=60000
