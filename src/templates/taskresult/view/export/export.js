@@ -13,40 +13,27 @@
                 // Initialization
                 $scope.feedbackChanged = false;
 
-                // Watch for any feedback changes
+                // Watch for any feedback changes, in which case the buttons get disabled
                 (function () {
-                    var rowCount = $scope.result.cellAnnotations.length;
-                    var columnCount = $scope.result.cellAnnotations[0].length;
+                    var lockStructure = $scope.locked;
+                    var lockStrFormer = null;
 
-                    var watcharr = [
-                        {
-                            ilength: rowCount,
-                            jlength: columnCount,
-                            lockedstr: $scope.locked.tableCells
-                        },
-                        {
-                            ilength: columnCount,
-                            jlength: columnCount,
-                            lockedstr: $scope.locked.graphEdges
-                        }
-                    ];
+                    timed.ready(function () {
+                        return !!lockStructure.tableCells && !!lockStructure.graphEdges;
+                    }, function () {
 
-                    watcharr.forEach(function (wobj) {
-                        for (var i = 0; i < wobj.ilength; i++) {
-                            for (var j = 0; j < wobj.jlength; j++) {
-                                // Defined lock at [i, j]?
-                                if (typeof(wobj.lockedstr[i][j]) !== 'undefined') {
-                                    (function (_i, _j) {
-                                        var wexpr = String(wobj.lockedstr[_i][_j]);
-                                        $scope.$watch(wexpr, function(newValue, oldValue) {
-                                            $scope.feedbackChanged = true;
-                                        });
-                                    })(i, j);
-                                }
-                            }
-                        }
+                        // Counts
+                        var rowCount = $scope.result.cellAnnotations.length;
+                        var columnCount = $scope.result.cellAnnotations[0].length;
+
+                        // Copy the locked structure for further comparisons
+                        lockStrFormer = objhelp.objRecurCopy($scope.locked);
+
+                        $scope.$watch(function() {
+                            $scope.feedbackChanged = objhelp.objCompare(lockStructure, lockStrFormer).length > 0;
+                        });
                     });
-                });
+                })();
 
                 // Button actions: exporting to JSON / CSV / RDF
                 $scope.exporting = {

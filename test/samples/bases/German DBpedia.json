@@ -1,0 +1,18 @@
+{
+	"name": "German DBpedia",
+	"endpoint": "http://de.dbpedia.org/sparql",
+	"description": "German version of DBpedia",
+	"textSearchingMethod": "fulltext",
+	"languageTag": "en",
+	"skippedAttributes": ["http://www.w3.org/ns/prov#wasDerivedFrom", "http://www.w3.org/ns/prov#isDerivedFrom"],
+	"skippedClasses": ["http://www.w3.org/2002/07/owl#Thing"],
+	"insertEnabled": true,
+	"insertGraph": "http://odalic.eu",
+	"userClassesPrefix": "",
+	"userResourcesPrefix": "",
+	"advancedType": "SPARQL",
+	"selectedGroups": ["DBpedia"],
+	"advancedProperties": {
+		"eu.odalic.custom.key": "custom value"
+	}
+}

@@ -35,10 +35,14 @@ $.defineModule(function () {
         },
 
         // Default failure function in each ajax request
-        failure: function (response, f) {
+        failure: function (response, f, status) {
             // Unauthorized?
             if (response.status === 401) {
                 window.location.href = '#/login';
+            }
+            // Request timeouted?
+            else if (status === 'timeout') {
+                window.location.href = '#/timeout';
             }
             // Otherwise custom handler
             else {

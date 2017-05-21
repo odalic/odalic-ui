@@ -1,0 +1,108 @@
+<!-- Prepared messages to display to user in case of a situation -->
+<injector for="msgtxt.loadFailure">An error occurred while retrieving data from the server.</injector>
+<injector for="msgtxt.saveFailure">An error occurred while saving the set properties.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="kbs" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <div class="container-fluid">
+        <!-- Headline -->
+        <h2>Set properties</h2>
+
+        <!-- Data loading icon -->
+        <loadico bind="dataload" size="5" center="true" showtxt="true">
+            <form class="form-horizontal" role="form" name="setPropertiesForm" ng-init="setForm(this, 'setPropertiesForm')">
+                <!-- Name -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label"><abbrc msg="A URL friendly identifier of the current group">Name:</abbrc></label>
+
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="spName" ng-model="pageVariables.name" pattern="[-a-zA-Z0-9_.,\s]*" ng-disabled="editing" focused required />
+                        <div ng-messages="setPropertiesForm.spName.$error" ng-if='setPropertiesForm.spName.$dirty' role="alert">
+                            <div ng-message="required"><error-msg>Name must not be empty.</error-msg></div>
+                            <div ng-message="pattern"><error-msg>Name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- "label" predicates -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label"><abbrc msg="Predicates used to recognize the labels of concepts.
+These are compared with the textual values in the cells.">"label" predicates:</abbrc></label>
+
+                    <div class="col-md-10">
+                        <cilistbox size="3" name="spLabelPredicates" ng-model="pageVariables.labelPredicates"/>
+                    </div>
+                </div>
+
+                <!-- "description" predicates -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label"><abbrc msg="Predicates used to recognize the descriptions of concepts.
+These are compared with the textual values in the cells.">"description" predicates:</abbrc></label>
+
+                    <div class="col-md-10">
+                        <cilistbox size="3" name="spDescriptionPredicates" ng-model="pageVariables.descPredicates"/>
+                    </div>
+                </div>
+
+                <!-- "instance of" predicates -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label"><abbrc msg="Predicates used to assign correct types to resources">"instance of" predicates:</abbrc></label>
+
+                    <div class="col-md-10">
+                        <cilistbox size="3" name="spInstancePredicates" ng-model="pageVariables.instanceofPredicates"/>
+                    </div>
+                </div>
+
+                <!-- Type of classes -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label"><abbrc msg="Type designation of classes">Class types:</abbrc></label>
+
+                    <div class="col-md-10">
+                        <cilistbox size="3" name="spTypeClasses" ng-model="pageVariables.classTypes"/>
+                    </div>
+                </div>
+
+                <!-- Type of properties -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label"><abbrc msg="Type designation of properties">Property types:</abbrc></label>
+
+                    <div class="col-md-10">
+                        <cilistbox size="3" name="spTypeProperties" ng-model="pageVariables.propertiesTypes"/>
+                    </div>
+                </div>
+            </form>
+
+            <!--  Alerts displaying notifications for a user regarding the whole form -->
+            <alert-group bind="alerts" disappearing="3"/>
+
+            <!-- Confirm modal when overwriting -->
+            <confirm bind="confirm" title="Set properties overwrite">
+                You are about to overwrite an existing set properties definition. Continue?
+            </confirm>
+
+            <!-- Blank space pushing footer further below -->
+            <div class="col-md-12 odalic-hstyle-medium"/>
+
+            <!-- Submit, when editing an existing task -->
+            <div class="col-md-offset-7 col-md-5">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-6">
+                        <button-load button-class="col-md-12 btn btn-lg" action="save" disabled="false">Save</button-load>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="button" class="col-md-12 btn btn-lg" ng-click="cancel()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </loadico>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

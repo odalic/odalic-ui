@@ -24,6 +24,7 @@
 
         // A generic request.
         function generic_request(request_package, headers_package) {
+            var timeStart = new Date().getTime();
             $http({
                 method: request_package.method,
                 url: request_package.address,
@@ -31,13 +32,24 @@
                 transformResponse: [function (data) {
                     return data;
                 }],
-                data: request_package.formData
+                data: request_package.formData,
+                timeout: constants.configurables.requests.timeout
             }).then(
                 function (response) {
                     ioc['requests'].success(response, request_package.success);
                 },
-                function (response) {
-                    ioc['requests'].failure(response, request_package.failure);
+                function (response, status) {
+                    // Prepare
+                    status = 'default';
+
+                    // Did the request timeout?
+                    var timeNow = new Date().getTime();
+                    if (timeNow - timeStart >= constants.configurables.requests.timeout - 500) {
+                        status = 'timeout';
+                    }
+
+                    // Handle
+                    ioc['requests'].failure(response, request_package.failure, status);
                 }
             );
         }

@@ -82,7 +82,7 @@ var objhelp = {
      * @param obj1 The object to copy.
      * @param obj2 The object to copy the first object to. Must not be null nor undefined.
      */
-    objCopy: function (obj1, obj2) {
+    objNRCopyNew: function (obj1, obj2) {
         if (!obj1) {
             return;
         }
@@ -97,6 +97,53 @@ var objhelp = {
                 obj2[key] = value;
             }
         });
+    },
+
+    /** Returns a (recursive) copy of a an object.
+     *
+     * @param obj   An object to copy.
+     * @param depth If set, the copy is recursive up to this depth. 0 for non-recursive copy.
+     * @return      A (recursive) copy of an object.
+     */
+    objCopy: function (obj, depth) {
+        if (!obj || (typeof(obj) !== 'object')) {
+            throw new Error('objCopy: illegal arguments');
+        }
+
+        if (!depth) {
+            depth = -1;
+        }
+
+        // Prepare
+        var result = {};
+        var decider = function (value, depth) {
+            if (typeof(value) === 'object') {
+                // Recursive object copy?
+                if (!!value && (depth != 0)) {
+                    // Differentiate between an array and a basic object
+                    if (angular.isArray(value)) {
+                        var ra = [];
+                        value.forEach(function (item) {
+                            ra.push(decider(item, depth - 1));
+                        });
+                        return ra;
+                    } else {
+                        return objhelp.objCopy(value, depth - 1);
+                    }
+                } else {
+                    return value;
+                }
+            } else {
+                return value;
+            }
+        };
+
+        // Copy
+        objhelp.objForEach(obj, function (key, value) {
+            result[key] = decider(value, depth);
+        });
+
+        return result;
     },
 
     /** Recursive comparison of values of 2 objects.
