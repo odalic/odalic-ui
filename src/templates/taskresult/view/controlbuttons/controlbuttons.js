@@ -23,7 +23,7 @@
                     objhelp.objForEach($scope.locked.subjectColumns, function (kb, lock) {
                         if (lock == 1) {
                             objhelp.objForEach($scope.flags.isColumnSubject[kb], function (columnIndex, markedColumn) {
-                                if (markedColumn = 1) {
+                                if (markedColumn == 1) {
                                     if (!$scope.feedback.subjectColumnsPositions.hasOwnProperty(kb)) {
                                         $scope.feedback.subjectColumnsPositions[kb] = [];
                                     }
