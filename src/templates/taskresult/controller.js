@@ -15,12 +15,16 @@
 
         //region Initialization of objects which save user changes
         $scope.feedback = {};
-        $scope.ignoredColumn = {};
-        $scope.compulsory = {};
-        $scope.noDisambiguationColumn = {};
-        $scope.noDisambiguationCell = {};
+
+        $scope.flags = {};
+        $scope.flags.ignoredColumn = {};
+        $scope.flags.compulsory = {};
+        $scope.flags.noDisambiguationColumn = {};
+        $scope.flags.noDisambiguationCell = {};
+        $scope.flags.isColumnSubject = {};
+        $scope.flags.resultingSubjectColumns={};
+
         $scope.locked = {};
-        $scope.isColumnSubject = {};
 
         $scope.selectedPosition = {
             column: -1,
@@ -275,23 +279,24 @@
             loadGraphVis();
         };
 
+
         setIgnoreThings = function () {
 
             // Column ignores
             var fbcignores = $scope.serverFeedback.columnIgnores;
             fbcignores.forEach(function (c) {
-                $scope.ignoredColumn[c.position.index] = true;
+                $scope.flags.ignoredColumn[c.position.index] = true;
             });
 
             var fbcCompulsory = $scope.serverFeedback.columnCompulsory;
             fbcCompulsory.forEach(function (c) {
-                $scope.compulsory[c.position.index] = true;
+                $scope.flags.compulsory[c.position.index] = true;
             });
 
             // Column ambiguities
             var fbcambigs = $scope.serverFeedback.columnAmbiguities;
             fbcambigs.forEach(function (c) {
-                $scope.noDisambiguationColumn[c.position.index] = true;
+                $scope.flags.noDisambiguationColumn[c.position.index] = true;
             });
 
             // Cell ambiguities
@@ -299,7 +304,7 @@
             fblambigs.forEach(function (l) {
                 var r = l.position.rowPosition.index;
                 var c = l.position.columnPosition.index;
-                objhelp.objRecurAccess($scope.noDisambiguationCell, r)[c] = true;
+                objhelp.objRecurAccess($scope.flags.noDisambiguationCell, r)[c] = true;
             });
 
 
@@ -310,16 +315,24 @@
             //sets subject columns  flags from feedback
             for (var i in $scope.chosenKBs) {
                 var kb = $scope.chosenKBs[i];
-                $scope.isColumnSubject[kb] = {};
+                $scope.flags.isColumnSubject[kb] = {};
+                $scope.flags.resultingSubjectColumns[kb] = {};
                 for (var c = 0; c < columnCount; c++) {
                     var scp = $scope.serverFeedback.subjectColumnsPositions;
-                    var rscp =  $scope.result.subjectColumnsPositions;
-                    if ((scp.hasOwnProperty(kb) && scp[kb].some(function(e) {return e.index == c})) ||
-                        (rscp.hasOwnProperty(kb) && rscp[kb].some(function(e) {return e.index == c}))) {
-                        $scope.isColumnSubject[kb][c] = 1;
+
+                    if (scp.hasOwnProperty(kb) && scp[kb].some(function(e) {return e.index == c})) {
+                        $scope.flags.isColumnSubject[kb][c] = 1;
                     }
                     else {
-                        $scope.isColumnSubject[kb][c] = 0;
+                        $scope.flags.isColumnSubject[kb][c] = 0;
+                    }
+
+                    var rscp =  $scope.result.subjectColumnsPositions;
+                    if (rscp.hasOwnProperty(kb) && rscp[kb].some(function(e) {return e.index == c})) {
+                        $scope.flags.resultingSubjectColumns[kb][c] = 1;
+                    }
+                    else {
+                        $scope.flags.resultingSubjectColumns[kb][c] = 0;
                     }
                 }
             }
@@ -362,15 +375,12 @@
             $scope.locked.subjectColumns = {};
             for (var i in $scope.chosenKBs) {
                 var kb = $scope.chosenKBs[i];
-                $scope.locked.subjectColumns[kb] = {};
-                for (var c = 0; c < columnCount; c++) {
-                    var scp = $scope.serverFeedback.subjectColumnsPositions;
-                    if (scp.hasOwnProperty(kb) && scp[kb].some(function(e) {return e.index == c})) {
-                        $scope.locked.subjectColumns[kb][c] = 1;
-                    }
-                    else {
-                        $scope.locked.subjectColumns[kb][c] = 0;
-                    }
+                var scp = $scope.serverFeedback.subjectColumnsPositions;
+                if (scp.hasOwnProperty(kb) && scp[kb].length != 0) {
+                    $scope.locked.subjectColumns[kb] = 1;
+                }
+                else {
+                    $scope.locked.subjectColumns[kb] = 0;
                 }
             }
 
@@ -523,13 +533,8 @@
                             locked: $scope.locked,
                             primaryKB: $scope.primaryKB,
                             openCDProposal: $scope.openCDProposal,
-                            ignoredColumn: $scope.ignoredColumn,
-                            compulsory: $scope.compulsory,
-                            noDisambiguationCell: $scope.noDisambiguationCell,
-                            noDisambiguationColumn: $scope.noDisambiguationColumn
-
+                            flags: $scope.flags,
                         }
-
                     }
                 }
 
