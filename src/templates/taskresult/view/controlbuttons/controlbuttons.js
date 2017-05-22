@@ -17,37 +17,37 @@
                 // Set the feedback according to UI
                 sendFeedback = function (success, error) {
                     // Subjects columns
-                    $scope.feedback.subjectColumnPositions = {};
+                    // $scope.feedback.subjectColumnPositions = {};
                     $scope.feedback.subjectColumnsPositions = {};
-                    for (var KB in $scope.locked.subjectColumns) {
-                        for (var columnIndex in $scope.locked.subjectColumns[KB]) {
-                            // column is locked and it is the main subject column (column can be locked with other (not main) subject columns)
-                            if ($scope.locked.subjectColumns[KB][columnIndex] ==1) {
-                                if(!$scope.feedback.subjectColumnsPositions.hasOwnProperty(KB))
-                                {
-                                    $scope.feedback.subjectColumnsPositions[KB]=[];
+
+                    objhelp.objForEach($scope.locked.subjectColumns, function (kb, lock) {
+                        if (lock == 1) {
+                            objhelp.objForEach($scope.flags.isColumnSubject[kb], function (columnIndex, markedColumn) {
+                                if (markedColumn == 1) {
+                                    if (!$scope.feedback.subjectColumnsPositions.hasOwnProperty(kb)) {
+                                        $scope.feedback.subjectColumnsPositions[kb] = [];
+                                    }
+                                    $scope.feedback.subjectColumnsPositions[kb].push({
+                                        index: columnIndex
+
+                                    })
                                 }
-                                $scope.feedback.subjectColumnsPositions[KB].push({
-                                    index: columnIndex
-
-                                })
-                            }
+                            });
                         }
-                    }
-
+                    });
 
                     // Ignored columns
                     $scope.feedback.columnIgnores = [];
-                    for (var columnNumber in $scope.ignoredColumn) {
-                        if ($scope.ignoredColumn[columnNumber] == true) {
+                    for (var columnNumber in $scope.flags.ignoredColumn) {
+                        if ($scope.flags.ignoredColumn[columnNumber] == true) {
                             $scope.feedback.columnIgnores.push({position: {index: columnNumber}});
                         }
                     }
 
                     // Compulsory columns
                     $scope.feedback.columnCompulsory = [];
-                    for (var columnNumber in $scope.compulsory) {
-                        if ($scope.compulsory[columnNumber] == true) {
+                    for (var columnNumber in $scope.flags.compulsory) {
+                        if ($scope.flags.compulsory[columnNumber] == true) {
                             $scope.feedback.columnCompulsory.push({position: {index: columnNumber}});
                         }
                     }
@@ -89,8 +89,8 @@
 
                     // Column ambiguities
                     $scope.feedback.columnAmbiguities = [];
-                    for (var columnNumber in $scope.noDisambiguationColumn) {
-                        if ($scope.noDisambiguationColumn[columnNumber] == true) {
+                    for (var columnNumber in $scope.flags.noDisambiguationColumn) {
+                        if ($scope.flags.noDisambiguationColumn[columnNumber] == true) {
                             $scope.feedback.columnAmbiguities.push({position: {index: columnNumber}});
                         }
 
@@ -98,9 +98,9 @@
 
                     // Ambiguities
                     $scope.feedback.ambiguities = [];
-                    for (var rowNumber in $scope.noDisambiguationCell) {
-                        for (var columnNumber in $scope.noDisambiguationCell[rowNumber]) {
-                            if ($scope.noDisambiguationCell[rowNumber][columnNumber] == true) {
+                    for (var rowNumber in $scope.flags.noDisambiguationCell) {
+                        for (var columnNumber in $scope.flags.noDisambiguationCell[rowNumber]) {
+                            if ($scope.flags.noDisambiguationCell[rowNumber][columnNumber] == true) {
                                 $scope.feedback.ambiguities.push({
                                     position: {
                                         rowPosition: {index: rowNumber},
