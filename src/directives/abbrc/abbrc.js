@@ -15,25 +15,11 @@
             },
             link: function (scope, iElement, iAttrs) {
 
-                $(iElement.get(0)).click(function () {
-                    var text = $(this).find('.odalic-note');
-                    if (!text.length) {
-                        var abbr = $(this.childNodes[0]);
-
-                        // Add the note
-                        $(this).append('<span class="odalic-note">' + abbr.attr('title') + '</span>');
-
-                        // Set the position right below the text
-                        var position = abbr.position();
-                        var height = abbr.height();
-                        //var outerWidth = abbr.outerWidth();
-                        $(this).find('.odalic-note').css({
-                            top: (position.top + height) + 'px',
-                            left: (position.left) + 'px'
-                        })
-                    } else {
-                        text.remove();
-                    }
+                // Apply the tooltip on click
+                $(iElement.get(0)).tooltip({
+                    title: text.safe(scope.msg),
+                    placement: 'bottom',
+                    trigger: 'click'
                 });
 
             }
