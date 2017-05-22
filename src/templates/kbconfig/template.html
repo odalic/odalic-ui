@@ -190,6 +190,14 @@ There is certain performance penalty for using each group so it is best to selec
                         </div>
 
                         <div class="form-group" ng-if="pageVariables.insertEnabled">
+                            <label class="col-md-2 control-label"><abbrc msg="When empty, the main end-point URL will be used">Insert end-point URL:</abbrc></label>
+
+                            <div class="col-md-10">
+                                <input class="form-control" type="text" ng-model="pageVariables.insertEndpoint" />
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-if="pageVariables.insertEnabled">
                             <label class="col-md-2 control-label"><abbrc msg="The graph URI for the user-defined resources">Insert to graph:</abbrc></label>
 
                             <div class="col-md-10">
