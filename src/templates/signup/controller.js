@@ -5,7 +5,7 @@
 
     // Controller
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-signup-ctrl', function ($scope, formsval, $auth, reporth) {
+    app.controller('odalic-signup-ctrl', function ($scope, formsval, $auth, reporth, authh) {
 
         // Initialization
         formsval.toScope($scope);
@@ -31,12 +31,20 @@
                     email: ref.username,
                     password: ref.password
                 }).then(function(response) {
+                    // Save the credentials
+                    authh.saveCredentials(ref.username, ref.password);
+
                     // E-mail confirmation required?
-                    if (text.safe(constants.configurables.signup.emailConfirmation).toUpperCase() === 'TRUE') {
+                    if (text.safeBool(constants.configurables.signup.emailConfirmation, true)) {
                         $scope.status = 'emsent';
                     }
                     // E-mail confirmation not required
                     else {
+                        // Is the login automatic?
+                        if (authh.isAutomaticLogin()) {
+                            window.location = '#/login';
+                        }
+
                         $scope.status = 'nonemail';
                     }
                 }).catch(function(response) {

@@ -6,3 +6,4 @@ timeout=60000
 
 [signup]
 emailConfirmation=false
+automaticLogin=true

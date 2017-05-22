@@ -5,7 +5,7 @@
 
     // Controller
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-signupcnf-ctrl', function ($scope, rest, $routeParams, $auth) {
+    app.controller('odalic-signupcnf-ctrl', function ($scope, rest, $routeParams, $auth, authh) {
 
         // Initialization
         $scope.dataload = {};
@@ -22,6 +22,12 @@
         rest.users.confirm(token).exec(
             // Success
             function (response) {
+                // Is the login automatic?
+                if (authh.isAutomaticLogin()) {
+                    console.warn('Warning: automatic login for e-mail confirmation version of signing up is not supported.');
+                    //window.location = '#/login';
+                }
+
                 $scope.status = 'success';
                 $scope.dataload.show = true;
             },

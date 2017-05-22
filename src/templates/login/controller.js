@@ -5,7 +5,7 @@
 
     // Create a controller for ngtest
     var currentFolder = $.getPathForRelativePath('');
-    app.controller('odalic-login-ctrl', function ($scope, formsval, $auth, rest, reporth) {
+    app.controller('odalic-login-ctrl', function ($scope, formsval, $auth, rest, reporth, authh) {
 
         // Initialization
         formsval.toScope($scope);
@@ -26,16 +26,18 @@
 
                 // Log in
                 var ref = $scope.login;
-                $auth.login({
-                    email: ref.username,
-                    password: ref.password
-                }).then(function(response) {
-                    $scope.status = 'logged';
-                    $auth.setToken(response.data.payload.token);
-                }).catch(function(response) {
-                    ref.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.failure'], response.data));
-                    f();
-                });
+                authh.saveCredentials(ref.username, ref.password);
+                authh.login(
+                    // Success
+                    function (response) {
+                        $scope.status = 'logged';
+                    },
+                    // Failure
+                    function (response) {
+                        ref.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.failure'], response.data));
+                        f();
+                    }
+                );
             }
         };
 
@@ -56,6 +58,25 @@
             }
         };
 
+        // Automatic login
+        var handleAutomaticLogin = function () {
+            if (authh.isAutomaticLogin()) {
+                authh.login(
+                    // Success
+                    function (response) {
+                        $scope.status = 'logged';
+                    },
+                    // Failure
+                    function (response) {
+                        $scope.status = 'login';
+                    }
+                );
+            }
+            else {
+                $scope.status = 'login';
+            }
+        };
+
         // Check if user is already logged in
         if ($auth.isAuthenticated()) {
             $scope.status = 'evaluating';
@@ -67,14 +88,14 @@
                 // Token expired
                 function (response) {
                     $auth.logout();
-                    $scope.status = 'login';
                 },
                 // Failure while testing
                 function (response) {
                     $auth.logout();
-                    $scope.status = 'login';
                 }
             );
+        } else {
+            handleAutomaticLogin();
         }
 
     });
