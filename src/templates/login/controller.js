@@ -88,10 +88,12 @@
                 // Token expired
                 function (response) {
                     $auth.logout();
+                    $scope.status = 'login';
                 },
                 // Failure while testing
                 function (response) {
                     $auth.logout();
+                    $scope.status = 'login';
                 }
             );
         } else {
