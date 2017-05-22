@@ -44,7 +44,7 @@
             var parsed = (typeof(response) === 'object') ? response : JSON.parse(response);
 
             return (new String()).concat(
-                text.safe(info), ' Error details: ', text.dotted(parsed.payload.text, 150)
+                text.safe(info), ' Error details: ', text.dotted(objhelp.getFirstArg(parsed.payload.text, parsed.payload.debugContent, '(No debug info attached...)'), 150)
             );
         };
     });

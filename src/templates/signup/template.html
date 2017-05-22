@@ -92,6 +92,15 @@
                     </alert>
                 </div>
             </div>
+
+            <!-- E-mail sent -->
+            <div ng-switch-when="nonemail">
+                <div class="col-md-6 col-md-offset-3">
+                    <alert bind="nonemail.alert" closable="false" type="success">
+                        <span class="glyphicon glyphicon-user"/> <strong>Welcome!</strong> Your account has been successfully created! Thank you for using ODALIC. <a href="#/login">Log in now!</a>
+                    </alert>
+                </div>
+            </div>
         </div>
     </div>
 </main-cnt>

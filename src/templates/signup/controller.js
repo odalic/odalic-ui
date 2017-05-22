@@ -31,7 +31,14 @@
                     email: ref.username,
                     password: ref.password
                 }).then(function(response) {
-                    $scope.status = 'emsent';
+                    // E-mail confirmation required?
+                    if (text.safe(constants.configurables.signup.emailConfirmation).toUpperCase() === 'TRUE') {
+                        $scope.status = 'emsent';
+                    }
+                    // E-mail confirmation not required
+                    else {
+                        $scope.status = 'nonemail';
+                    }
                 }).catch(function(response) {
                     ref.alerts.push('error', reporth.constrErrorMsg($scope['msgtxt.failure'], response.data));
                     f();
@@ -41,6 +48,11 @@
 
         // E-mail sent
         $scope.emsent = {
+            alert: {}
+        };
+
+        // Non-email version
+        $scope.nonemail = {
             alert: {}
         };
 
