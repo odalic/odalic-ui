@@ -27,7 +27,7 @@
                         var columnCount = $scope.result.cellAnnotations[0].length;
 
                         // Copy the locked structure for further comparisons
-                        lockStrFormer = objhelp.objRecurCopy($scope.locked);
+                        lockStrFormer = objhelp.objCopy($scope.locked);
 
                         $scope.$watch(function() {
                             $scope.feedbackChanged = objhelp.objCompare(lockStructure, lockStrFormer).length > 0;
