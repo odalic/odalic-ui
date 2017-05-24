@@ -69,13 +69,13 @@
                     var userChoice = $scope.flags.isColumnSubject[kb][columnNumber];
                     var result = $scope.flags.resultingSubjectColumns[kb][columnNumber];
                     if(userChoice  && result ) {
-                        return {"background-color": "WhiteSmoke", "font-weight": "bold"};
+                        return {"background-color": "#f5e4c2", "font-weight": "bold"};
                     }
                     if(userChoice){
-                        return {"background-color": "WhiteSmoke"};
+                        return {"background-color": "#ffeecc"};
                     }
                     if(result) {
-                        return {"font-weight": "bold"};
+                        return {"background-color": "WhiteSmoke", "font-weight": "bold"};
                     }
                 };
 
