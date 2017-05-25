@@ -28,6 +28,7 @@
   "directives/helpico/helpico.js",
   "directives/ajaxspinner/ajaxspinner.js",
   "directives/abbrc/abbrc.js",
+  "directives/postpone/postpone.js",
   "services/ioc/ioc.js",
   "services/filedata/filedata.js",
   "services/requests/requests.js",

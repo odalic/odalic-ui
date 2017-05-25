@@ -40,6 +40,16 @@ var timed = {
         }, 1);
     },
 
+    /** Calls the angular digest cycle if possible.
+     *
+     * @param scope The current angular scope.
+     */
+    digest: function (scope) {
+        if (!scope.$root.$$phase) {
+            scope.$apply();
+        }
+    },
+
     /** Calls the angular digest cycle twice.
      *  Should be used with extra caution.
      *

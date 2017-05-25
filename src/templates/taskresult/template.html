@@ -12,36 +12,42 @@
                     <!-- Task information, warning messages, etc. -->
                     <task-info result="result"/>
 
-                    <!-- VIEW -->
-                    <div ng-switch="state" ng-init="state = 0">
+                    <!-- Tabs -->
+                    <uib-tabset active="active">
+                        <!-- Main -->
+                        <uib-tab index="0" heading="Suggestions">
+                            <h2>Reviewing suggested classifications for columns and disambiguations for cell values</h2>
 
-                        <!-- VIEW: Sets subject column  -->
-                        <div ng-switch-when="0">
+                            <!-- The table of results -->
                             <include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include>
-                        </div>
+                        </uib-tab>
 
-                        <!-- VIEW: Sets classifications and disambiguations -->
-                        <div ng-switch-when="1">
-                            <div ng-if="statistical == false">
-                                <subject-column-tables/>
-                            </div>
-                            <div ng-if="statistical == true ">
-                                <h2>Step 3: Setting the statistical data cube</h2>
-                                <!--data cube-->
-                                <include src="src/templates/taskresult/view/statisticaldata/statisticaldata.html"/>
-                            </div>
+                        <!-- Subject column for non-statistical data -->
+                        <uib-tab index="1" heading="Subject column" disable="!!statistical">
+                            <h2>Reviewing suggested subject (main) column</h2>
 
-                        </div>
+                            <!-- The table of subject column selection -->
+                            <subject-column-tables/>
+                        </uib-tab>
 
-                        <!-- VIEW: Relations -->
-                        <div ng-switch-when="2">
-                            <h2>Step 3: Reviewing suggested relations between the subject column and other
-                                columns</h2>
+                        <!-- Data cube for statistical data -->
+                        <uib-tab index="2" heading="Data cube" disable="!statistical">
+                            <h2>Step 3: Setting the statistical data cube</h2>
+
+                            <!-- Data cube -->
+                            <include src="src/templates/taskresult/view/statisticaldata/statisticaldata.html"/>
+                        </uib-tab>
+
+                        <!-- Relations -->
+                        <uib-tab index="3" heading="Relations">
+                            <h2>Reviewing suggested relations between the subject column and other columns</h2>
+
                             <!-- Graph visualiser -->
-                            <graphvis bind="gvdata"></graphvis>
-                        </div>
-
-                    </div>
+                            <postpone condition="active == 3">
+                                <graphvis bind="gvdata"/>
+                            </postpone>
+                        </uib-tab>
+                    </uib-tabset>
 
                     <!-- Buttons: send feedback, reexecute, previous step, next step -->
                     <control-buttons/>
