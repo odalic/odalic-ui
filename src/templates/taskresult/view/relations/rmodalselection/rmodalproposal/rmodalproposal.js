@@ -15,11 +15,18 @@
         $scope.currentRelation =  data.currentRelation;
         $scope.close = $uibModalInstance.close;
 
+        $scope.type = "object";
 
         //sets parameters for the alert directive
         $scope.serverResponse = {
             visible: false
         };
+
+        //it is a hack, dataCube has column1 undefined
+        //TODO - change it - new variable for this, (selectedRelation and result are unnecessary )
+        $scope.isNotDataCube = function() {
+            return  $scope.selectedRelation.column1 != undefined;
+        }
 
         //region proposal settings
         $scope.setProposal = function (proposal) {
@@ -41,6 +48,7 @@
                     "label": proposal.label,
                     "alternativeLabels": alternativeLabels,
                     "suffix": url,
+                    "type":$scope.type,
                     "superProperty": null,
                     "domain":  $scope.domain,
                     "range":  $scope.range
