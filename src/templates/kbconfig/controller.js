@@ -389,9 +389,9 @@
 
                 // Change password type if already filled
                 if (!!$scope.pageVariables.password) {
-                    window.setTimeout(function () {
+                    timed.executeAfterDigest(function () {
                         $scope.changeToPassword();
-                    }, 1);
+                    });
                 }
             };
 
@@ -423,11 +423,9 @@
                     afterLoad();
 
                     // Scroll to the bottom of the page once DOM is loaded
-                    // Yes, I know this is ugly, but it gets the job done - in JS there is only 1 thread, so after
-                    // angular performs its digest cycle, the following is immediately called due to call order
-                    window.setTimeout(function () {
+                    timed.executeAfterDigest(function () {
                         window.scrollTo(0, document.body.scrollHeight);
-                    }, 1);
+                    });
                 }
                 // Option 2: we are editing an existing knowledge base configuration
                 else if (routeParam) {

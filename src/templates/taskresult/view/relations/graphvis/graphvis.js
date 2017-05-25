@@ -164,6 +164,9 @@
                                 applyOnColIdcs(node1, node2, function (column1, column2) {
                                     scope.bind.lockobj[column1][column2] = !locked;
                                 });
+
+                                // The export buttons do not get updated for some reason
+                                timed.strongDigest(scope);
                             },
                             getLock:  function (node1, node2) {
                                 var result = null;
