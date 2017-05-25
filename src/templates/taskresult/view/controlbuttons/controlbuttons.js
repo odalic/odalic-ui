@@ -14,8 +14,57 @@
                 // Initialization
                 $scope.messages = {};
 
+                /** Returns the currently set user settings suitable for comparison purposes
+                 *  Warning: the objects returned are not copied, and therefore should not be changed
+                 */
+                $scope.getCurrentSettings = function () {
+                    var settings = {
+                        subjectColumns: $scope.flags.isColumnSubject,
+                        columnIgnores: $scope.flags.ignoredColumn,
+                        columnCompulsory: $scope.flags.compulsory,
+                        columnAmbiguities: $scope.flags.noDisambiguationColumn,
+                        ambiguities: $scope.flags.noDisambiguationCell,
+                        dataCubeComponents: $scope.result.statisticalAnnotations,
+                        classifications: [],
+                        disambiguations: [],
+                        columnRelations: []
+                    };
+
+                    var getActuallyChosen = function (obj) {
+                        var result = [];
+                        objhelp.objForEach(obj.chosen, function (_, kb) {
+                            kb.forEach(function (annotation) {
+                                result.push(annotation.entity);
+                            });
+                        });
+
+                        return result;
+                    };
+
+                    // Classifications
+                    $scope.result.headerAnnotations.forEach(function (column) {
+                        settings.classifications.push(getActuallyChosen(column));
+                    });
+
+                    // Disambiguations
+                    $scope.result.cellAnnotations.forEach(function (row) {
+                        row.forEach(function (column) {
+                            settings.disambiguations.push(getActuallyChosen(column));
+                        });
+                    });
+
+                    // Relations
+                    objhelp.objForEach($scope.result.columnRelationAnnotations, function (_, column1) {
+                        objhelp.objForEach(column1, function (_, column2) {
+                            settings.columnRelations.push(getActuallyChosen(column2));
+                        });
+                    });
+
+                    return settings;
+                };
+
                 // Set the feedback according to UI
-                sendFeedback = function (success, error) {
+                $scope.constructFeedback = function () {
                     // Subjects columns
                     // $scope.feedback.subjectColumnPositions = {};
                     $scope.feedback.subjectColumnsPositions = {};
@@ -152,6 +201,12 @@
                             $scope.feedback.dataCubeComponents.push(obj);
                         }
                     }
+                };
+
+                // Construct and send the feedback to the server
+                $scope.sendFeedback = function (success, error) {
+                    // Construct the feedback from the current data
+                    $scope.constructFeedback();
 
                     // Send the feedback
                     rest.tasks.name($scope.taskID).feedback.store($scope.feedback).exec(success, error);
@@ -159,7 +214,7 @@
 
                 // Save feedback
                 $scope.saveFeedback = function (f) {
-                    sendFeedback(
+                    $scope.sendFeedback(
                         // Feedback sent successfully
                         function (response) {
                             f();
@@ -176,7 +231,7 @@
 
                 // Reexecute
                 $scope.reexecute = function (f) {
-                    sendFeedback(
+                    $scope.sendFeedback(
                         // Feedback sent successfully
                         function (response) {
                             // Start the task

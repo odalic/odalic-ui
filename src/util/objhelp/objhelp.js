@@ -176,6 +176,11 @@ var objhelp = {
         // Compare
         var differences = [];
         props.forEach(function (key) {
+            // Ignore properties beginning with '$$'
+            if (key.substring(0, 2) === '$$') {
+                return;
+            }
+
             // Property present in both objects?
             if (!(key in obj2) || !(key in obj1)) {
                 differences.push(key);
