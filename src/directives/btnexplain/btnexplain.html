@@ -1,0 +1,8 @@
+<span ng-init="display = false">
+    <div ng-mouseover="display = true" ng-mouseout="display = false" ng-transclude>
+        <!-- Content -->
+    </div>
+    <div class="col-md-12 odalic-gfont-small" ng-if="display">
+        {{ msg }}
+    </div>
+</span>

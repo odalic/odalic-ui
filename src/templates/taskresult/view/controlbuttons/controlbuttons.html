@@ -13,19 +13,25 @@
 
     <!-- Buttons on the right -->
     <div class="col-md-offset-2 col-md-2">
-        <button-load button-class="btn btn-lg btn-block" action="reexecute" disabled="false">
-            Reexecute
-        </button-load>
+        <tooltip msg="Send the feedback and execute the current task again">
+            <button-load button-class="btn btn-lg btn-block" action="reexecute" disabled="false">
+                Reexecute
+            </button-load>
+        </tooltip>
     </div>
     <div class="col-md-2">
-        <button-load button-class="btn btn-lg btn-block" action="saveFeedback" disabled="false">
-            Save
-        </button-load>
+        <tooltip msg="Send the feedback to the server for future executions">
+            <button-load button-class="btn btn-lg btn-block" action="saveFeedback" disabled="false">
+                Save
+            </button-load>
+        </tooltip>
     </div>
     <div class="col-md-2">
-        <button class="btn btn-lg btn-block" ng-click="miscellaneous.goBack()">
-            Cancel
-        </button>
+        <tooltip msg="Return to the list of tasks">
+            <button class="btn btn-lg btn-block" ng-click="miscellaneous.goBack()">
+                Cancel
+            </button>
+        </tooltip>
     </div>
 
     <!-- Blank space -->
