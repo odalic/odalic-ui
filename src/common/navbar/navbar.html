@@ -16,8 +16,6 @@
 
                 <!-- Left menu -->
                 <ul class="nav navbar-nav">
-                    <li><img src="graphics/logo_min.png" alt="ODALIC"/></li>
-
                     <!-- Main menu -->
                     <li ng-repeat="singleMenu in leftMenu" ng-class="{ active: selected == singleMenu.id }">
 
@@ -35,8 +33,13 @@
                         </ul>
 
                         <!-- Without submenu -->
-                        <a ng-show="singleMenu.menu.length == 0" href="{{ singleMenu.link }}">
+                        <a ng-show="!!singleMenu.menu && singleMenu.menu.length == 0" href="{{ singleMenu.link }}">
                             {{ singleMenu.title }}
+                        </a>
+
+                        <!-- Image button -->
+                        <a ng-show="!singleMenu.menu" href="{{ singleMenu.link }}" class="odalic-menu-unpadded">
+                            <img src="{{ singleMenu.img }}" alt="{{ singleMenu.title }}"/>
                         </a>
 
                     </li>

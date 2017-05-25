@@ -1,9 +1,9 @@
 [
   {
     "id": "home",
-    "title": "Home",
-    "link": "#/",
-    "menu": []
+    "img": "graphics/logo_min.png",
+    "title": "ODALIC",
+    "link": "#/"
   },
   {
     "id": "tasks",
