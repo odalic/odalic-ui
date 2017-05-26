@@ -18,7 +18,7 @@
                     var lockStructure = $scope.locked;
 
                     timed.ready(function () {
-                        return !!lockStructure.tableCells && !!lockStructure.graphEdges;
+                        return !!lockStructure.tableCells && !!lockStructure.graphEdges && !!$scope.getCurrentSettings;
                     }, function () {
 
                         // Copy the locked structure for further comparisons
