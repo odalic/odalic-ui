@@ -19,13 +19,7 @@
                 $(iElement.get(0)).tooltip({
                     title: text.safe(scope.msg),
                     placement: 'bottom',
-                    trigger: 'click'
-                });
-
-                // Applying the tooltip on mouse-over
-                $(iElement.get(0).children[1]).tooltip({
-                    title: text.safe(scope.msg),
-                    placement: 'bottom'
+                    trigger: 'hover click'
                 });
 
             }
