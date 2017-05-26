@@ -14,46 +14,46 @@
 
                     <!-- Tabs -->
                     <uib-tabset active="active">
-                        <!-- Main -->
-                        <uib-tab index="0" heading="Suggestions">
-                            <div ng-if="active == 0">
-                                <h2>Reviewing suggested classifications for columns and disambiguations for cell values</h2>
+                        <uib-tab index="0" heading="Suggestions"/>
+                        <uib-tab index="1" heading="Subject column" disable="!!statistical"/>
+                        <uib-tab index="2" heading="Data cube" disable="!statistical"/>
+                        <uib-tab index="3" heading="Relations" />
+                    </uib-tabset>
 
-                                <!-- The table of results -->
-                                <include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include>
-                            </div>
-                        </uib-tab>
+                    <!-- Content of the tabs -->
+                    <span>
+                        <!-- Main -->
+                        <div ng-if="active == 0">
+                            <h2>Reviewing suggested classifications for columns and disambiguations for cell values</h2>
+
+                            <!-- The table of results -->
+                            <include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include>
+                        </div>
 
                         <!-- Subject column for non-statistical data -->
-                        <uib-tab index="1" heading="Subject column" disable="!!statistical">
-                            <div ng-if="active == 1">
-                                <h2>Reviewing suggested subject (main) column</h2>
+                        <div ng-if="active == 1">
+                            <h2>Reviewing suggested subject (main) column</h2>
 
-                                <!-- The table of subject column selection -->
-                                <subject-column-tables/>
-                            </div>
-                        </uib-tab>
+                            <!-- The table of subject column selection -->
+                            <subject-column-tables/>
+                        </div>
 
                         <!-- Data cube for statistical data -->
-                        <uib-tab index="2" heading="Data cube" disable="!statistical">
-                            <div ng-if="active == 2">
-                                <h2>Step 3: Setting the statistical data cube</h2>
+                        <div ng-if="active == 2">
+                            <h2>Step 3: Setting the statistical data cube</h2>
 
-                                <!-- Data cube -->
-                                <include src="src/templates/taskresult/view/statisticaldata/statisticaldata.html"/>
-                            </div>
-                        </uib-tab>
+                            <!-- Data cube -->
+                            <include src="src/templates/taskresult/view/statisticaldata/statisticaldata.html"/>
+                        </div>
 
                         <!-- Relations -->
-                        <uib-tab index="3" heading="Relations">
-                            <div ng-if="active == 3">
-                                <h2>Reviewing suggested relations between the subject column and other columns</h2>
+                        <div ng-if="active == 3">
+                            <h2>Reviewing suggested relations between the subject column and other columns</h2>
 
-                                <!-- Graph visualiser -->
-                                <graphvis bind="gvdata"/>
-                            </div>
-                        </uib-tab>
-                    </uib-tabset>
+                            <!-- Graph visualiser -->
+                            <graphvis bind="gvdata"/>
+                        </div>
+                    </span>
 
                     <!-- Buttons: send feedback, reexecute, previous step, next step -->
                     <control-buttons/>
