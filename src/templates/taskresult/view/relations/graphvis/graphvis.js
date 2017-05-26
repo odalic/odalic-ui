@@ -14,6 +14,8 @@
             },
             link: function (scope, iElement, iAtttrs) {
 
+                console.log('created');
+
                 // Public interface via 'bind'
                 // *******************************
                 var pif = {
@@ -323,6 +325,7 @@
 
                 // Stop simulation on the directive destruction
                 iElement.on('$destroy', function() {
+                    console.log('destroyed');
                     g.destroy();
                 });
             }
