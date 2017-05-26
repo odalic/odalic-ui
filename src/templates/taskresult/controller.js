@@ -14,6 +14,7 @@
         $scope.taskID = TaskID;
 
         //region Initialization of objects which save user changes
+        $scope.active = 0;
         $scope.feedback = {};
 
         $scope.flags = {};
