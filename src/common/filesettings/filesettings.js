@@ -184,7 +184,7 @@
 
                 scope.close = function () {
                     scope.dismiss();
-                }
+                };
 
                 scope.save = function (future) {
                     onSave(
