@@ -26,7 +26,16 @@
         //TODO - change it - new variable for this, (selectedRelation and result are unnecessary )
         $scope.isNotDataCube = function() {
             return  $scope.selectedRelation.column1 != undefined;
-        }
+        };
+
+        //if the proposal object is an object type, so we can derivate the range from the column classification
+        $scope.setRange = function(){
+            $scope.range = data.range;
+        };
+        //if the proposal object is an data type, so the default range is empty string
+        $scope.emptyRange = function(){
+            $scope.range = "";
+        };
 
         //region proposal settings
         $scope.setProposal = function (proposal) {
