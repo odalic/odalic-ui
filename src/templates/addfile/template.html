@@ -9,12 +9,12 @@
 
     <div class="container-fluid">
         <!-- Headline -->
-        <h2>Add file</h2>
+        <h2>Add input file</h2>
 
         <!-- Form -->
         <form class="form-horizontal" role="form" name="flInputForm" ng-init="setForm(this, 'flInputForm')">
             <fieldset>
-                <legend>Settings</legend>
+                <legend>Properties</legend>
 
                 <div class="form-group col-md-12">
                     <fileinput bind="fileinput" form="flInputForm" selection="false" />
@@ -24,7 +24,7 @@
 
         <!-- Button(s) on the right -->
         <div class="col-md-offset-10 col-md-2">
-            <button type="button" class="col-md-offset-2 col-md-10 btn btn-lg" ng-click="addfl.goBack()">List of files</button>
+            <button type="button" class="col-md-offset-2 col-md-10 btn btn-lg" ng-click="addfl.goBack()">List all files</button>
         </div>
 
         <!-- Blank space pushing footer further below -->
