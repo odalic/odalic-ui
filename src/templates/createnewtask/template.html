@@ -12,14 +12,14 @@
 
     <div class="container-fluid">
         <!-- Headline -->
-        <h2 ng-show="templFormat.creating">Creation of a new task configuration</h2>
-        <h2 ng-show="!templFormat.creating">Modification of a task configuration</h2>
+        <h2 ng-show="templFormat.creating">Add new task</h2>
+        <h2 ng-show="!templFormat.creating">Modify task</h2>
 
         <!-- The main form -->
         <form class="form-horizontal" role="form" name="taskCreationForm" ng-init="setForm(this, 'taskCreationForm')">
             <!-- Basic settings -->
             <fieldset>
-                <legend>Basic settings</legend>
+                <legend>Basic properties</legend>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label"><abbrc msg="A URL friendly identifier of the task.
@@ -53,7 +53,7 @@ Choose one unique to the tasks you created.">Task identifier:</abbrc></label>
 
             <!-- Knowledge base settings -->
             <fieldset>
-                <legend>Knowledge base</legend>
+                <legend>Used knowledge bases</legend>
 
                 <!-- Used knowledge bases -->
                 <div class="form-group">
@@ -81,7 +81,7 @@ Choose one unique to the tasks you created.">Task identifier:</abbrc></label>
                     <label class="col-md-2 control-label">Primary knowledge base:</label>
                     <div class="col-md-10">
                         <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableSelectedKBs" required>
-                            <option value="">Select Knowledge Base</option>
+                            <option value="">Select knowledge Base</option>
                         </select>
                         <div ng-if="taskCreationForm.selectPrimaryKB.$invalid && taskCreationForm.selectPrimaryKB.$dirty">
                             <error-msg>A knowledge base has to be selected.</error-msg>
@@ -96,7 +96,8 @@ Choose one unique to the tasks you created.">Task identifier:</abbrc></label>
 
                 <!-- Lines limit -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="How many lines from the input CSV file should be annotated?">Lines processed:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="How many lines from the input CSV file should be annotated?
+It is recommended to run the task with the first few lines, customize the output, and only then allow for the time-consuming processing of the entire file.">Lines processed:</abbrc></label>
                     <div class="col-md-10">
                         <label class="radio-inline">
                             <input type="radio" ng-model="linesLimit.selection" value="all" ng-init="linesLimit.selection = 'all'" />
@@ -112,7 +113,8 @@ Choose one unique to the tasks you created.">Task identifier:</abbrc></label>
 
                 <!-- Statistical data -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="Whether the data is of statistical nature">Statistical data:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="Statistical processing does not search for subject columns and the outcoming relations.
+Instead the candidates for dimensions and measures forming an exported data cube are detected.">Statistical data:</abbrc></label>
                     <div class="col-md-10 checkbox">
                         <label>
                             <input type="checkbox" ng-model="statistical.value" ng-init="statistical.value = false" />
@@ -126,8 +128,8 @@ Choose one unique to the tasks you created.">Task identifier:</abbrc></label>
         </form>
 
         <!-- Confirm modal when overwriting task -->
-        <confirm bind="confirm" title="Task overwrite">
-            You are about to overwrite an existing task definition. Continue?
+        <confirm bind="confirm" title="Task configuration replacement">
+            You are about to overwrite an existing task configuration. Continue?
         </confirm>
 
         <!-- Submit, when creating a new task -->

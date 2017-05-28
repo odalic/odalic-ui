@@ -14,17 +14,17 @@
 
                     <!-- Tabs -->
                     <uib-tabset active="active">
-                        <uib-tab index="0" heading="Suggestions"/>
-                        <uib-tab index="1" heading="Subject column" disable="!!statistical"/>
+                        <uib-tab index="0" heading="Table"/>
+                        <uib-tab index="1" heading="Subject columns" disable="!!statistical"/>
                         <uib-tab index="2" heading="Data cube" disable="!statistical"/>
-                        <uib-tab index="3" heading="Relations" />
+                        <uib-tab index="3" heading="Relations" disable="!!statistical"/>
                     </uib-tabset>
 
                     <!-- Content of the tabs -->
                     <span>
                         <!-- Main -->
                         <div ng-if="active == 0">
-                            <h2>Reviewing suggested classifications for columns and disambiguations for cell values</h2>
+                            <h2>Column classifications and disambiguations of the values in cells</h2>
 
                             <!-- The table of results -->
                             <include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include>
@@ -32,7 +32,7 @@
 
                         <!-- Subject column for non-statistical data -->
                         <div ng-if="active == 1">
-                            <h2>Reviewing suggested subject (main) column</h2>
+                            <h2>Subject columns</h2>
 
                             <!-- The table of subject column selection -->
                             <subject-column-tables/>
@@ -40,7 +40,7 @@
 
                         <!-- Data cube for statistical data -->
                         <div ng-if="active == 2">
-                            <h2>Setting the statistical data cube</h2>
+                            <h2>Statistical data cube set-up</h2>
 
                             <!-- Data cube -->
                             <include src="src/templates/taskresult/view/statisticaldata/statisticaldata.html"/>
@@ -48,7 +48,7 @@
 
                         <!-- Relations -->
                         <div ng-if="active == 3">
-                            <h2>Reviewing suggested relations between the subject column and other columns</h2>
+                            <h2>Relations between columns</h2>
 
                             <!-- Graph visualiser -->
                             <graphvis bind="gvdata"/>

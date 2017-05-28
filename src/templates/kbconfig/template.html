@@ -11,7 +11,7 @@
 
     <div class="container-fluid">
         <!-- Headline -->
-        <h2>Knowledge base configuration</h2>
+        <h2>Knowledge base proxy configuration</h2>
 
         <!-- Data loading icon -->
         <loadico bind="dataload" size="5" center="true" showtxt="true">
@@ -126,7 +126,7 @@ There is certain performance penalty for using each group so it is best to selec
                             <injector for="actiontext.configure">Edit predicate set</injector>
                             <injector for="actiontext.remove">Remove predicate set</injector>
 
-                            <!-- Table of sets -->
+                            <!-- Table of groups -->
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
@@ -170,7 +170,7 @@ There is certain performance penalty for using each group so it is best to selec
 
                             <!-- Buttons -->
                             <div class="col-md-offset-10 col-md-2">
-                                <button type="button" class="col-md-12 btn btn-lg" ng-click="psAdd()">Add</button>
+                                <button type="button" class="col-md-12 btn btn-lg" ng-click="psAdd()">Add group</button>
                             </div>
                         </formgroup>
                     </uib-tab>
@@ -180,7 +180,8 @@ There is certain performance penalty for using each group so it is best to selec
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="When enabled the application will allow the user to use this base as the primary one (e.g. as a storage of user-defined resources).">Insert enabled:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="When enabled the application will allow the user to use this base as the primary one.
+Primaryb base is used to store user-defined resources, to break ties when conflicts occur, and affects the exports vocabulary.">Insert enabled:</abbrc></label>
 
                             <div class="col-md-10 checkbox">
                                 <label>
@@ -198,7 +199,8 @@ There is certain performance penalty for using each group so it is best to selec
                         </div>
 
                         <div class="form-group" ng-if="pageVariables.insertEnabled">
-                            <label class="col-md-2 control-label"><abbrc msg="The graph URI for the user-defined resources">Insert to graph:</abbrc></label>
+                            <label class="col-md-2 control-label"><abbrc msg="The graph for the user-defined resources.
+When empty the default one is used.">Insert to graph:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.insertGraph" />
@@ -331,12 +333,12 @@ When left blank no attempt to authenticate is made.">Login:</abbrc></label>
 
             <!-- Modal informing about the empty endpoint -->
             <modal bind="modalEmptyEndpoint" title="Empty endpoint">
-                Endpoint (main tab) must not be empty for the action to perform.
+                Endpoint (in the Main tab) must not be empty for the action to perform.
             </modal>
 
             <!-- Confirm modal when overwriting an existing configuration -->
             <confirm bind="confirm" title="Knowledge base overwrite">
-                You are about to overwrite an existing knowledge base configuration. Continue?
+                You are about to overwrite an existing knowledge base proxy configuration. Continue?
             </confirm>
 
             <!-- Buttons -->
