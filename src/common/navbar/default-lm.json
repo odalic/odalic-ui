@@ -1,9 +1,29 @@
 [
   {
     "id": "home",
-    "title": "Home",
-    "link": "#/",
-    "menu": []
+    "img": "graphics/logo_min.png",
+    "title": "ODALIC",
+    "link": "#/"
+  },
+  {
+    "id": "tasks",
+    "title": "Tasks",
+    "menu": [
+      {
+        "title": "Add new",
+        "link": "#/createnewtask"
+      },
+      {
+        "title": "Import",
+        "link": "#/importtask"
+      },
+      {
+      },
+      {
+        "title": "List of tasks",
+        "link": "#/taskconfigs"
+      }
+    ]
   },
   {
     "id": "files",
@@ -38,26 +58,6 @@
       {
         "title": "List",
         "link": "#/kblist"
-      }
-    ]
-  },
-  {
-    "id": "tasks",
-    "title": "Tasks",
-    "menu": [
-      {
-        "title": "Add new",
-        "link": "#/createnewtask"
-      },
-      {
-        "title": "Import",
-        "link": "#/importtask"
-      },
-      {
-      },
-      {
-        "title": "List of tasks",
-        "link": "#/taskconfigs"
       }
     ]
   }

@@ -31,6 +31,18 @@
                     </div>
                 </div>
 
+                <div ng-if="isNotDataCube()">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Type</label>
+                        <div class="col-md-8">
+                            <label class="radio-inline"><input type="radio"  ng-click="setRange()"ng-model="type" value="object">Object
+                                type</label>
+                            <label class="radio-inline"><input type="radio" ng-click="emptyRange()" ng-model="type" value="data">Data
+                                type</label>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="form-group">
                     <label class="col-md-4 control-label">Domain</label>

@@ -19,7 +19,7 @@
                 $(iElement.get(0)).tooltip({
                     title: text.safe(scope.msg),
                     placement: 'bottom',
-                    trigger: 'click'
+                    trigger: 'hover click'
                 });
 
             }

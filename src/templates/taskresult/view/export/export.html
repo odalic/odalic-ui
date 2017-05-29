@@ -1,13 +1,10 @@
-<!-- Blank space -->
-<div class="odalic-hr-pushtop"></div>
-
 <!-- Export buttons-->
 <fieldset ng-disabled="feedbackChanged">
     <legend class="col-md-12">Export</legend>
 
     <!-- Warning for pending changes -->
     <div class="col-md-12" ng-if="feedbackChanged">
-        <i class="fa fa-exclamation-triangle fa-lg odalic-font-darkorange"></i> Export may not contain your changes (feedback). Before exporting the data, please "Reexecute" the task.
+        <i class="fa fa-exclamation-triangle fa-lg odalic-font-darkorange"></i> Warning! Export may not correspond to the changes you have made. A task <a-load action="reexecute">reexecution</a-load> may be needed.
         <div class="odalic-hstyle-small"></div>
     </div>
 
@@ -19,19 +16,19 @@
             &nbsp
         </div>
         <div class="pull-left">
-            <a-fake ajax="exporting.json" type="application/json">
+            <a-fake ajax="exporting.json" type="text/csv">
                 <a class="btn btn-default">Annotations</a>
             </a-fake>
             &nbsp
         </div>
         <div class="pull-left">
-            <a-fake ajax="exporting.turtle" type="text/turtle">
+            <a-fake ajax="exporting.turtle" type="text/csv">
                 <a class="btn btn-default">RDF (Turtle)</a>
             </a-fake>
             &nbsp
         </div>
         <div class="pull-left">
-            <a-fake ajax="exporting.jsonld" type="application/ld+json">
+            <a-fake ajax="exporting.jsonld" type="text/csv">
                 <a class="btn btn-default">RDF (JSON-LD)</a>
             </a-fake>
         </div>

@@ -8,14 +8,14 @@
 
     <div class="container-fluid">
         <!-- Headline -->
-        <h2>Knowledge base import</h2>
+        <h2>Knowledge base proxy configuration import</h2>
 
         <!-- The main form -->
         <form class="form-horizontal" role="form" name="kbImportForm" ng-init="setForm(this, 'kbImportForm')">
 
             <!-- Basic settings -->
             <fieldset>
-                <legend>Basic settings</legend>
+                <legend>Basic properties</legend>
 
                 <div class="form-group">
                     <label class="col-md-2 control-label"><abbrc msg="A URL friendly knowledge base identifier">Name:</abbrc></label>
@@ -50,7 +50,7 @@
 
         <!-- Confirm modal when overwriting a configuration -->
         <confirm bind="confirm" title="Knowledge base overwrite">
-            You are about to overwrite an existing knowledge base configuration. Continue?
+            You are about to overwrite an existing knowledge base proxy configuration. Continue?
         </confirm>
 
         <!-- Submit -->

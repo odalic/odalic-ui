@@ -55,6 +55,9 @@
                             case "IGNORED":
                                 title = "Ignored column";
                                 break;
+                            case "COMPULSORY":
+                                title = "Compulsory column";
+                                break;
                             case "NAMED_ENTITY":
                                 title = "Named entity column";
                                 break;

@@ -155,7 +155,7 @@
         };
 
         // Running task upon save/creation
-        var runTask = function (errorMsg) {
+        var runTask = function (errorMsg, f) {
             // Prepare
             var taskId = $scope.taskCreation.identifier;
             var handler = function () {
@@ -236,7 +236,7 @@
         // Task creation + run
         $scope.templFormat.createAndRun = function (f) {
             $scope.templFormat.createTask(f, function () {
-                runTask('msgtxt.startFailure');
+                runTask('msgtxt.startFailure', f);
             });
         };
 
@@ -303,7 +303,7 @@
         // Task save + run
         $scope.templFormat.saveAndRun = function (f) {
             $scope.templFormat.saveTask(f, function () {
-                runTask('msgtxt.startFailure');
+                runTask('msgtxt.startFailure', f);
             });
         };
 

@@ -15,10 +15,26 @@
         $scope.currentRelation =  data.currentRelation;
         $scope.close = $uibModalInstance.close;
 
+        $scope.type = "object";
 
         //sets parameters for the alert directive
         $scope.serverResponse = {
             visible: false
+        };
+
+        //it is a hack, dataCube has column1 undefined
+        //TODO - change it - new variable for this, (selectedRelation and result are unnecessary )
+        $scope.isNotDataCube = function() {
+            return  $scope.selectedRelation.column1 != undefined;
+        };
+
+        //if the proposal object is an object type, so we can derivate the range from the column classification
+        $scope.setRange = function(){
+            $scope.range = data.range;
+        };
+        //if the proposal object is an data type, so the default range is empty string
+        $scope.emptyRange = function(){
+            $scope.range = "";
         };
 
         //region proposal settings
@@ -41,6 +57,7 @@
                     "label": proposal.label,
                     "alternativeLabels": alternativeLabels,
                     "suffix": url,
+                    "type":$scope.type,
                     "superProperty": null,
                     "domain":  $scope.domain,
                     "range":  $scope.range

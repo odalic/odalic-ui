@@ -77,7 +77,8 @@
                 disabled: '=',
                 bind: '=',
                 buttonClass: '@',
-                buttonType: '@'
+                buttonType: '@',
+                tooltipMsg: '@'
             },
             link: function (scope, iElement, iAttrs) {
 
