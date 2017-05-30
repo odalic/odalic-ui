@@ -63,7 +63,7 @@ Choose one unique to the task you are creating.">Task identifier:</abbrc></label
                             <ui-select-match placeholder="Select a knowledge base by typing its identifier...">
                                 {{ $item.name }}
                             </ui-select-match>
-                            <ui-select-choices repeat="kb in kbs.availableKBs | uissearch: {name: $select.search, endpoint: $select.search}"}">
+                            <ui-select-choices repeat="kb in kbs.availableKBs | uissearch: {name: $select.search, endpoint: $select.search}">
                                 <div ng-bind-html="kb.name | highlight: $select.search"/>
                                 <small>
                                     Endpoint: <span ng-bind-html="kb.endpoint | highlight: $select.search" /> {{ kb.description ? '| Description: ' : '' }} {{ kb.description | shortstr: 20 }}
