@@ -22,8 +22,8 @@
                 <legend>Basic properties</legend>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="A URL friendly identifier of the task.
-Choose one unique to the tasks you created.">Task identifier:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="An URL friendly identifier of the task.
+Choose one unique to the task you are creating.">Task identifier:</abbrc></label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskCreation.identifier"
                                ng-disabled="!templFormat.creating" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
@@ -78,7 +78,7 @@ Choose one unique to the tasks you created.">Task identifier:</abbrc></label>
 
                 <!-- Primary knowledge base -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Primary knowledge base:</label>
+                    <label class="col-md-2 control-label"><abbrc msg="Primary knowledge base which is used for proposing new resources. You have to have write access to such knowledge base">Primary knowledge base:</abbrc></label>
                     <div class="col-md-10">
                         <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableSelectedKBs" required>
                             <option value="">Select knowledge Base</option>
@@ -113,8 +113,8 @@ It is recommended to run the task with the first few lines, customize the output
 
                 <!-- Statistical data -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="Statistical processing does not search for subject columns and the outcoming relations.
-Instead the candidates for dimensions and measures forming an exported data cube are detected.">Statistical data:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="Statistical processing does not search for standard relations between the subject column and other columns.
+Instead of that, the candidates for dimensions and measures forming an exported RDF data cube are detected and may be customized.">Statistical data:</abbrc></label>
                     <div class="col-md-10 checkbox">
                         <label>
                             <input type="checkbox" ng-model="statistical.value" ng-init="statistical.value = false" />
