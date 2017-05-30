@@ -38,7 +38,8 @@
      *          - clear(): removes all current alerts from the group
      *
      *      disappearing (optional)
-     *      - Time interval (seconds) for individual alerts to disappear.
+     *      - Time interval (seconds) for individual alerts to disappear. If set to 'default' string,
+     *      the duration from config.txt is used
      */
     var currentFolder = $.getPathForRelativePath('');
     app.directive('alertGroup', function () {
@@ -101,7 +102,15 @@
 
                 // Automatically disappearing alerts?
                 if ('disappearing' in iAttrs) {
-                    var tt = text.safeInt(iAttrs['disappearing'], 0);
+                    var tt = 0;
+                    // Standard duration
+                    if (iAttrs['disappearing'] === 'default') {
+                        tt = constants.configurables.alerts.duration / 1000.0;
+                    }
+                    // Custom duration
+                    else {
+                        tt = text.safeInt(iAttrs['disappearing'], 0);
+                    }
                     if (tt > 0) {
                         scope.messages.alerttimeout = tt;
                     }
