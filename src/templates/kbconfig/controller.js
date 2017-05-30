@@ -16,7 +16,7 @@
         $scope.confirm = {};
         $scope.predicateSetsAlerts = [];
         $scope.modalEmptyEndpoint = {};
-        $scope.active = 0;
+        $scope.activeTab = 0;
         formsval.toScope($scope);
 
         // Are we editing an existing configuration, or creating a new one?
@@ -421,7 +421,7 @@
                     $scope.pageVariables.type = kv.data[kv.getIndex($scope.pageVariables.type.name)];
 
                     // Change the active tab to 'Search'
-                    $scope.active = 1;
+                    $scope.activeTab = 1;
 
                     // Everything loaded and set
                     afterLoad();
