@@ -15,9 +15,9 @@
                     <!-- Tabs -->
                     <uib-tabset active="active">
                         <uib-tab index="0" heading="Classifications and disambiguations"/>
-                        <uib-tab index="1" heading="Subject columns" disable="!!statistical" tooltip-enable="!!statistical" uib-tooltip="Statistical data do not have subject columns"/>
-                        <uib-tab index="2" heading="Dimensions and measures" disable="!statistical" tooltip-enable="!statistical" uib-tooltip="Not relevant for non-statistical data"/>
-                        <uib-tab index="3" heading="Relations" disable="!!statistical" tooltip-enable="!!statistical" uib-tooltip="Statistical data do not have relations"/>
+                        <uib-tab index="1" heading="Subject columns" ng-if="!statistical"/>
+                        <uib-tab index="2" heading="Dimensions and measures" ng-if="!!statistical"/>
+                        <uib-tab index="3" heading="Relations" ng-if="!statistical"/>
                     </uib-tabset>
 
                     <!-- Content of the tabs -->
