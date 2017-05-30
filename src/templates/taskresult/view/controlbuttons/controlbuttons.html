@@ -11,11 +11,9 @@
         </button-load>
     </div>
     <div class="col-md-2">
-        <tooltip msg="Return to the list of tasks">
-            <button class="btn btn-lg btn-block" ng-click="miscellaneous.goBack()">
-                Cancel
-            </button>
-        </tooltip>
+        <button class="btn btn-lg btn-block" ng-click="miscellaneous.goBack()" uib-tooltip="Return to the list of tasks" tooltip-placement="top">
+            Cancel
+        </button>
     </div>
 
     <!-- Blank space -->
