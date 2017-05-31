@@ -224,7 +224,9 @@ When empty the default one is used.">Insert to graph:</abbrc></label>
                         </div>
 
                         <div class="form-group" ng-if="pageVariables.insertEnabled">
-                            <label class="col-md-2 control-label">Object property type:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="Type of the inserted object properties.
+Object properties relate individuals to other individuals.
+When left empty the application will choose default value (http://www.w3.org/2002/07/owl#ObjectProperty)">Object property type:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.objectProperty" />
@@ -232,7 +234,9 @@ When empty the default one is used.">Insert to graph:</abbrc></label>
                         </div>
 
                         <div class="form-group" ng-if="pageVariables.insertEnabled">
-                            <label class="col-md-2 control-label">Datatype property type:</label>
+                            <label class="col-md-2 control-label"><abbrc msg="Datatype property type.
+Datatype properties relate individuals to literal data (strings, numbers, dates, etc.).
+When left empty the application will choose default value (http://www.w3.org/2002/07/owl#DatatypeProperty)">Datatype property type:</abbrc></label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" ng-model="pageVariables.datatypeProperty" />
