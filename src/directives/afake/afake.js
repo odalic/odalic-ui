@@ -87,7 +87,16 @@
                                 type: iAttrs['type']
                             });
                             var url = windowUrl.createObjectURL(blob);
-                            window.open(url);
+
+                            // Temporary <a> element
+                            var aElement = document.createElement('a');
+                            document.body.appendChild(aElement);
+                            aElement.style = "display: none";
+                            aElement.href = url;
+                            aElement.download = iAttrs['type'];
+                            aElement.click();
+                            document.body.removeChild(aElement);
+
                             windowUrl.revokeObjectURL(url);
 
                             // Unset loading icon
