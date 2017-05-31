@@ -90,6 +90,29 @@
 
             selected: $routeParams['taskid']
         };
+
+        // Move to the corresponding page in pagination automatically, if a task was selected
+        if (!!$scope.misc.selected) {
+            timed.ready(function () {
+                return !!$scope.taskconfigsProxy.getPageForIndex;
+            }, function () {
+                // Find the index of the item
+                var index = null;
+                for (var i = 0; i < $scope.taskconfigs.length; i++) {
+                    if ($scope.taskconfigs[i].id == $scope.misc.selected) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                // Set the page in the pagination directive to the one on which the item is located
+                if (index) {
+                    var pgn = $scope.taskconfigsProxy;
+                    pgn.setPage(pgn.getPageForIndex(index));
+                    timed.strongDigest($scope);
+                }
+            });
+        }
     });
 
 })();
