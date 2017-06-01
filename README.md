@@ -6,7 +6,7 @@ It is a web application allowing its users to extract and export Linked Data fro
 - Pleasant single-page user interface
 - Interactive tables for easier feedback provision and transparent display of the results
 - Interactive graph visualization of discovered relations within the table
-- Easy-to-use controls for the files and tasks management and configuration.
+- Easy-to-use controls for the files, tasks and knowledge base proxies management and configuration.
 
 The Odalic UI is the native supported GUI of Odalic Semantic Table Interpretation, and as such demonstrates almost all of its features, together providing a comprehensive platform to convert Open Data published in the form of CSV files to Linked Open Data, making them inherently more valuable, easier to query, integrate and share.
 
@@ -21,3 +21,4 @@ Soon at https://grips.semantic-web.at/ .
 
 ### Installation guide and documentation
 [PDF version](https://odalic.github.io/download/ODALIC.Project.Documentation.pdf)
+[Web](https://odalic.github.io/)
