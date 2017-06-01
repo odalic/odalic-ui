@@ -1,0 +1,12 @@
+[server]
+address=http://localhost:8080/odalic/
+
+[requests]
+timeout=60000
+
+[signup]
+emailConfirmation=false
+automaticLogin=true
+
+[alerts]
+duration=5000

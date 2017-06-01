@@ -1,0 +1,10 @@
+{
+	"name": "SPARQL",
+	"keys": ["eu.odalic.custom.key", "eu.odalic.another.key"],
+	"keysToDefaultValues": {
+		"eu.odalic.another.key": "Default value"
+	},
+	"keysToComments": {
+		"eu.odalic.custom.key": "Comment example"
+	}
+}

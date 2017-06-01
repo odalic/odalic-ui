@@ -20,10 +20,10 @@
                     <li ng-repeat="singleMenu in leftMenu" ng-class="{ active: selected == singleMenu.id }">
 
                         <!-- With submenu -->
-                        <a ng-show="singleMenu.menu.length > 0" class="dropdown-toggle odalic-cursor-pointer" data-toggle="dropdown">
+                        <a ng-if="singleMenu.menu.length > 0" class="dropdown-toggle odalic-cursor-pointer" data-toggle="dropdown">
                             {{ singleMenu.title }} <span class="caret"></span>
                         </a>
-                        <ul ng-show="singleMenu.menu.length > 0" class="dropdown-menu" role="menu">
+                        <ul ng-if="singleMenu.menu.length > 0" class="dropdown-menu" role="menu">
                             <li ng-repeat="singleSubmenu in singleMenu.menu"
                                 ng-class="{ divider: !singleSubmenu.hasOwnProperty('title') }">
                                 <a href="{{ singleSubmenu.link }}" ng-show="singleSubmenu.hasOwnProperty('title')">
@@ -33,8 +33,13 @@
                         </ul>
 
                         <!-- Without submenu -->
-                        <a ng-show="singleMenu.menu.length == 0" href="{{ singleMenu.link }}">
+                        <a ng-if="!!singleMenu.menu && singleMenu.menu.length == 0" href="{{ singleMenu.link }}">
                             {{ singleMenu.title }}
+                        </a>
+
+                        <!-- Image button -->
+                        <a ng-if="!singleMenu.menu" href="{{ singleMenu.link }}" class="odalic-menu-unpadded">
+                            <img ng-src="{{ singleMenu.img }}" alt="{{ singleMenu.title }}"/>
                         </a>
 
                     </li>

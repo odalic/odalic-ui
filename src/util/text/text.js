@@ -229,6 +229,27 @@ var text = {
         return fallback;
     },
 
+    /** Safely parses an input string and returns the containing boolean value.
+     *  If the string does not contain any boolean value, a specified boolean fallback is returned.
+     *  In case the string is undefined or null, fallback is returned again.
+     *
+     * @param string        A string to parse.
+     * @param fallback      A boolean fallback value when a string does not contain any value.
+     * @returns {boolean}   Boolean value of the string or a boolean fallback value.
+     */
+    safeBool: function (string, fallback) {
+        if (string) {
+            switch (text.safe(string).toUpperCase()) {
+                case 'TRUE':
+                    return true;
+                case 'FALSE':
+                    return false;
+            }
+        }
+
+        return !!fallback;
+    },
+
     /** Performs case insensitive and substring form of 'includes' while finding the item that is 'responsible'.
      *  Example:
      *      var it = text.findInclude(['hello', 'yay'], 'El');  // 'it' is equal to 'hello'
@@ -245,5 +266,13 @@ var text = {
             }
         });
         return result;
+    },
+
+    /** Returns an empty string.
+     *
+     * @returns {string}
+     */
+    empty: function () {
+        return '';
     }
 };

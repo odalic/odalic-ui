@@ -31,6 +31,8 @@
      *      Functions:
      *          - setPage(index): a 'page' to set the pagination to; counted from 0
      *          - getPage(): returns a current 'page' number
+     *          - getPageForIndex(index): returns a page number (counted from 0) on which the item with the
+     *          corresponding index would reside
      *          - getView(): returns a subarray of the 'model' consisting only of items corresponding to the current
      *          'page'
      *          - getModelIndex(viewIndex): index of the first item corresponding to the current page in the 'model'
@@ -104,6 +106,10 @@
 
                 scope.bind.getPage = function () {
                     return scope.pgn.current - 1;
+                };
+
+                scope.bind.getPageForIndex = function (index) {
+                    return Math.floor(index / perPage);
                 };
 
                 scope.bind.getModelIndex = function (viewIndex) {

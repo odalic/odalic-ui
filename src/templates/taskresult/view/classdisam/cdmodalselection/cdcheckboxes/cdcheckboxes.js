@@ -11,9 +11,7 @@
             scope: {
                 selectedPosition: '=',
                 locked: '=',
-                ignoredColumn: '=',
-                noDisambiguationColumn: '=',
-                noDisambiguationCell: '=',
+                flags: '='
             },
             templateUrl: currentFolder + 'cdcheckboxes.html',
             link: function ($scope, iElement, iAttrs) {
@@ -23,16 +21,18 @@
                     $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
                 };
 
-                $scope.title =""
+                $scope.title ="";
                 //controls if the column is not subject column (subject column cannot be ignored)
                 $scope.isSubjectColumnLocked= function()
                 {
-                    var lockedColumn =  $scope.locked.subjectColumns;
-                    for(var kb in lockedColumn)
+                    var isColumnSubject = $scope.flags.isColumnSubject;
+
+                    for(var kb in isColumnSubject)
                     {
-                        if(lockedColumn[kb][$scope.selectedPosition.column] == 1)
+
+                        if(isColumnSubject[kb][$scope.selectedPosition.column] == 1)
                         {
-                            $scope.title="Subject column cannot be ignored."
+                            $scope.title="Subject column cannot be ignored. Column is set as subject column or is marked as compulsory column. "
                             return true;
                         }
 

@@ -7,7 +7,7 @@
     app.config(function ($authProvider) {
 
         // Root
-        var root = constants.addresses.odalicroot;
+        var root = constants.configurables.server.address;
 
         // Configure
         $authProvider.loginUrl = text.urlConcat(root, 'users', 'authentications');

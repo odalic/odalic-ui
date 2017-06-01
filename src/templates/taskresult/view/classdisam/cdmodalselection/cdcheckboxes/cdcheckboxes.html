@@ -1,22 +1,31 @@
 <div class="row">
+
+    <legend class="col-md-12"></legend>
     <!-- Case: Column classification -->
     <div ng-if="(selectedPosition.row == -1)">
         <div class="checkbox">
             <div class="col-md-12">
                 <label  title="{{title}}">
                     <input type="checkbox"
-                           ng-model="ignoredColumn[selectedPosition.column]"
-                           ng-change="lockCell()"
-                           ng-disabled="isSubjectColumnLocked()">
+                           ng-model="flags.ignoredColumn[selectedPosition.column]"
+                           ng-disabled="isSubjectColumnLocked() || flags.compulsory[selectedPosition.column]">
                     Ignore Column
+                </label>
+            </div>
+
+            <div class="col-md-12">
+                <label >
+                    <input type="checkbox"
+                           ng-model="flags.compulsory[selectedPosition.column]"
+                           ng-disabled="flags.ignoredColumn[selectedPosition.column]">
+                    Compulsory column
                 </label>
             </div>
 
             <div class="col-md-12">
                 <label>
                     <input type="checkbox"
-                           ng-model="noDisambiguationColumn[selectedPosition.column]"
-                           ng-change="lockCell()">
+                           ng-model="flags.noDisambiguationColumn[selectedPosition.column]">
                     Skip disambiguation of all cells in this column
                 </label>
             </div>
@@ -29,8 +38,7 @@
             <div class="col-md-12">
                 <label>
                     <input type="checkbox"
-                              ng-model="noDisambiguationCell[selectedPosition.row][selectedPosition.column]"
-                              ng-change="lockCell()">
+                              ng-model="flags.noDisambiguationCell[selectedPosition.row][selectedPosition.column]">
                     Skip disambiguation of the cell
                 </label>
             </div>

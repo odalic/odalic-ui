@@ -10,9 +10,7 @@
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
         $scope.openCDProposal = data.openCDProposal;
-        $scope.ignoredColumn = data.ignoredColumn;
-        $scope.noDisambiguationCell = data.noDisambiguationCell;
-        $scope.noDisambiguationColumn = data.noDisambiguationColumn;
+        $scope.flags = data.flags;
         $scope.close = $uibModalInstance.close;
 
 

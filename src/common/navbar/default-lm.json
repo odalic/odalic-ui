@@ -1,25 +1,9 @@
 [
   {
     "id": "home",
-    "title": "Home",
-    "link": "#/",
-    "menu": []
-  },
-  {
-    "id": "files",
-    "title": "Input files",
-    "menu": [
-      {
-        "title": "Add new",
-        "link": "#/addfile"
-      },
-      {
-      },
-      {
-        "title": "List of files",
-        "link": "#/filelist"
-      }
-    ]
+    "img": "graphics/logo_min.png",
+    "title": "ODALIC",
+    "link": "#/"
   },
   {
     "id": "tasks",
@@ -38,6 +22,42 @@
       {
         "title": "List of tasks",
         "link": "#/taskconfigs"
+      }
+    ]
+  },
+  {
+    "id": "files",
+    "title": "Input files",
+    "menu": [
+      {
+        "title": "Add new",
+        "link": "#/addfile"
+      },
+      {
+      },
+      {
+        "title": "List of files",
+        "link": "#/filelist"
+      }
+    ]
+  },
+  {
+    "id": "kbs",
+    "title": "Knowledge bases",
+    "menu": [
+      {
+        "title": "Add new",
+        "link": "#/kbconfig"
+      },
+      {
+        "title": "Import",
+        "link": "#/kbimport"
+      },
+      {
+      },
+      {
+        "title": "List of knowledge bases",
+        "link": "#/kblist"
       }
     ]
   }

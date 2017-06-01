@@ -33,7 +33,7 @@
                         options: ['UTF-8', 'windows-1250', 'windows-1252', 'windows-1552', 'iso-8859-2', 'iso-8859-1', 'custom']
                     },
                     delimiter: {
-                        options: [';', ',', '|', 'custom']
+                        options: [',', ';', '|', 'custom']
                     },
                     escape: {
                         options: ['\\', 'custom']
@@ -184,7 +184,7 @@
 
                 scope.close = function () {
                     scope.dismiss();
-                }
+                };
 
                 scope.save = function (future) {
                     onSave(

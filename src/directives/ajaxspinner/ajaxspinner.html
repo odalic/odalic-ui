@@ -1,0 +1,20 @@
+<div>
+    <!-- Spinner icon -->
+    <div ng-if="loading">
+        <p><i class="fa fa-spinner fa-pulse fa-{{ size }}x fa-fw"></i></p>
+    </div>
+
+    <!-- Warning icon -->
+    <div ng-if="!loading && failure">
+        <p>
+            <tooltip source="failureMessage" place="top">
+                <i class="fa fa-exclamation-triangle fa-{{ size }}x" aria-hidden="true"></i>
+            </tooltip>
+        </p>
+    </div>
+
+    <!-- Idle icon -->
+    <div ng-if="!!idleIcon">
+        <p><i class="fa fa-bars fa-{{ size }}x"></i></p>
+    </div>
+</div>

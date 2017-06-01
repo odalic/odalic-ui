@@ -16,10 +16,10 @@
 
             <!-- Basic settings -->
             <fieldset>
-                <legend>Basic settings</legend>
+                <legend>Basic properties</legend>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">Task identifier:</label>
+                    <label class="col-md-2 control-label"><abbrc msg="An URL friendly task identifier.">Task identifier:</abbrc></label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskImport.identifier" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
                         <div ng-messages="taskImportForm.taskIdentifier.$error" ng-if='taskImportForm.taskIdentifier.$dirty' role="alert">
@@ -46,12 +46,12 @@
             </fieldset>
 
             <!--  Alerts displaying notifications to a user -->
-            <alert-group bind="taskImport.alerts" disappearing="3"/>
+            <alert-group bind="taskImport.alerts" disappearing="default"/>
         </form>
 
         <!-- Confirm modal when overwriting task -->
         <confirm bind="confirm" title="Task overwrite">
-            You are about to overwrite an existing task definition. Continue?
+            You are about to overwrite an existing task configuration. Continue?
         </confirm>
 
         <!-- Submit -->

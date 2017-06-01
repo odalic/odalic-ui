@@ -1,0 +1,92 @@
+<!-- Prepared messages to display to a user in case of a situation -->
+<injector for="msgtxt.removeFailure">An error occurred while removing the knowledge base configuration.</injector>
+<injector for="msgtxt.unknownFailure">An unknown error occurred.</injector>
+<injector for="msgtxt.configdFailure">An error occurred while trying to download the knowledge base's configuration.</injector>
+
+<!-- Main Content -->
+<main-cnt>
+    <!-- NavBar -->
+    <navbar selected="kbs" lmenu="default-lm.json" rmenu="default-rm.json" />
+
+    <!-- Content -->
+    <div class="container-fluid">
+        <h2>List of knowledge bases</h2>
+
+        <!-- Tooltip messages -->
+        <injector for="actiontext.configure">Configuration</injector>
+        <injector for="actiontext.clone">Create a new configuration from this one</injector>
+        <injector for="actiontext.remove">Remove configuration</injector>
+        <injector for="actiontext.download">Download configuration</injector>
+
+        <!-- The table of knowldge bases -->
+        <loadico bind="dataload" size="5" center="true" showtxt="true">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- A single knowledge base -->
+                    <tr ng-repeat="kb in kbsProxy.getView()">
+                        <!-- Name -->
+                        <td class="col-md-2">{{ kb.name }}</td>
+
+                        <!-- Description -->
+                        <td class="col-md-7">{{ kb.description }}</td>
+
+                        <!-- Actions -->
+                        <td class="col-md-2">
+                            <!-- Download configuration -->
+                            <span>
+                                <tooltip source="actiontext.download" place="top">
+                                    <a-fake ajax="fdownload" args="kb.name" catcher="configderror" type="text/turtle">
+                                        <a class="btn btn-default"><i class="fa fa-download fa-lg"></i></a>
+                                    </a-fake>
+                                </tooltip>
+                            </span>
+
+                            <!-- Configure -->
+                            <tooltip source="actiontext.configure" place="top">
+                                <a class="btn btn-default" ng-click="fconfigure(kb.name)"><i class="fa fa-cog fa-lg"></i></a>
+                            </tooltip>
+
+                            <!-- Clone -->
+                            <tooltip source="actiontext.clone" place="top">
+                                <a class="btn btn-default" ng-click="fclone(kb.name)"><i class="fa fa-clone fa-lg"></i></a>
+                            </tooltip>
+
+                            <!-- Remove -->
+                            <tooltip source="actiontext.remove" place="top">
+                                <a class="btn btn-default" ng-click="fremove(kb.name)"><i class="fa fa-trash fa-lg"></i></a>
+                            </tooltip>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </loadico>
+
+        <!-- Pagination -->
+        <pagination bind="kbsProxy" per-page="5"/>
+
+        <!-- Reporting situations to a user -->
+        <div class="col-md-12">
+            <alert-group bind="messages" disappearing="default"/>
+        </div>
+
+        <!-- Additional content below the table -->
+        <div class="col-md-offset-9 col-md-3">
+            <button type="button" class="col-md-5 btn btn-lg" ng-click="fimport()">Import</button>
+            <button type="button" class="col-md-offset-1 col-md-6 btn btn-lg" ng-click="fadd()">Add new</button>
+        </div>
+
+        <!-- Blank space pushing footer further below -->
+        <div class="col-md-12 odalic-hstyle-medium"/>
+
+    </div>
+</main-cnt>
+
+<!-- Footer -->
+<footer/>

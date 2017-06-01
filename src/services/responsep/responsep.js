@@ -48,7 +48,7 @@
                 var decider = Math.floor(response.status / 100);
                 switch (decider) {
                     case 2:
-                        bimsg = 'According to the server, everything is OK.';
+                        bimsg = 'According to the server everything is OK.';
                         break;
                     case 3:
                         bimsg = 'The server indicates redirection.';
@@ -56,18 +56,18 @@
                     case 4:
                         switch (response.status) {
                             case 404:
-                                bimsg = 'You seem to be trying to use a resource that no longer exists.';
+                                bimsg = 'The client attempted to access a resource that (no longer) exists. See the reported cause for more details.';
                                 break;
                             case 409:
-                                bimsg = 'You seem to be trying to start a same action multiple times.';
+                                bimsg = 'The server received conflicting requests. See the reported cause for more details.';
                                 break;
                             default:
-                                bimsg = 'We are not sure about the exact cause of the error, but it seems you are to blame.';
+                                bimsg = 'Unknown client-caused error. See the reported cause for more details.';
                                 break;
                         }
                         break;
                     case 5:
-                        bimsg = 'The server was unable to process the request for unknown reasons.';
+                        bimsg = 'A server-side error occured. See the reported cause for more details.';
                         break;
                     default:
                         return;

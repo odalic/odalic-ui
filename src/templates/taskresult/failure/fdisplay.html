@@ -1,26 +1,26 @@
 <div class="container">
     <div class="col-md-12">
-        <h3>Well, this is embarassing.</h3>
-        <h4>It seems the ODALIC engine could not process your task. See the details below:</h4>
+        <h3>Processing error</h3>
+        <h4>It seems the server could not process your task. See the details below:</h4>
     </div>
 
     <!-- Details -->
     <div class="col-md-3">
-        <strong>Cause:</strong>
+        <strong>Reported cause:</strong>
     </div>
     <div class="col-md-9">
         {{ failurev.result }}
     </div>
 
     <div class="col-md-3">
-        <strong>Our guess:</strong>
+        <strong>Client view:</strong>
     </div>
     <div class="col-md-9">
         {{ failurev.message }}
     </div>
 
     <div class="col-md-3">
-        <strong>Debug content:</strong>
+        <strong>Debugging content:</strong>
     </div>
     <div class="col-md-9">
         <shortened text="failurev.description"/>
@@ -30,14 +30,16 @@
     <div class="col-md-12 odalic-hstyle-medium"/>
 
     <div class="col-md-12">
-        <p>We are sorry.</p>
-        <p>Do you think it is our fault? <a href="mailto:odalic@googlegroups.com">Report a bug!</a></p>
+        <p>Do you think this is a bug? <a href="https://github.com/odalic/sti/issues">Thank you for reporting it!</a></p>
     </div>
 </div>
 
 <!-- Back button -->
-<div class="col-md-offset-10 col-md-2">
-    <button type="button" class="col-md-offset-4 col-md-8 btn btn-lg" ng-click="miscellaneous.goBack()">Cancel</button>
+<div class="col-md-offset-8 col-md-2">
+    <button type="button" class="btn btn-lg btn-block" ng-click="miscellaneous.reexecute()">Reexecute</button>
+</div>
+<div class="col-md-2">
+    <button type="button" class="btn btn-lg btn-block" ng-click="miscellaneous.goBack()">Cancel</button>
 </div>
 
 <!-- Blank space pushing footer further below -->

@@ -13,32 +13,73 @@
 
 
                 $scope.open = {};
+
                 for (var kb in $scope.locked.subjectColumns) {
                     $scope.open[kb] = {};
                     for (var column in $scope.locked.subjectColumns[kb]) {
                         $scope.open[kb][column] = false;
                     }
-                }
+                };
 
 
-                $scope.isIgnored=function (index) {
-                    return $scope.ignoredColumn.hasOwnProperty(index)?$scope.ignoredColumn[index]:0;
-                }
+                function isIgnored (index) {
+                    return $scope.flags.ignoredColumn.hasOwnProperty(index)?$scope.flags.ignoredColumn[index]:0;
+                };
+
+                var isAnyColumnMarked = function(table)
+                {
+                    for(columnNumber in table)
+                    {
+                        if(table[columnNumber]==1)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                };
                 //sets locks and result after user change subject column
                 $scope.selectSubjectColumn = function (column, kb) {
                     //controls if the column is not ignored ( ignored column cannot be subject column)
-                    if ( $scope.isIgnored(column)) {
+                    if ( isIgnored(column)) {
                         $scope.open[kb][column] = true;
                         return;
                     }
-                    if ($scope.result.subjectColumnPositions[kb].index != column) {
 
-                        $scope.locked.subjectColumns[kb][$scope.result.subjectColumnPositions[kb].index] = 0;
-                        $scope.result.subjectColumnPositions[kb].index = column;
-                        $scope.locked.subjectColumns[kb][column] = 1;
+
+                    var table = $scope.flags.isColumnSubject[kb];
+                    table[column]^=1;
+
+                    //if we cancel the last marked column so we unlock  the lock, otherwise we lock the lock
+                    if(table[column] == 0 && !isAnyColumnMarked(table) )
+                    {
+                        $scope.locked.subjectColumns[kb] = 0;
                     }
-
+                    else {
+                        $scope.locked.subjectColumns[kb] = 1;
+                    }
                 };
+
+                //locks and unlocks the lock
+                $scope.lockColumn = function(column, kb,$event) {
+                    $event.stopPropagation();
+                    $scope.locked.subjectColumns[kb] = 1;
+                };
+
+                $scope.columnStyle = function (kb, columnNumber) {
+                    var userChoice = $scope.flags.isColumnSubject[kb][columnNumber];
+                    var result = $scope.flags.resultingSubjectColumns[kb][columnNumber];
+                    if(userChoice  && result ) {
+                        return {"background-color": "#f5e4c2", "font-weight": "bold"};
+                    }
+                    if(userChoice){
+                        return {"background-color": "#ffeecc"};
+                    }
+                    if(result) {
+                        return {"background-color": "WhiteSmoke", "font-weight": "bold"};
+                    }
+                };
+
+
             }
         }
     });

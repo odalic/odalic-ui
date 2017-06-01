@@ -82,7 +82,7 @@ var objhelp = {
      * @param obj1 The object to copy.
      * @param obj2 The object to copy the first object to. Must not be null nor undefined.
      */
-    objCopy: function (obj1, obj2) {
+    objNRCopyNew: function (obj1, obj2) {
         if (!obj1) {
             return;
         }
@@ -102,26 +102,45 @@ var objhelp = {
     /** Returns a (recursive) copy of a an object.
      *
      * @param obj   An object to copy.
+     * @param depth If set, the copy is recursive up to this depth. 0 for non-recursive copy.
      * @return      A (recursive) copy of an object.
      */
-    objRecurCopy: function (obj) {
+    objCopy: function (obj, depth) {
         if (!obj || (typeof(obj) !== 'object')) {
-            throw new Error('objRecurCopy: illegal arguments');
+            throw new Error('objCopy: illegal arguments');
         }
 
-        // Copy
+        if (!depth) {
+            depth = -1;
+        }
+
+        // Prepare
         var result = {};
-        objhelp.objForEach(obj, function (key, value) {
+        var decider = function (value, depth) {
             if (typeof(value) === 'object') {
                 // Recursive object copy?
-                if (!!value) {
-                    result[key] = objhelp.objRecurCopy(obj[key]);
+                if (!!value && (depth != 0)) {
+                    // Differentiate between an array and a basic object
+                    if (angular.isArray(value)) {
+                        var ra = [];
+                        value.forEach(function (item) {
+                            ra.push(decider(item, depth - 1));
+                        });
+                        return ra;
+                    } else {
+                        return objhelp.objCopy(value, depth - 1);
+                    }
                 } else {
-                    result[key] = null;
+                    return value;
                 }
             } else {
-                result[key] = value;
+                return value;
             }
+        };
+
+        // Copy
+        objhelp.objForEach(obj, function (key, value) {
+            result[key] = decider(value, depth);
         });
 
         return result;
@@ -157,6 +176,11 @@ var objhelp = {
         // Compare
         var differences = [];
         props.forEach(function (key) {
+            // Ignore properties beginning with '$$'
+            if (key.substring(0, 2) === '$$') {
+                return;
+            }
+
             // Property present in both objects?
             if (!(key in obj2) || !(key in obj1)) {
                 differences.push(key);
