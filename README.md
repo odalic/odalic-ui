@@ -21,4 +21,5 @@ Soon at https://grips.semantic-web.at/ .
 
 ### Installation guide and documentation
 [PDF version](https://odalic.github.io/download/ODALIC.Project.Documentation.pdf)
+
 [Web](https://odalic.github.io/)
