@@ -21,7 +21,7 @@
                             <form class="form-horizontal" role="form" name="signupForm" ng-init="setForm(this, 'signupForm')" ng-submit="signup.signobj.submit()">
                                 <!-- Username / e-mail -->
                                 <div class="col-md-6">
-                                    <strong>E-mail:</strong>
+                                    <strong>E-mail: *</strong>
                                 </div>
                                 <div class="col-md-6">
                                     <input class="form-control" type="email" name="username" ng-model="signup.username" required />
@@ -40,7 +40,7 @@
 
                                 <!-- Password -->
                                 <div class="col-md-6">
-                                    <strong>Password:</strong>
+                                    <strong>Password: *</strong>
                                 </div>
                                 <div class="col-md-6">
                                     <input class="form-control" type="password" name="password" ng-model="signup.password" minlength="8" required />
@@ -55,7 +55,7 @@
 
                                 <!-- Password again -->
                                 <div class="col-md-6">
-                                    <strong>Retype password:</strong>
+                                    <strong>Retype password: *</strong>
                                 </div>
                                 <div class="col-md-6">
                                     <input class="form-control" type="password" name="password2" ng-model="signup.password2" compare-to="signup.password" />
