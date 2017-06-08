@@ -41,6 +41,7 @@
                     <th>Description</th>
                     <th>Used bases</th>
                     <th>Actions</th>
+                    <th>Result</th>
                     <th>State</th>
                 </tr>
                 </thead>
@@ -49,7 +50,7 @@
                 <tr ng-repeat="taskconfig in taskconfigsProxy.getView()" ng-class="{'odalic-trstyle-lightgrey': taskconfig.id == misc.selected}">
                     <td class="col-md-1">{{ taskconfig.created }}</td>
                     <td class="col-md-2">{{ taskconfig.id }}</td>
-                    <td class="col-md-4">{{ taskconfig.description }}</td>
+                    <td class="col-md-3">{{ taskconfig.description }}</td>
                     <td class="col-md-2"><strong>{{ table.getPrimaryKB(taskconfig) }}</strong>{{ table.getNonPrimaryKBs(taskconfig).join(', ') | nonempty:', ' }}</td>
                     <td class="col-md-2">
                         <!-- Run the task -->
@@ -63,13 +64,6 @@
                         <span ng-show="['RUNNING'].includes(taskconfig.state)">
                             <tooltip source="actiontext.stop" place="top">
                                 <a class="btn btn-default" ng-click="fstop(taskconfig.id)"><i class="fa fa-stop fa-lg"></i></a>
-                            </tooltip>
-                        </span>
-
-                        <!-- Go to result -->
-                        <span ng-show="['SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
-                            <tooltip source="actiontext.result" place="top">
-                                <a class="btn btn-default" ng-click="fresult(taskconfig.id)"><i class="fa fa-external-link fa-lg"></i></a>
                             </tooltip>
                         </span>
 
@@ -94,6 +88,20 @@
                             <tooltip source="actiontext.remove" place="top">
                                 <a class="btn btn-default" ng-click="fremove(taskconfig.id)"><i class="fa fa-trash fa-lg"></i></a>
                             </tooltip>
+                        </span>
+                    </td>
+
+                    <td class="col-md-1">
+                        <!-- Go to result -->
+                        <span ng-show="['SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
+                            <tooltip source="actiontext.result" place="top">
+                                <a class="btn btn-default" ng-click="fresult(taskconfig.id)"><i class="fa fa-external-link fa-lg"></i></a>
+                            </tooltip>
+                        </span>
+
+                        <!-- Not available -->
+                        <span ng-show="!['SUCCESS', 'WARNING', 'ERROR'].includes(taskconfig.state)">
+                            Not available
                         </span>
                     </td>
 
