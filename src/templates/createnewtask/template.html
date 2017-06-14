@@ -77,10 +77,12 @@
 
                 <!-- Primary knowledge base -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="Primary knowledge base which is used for proposing new resources. You have to have write access to such knowledge base">Primary knowledge base:</abbrc> *</label>
+                    <label class="col-md-2 control-label"><abbrc msg="Primary base is used for proposing new resources.
+Only those with insertion enabled are eligible.
+When none is available, please define one with the inserts set-up first.">Primary knowledge base:</abbrc> *</label>
                     <div class="col-md-10">
                         <select class="form-control" name="selectPrimaryKB" ng-model="kbs.primaryKB" ng-options="opt.name for opt in kbs.modifiableSelectedKBs" required>
-                            <option value="">Select knowledge Base</option>
+                            <option value="">Select knowledge base</option>
                         </select>
                         <div ng-if="taskCreationForm.selectPrimaryKB.$invalid && taskCreationForm.selectPrimaryKB.$dirty">
                             <error-msg>A knowledge base has to be selected.</error-msg>
