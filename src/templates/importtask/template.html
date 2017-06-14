@@ -19,12 +19,12 @@
                 <legend>Basic properties</legend>
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="An URL friendly task identifier.">Task identifier:</abbrc> *</label>
+                    <label class="col-md-2 control-label"><abbrc msg="Task identifier. Only a-z, A-Z, 0-9, _, dot, space and comma are allowed.">Task identifier:</abbrc> *</label>
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="taskIdentifier" ng-model="taskImport.identifier" pattern="[-a-zA-Z0-9_.,\s]*" focused required>
                         <div ng-messages="taskImportForm.taskIdentifier.$error" ng-if='taskImportForm.taskIdentifier.$dirty' role="alert">
-                            <div ng-message="required"><error-msg>Task name must not be empty.</error-msg></div>
-                            <div ng-message="pattern"><error-msg>Task name may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                            <div ng-message="required"><error-msg>Task identifier must not be empty.</error-msg></div>
+                            <div ng-message="pattern"><error-msg>Task identifier may consist only of a-z, A-Z, 0-9, _, dot, space and comma.</error-msg></div>
                         </div>
                     </div>
                 </div>
