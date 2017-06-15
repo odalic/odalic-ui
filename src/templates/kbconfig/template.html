@@ -23,14 +23,14 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="An URL friendly identifier of the knowledge base.
-Choose one unique to the bases you own.">Identifier:</abbrc> *</label>
+                            <label class="col-md-2 control-label"><abbrc msg="Knowledge base proxy identifier.
+Only a-z, A-Z, 0-9, _, dot, space and comma are allowed.">Identifier:</abbrc> *</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="kbIdentifier" ng-model="pageVariables.identifier" pattern="[-a-zA-Z0-9_.,\s]*" ng-disabled="editing" focused required/>
                                 <div ng-messages="kbConfigForm.kbIdentifier.$error" ng-if='kbConfigForm.kbIdentifier.$dirty' role="alert">
                                     <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
-                                    <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                                    <div ng-message="pattern"><error-msg>Identifier may consist only of a-z, A-Z, 0-9, _, dot, space and comma.</error-msg></div>
                                 </div>
                             </div>
                         </div>
