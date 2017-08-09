@@ -31,10 +31,12 @@
         //if the proposal object is an object type, so we can derivate the range from the column classification
         $scope.setRange = function(){
             $scope.range = data.range;
+            $scope.type = "object";
         };
         //if the proposal object is an data type, so the default range is empty string
         $scope.emptyRange = function(){
             $scope.range = "";
+            $scope.type = "data";
         };
 
         //region proposal settings
