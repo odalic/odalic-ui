@@ -5,8 +5,12 @@ address=http://localhost:8080/odalic/
 timeout=60000
 
 [signup]
+loginMode=gitlab
 emailConfirmation=false
 automaticLogin=true
+gitlabUrl=http://adequate-project.semantic-web.at:5003
+gitlabApplicationId=bdadb8143435457de9e8ad6a22cf530beed6bf9b6ed0ba6b8490d77cdfcee408
+gitlabApplicationRedirectUrl=http://adequate-project-odalic.semantic-web.at/odalic/auth/gitlab
 
 [alerts]
 duration=5000

@@ -48,7 +48,7 @@
                 <!-- Right menu -->
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-repeat="singleMenu in rightMenu" ng-class="{ active: selected == singleMenu.id }" ng-if="conditioned(singleMenu)">
-                        <a href="{{ singleMenu.link }}"><span class="glyphicon {{ singleMenu.icon }}"></span>
+                        <a href="{{ singleMenu.link }}" ng-click="$eval(singleMenu.click)"><span class="glyphicon {{ singleMenu.icon }}"></span>
                             {{ singleMenu.title }}
                         </a>
                     </li>

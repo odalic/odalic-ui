@@ -4,14 +4,23 @@
     "title": "Sign up",
     "link": "#/signup",
     "icon": "glyphicon-user",
-    "condition": "!$auth.isAuthenticated()"
+    "condition": "!$auth.isAuthenticated() && authh.getLoginMode() !== 'gitlab'"
   },
   {
     "id": "login",
     "title": "Log in",
     "link": "#/login",
     "icon": "glyphicon-log-in",
-    "condition": "!$auth.isAuthenticated()"
+    "condition": "!$auth.isAuthenticated() && authh.getLoginMode() !== 'gitlab'"
+
+  },
+  {
+    "id": "login-gitlab",
+    "title": "Log in",
+    "link": "#/login",
+    "icon": "glyphicon-log-in",
+    "condition": "!$auth.isAuthenticated() && authh.getLoginMode() === 'gitlab'",
+    "click": "authenticate('gitlab')"
   },
   {
     "id": "login",
