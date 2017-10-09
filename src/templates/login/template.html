@@ -21,7 +21,7 @@
                             <form class="form-horizontal" role="form" name="loginForm" ng-init="setForm(this, 'loginForm')" ng-submit="login.logobj.submit()">
                                 <!-- Username -->
                                 <div class="col-md-6 ">
-                                    <strong>Username:</strong>
+                                    <strong>Username: *</strong>
                                 </div>
                                 <div class="col-md-6">
                                     <input class="form-control" type="text" name="username" ng-model="login.username" required>
@@ -35,7 +35,7 @@
 
                                 <!-- Password -->
                                 <div class="col-md-6">
-                                    <strong>Password:</strong>
+                                    <strong>Password: *</strong>
                                 </div>
                                 <div class="col-md-6">
                                     <input class="form-control" type="password" name="password" ng-model="login.password" required>

@@ -16,7 +16,7 @@
             <form class="form-horizontal" role="form" name="setPropertiesForm" ng-init="setForm(this, 'setPropertiesForm')">
                 <!-- Name -->
                 <div class="form-group">
-                    <label class="col-md-2 control-label"><abbrc msg="An URL friendly identifier of the current group">Name:</abbrc></label>
+                    <label class="col-md-2 control-label"><abbrc msg="An URL friendly identifier of the current group">Name:</abbrc> *</label>
 
                     <div class="col-md-10">
                         <input class="form-control" type="text" name="spName" ng-model="pageVariables.name" pattern="[-a-zA-Z0-9_.,\s]*" ng-disabled="editing" focused required />
@@ -90,10 +90,10 @@ These are compared with the textual values in the cells.">"description" predicat
             <div class="col-md-offset-7 col-md-5">
                 <div class="col-md-offset-2 col-md-10">
                     <div class="col-md-6">
-                        <button-load button-class="col-md-12 btn btn-lg" action="save" disabled="false">Save group</button-load>
+                        <button-load button-class="col-md-12 btn btn-lg odalic-butt-affirmative" action="save" disabled="false">Save group</button-load>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" class="col-md-12 btn btn-lg" ng-click="cancel()">Cancel</button>
+                        <button type="button" class="col-md-12 btn btn-lg odalic-butt-cancel" ng-click="cancel()">Cancel</button>
                     </div>
                 </div>
             </div>

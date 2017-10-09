@@ -23,14 +23,14 @@
                         <div class="col-md-12 odalic-hstyle-medium"/>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label"><abbrc msg="An URL friendly identifier of the knowledge base.
-Choose one unique to the bases you own.">Identifier:</abbrc> *</label>
+                            <label class="col-md-2 control-label"><abbrc msg="Knowledge base proxy identifier.
+Only a-z, A-Z, 0-9, _, dot, space and comma are allowed.">Identifier:</abbrc> *</label>
 
                             <div class="col-md-10">
                                 <input class="form-control" type="text" name="kbIdentifier" ng-model="pageVariables.identifier" pattern="[-a-zA-Z0-9_.,\s]*" ng-disabled="editing" focused required/>
                                 <div ng-messages="kbConfigForm.kbIdentifier.$error" ng-if='kbConfigForm.kbIdentifier.$dirty' role="alert">
                                     <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
-                                    <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                                    <div ng-message="pattern"><error-msg>Identifier may consist only of a-z, A-Z, 0-9, _, dot, space and comma.</error-msg></div>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +170,7 @@ There is certain performance penalty for using each group so it is best to selec
 
                             <!-- Buttons -->
                             <div class="col-md-offset-10 col-md-2">
-                                <button type="button" class="col-md-12 btn btn-lg" ng-click="psAdd()">Add group</button>
+                                <button type="button" class="col-md-12 btn btn-lg odalic-butt-affirmative" ng-click="psAdd()">Add group</button>
                             </div>
                         </formgroup>
                     </uib-tab>
@@ -350,11 +350,11 @@ When left blank no attempt to authenticate is made.">Login:</abbrc></label>
                 <div class="col-md-offset-2 col-md-10">
                     <div class="col-md-6">
                         <span ng-click="activeTab = 0">
-                            <button-load button-class="col-md-12 btn btn-lg" action="save" disabled="false">Save</button-load>
+                            <button-load button-class="col-md-12 btn btn-lg odalic-butt-affirmative" action="save" disabled="false">Save</button-load>
                         </span>
                     </div>
                     <div class="col-md-6">
-                        <button type="button" class="col-md-12 btn btn-lg" ng-click="cancel()">Cancel</button>
+                        <button type="button" class="col-md-12 btn btn-lg odalic-butt-cancel" ng-click="cancel()">Cancel</button>
                     </div>
                 </div>
             </div>

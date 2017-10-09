@@ -32,13 +32,13 @@
     <!-- Local file -->
     <ng-form name="localFileForm" ng-init="setForm(this, 'localFileForm')" ng-switch-when="local">
         <div class="form-group">
-            <label class="col-md-2 control-label">Upload a new file:</label>
+            <label class="col-md-2 control-label">Upload a new file: *</label>
             <div class="col-md-8">
                 <input type="file" id="concreteFile" name="fileSelector" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label"><abbrc msg="A unique identifier the file will be referenced by.">Identifier:</abbrc></label>
+            <label class="col-md-2 control-label"><abbrc msg="A unique identifier the file will be referenced by.">Identifier:</abbrc> *</label>
             <div class="col-md-8">
                 <input type="text" class="form-control" name="localFileID" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" pattern="[-a-zA-Z0-9_.,\s]*" required/>
                 <div ng-messages="localFileForm.localFileID.$error" ng-if='localFileForm.localFileID.$dirty' role="alert">
@@ -55,7 +55,7 @@
     <!-- Remote file -->
     <ng-form name="remoteFileForm" ng-switch-when="remote">
         <div class="form-group">
-            <label class="col-md-2 control-label">Location:</label>
+            <label class="col-md-2 control-label">Location: *</label>
             <div class="col-md-10">
                 <input class="form-control" type="text" name="remoteFileSrc" ng-model="fileAttach.location" ng-init="fileAttach.location = deflocation" required />
                 <div ng-messages="remoteFileForm.remoteFileSrc.$error" ng-if='remoteFileForm.remoteFileSrc.$dirty' role="alert">
@@ -64,12 +64,13 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-2 control-label"><abbrc msg="A unique identifier the file will be referenced by.">Identifier:</abbrc></label>
+            <label class="col-md-2 control-label"><abbrc msg="File identifier.
+Only a-z, A-Z, 0-9, _, dot, space and comma are allowed.">Identifier:</abbrc> *</label>
             <div class="col-md-8">
                 <input type="text" class="form-control" name="remoteFileID" ng-model="fileAttach.identifier" pattern="[-a-zA-Z0-9_.,\s]*" required/>
                 <div ng-messages="remoteFileForm.remoteFileID.$error" ng-if='remoteFileForm.remoteFileID.$dirty' role="alert">
                     <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
-                    <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
+                    <div ng-message="pattern"><error-msg>Identifier may consist only of a-z, A-Z, 0-9, _, dot, space and comma.</error-msg></div>
                 </div>
             </div>
             <div class="col-md-2">
@@ -81,7 +82,7 @@
 
 <!-- Selecting file from the list -->
 <div class="form-group" ng-if="fileList.fileSelection">
-    <label class="col-md-2 control-label">Selected file:</label>
+    <label class="col-md-2 control-label">Selected file: *</label>
     <div class="col-md-8">
         <ui-select name="fileSelectList" ng-model="fileList.selectedFile" required>
             <ui-select-match placeholder="Select file by typing its identifier...">
