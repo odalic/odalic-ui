@@ -42,76 +42,91 @@
     {
         "route": "/taskconfigs",
         "folder": "taskconfigs",
-        "controller": "odalic-taskconfigs-ctrl"
+        "controller": "odalic-taskconfigs-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/taskconfigs/:taskid",
         "folder": "taskconfigs",
-        "controller": "odalic-taskconfigs-ctrl"
+        "controller": "odalic-taskconfigs-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/filelist",
         "folder": "filelist",
-        "controller": "odalic-filelist-ctrl"
+        "controller": "odalic-filelist-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/addfile",
         "folder": "addfile",
-        "controller": "odalic-addfile-ctrl"
+        "controller": "odalic-addfile-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/createnewtask",
         "folder": "createnewtask",
-        "controller": "createnewtask-ctrl"
+        "controller": "createnewtask-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/createnewtask/:taskid",
         "folder": "createnewtask",
-        "controller": "createnewtask-ctrl"
+        "controller": "createnewtask-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/importtask",
         "folder": "importtask",
-        "controller": "odalic-importtask-ctrl"
+        "controller": "odalic-importtask-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/taskresult/:taskid",
         "folder": "taskresult",
-        "controller": "taskresult-ctrl"
+        "controller": "taskresult-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/kbconfig",
         "folder": "kbconfig",
-        "controller": "odalic-kbconfig-ctrl"
+        "controller": "odalic-kbconfig-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/kbconfig/:kbid",
         "folder": "kbconfig",
-        "controller": "odalic-kbconfig-ctrl"
+        "controller": "odalic-kbconfig-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/kbconfig/clone/:kbid",
         "folder": "kbconfig",
-        "controller": "odalic-kbconfig-ctrl"
+        "controller": "odalic-kbconfig-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/kblist",
         "folder": "kblist",
-        "controller": "odalic-kblist-ctrl"
+        "controller": "odalic-kblist-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/kbimport",
         "folder": "kbimport",
-        "controller": "odalic-kbimport-ctrl"
+        "controller": "odalic-kbimport-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/setproperties",
         "folder": "setproperties",
-        "controller": "odalic-setproperties-ctrl"
+        "controller": "odalic-setproperties-ctrl",
+        "requireAuth": true
     },
     {
         "route": "/setproperties/:spid",
         "folder": "setproperties",
-        "controller": "odalic-setproperties-ctrl"
+        "controller": "odalic-setproperties-ctrl",
+        "requireAuth": true
     }
 ]
