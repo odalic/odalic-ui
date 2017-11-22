@@ -1,4 +1,15 @@
 /*
+ * icon colors
+ */
+.fa{
+    color: @odalic-color-pp-black;
+}
+
+.btn-success .fa{
+    color: @odalic-color-white;
+}
+
+/*
  * taskresult styles
  */
 .selectBoxIcon {
@@ -10,16 +21,26 @@
     background-color: WhiteSmoke;
 }
 
-.markedCell {
-    background-color: PapayaWhip ;
-}
-
-.evenRow {
+.headerRow {
     background-color: WhiteSmoke;
 }
 
-.headerRow {
-    background-color: Gainsboro;
+.odalic-knowledge-base{
+    padding:8px;
+    font-size:14px;
+    line-height:125%;
+}
+
+.odalic-knowledge-base-row{
+    .fa{
+        font-size:14px;
+        color:@odalic-color-pp-black;
+    }
+    .glyphicon{
+        font-size:12px;
+        color:@odalic-color-pp-black;
+        font-weight:normal;
+    }
 }
 
 .pop{
@@ -42,6 +63,10 @@
 .modal-content {
     margin: 0% auto; /* 15% from the top and centered */
     padding: 20px;
+}
+
+.modal-header .fa{
+    font-size:24px;
 }
 
 /*

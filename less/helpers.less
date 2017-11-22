@@ -21,6 +21,10 @@
     font-weight: bold;
 }
 
+.odalic-text-normal {
+    font-weight: normal;
+}
+
 .odalic-text-wrap {
     word-wrap: break-word;
 }
@@ -79,8 +83,24 @@ abbrc .odalic-note {
  * (•̀o•́)ง
  */
 .odalic-butt-affirmative {
-    background-color: #C6DEEE;
+    background-color: @odalic-color-pp-green;
+    color: @odalic-color-white;
+    text-transform:uppercase;
+    font-size:16px;
+
+    &:hover{
+        background-color:@odalic-color-pp-green-dark;
+        color:@odalic-color-white;
+    }
 }
 .odalic-butt-cancel {
-    background-color: #FFE3CF;
+    background-color: @odalic-color-pp-grey;
+    color: @odalic-color-white;
+    text-transform:uppercase;
+    font-size:16px;
+
+    &:hover{
+        background-color:@odalic-color-pp-grey-dark;
+        color:@odalic-color-white;
+    }
 }

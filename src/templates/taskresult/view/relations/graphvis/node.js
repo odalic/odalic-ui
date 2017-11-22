@@ -84,19 +84,19 @@ var nodeWrapper = function (gprops) {
         var gsettings = {
             stable: {
                 free: {
-                    r: constants.colors.ultralightorange,
+                    r: constants.colors.ultralightppgreen,
                     l: constants.colors.black
                 },
                 fixed: {
-                    r: constants.colors.orange,
+                    r: constants.colors.ppgreen,
                     l: constants.colors.white
                 },
                 linkcreation: {
-                    r: constants.colors.yellow,
+                    r: constants.colors.lightppblue,
                     l: constants.colors.black
                 },
                 hover: {
-                    r: constants.colors.lightorange,
+                    r: constants.colors.lightppgreen,
                     l: constants.colors.black
                 }
             },

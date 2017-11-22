@@ -16,19 +16,18 @@
  */
 .odalic-navbar {
     /* Color and visual settings */
-    .odalic-bstyle-orange;
+    .odalic-bstyle-pp-blue;
 
     @navbar-defaulttext: @odalic-color-white;
 
-    @navbar-highlighted: @odalic-color-darkorange;
+    @navbar-highlighted: @odalic-color-pp-blue-light;
 
     .navbar-active {
-        color: @odalic-color-black;
-        background-color: @odalic-color-lightorange;
+        background-color: @odalic-color-pp-blue-lighter;
     }
 
     .navbar-selected {
-        background-color: @odalic-color-darkorange;
+        background-color: @odalic-color-pp-blue-dark;
     }
     
     /* Overrides */
@@ -87,18 +86,28 @@
         }
     }
 }
-
-
+/*
+ * Bootstrap link override
+ */
+main-cnt{
+    a:link, a:visited {
+        .odalic-font-pp-blue;
+        transition: @odalic-animation-quick;
+    }
+    a:hover, a:active {
+        .odalic-font-pp-navi;
+    }
+}
 /*
  * Bootstrap Panel override
  */
 .panel {
     a:link, a:visited {
-        .odalic-font-blue;
+        .odalic-font-pp-blue;
         transition: @odalic-animation-quick;
     }
     a:hover, a:active {
-        .odalic-font-darkblue;
+        .odalic-font-pp-navi;
     }
     border: none;
     box-shadow: none;
@@ -153,7 +162,7 @@ label {
 .progress {
     height: 5px;
     .progress-bar {
-        background-color: @odalic-color-blue;
+        background-color: @odalic-color-pp-blue;
     }
 }
 
@@ -165,4 +174,11 @@ label {
     color: @bootstrap-color-boldred;
     background-color: @bootstrap-color-red;
     border-radius: 5px;
+}
+/*
+ * Pagination
+ */
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: @odalic-color-pp-blue;
+    border-color: @odalic-color-pp-blue;
 }

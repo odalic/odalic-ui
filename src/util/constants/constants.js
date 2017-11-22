@@ -66,6 +66,18 @@ var constants = (function() {
                 },
                 get darkblue() {
                     return '#0e69ae';
+                },
+                get ultralightppgreen() {
+                    return '#e2f2da';
+                },
+                get lightppgreen() {
+                    return '#a9d88f';
+                },
+                get ppgreen(){
+                    return '#70be44';
+                },
+                get lightppblue(){
+                    return '#66cef5';
                 }
             };
         },
@@ -78,10 +90,22 @@ var constants = (function() {
         },
         get kbColorsArray() {
             var alpha = 0.5;
-            return [
+            /*return [
                 "rgba(255, 106, 0," + alpha + ")",
                 "rgba(255, 172, 0," + alpha + ")",
                 "rgba(233, 150, 122," + alpha + ")",
+                "rgba(244, 164, 196," + alpha + ")",
+                "rgba(205, 133, 63," + alpha + ")",
+                "rgba(160, 82, 45, " + alpha + ")",
+                "rgba(218, 165, 32," + alpha + ")",
+                "rgba(210, 180, 140, " + alpha + ")",
+                "rgba(135, 206, 235, " + alpha + ")",
+                "rgba(70, 130, 180, " + alpha + ")"
+            ];*/
+            return [
+                "rgba(198, 229, 180," + alpha + ")",
+                "rgba(153, 222, 248," + alpha + ")",
+                "rgba(188, 188, 217," + alpha + ")",
                 "rgba(244, 164, 196," + alpha + ")",
                 "rgba(205, 133, 63," + alpha + ")",
                 "rgba(160, 82, 45, " + alpha + ")",

@@ -1,4 +1,4 @@
-<td ng-repeat="cell in row track by $index"
+<td class="odalic-knowledge-base-row" ng-repeat="cell in row track by $index"
     ng-init="columnIndex = $index"
     ng-class="(rowIndex == selectedPosition.row) && ($index == selectedPosition.column) ? 'markedCell' : ''"
     ng-mouseover="selectPosition( rowIndex,$index)">
@@ -34,7 +34,7 @@
 
     <!--  Primary knowledge base disambiguation -->
 
-    <div class="odalic-text-bold" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
+    <div class="odalic-text-bold odalic-knowledge-base" ng-style="backgroundColor(primaryKB)" ng-init="itemIndex = $index"
          ng-repeat="disam in concreteData[columnIndex].chosen[primaryKB]">
         <!-- Remove icon -->
         <span class="pull-right">
@@ -50,7 +50,7 @@
             <tooltip source="primaryKB">
                 <span ng-style="{color:'black'}">{{ disam.entity.label + ' ' }}</span>
             </tooltip>
-            <span class="text-nowrap">
+            <span class="text-nowrap odalic-text-normal">
                  <span>(</span>
                     <a target="_blank" href="{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
                  <span>)</span>
@@ -79,7 +79,7 @@
                     <tooltip source="KB">
                         <span  ng-style="{color:'black'}">{{ disam.entity.label + ' '}}</span>
                     </tooltip>
-                    <span class="text-nowrap">
+                    <span class="text-nowrap odalic-text-normal">
                         <span>(</span>
                         <a target="_blank" href="{{disam.entity.resource}}">{{disam.entity.prefixed}} </a>
                         <span>)</span>

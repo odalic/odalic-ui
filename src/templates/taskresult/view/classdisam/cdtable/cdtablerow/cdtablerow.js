@@ -83,7 +83,8 @@
                 scope.backgroundColor = function (KB) {
                     var index = scope.chosenKBs.indexOf(KB);
                     var color = constants.kbColorsArray[index];
-                    return {"background-color": color, "border-radius": "5px", "opacity": "1"};
+                    //return {"background-color": color, "border-radius": "5px", "opacity": "1"};
+                    return {"background-color": color, "opacity": "1"};
                 };
 
 
