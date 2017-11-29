@@ -89,7 +89,7 @@ var constants = (function() {
             }
         },
         get kbColorsArray() {
-            var alpha = 0.5;
+            var alpha = 1;
             /*return [
                 "rgba(255, 106, 0," + alpha + ")",
                 "rgba(255, 172, 0," + alpha + ")",

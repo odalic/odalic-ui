@@ -186,8 +186,12 @@
   background-color: #ffffff;
 }
 .odalic-trstyle-pp-blue {
-  color: #000000;
+  color: #ffffff;
   background-color: #00adee;
+}
+.odalic-trstyle-pp-navi {
+  color: #ffffff;
+  background-color: #2f3089;
 }
 /*
  * Box color styles
@@ -243,9 +247,14 @@
   border-color: transparent;
 }
 .odalic-bstyle-pp-blue {
-  color: #000000;
+  color: #ffffff;
   background-color: #00adee;
   border-color: #00adee;
+}
+.odalic-bstyle-pp-navi {
+  color: #ffffff;
+  background-color: #2f3089;
+  border-color: #2f3089;
 }
 /*
  * Font styles
@@ -809,7 +818,7 @@ body {
  */
 .odalic-navbar {
   /* Color and visual settings */
-  color: #000000;
+  color: #ffffff;
   background-color: #00adee;
   border-color: #00adee;
   /* Overrides */
@@ -1056,6 +1065,16 @@ abbrc .odalic-note {
   background-color: #899196;
   color: #ffffff;
 }
+.odalic-butt-export {
+  background-color: #00adee;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.odalic-butt-export:hover {
+  background-color: #0082b3;
+  color: #ffffff;
+}
 /*
  * icon colors
  */
@@ -1075,13 +1094,19 @@ abbrc .odalic-note {
 .markedColumn {
   background-color: WhiteSmoke;
 }
-.headerRow {
-  background-color: WhiteSmoke;
+.evenRow,
+table tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+.headerRow,
+table thead tr {
+  background-color: #c8cfd3;
 }
 .odalic-knowledge-base {
   padding: 8px;
   font-size: 14px;
   line-height: 125%;
+  margin-top: 8px;
 }
 .odalic-knowledge-base-row .fa {
   font-size: 14px;

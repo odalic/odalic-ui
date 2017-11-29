@@ -27,7 +27,7 @@
 
     <div class="bigRightPadding">
         <tooltip msg="{{ getTitle(columnIndex) }}">
-            <span class="odalic-font-darkgrey">{{ cell }}</span>
+            <span class="odalic-font-darkgrey odalic-text-bold">{{ cell }}</span>
         </tooltip>
     </div>
 
@@ -63,7 +63,7 @@
     <div ng-repeat="(KB,data) in concreteData[columnIndex].chosen">
 
         <div ng-if="KB != primaryKB">
-            <div ng-style="backgroundColor(KB)" ng-repeat="disam in data" ng-init="itemIndex = $index">
+            <div class="odalic-text-bold odalic-knowledge-base" ng-style="backgroundColor(KB)" ng-repeat="disam in data" ng-init="itemIndex = $index">
 
                 <!-- Remove icon -->
                 <div class=" pull-right ">

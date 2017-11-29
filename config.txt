@@ -1,20 +1,18 @@
 [server]
+;address=http://adequate-project-odalic.semantic-web.at/odalic/
 address=http://localhost:8080/odalic/
 
 [requests]
 timeout=60000
 
 [signup]
-; loginMode: gitlab (Gitlab OAuth tokens are used, users managed by Gitlab) | default (JWT tokens, users managed by Odalic)
 loginMode=default
+; loginMode=gitlab
 emailConfirmation=false
 automaticLogin=true
-; url of the Gitlab instance (main page). Used only if loginMode gitlab is turned on. 
-gitlabUrl=
-; Id (client Id) of the application authorized in gitlab. Used only if loginMode gitlab is turned on. 
-gitlabApplicationId=
-; Location where user is redirected after successfull auth by Gitlab. Used only if loginMode gitlab is turned on. 
-gitlabApplicationRedirectUrl=
+;gitlabUrl=http://adequate-project.semantic-web.at:5003
+;gitlabApplicationId=a4740a1af64a8880e99050ab6cd1b8bd6fce305a624d5b44f0037b7b0d21e038
+;gitlabApplicationRedirectUrl=http://adequate-project-odalic-ui.semantic-web.at/odalic-ui/auth/gitlab.html
 
 [alerts]
 duration=5000
