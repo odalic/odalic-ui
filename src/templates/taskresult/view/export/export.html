@@ -1,6 +1,6 @@
 <!-- Export buttons-->
 <fieldset ng-disabled="feedbackChanged">
-    <legend class="col-md-12">Export</legend>
+    <legend class="col-md-12">Export/Save results of the transformation in the desired format</legend>
 
     <!-- Warning for pending changes -->
     <div class="col-md-12" ng-if="feedbackChanged">
@@ -11,16 +11,19 @@
     <div>
         <div class="pull-left col-md-2">
             <a-fake ajax="exporting.csv" type="text/csv">
-                <a class="btn btn-lg btn-block odalic-butt-export">Extended CSV</a>
+                <a class="btn btn-lg btn-block odalic-butt-export">Enriched CSV</a>
             </a-fake>
             &nbsp;
         </div>
-        <div class="pull-left col-md-2">
+
+        <!--
+        <div class="pull-left">
             <a-fake ajax="exporting.json" type="application/json">
                 <a class="btn btn-lg btn-block odalic-butt-export">Annotations</a>
             </a-fake>
             &nbsp;
         </div>
+        -->
         <div class="pull-left col-md-2">
             <a-fake ajax="exporting.turtle" type="text/turtle">
                 <a class="btn btn-lg btn-block odalic-butt-export">RDF (Turtle)</a>
