@@ -1,3 +1,5 @@
+Master branch: ![Build status for master branch](https://travis-ci.org/odalic/odalic-ui.svg?branch=master) Develop branch: ![Build status for develop branch](https://travis-ci.org/odalic/odalic-ui.svg?branch=develop)
+
 # Odalic User Interface
 
 Odalic UI serves as a graphical user interface to the [Odalic Semantic Table Interpretation](https://github.com/odalic/sti) backend.
