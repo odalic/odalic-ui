@@ -85,7 +85,7 @@
     };
 
     // Check if user is already logged in
-    if ($auth.isAuthenticated()) {
+    if (authh.isCustomAuthenticated()) {
       $scope.status = 'evaluating';
       rest.users.test.custom.exec(
         // Success

@@ -65,7 +65,7 @@
     };
 
     // Redirect to login screen, if already logged
-    if ($auth.isAuthenticated() || authh.getLoginMode() === 'gitlab') {
+    if (authh.isCustomAuthenticated() || authh.getLoginMode() === 'gitlab') {
       window.location = '#/login';
     }
 

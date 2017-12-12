@@ -9,7 +9,7 @@
     app.controller('odalic-root-ctrl', function ($scope, $location, $auth, authh) {
       $scope.$on('$routeChangeStart', function(angularEvent, newUrl) {
         // Check if the route requires authentication before going on.
-        if (newUrl.$$route.requireAuth && !$auth.isAuthenticated()) {
+        if (newUrl.$$route.requireAuth && !authh.isCustomAuthenticated()) {
           if (authh.getLoginMode() === 'gitlab') {
             authh.authenticate('gitlab', newUrl.$$route.originalPath);
           }

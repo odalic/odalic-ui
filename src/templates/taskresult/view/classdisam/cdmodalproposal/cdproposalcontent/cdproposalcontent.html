@@ -32,33 +32,35 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Alternative label</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
+                <div ng-if="(selectedPosition.row != -1)"> <!-- Only for proposing named entities (not classes) -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Alternative label</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="proposal.alternativeLabel">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Alternative label</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Alternative label</label>
-                    <div class="col-md-8">
-                        <input class="form-control" type="text" ng-model="proposal.alternativeLabel2">
+                <div ng-if="(selectedPosition.row == -1)"> <!-- Only for proposing classes -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Custom URL suffix</label>
+                        <div class="col-md-8">
+                            <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl">
+                        </div>
                     </div>
                 </div>
 
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Custom URL suffix</label>
-                    <div class="col-md-8">
-                        <input name="suffixUri" class="form-control" type="text" ng-model="proposal.suffixUrl">
-                    </div>
 
 
-                </div>
-
-
-
-                <div ng-if="(selectedPosition.row != -1)">
+                <div ng-if="(selectedPosition.row != -1)"> <!-- Only for proposing named entities (not classes) -->
                     <div class="form-group">
 
                         <label class="col-md-4 control-label">Class:</label>
