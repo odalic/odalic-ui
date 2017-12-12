@@ -47,6 +47,10 @@
 
                 var url = proposal.suffixUrl;
 
+                if (url == null || url.length == 0) {
+                    url = proposal.label;
+                }
+
                 //joins alternative labels
                 var alternativeLabels = [];
 

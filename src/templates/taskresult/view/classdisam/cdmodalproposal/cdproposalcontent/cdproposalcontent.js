@@ -44,6 +44,10 @@
 
                 var url = proposal.suffixUrl;
 
+                if (url == null || url.length == 0) {
+                    url = proposal.label;
+                }
+
                 //joins alternative labels
                 var alternativeLabels = [];
 
@@ -60,7 +64,7 @@
                     var obj = {
                         "label": proposal.label,
                         "alternativeLabels": alternativeLabels,
-                        "suffix": url,
+                        "suffix": url,   //by default it is equal to proposal.label, but could be changed if needed
                         "superClass": null
                         // "superClass": proposal.superClass
                     };
