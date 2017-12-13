@@ -293,18 +293,22 @@
 h1 {
   color: #2f3089;
   font-weight: 600;
+  font-size: 30px;
 }
 h2 {
   color: #2f3089;
   font-weight: 600;
+  font-size: 26px;
 }
 h3 {
   color: #2f3089;
   font-weight: 600;
+  font-size: 22px;
 }
 h4 {
   color: #2f3089;
   font-weight: 600;
+  font-size: 18px;
 }
 h5 {
   font-weight: bold;
@@ -876,6 +880,22 @@ body {
 .odalic-navbar * button:hover > span {
   background-color: #000000;
 }
+.nav li {
+  font-weight: 600;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+  color: #000;
+}
+.graphvisBtns .btn {
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #00adee;
+}
+.graphvisBtns .btn[disabled] {
+  background-color: #c8cfd3;
+}
 /*
  * Bootstrap link override
  */
@@ -992,7 +1012,7 @@ label {
   text-decoration: line-through;
 }
 .odalic-text-bold {
-  font-weight: bold;
+  font-weight: 600;
 }
 .odalic-text-normal {
   font-weight: normal;
@@ -1080,6 +1100,9 @@ abbrc .odalic-note {
  */
 .fa {
   color: #232323;
+}
+.fa-facebook-official {
+  color: #3B5998;
 }
 .btn-success .fa {
   color: #ffffff;
