@@ -42,10 +42,10 @@
             // Is proposal defined?
             if (proposal && $scope.cDProposeForm.$valid) {
 
-                var url = proposal.suffixUrl;
+                var url = encodeURI(proposal.suffixUrl);
 
                 if (url == null || url.length == 0) {
-                    url = proposal.label;
+                    url = encodeURI(proposal.label);
                 }
 
                 //joins alternative labels
