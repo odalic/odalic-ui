@@ -45,10 +45,10 @@
             // Is proposal defined?
             if (proposal && $scope.rProposeForm.$valid) {
 
-                var url = proposal.suffixUrl;
+                var url = encodeURI(proposal.suffixUrl);
 
                 if (url == null || url.length == 0) {
-                    url = proposal.label;
+                    url = encodeURI(proposal.label);
                 }
 
                 //joins alternative labels
