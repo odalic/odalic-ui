@@ -51,6 +51,38 @@ Choose one unique to the task you are creating.">Task identifier:</abbrc></label
                 </div>
             </fieldset>
 
+            <!-- Machine Learning -->
+            <fieldset>
+                <legend>Machine Learning</legend>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label"><abbrc msg="Using Machine Learning can improve the
+column classification and relation discovery phases for data, which are not very well represented in Knowledge Bases."
+                    >Use Machine Learning:</abbrc></label>
+                    <div class="col-md-10 checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="useMlClassifier.value" ng-init="useMlClassifier.value = false" />
+                        </label>
+                    </div>
+                </div>
+
+                <!--<div ng-if="useMlClassifier.value">-->
+                    <div class="form-group ml" ng-class="{'disabled': !useMlClassifier.value}">
+                        <label class="col-md-2 control-label">
+                            <abbrc msg="Following options are related to the to the Training Dataset file for Machine Learning
+    algorithm. To obtain accurate results, ML algorithm needs to be trained properly."
+                            >Training Dataset:</abbrc>
+                        </label>
+                    </div>
+
+                    <div class="form-group ml" ng-class="{'disabled': !useMlClassifier.value}">
+                        <fileinput bind="mlTrainingDatasetFile" form="taskCreationForm" selection="true"
+                                   disabled="!useMlClassifier.value"/>
+                    </div>
+                <!--</div>-->
+
+            </fieldset>
+
             <!-- Knowledge base settings -->
             <fieldset>
                 <legend>Used knowledge bases</legend>

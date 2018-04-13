@@ -5,13 +5,13 @@
     </label>
     <div class="col-md-5">
         <label class="radio-inline">
-            <input type="radio" ng-model="fileProvision" value="local" />
+            <input type="radio" ng-model="fileProvision" value="local" ng-disabled="disabled" />
             Local file
         </label>
     </div>
     <div class="col-md-5">
         <label class="radio-inline">
-            <input type="radio" ng-model="fileProvision" value="remote"/>
+            <input type="radio" ng-model="fileProvision" value="remote" ng-disabled="disabled"/>
             Remote file
         </label>
     </div>
@@ -34,20 +34,24 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Upload a new file:</label>
             <div class="col-md-8">
-                <input type="file" id="concreteFile" name="fileSelector" onchange="angular.element(this).scope().fileUpload.fillIdentifier()" />
+                <input type="file" id="{{fileUpload.inputFileId}}" name="fileSelector"
+                       onchange="angular.element(this).scope().fileUpload.fillIdentifier(this)"
+                       ng-disabled="disabled"/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label"><abbrc msg="A unique identifier the file will be referenced by.">Identifier:</abbrc></label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="localFileID" ng-model="fileUpload.identifier" ng-disabled="fileUpload.isUploadDisabled" pattern="[-a-zA-Z0-9_.,\s]*" required/>
+                <input type="text" class="form-control" name="localFileID" ng-model="fileUpload.identifier"
+                       ng-disabled="fileUpload.isUploadDisabled || disabled" pattern="[-a-zA-Z0-9_.,\s]*" required/>
                 <div ng-messages="localFileForm.localFileID.$error" ng-if='localFileForm.localFileID.$dirty' role="alert">
                     <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
                     <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
                 </div>
             </div>
             <div class="col-md-2">
-                <button-load button-class="col-md-12 form-control" action="fileUpload.uploadFile" disabled="fileUpload.isUploadDisabled">Upload</button-load>
+                <button-load button-class="col-md-12 form-control" action="fileUpload.uploadFile"
+                             disabled="fileUpload.isUploadDisabled || disabled">Upload</button-load>
             </div>
         </div>
     </ng-form>
@@ -57,7 +61,8 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Location:</label>
             <div class="col-md-10">
-                <input class="form-control" type="text" name="remoteFileSrc" ng-model="fileAttach.location" ng-init="fileAttach.location = deflocation" required />
+                <input class="form-control" type="text" name="remoteFileSrc" ng-model="fileAttach.location"
+                       ng-init="fileAttach.location = deflocation" ng-disabled="disabled" required/>
                 <div ng-messages="remoteFileForm.remoteFileSrc.$error" ng-if='remoteFileForm.remoteFileSrc.$dirty' role="alert">
                     <div ng-message="required"><error-msg>Location has to be set.</error-msg></div>
                 </div>
@@ -66,14 +71,17 @@
         <div class="form-group">
             <label class="col-md-2 control-label"><abbrc msg="A unique identifier the file will be referenced by.">Identifier:</abbrc></label>
             <div class="col-md-8">
-                <input type="text" class="form-control" name="remoteFileID" ng-model="fileAttach.identifier" pattern="[-a-zA-Z0-9_.,\s]*" required/>
+                <input type="text" class="form-control" name="remoteFileID"
+                       ng-model="fileAttach.identifier" pattern="[-a-zA-Z0-9_.,\s]*"
+                       ng-disabled="disabled" required/>
                 <div ng-messages="remoteFileForm.remoteFileID.$error" ng-if='remoteFileForm.remoteFileID.$dirty' role="alert">
                     <div ng-message="required"><error-msg>Identifier must not be empty.</error-msg></div>
                     <div ng-message="pattern"><error-msg>Identifier may consist only of alphanumeric characters, spaces and - _ . ,</error-msg></div>
                 </div>
             </div>
             <div class="col-md-2">
-                <button-load button-class="form-control" action="fileAttach.attachFile" disabled="!remoteFileForm.$valid">Attach</button-load>
+                <button-load button-class="form-control" action="fileAttach.attachFile"
+                             disabled="!remoteFileForm.$valid || disabled">Attach</button-load>
             </div>
         </div>
     </ng-form>
@@ -83,7 +91,8 @@
 <div class="form-group" ng-if="fileList.fileSelection">
     <label class="col-md-2 control-label">Selected file:</label>
     <div class="col-md-8">
-        <ui-select name="fileSelectList" ng-model="fileList.selectedFile" required>
+        <ui-select name="{{fileSelectListId}}" ng-model="fileList.selectedFile" ng-disabled="disabled"
+                   ng-attr-required="{{(disabled) ? undefined : true}}">
             <ui-select-match placeholder="Select file by typing its identifier...">
                 {{ $select.selected.id }}
             </ui-select-match>
@@ -94,12 +103,12 @@
                 </small>
             </ui-select-choices>
         </ui-select>
-        <div ng-if="form.fileSelectList.$invalid && form.fileSelectList.$dirty">
+        <div ng-if="form[fileSelectListId].$invalid && form[fileSelectListId].$dirty">
             <error-msg>A file has to be selected.</error-msg>
         </div>
     </div>
     <div class="col-md-2">
-        <button type="button" class="form-control" ng-click="configureFile()" ng-disabled="form.fileSelectList.$invalid">
+        <button type="button" class="form-control" ng-click="configureFile()" ng-disabled="form.fileSelectList.$invalid || disabled">
             Configure
         </button>
     </div>

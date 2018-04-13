@@ -16,6 +16,8 @@
         $scope.linesLimit = {};
         $scope.fileinput = {};
         $scope.statistical = {};
+        $scope.useMlClassifier = {};
+        $scope.mlTrainingDatasetFile = {};
         $scope.confirm = {};
         formsval.toScope($scope);
 
@@ -127,6 +129,13 @@
             getTaskObject: function (forcedFeedback) {
                 var fileId = $scope.fileinput.getSelectedFile();
                 var taskId = $scope.taskCreation.identifier;
+                const mlTrainingDatasetFileId = function() {
+                    if ($scope.useMlClassifier.value) {
+                        return $scope.mlTrainingDatasetFile.getSelectedFile();
+                    } else {
+                        return null;
+                    }
+                };
                 var emptyFeedback = {
                     columnIgnores: [],
                     classifications: [],
@@ -147,7 +156,9 @@
                         },
                         usedBases: $scope.kbs.chosenKBs,
                         rowsLimit: ($scope.linesLimit.selection == 'some') ? objhelp.test(text.safeInt($scope.linesLimit.value, null), null, '>= 1') : null,
-                        statistical: $scope.statistical.value
+                        statistical: $scope.statistical.value,
+                        useMLClassifier: $scope.useMlClassifier.value,
+                        mlTrainingDatasetFile: mlTrainingDatasetFileId()
                     },
                     description: text.safe($scope.taskCreation.description)
                 };
@@ -319,17 +330,18 @@
                 rest.tasks.name(TaskID).retrieve.exec(
                     // Success
                     function (response) {
-                        // $scope.apply after all timed tasks are finished
-                        var timedTasks = 2;
-
                         // We are now editing an existing task, not creating a new one
                         var config = response.configuration;
                         $scope.templFormat.creating = false;
+
+                        // $scope.apply after all timed tasks are finished
+                        var timedTasks = (config.mlTrainingDatasetFile) ? 3 : 2;
 
                         // Basic settings
                         objhelp.objRecurAccess($scope, 'taskCreation')['identifier'] = response.id;
                         $scope.taskCreation.description = response.description;
                         $scope.statistical.value = config.statistical;
+                        $scope.useMlClassifier.value = config.useMLClassifier;
 
                         // Selected file
                         timed.ready(function () {
@@ -338,6 +350,16 @@
                             $scope.fileinput.setSelectedFile(config.input);
                             timedTasks--;
                         });
+
+                        // Selected ML training dataset file
+                        if (config.mlTrainingDatasetFile) {
+                            timed.ready(function () {
+                                return !!$scope.mlTrainingDatasetFile.setSelectedFile;
+                            }, function () {
+                                $scope.mlTrainingDatasetFile.setSelectedFile(config.mlTrainingDatasetFile);
+                                timedTasks--;
+                            });
+                        }
 
                         // Selected knowledge bases
                         timed.ready(function () {

@@ -9,9 +9,10 @@
             restrict: 'E',
             scope: {
                 bind: '=',
-                form: '='
+                form: '=',
+                disabled: '='
             },
-            templateUrl: currentFolder + 'fileinput.html',
+            templateUrl: currentFolder + 'fileinput.html?' + new Date(),
             link: function (scope, iElement, iAttrs) {
 
                 // Is the form ready?
@@ -26,6 +27,7 @@
                 scope.remoteFile = {};
                 scope.messages = {};
                 scope.fileconfig = {};
+                scope.fileSelectListId = 'fileSelectList' + Math.ceil(Math.random() * 1000);
 
                 // File list
                 scope.fileList = {
@@ -102,7 +104,7 @@
                 // File uploading
                 scope.fileUpload = {
                     // Id of the input-file element
-                    inputFileId: 'concreteFile',
+                    inputFileId: 'concreteFile' + Math.ceil(Math.random() * 1000),
 
                     // Button for file uploading disabled?
                     isUploadDisabled: true,
