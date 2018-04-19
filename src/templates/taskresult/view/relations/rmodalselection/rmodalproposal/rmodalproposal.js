@@ -45,7 +45,10 @@
             // Is proposal defined?
             if (proposal && $scope.rProposeForm.$valid) {
 
-                var url = encodeURI(proposal.suffixUrl);
+                var url = null;
+                if (proposal.suffixUrl != null) {
+                    url = encodeURI(proposal.suffixUrl);
+                }
 
                 if (url == null || url.length == 0) {
                     url = encodeURI(proposal.label);
@@ -58,6 +61,7 @@
                     alternativeLabels.push(proposal.alternativeLabel);
                 }
 
+
                 //object in rest api format for classes
                 var obj = {
                     "label": proposal.label,
@@ -68,6 +72,7 @@
                     "domain":  $scope.domain,
                     "range":  $scope.range
                 };
+
 
 
                 properties(obj);

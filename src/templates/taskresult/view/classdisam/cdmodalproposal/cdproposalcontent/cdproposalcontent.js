@@ -42,7 +42,10 @@
             // Is proposal defined?
             if (proposal && $scope.cDProposeForm.$valid) {
 
-                var url = encodeURI(proposal.suffixUrl);
+                var url = null;
+                if (proposal.suffixUrl != null) {
+                    url = encodeURI(proposal.suffixUrl);
+                }
 
                 if (url == null || url.length == 0) {
                     url = encodeURI(proposal.label);
@@ -80,6 +83,7 @@
                     };
                     resources(obj);
                 }
+
             }
         };
         //endregion
