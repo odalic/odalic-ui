@@ -256,6 +256,36 @@
                         }
                     );
                 };
+
+                // Auto Propose
+                $scope.autoPropose = function (f) {
+                    $scope.sendFeedback(
+                        // Feedback sent successfully
+                        function (response) {
+                            // Start the task
+                            rest.tasks.name($scope.taskID).autoPropose.exec(
+                                // AutoProposal finished successfully
+                                function (response) {
+                                    f();
+                                    $scope.messages.push('success', $scope['msgtxt.autoProposeFinished']);
+                                },
+
+                                // AutoProposal failed
+                                function (response) {
+                                    f();
+                                    $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.autoProposeFailed'], response.data));
+                                }
+                            );
+                        },
+
+                        // Failure while sending feedback
+                        function (response) {
+                            f();
+                            $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.sendFailure'], response.data));
+                        }
+                    );
+
+                };
             }
         }
     }]);

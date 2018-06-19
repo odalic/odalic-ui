@@ -355,6 +355,19 @@ $.defineModule(function () {
                                 });
                             }
                         },
+                        autoPropose: {
+                            exec: function (success, failure) {
+                                requests.reqJSON({
+                                    method: 'POST',
+                                    address: text.urlConcat(root, 'tasks', identifier, 'autoProposal'),
+                                    formData: {
+                                        draft: false
+                                    },
+                                    success: success,
+                                    failure: failure
+                                });
+                            }
+                        },
                         stop: {
                             exec: function (success, failure) {
                                 requests.quickRequest(text.urlConcat(root, 'tasks', identifier, 'execution'), 'DELETE', success, failure);

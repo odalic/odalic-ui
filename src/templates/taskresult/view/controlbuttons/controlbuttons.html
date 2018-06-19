@@ -1,6 +1,12 @@
 <div class="row form-group odalic-hr-pushbtm">
     <!-- Buttons on the right -->
-    <div class="col-md-offset-6 col-md-2">
+    <div class="col-md-2">
+        <button-load button-class="btn btn-lg btn-block" action="autoPropose" disabled="false"
+                     tooltip-msg="Automatically propose all new resources to knowledge base.">
+            Auto Propose
+        </button-load>
+    </div>
+    <div class="col-md-offset-4 col-md-2">
         <button-load button-class="btn btn-lg btn-block" action="reexecute" disabled="false" tooltip-msg="Send the feedback and execute the current task again">
             Reexecute
         </button-load>
@@ -23,6 +29,8 @@
     <injector for="msgtxt.sendFailure">An error occurred while sending the feedback to the server.</injector>
     <injector for="msgtxt.startFailure">An error occurred while trying to re-run the task. Feedback was sent, however.</injector>
     <injector for="msgtxt.feedbackSaved">Feedback saved successfully.</injector>
+    <injector for="msgtxt.autoProposeFinished">Auto Proposing Resources Finished. Please reexecute the task.</injector>
+    <injector for="msgtxt.autoProposeFailed">Auto Proposing Resources Failed.</injector>
 
     <!-- Reporting situations to a user -->
     <div class="col-md-12">
