@@ -1,12 +1,12 @@
 <div class="row form-group odalic-hr-pushbtm">
     <!-- Buttons on the right -->
-    <div class="col-md-offset-6 col-md-2">
+    <div class="col-md-offset-4 col-md-2">
         <button-load button-class="btn btn-lg btn-block odalic-butt-affirmative" action="reexecute" disabled="false" tooltip-msg="Send the feedback and execute the current task again">
             Reexecute
         </button-load>
     </div>
     <div class="col-md-2">
-        <button-load button-class="btn btn-lg btn-block odalic-butt-affirmative" action="saveFeedback" disabled="false" tooltip-msg="Send the feedback to the server for future executions">
+        <button-load button-class="btn btn-lg btn-block odalic-butt-cancel" action="saveFeedback" disabled="false" tooltip-msg="Send the feedback to the server for future executions">
             Save feedback
         </button-load>
     </div>
@@ -15,6 +15,12 @@
             Cancel
         </button>
     </div>
+    <div class="col-md-2">
+        <button class="btn btn-lg btn-block odalic-butt-affirmative" ng-click="" uib-tooltip="Save the resulting Linked Data back to ADEQUATe platform" tooltip-placement="top">
+            Save to ADEQUATe
+        </button>
+    </div>
+
 
     <!-- Blank space -->
     <div class="col-md-12 odalic-hstyle-medium"/>
