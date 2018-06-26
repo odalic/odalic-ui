@@ -435,6 +435,22 @@ $.defineModule(function () {
                                 }
                             }
                         },
+                        adequate: function () {
+                            return {
+                                exec: function (success, failure) {
+                                    requests.reqJSON({
+                                        method: 'POST',
+                                        address: text.urlConcat(root, 'adequate'),
+                                        formData: {
+                                            taskId: identifier,
+                                            userId: 'not available'
+                                        },
+                                        success: success,
+                                        failure: failure
+                                    });
+                                }
+                            };
+                        },
                         configuration: {
                             retrieve: {
                                 exec: function (success, failure) {

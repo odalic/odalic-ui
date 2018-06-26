@@ -256,6 +256,41 @@
                         }
                     );
                 };
+
+              $scope.startSavingToAdequate = function (success, error) {
+                // Send the feedback
+                rest.tasks.name($scope.taskID).adequate().exec(success, error);
+              };
+
+              // Save to Adequate
+              $scope.saveToAdequate = function (f) {
+                $scope.sendFeedback(
+                  // Feedback sent successfully
+                  function (response) {
+                    f();
+                    $scope.messages.push('success', $scope['msgtxt.feedbackSaved']);
+                    $scope.startSavingToAdequate(
+                      // Feedback sent successfully
+                      function (response) {
+                        f();
+                        $scope.messages.push('success', $scope['msgtxt.adequateSaved']);
+                      },
+
+                      // Failure while sending feedback
+                      function (response) {
+                        f();
+                        $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                      }
+                    );
+                  },
+
+                  // Failure while sending feedback
+                  function (response) {
+                    f();
+                    $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.sendFailure'], response.data));
+                  }
+                );
+              };
             }
         }
     }]);

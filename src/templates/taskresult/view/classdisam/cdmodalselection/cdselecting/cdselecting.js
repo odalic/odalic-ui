@@ -20,13 +20,13 @@
 
                 //returns a correct data for select boxes
                 $scope.data = function() {
-                    if ($scope.selectedPosition.row == -1) {
+                    if ($scope.selectedPosition.row === -1) {
                         return $scope.result.headerAnnotations[$scope.selectedPosition.column]
                     }
                     else {
                         return $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column]
                     }
-                }
+                };
 
                 $scope.openCDProposal = function () {
                     $uibModal.open({
@@ -38,14 +38,14 @@
                                     selectedPosition: $scope.selectedPosition,
                                     result: $scope.result,
                                     locked: $scope.locked,
-                                    primaryKB: $scope.primaryKB
-
+                                    primaryKB: $scope.primaryKB,
+                                    multiple: false
                                 }
                             }
                         }
 
                     });
-                }
+                };
 
                 $scope.openCDSuggestions = function (knowledgeBase) {
                     $uibModal.open({

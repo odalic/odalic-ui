@@ -15,7 +15,8 @@
      *        locked-table-cells="locked.tableCells"
      *        chosen-k-bs="chosenKBs"
      *        primary-k-b="{{ primaryKB }}"
-     *        proposal="openCDProposal">
+     *        proposal="openCDProposal"
+     *        multiProposal="openCDProposalMulti">
      */
 
         // row-index determines number of row. Header row has a special number -1.
@@ -38,6 +39,7 @@
                 lockedTableCells: '=',
                 chosenKBs: '=',
                 proposal: '=',
+                multiProposal: '=',
                 suggestion: '=',
                 columnTypes: '=',
                 primaryKB: '@'
@@ -73,6 +75,7 @@
                 scope.selectPosition = function (row, column) {
                     scope.selectedPosition.column = column;
                     scope.selectedPosition.row = row;
+                    scope.selectedPosition.value = scope.row[column];
                 };
 
                 scope.removeClass = function (data, columnIndex, itemIndex) {
@@ -86,7 +89,6 @@
                     //return {"background-color": color, "border-radius": "5px", "opacity": "1"};
                     return {"background-color": color, "opacity": "1"};
                 };
-
 
             }
         }

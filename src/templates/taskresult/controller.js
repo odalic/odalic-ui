@@ -29,7 +29,8 @@
 
         $scope.selectedPosition = {
             column: -1,
-            row: -1
+            row: -1,
+            value: ''
         };
 
         $scope.selectedRelation = {
@@ -490,12 +491,34 @@
                             selectedPosition: $scope.selectedPosition,
                             result: $scope.result,
                             locked: $scope.locked,
-                            primaryKB: $scope.primaryKB
+                            primaryKB: $scope.primaryKB,
+                            multiple: false
                         }
                     }
                 }
             });
         };
+
+      //calls cd proposal modal window
+      $scope.openCDProposalMulti = function () {
+        $uibModal.open({
+          ariaLabelledBy: 'modal-title',
+          ariaDescribedBy: 'modal-body',
+          templateUrl: "src/templates/taskresult/view/classdisam/cdmodalproposal/cdproposalcontent/cdproposalcontent.html",
+          controller: 'cDProposeController',
+          resolve: {
+            data: function () {
+              return {
+                selectedPosition: $scope.selectedPosition,
+                result: $scope.result,
+                locked: $scope.locked,
+                primaryKB: $scope.primaryKB,
+                multiple: true
+              }
+            }
+          }
+        });
+      };
 
         //calls cd proposal modal window
         $scope.openRProposal = function (index) {
@@ -543,7 +566,7 @@
                             locked: $scope.locked,
                             primaryKB: $scope.primaryKB,
                             openCDProposal: $scope.openCDProposal,
-                            flags: $scope.flags,
+                            flags: $scope.flags
                         }
                     }
                 }

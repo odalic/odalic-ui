@@ -41,7 +41,6 @@
 
         //region proposal settings
         $scope.setProposal = function (proposal) {
-
             // Is proposal defined?
             if (proposal && $scope.rProposeForm.$valid) {
 

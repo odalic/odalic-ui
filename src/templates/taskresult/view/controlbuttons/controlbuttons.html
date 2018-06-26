@@ -1,12 +1,12 @@
 <div class="row form-group odalic-hr-pushbtm">
     <!-- Buttons on the right -->
-    <div class="col-md-offset-6 col-md-2">
+    <div class="col-md-offset-4 col-md-2">
         <button-load button-class="btn btn-lg btn-block odalic-butt-affirmative" action="reexecute" disabled="false" tooltip-msg="Send the feedback and execute the current task again">
             Reexecute
         </button-load>
     </div>
     <div class="col-md-2">
-        <button-load button-class="btn btn-lg btn-block odalic-butt-affirmative" action="saveFeedback" disabled="false" tooltip-msg="Send the feedback to the server for future executions">
+        <button-load button-class="btn btn-lg btn-block odalic-butt-cancel" action="saveFeedback" disabled="false" tooltip-msg="Send the feedback to the server for future executions">
             Save feedback
         </button-load>
     </div>
@@ -15,6 +15,12 @@
             Cancel
         </button>
     </div>
+    <div class="col-md-2">
+        <button-load button-class="btn btn-lg btn-block odalic-butt-affirmative" action="saveToAdequate" disabled="false" tooltip-msg="Save the resulting Linked Data back to ADEQUATe platform">
+            Save to ADEQUATe
+        </button-load>
+    </div>
+
 
     <!-- Blank space -->
     <div class="col-md-12 odalic-hstyle-medium"/>
@@ -23,6 +29,8 @@
     <injector for="msgtxt.sendFailure">An error occurred while sending the feedback to the server.</injector>
     <injector for="msgtxt.startFailure">An error occurred while trying to re-run the task. Feedback was sent, however.</injector>
     <injector for="msgtxt.feedbackSaved">Feedback saved successfully.</injector>
+    <injector for="msgtxt.adequateSaved">Successfully initialized saving the task to Adequate. This operation may take a couple a minutes.</injector>
+    <injector for="msgtxt.saveFailure">An error occurred while saving the task to Adequate.</injector>
 
     <!-- Reporting situations to a user -->
     <div class="col-md-12">
