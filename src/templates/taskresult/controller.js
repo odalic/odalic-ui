@@ -16,6 +16,7 @@
         //region Initialization of objects which save user changes
         $scope.active = 0;
         $scope.feedback = {};
+        $scope.messages = {};
 
         $scope.flags = {};
         $scope.flags.ignoredColumn = {};
@@ -42,6 +43,7 @@
             'columns': [],
             'rows': []
         };
+
         //endregion
 
         //region Loading data from server
@@ -491,43 +493,23 @@
                             selectedPosition: $scope.selectedPosition,
                             result: $scope.result,
                             locked: $scope.locked,
-                            primaryKB: $scope.primaryKB,
-                            multiple: false
+                            primaryKB: $scope.primaryKB
                         }
                     }
                 }
             });
         };
 
-      //calls cd proposal modal window
-      $scope.openCDProposalMulti = function () {
-        $uibModal.open({
-          ariaLabelledBy: 'modal-title',
-          ariaDescribedBy: 'modal-body',
-          templateUrl: "src/templates/taskresult/view/classdisam/cdmodalproposal/cdproposalcontent/cdproposalcontent.html",
-          controller: 'cDProposeController',
-          resolve: {
-            data: function () {
-              return {
-                selectedPosition: $scope.selectedPosition,
-                result: $scope.result,
-                locked: $scope.locked,
-                primaryKB: $scope.primaryKB,
-                multiple: true
-              }
-            }
-          }
-        });
-      };
+
 
         //calls cd proposal modal window
         $scope.openRProposal = function (index) {
             //sets non existing chosen domain and range to empty string
             var chosenD = $scope.result.headerAnnotations[$scope.selectedRelation.column1].chosen[$scope.primaryKB];
-            var domain = (chosenD.length == 0) ? "" : chosenD[0].entity.resource;
+            var domain = (chosenD.length === 0) ? "" : chosenD[0].entity.resource;
 
-            var chosenR = $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB]
-            var range = (chosenR.length == 0) ? "" : chosenR[0].entity.resource;
+            var chosenR = $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB];
+            var range = (chosenR.length === 0) ? "" : chosenR[0].entity.resource;
 
             $uibModal.open({
                 templateUrl: "src/templates/taskresult/view/relations/rmodalselection/rmodalproposal/rmodalproposal.html",

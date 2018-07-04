@@ -438,16 +438,10 @@ $.defineModule(function () {
                         adequate: function () {
                             return {
                                 exec: function (success, failure) {
-                                    requests.reqJSON({
-                                        method: 'POST',
-                                        address: text.urlConcat(root, 'adequate'),
-                                        formData: {
-                                            taskId: identifier,
-                                            userId: 'not available'
-                                        },
-                                        success: success,
-                                        failure: failure
-                                    });
+                                    requests.pureRequest(text.urlConcat(root, 'adequate'), 'POST', success, failure, '*/*', 'application/x-www-form-urlencoded', $.param({
+                                        taskId: identifier,
+                                        userId: 'admin@example.com'
+                                    }));
                                 }
                             };
                         },

@@ -163,7 +163,7 @@ var nodelabel = function (d3sel) {
     var _mwidth = null;
     var _basefont = 15;
     var _nowfont = _basefont;
-    var _minfont = 11;
+    var _minfont = 10;
 
     // additional variables
     var _lastX = null;
@@ -182,18 +182,17 @@ var nodelabel = function (d3sel) {
             f.call(ll, labelText);
 
             // binary search for finding an optimal font-size
-            var up = _basefont;
-            var down = _minfont;
-            while (down <= up) {
-                _nowfont = (up + down) / 2;
-
+            var _nowfont = _basefont;
+            while (_nowfont > _minfont) {
                 // try using the new font-size and test, whether it is OK
                 label.attr('font-size', _nowfont);
                 f.call(ll, labelText);
-                if (ll.width > _mwidth) {
-                    up = _nowfont - 1;
-                } else {
-                    down = _nowfont + 1;
+                // -4 to have at least 2px padding on every side.
+                if (ll.width > (_mwidth - 4)) {
+                    _nowfont--;
+                }
+                else {
+                    break;
                 }
             }
 

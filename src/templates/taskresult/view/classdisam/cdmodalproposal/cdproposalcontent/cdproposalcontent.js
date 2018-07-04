@@ -9,8 +9,6 @@
         $scope.result = data.result;
         $scope.locked = data.locked;
         $scope.primaryKB = data.primaryKB;
-        // "multiple" allows a user to propose all classifications at the same time.
-        $scope.multiple = data.multiple;
         $scope.close = $uibModalInstance.close;
 
         //sets parameters for the alert directive
@@ -21,22 +19,17 @@
         $scope.missingColumnClass = {};
 
         $scope.dialogTitle = function() {
-            if (!$scope.multiple) {
-                if ($scope.selectedPosition.row == -1) {
-                    return "classification";
-                }
-                else {
-                    return "disambiguation";
-                }
+            if ($scope.selectedPosition.row == -1) {
+                return "classification";
             }
             else {
-                return "remaining disambiguations";
+                return "disambiguation";
             }
         };
 
         $scope.columnClass = $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB];
 
-        $scope.disableDisambCondition = ($scope.selectedPosition.row !== -1 || $scope.multiple) && $scope.columnClass.length === 0
+        $scope.disableDisambCondition = ($scope.selectedPosition.row !== -1 && $scope.columnClass.length === 0);
 
         //region proposal settings
         $scope.setProposal = function (proposal) {
@@ -63,7 +56,7 @@
                     alternativeLabels.push(proposal.alternativeLabel2);
                 }
 
-                if ($scope.selectedPosition.row === -1 && !$scope.multiple) {
+                if ($scope.selectedPosition.row === -1) {
                     //object in rest api format for classes
                     var obj = {
                         "label": proposal.label,
@@ -125,62 +118,44 @@
 
         //saves new propose resource
         var resources = function (obj) {
-            var RowsToPropose = [$scope.selectedPosition.row];
-            if ($scope.multiple) {
-                RowsToPropose = [];
-                for (var currentRowIndex = 0; currentRowIndex < $scope.result.cellAnnotations.length; currentRowIndex++) {
-                    var cellAnnotationsRow = $scope.result.cellAnnotations[currentRowIndex];
-                    if (cellAnnotationsRow[$scope.selectedPosition.column].candidates[$scope.primaryKB].length === 0) {
-                        RowsToPropose.push(currentRowIndex);
-                    }
+            rest.base($scope.primaryKB).entities.resources.update(obj).exec(
+                function (response) {
+                    var newObj = {
+                        "entity": response,
+                        "score": {
+                            "value": null
+                        }
+                    };
+
+                    var currentDisambiguation = $scope.result.cellAnnotations[$scope.selectedPosition.row][$scope.selectedPosition.column];
+                    //adds disambiguation into result
+                    currentDisambiguation.candidates[$scope.primaryKB].push(newObj);
+                    currentDisambiguation.chosen[$scope.primaryKB] = [newObj];
+
+
+                    //locks cell
+                    $scope.locked.tableCells[$scope.selectedPosition.row][$scope.selectedPosition.column] = 1;
+
+                    //deletes form fields
+                    $scope.proposal = {};
+
+                    //success message
+                    success();
+                },
+                // Error
+                function (response) {
+                    var info = JSON.parse(response.data);
+                    //fail message
+                    fail(info);
                 }
-            }
-
-            RowsToPropose.forEach(function(rowPosition) {
-                rest.base($scope.primaryKB).entities.resources.update(obj).exec(
-                    function (response) {
-                        var newObj = {
-                            "entity": response,
-                            "score": {
-                                "value": null
-                            }
-                        };
-
-                        var currentDisambiguation = $scope.result.cellAnnotations[rowPosition][$scope.selectedPosition.column];
-                        //adds disambiguation into result
-                        currentDisambiguation.candidates[$scope.primaryKB].push(newObj);
-                        currentDisambiguation.chosen[$scope.primaryKB] = [newObj];
-
-
-                        //locks cell
-                        $scope.locked.tableCells[rowPosition][$scope.selectedPosition.column] = 1;
-
-                        //deletes form fields
-                        $scope.proposal = {};
-
-                        //success message
-                        success();
-                    },
-                    // Error
-                    function (response) {
-                        var info = JSON.parse(response.data);
-                        //fail message
-                        fail(info);
-                    }
-                );
-            });
+            );
         };
 
         //sets parameters for the alert directive
         var success = function () {
             $scope.serverResponse.type = 'success';
             $scope.serverResponse.visible = true;
-            if (!$scope.multiple) {
-                $scope.messege = "Proposed resource was successfully saved in the knowledge base";
-            }
-            else {
-                $scope.messege = "Proposed resources were successfully saved in the knowledge base";
-            }
+            $scope.messege = "Proposed resource was successfully saved in the knowledge base";
         };
         //sets parameters for the alert directive
         var fail = function (info) {

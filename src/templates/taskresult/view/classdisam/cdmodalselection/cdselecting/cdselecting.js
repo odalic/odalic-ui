@@ -38,8 +38,7 @@
                                     selectedPosition: $scope.selectedPosition,
                                     result: $scope.result,
                                     locked: $scope.locked,
-                                    primaryKB: $scope.primaryKB,
-                                    multiple: false
+                                    primaryKB: $scope.primaryKB
                                 }
                             }
                         }

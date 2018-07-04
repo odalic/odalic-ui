@@ -49,7 +49,7 @@
 
                 //returns title with information about type of column
                 scope.getTitle = function (columnIndex) {
-                    if (scope.rowIndex == -1) {
+                    if (scope.rowIndex === -1) {
                         var types = scope.columnTypes[columnIndex].processingType;
                         var title;
                         //type of column determines type of primary knowledge base

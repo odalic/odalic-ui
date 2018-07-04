@@ -27,7 +27,13 @@
                             <h2>Column classifications and disambiguations of the values in cells</h2>
 
                             <!-- The table of results -->
-                            <include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include>
+                            <div ng-class="'cdTable'"
+                                c-d-table input-file="inputFile" input-file-proxy="inputFileProxy"
+                                result="result" selected-position="selectedPosition"
+                                locked-table-cells="locked.tableCells" chosen-k-bs="chosenKBs" primary-k-b="{{ primaryKB }}" proposal="openCDProposal"
+                                suggestion="openCDSelection" column-types="result.columnProcessingAnnotations">
+                            </div>
+                            <!--include src="src/templates/taskresult/view/classdisam/cdtable/cdtable.html"></include-->
                         </div>
 
                         <!-- Subject column for non-statistical data -->
