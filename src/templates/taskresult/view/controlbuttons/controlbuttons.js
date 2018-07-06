@@ -14,6 +14,31 @@
                 // Initialization
                 $scope.messages = {};
 
+                $scope.feedbackChanged = false;
+
+                // Watch for any feedback changes, in which case the buttons get disabled
+                (function () {
+                    var lockStructure = $scope.locked;
+
+                    timed.ready(function () {
+                        return !!lockStructure.tableCells && !!lockStructure.graphEdges && !!$scope.getCurrentSettings;
+                    }, function () {
+
+                        // Copy the locked structure for further comparisons
+                        var lockStrFormer = objhelp.objCopy($scope.locked);
+
+                        // Copy the current settings for further comparisons
+                        var settingsFormer = objhelp.objCopy($scope.getCurrentSettings());
+
+                        $scope.$watch(function () {
+                            $scope.feedbackChanged =
+                                objhelp.objCompare(lockStructure, lockStrFormer).length > 0 ||
+                                objhelp.objCompare($scope.getCurrentSettings(), settingsFormer).length > 0;
+                        });
+
+                    });
+                })();
+
                 /** Returns the currently set user settings suitable for comparison purposes
                  *  Warning: the objects returned are not copied, and therefore should not be changed
                  */
@@ -255,6 +280,45 @@
                             $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.sendFailure'], response.data));
                         }
                     );
+                };
+
+                $scope.startSavingToAdequate = function (success, error) {
+                    // Send the feedback
+                    rest.tasks.name($scope.taskID).adequate().exec(success, error);
+                };
+
+                // Save to Adequate
+                $scope.saveToAdequate = function (f) {
+                    if (!$scope.feedbackChanged) {
+                        $scope.sendFeedback(
+                            // Feedback sent successfully
+                            function (response) {
+                                $scope.startSavingToAdequate(
+                                    // Feedback sent successfully
+                                    function (response) {
+                                        f();
+                                        $scope.messages.push('success', $scope['msgtxt.adequateSaved']);
+                                    },
+
+                                    // Failure while sending feedback
+                                    function (response) {
+                                        f();
+                                        $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.saveFailure'], response.data));
+                                    }
+                                );
+                            },
+
+                            // Failure while sending feedback
+                            function (response) {
+                                f();
+                                $scope.messages.push('error', reporth.constrErrorMsg($scope['msgtxt.sendFailure'], response.data));
+                            }
+                        );
+                    }
+                    else {
+                        f();
+                        $scope.messages.push('error', 'Before exporting the data, please reexecute the task.');
+                    }
                 };
             }
         }

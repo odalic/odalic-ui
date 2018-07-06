@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" title="required">Label *</span></label>
                     <div class="col-md-8">
-                        <input name="label" class="form-control" type="text" ng-model="proposal.label" required>
+                        <input name="label" class="form-control" type="text" ng-model="proposal.label" ng-init="proposal.label=selectedPosition.value" required>
                         <div ng-messages="(cDProposeForm.$submitted || cDProposeForm.label.$dirty) && cDProposeForm.label.$error"
                              role="alert">
                             <div ng-message="required">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <div ng-if="(selectedPosition.row != -1)"> <!-- Only for proposing named entities (not classes) -->
+                <div ng-if="selectedPosition.row !== -1"> <!-- Only for proposing named entities (not classes) -->
                     <div class="form-group">
                         <label class="col-md-4 control-label">Alternative label</label>
                         <div class="col-md-8">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <div ng-if="(selectedPosition.row == -1)"> <!-- Only for proposing classes -->
+                <div ng-if="selectedPosition.row === -1"> <!-- Only for proposing classes -->
                     <div class="form-group">
                         <label class="col-md-4 control-label">Custom URL suffix</label>
                         <div class="col-md-8">
@@ -60,7 +60,7 @@
 
 
 
-                <div ng-if="(selectedPosition.row != -1)"> <!-- Only for proposing named entities (not classes) -->
+                <div ng-if="selectedPosition.row !== -1"> <!-- Only for proposing named entities (not classes) -->
                     <div class="form-group">
 
                         <label class="col-md-4 control-label">Class:</label>

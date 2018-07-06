@@ -16,6 +16,7 @@
         //region Initialization of objects which save user changes
         $scope.active = 0;
         $scope.feedback = {};
+        $scope.messages = {};
 
         $scope.flags = {};
         $scope.flags.ignoredColumn = {};
@@ -29,7 +30,8 @@
 
         $scope.selectedPosition = {
             column: -1,
-            row: -1
+            row: -1,
+            value: ''
         };
 
         $scope.selectedRelation = {
@@ -41,6 +43,7 @@
             'columns': [],
             'rows': []
         };
+
         //endregion
 
         //region Loading data from server
@@ -497,14 +500,16 @@
             });
         };
 
+
+
         //calls cd proposal modal window
         $scope.openRProposal = function (index) {
             //sets non existing chosen domain and range to empty string
             var chosenD = $scope.result.headerAnnotations[$scope.selectedRelation.column1].chosen[$scope.primaryKB];
-            var domain = (chosenD.length == 0) ? "" : chosenD[0].entity.resource;
+            var domain = (chosenD.length === 0) ? "" : chosenD[0].entity.resource;
 
-            var chosenR = $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB]
-            var range = (chosenR.length == 0) ? "" : chosenR[0].entity.resource;
+            var chosenR = $scope.result.headerAnnotations[$scope.selectedRelation.column2].chosen[$scope.primaryKB];
+            var range = (chosenR.length === 0) ? "" : chosenR[0].entity.resource;
 
             $uibModal.open({
                 templateUrl: "src/templates/taskresult/view/relations/rmodalselection/rmodalproposal/rmodalproposal.html",
@@ -543,7 +548,7 @@
                             locked: $scope.locked,
                             primaryKB: $scope.primaryKB,
                             openCDProposal: $scope.openCDProposal,
-                            flags: $scope.flags,
+                            flags: $scope.flags
                         }
                     }
                 }

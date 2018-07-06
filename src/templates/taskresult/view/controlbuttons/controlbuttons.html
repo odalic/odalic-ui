@@ -16,9 +16,9 @@
         </button>
     </div>
     <div class="col-md-2">
-        <button class="btn btn-lg btn-block odalic-butt-affirmative" ng-click="" uib-tooltip="Save the resulting Linked Data back to ADEQUATe platform" tooltip-placement="top">
+        <button-load button-class="btn btn-lg btn-block odalic-butt-affirmative" action="saveToAdequate" disabled="false" tooltip-msg="Save the resulting Linked Data back to ADEQUATe platform">
             Save to ADEQUATe
-        </button>
+        </button-load>
     </div>
 
 
@@ -29,6 +29,8 @@
     <injector for="msgtxt.sendFailure">An error occurred while sending the feedback to the server.</injector>
     <injector for="msgtxt.startFailure">An error occurred while trying to re-run the task. Feedback was sent, however.</injector>
     <injector for="msgtxt.feedbackSaved">Feedback saved successfully.</injector>
+    <injector for="msgtxt.adequateSaved">Successfully initialized saving the task to Adequate. This operation may take a couple a minutes.</injector>
+    <injector for="msgtxt.saveFailure">An error occurred while saving the task to Adequate.</injector>
 
     <!-- Reporting situations to a user -->
     <div class="col-md-12">

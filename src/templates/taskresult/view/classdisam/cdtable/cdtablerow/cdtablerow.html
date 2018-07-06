@@ -7,6 +7,13 @@
     <!--So there is a little hack with css. Each text div has right padding (bigRightPadding for three icons, rightPadding for trash icon)-->
     <!--So the text does not overlap the icons. Class up sets the icons on the top of text div.-->
     <div class="pull-right text-nowrap" >
+        <!-- Propose all icon -->
+        <tooltip ng-if="rowIndex == -1 && concreteData[columnIndex].chosen[primaryKB].length > 0" msg="Propose all resources" place="top">
+            <a ng-click="multiProposal()" class="odalic-cursor-pointer">
+                <span class="up fa fa-plus-square"></span>
+            </a>
+        </tooltip>
+
         <!-- Propose icon -->
         <tooltip msg="Propose new resource" place="top">
             <a ng-click="proposal()" class="odalic-cursor-pointer">

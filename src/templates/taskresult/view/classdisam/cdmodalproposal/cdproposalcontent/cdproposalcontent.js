@@ -11,7 +11,6 @@
         $scope.primaryKB = data.primaryKB;
         $scope.close = $uibModalInstance.close;
 
-
         //sets parameters for the alert directive
         $scope.serverResponse = {
             visible: false
@@ -19,25 +18,21 @@
 
         $scope.missingColumnClass = {};
 
-        $scope.dialogTitle = function()
-        {
-
+        $scope.dialogTitle = function() {
             if ($scope.selectedPosition.row == -1) {
                 return "classification";
             }
-            else{
+            else {
                 return "disambiguation";
             }
-
-        }
+        };
 
         $scope.columnClass = $scope.result.headerAnnotations[$scope.selectedPosition.column].chosen[$scope.primaryKB];
 
-        $scope.disableDisambCondition = $scope.selectedPosition.row != -1 && $scope.columnClass.length == 0
+        $scope.disableDisambCondition = ($scope.selectedPosition.row !== -1 && $scope.columnClass.length === 0);
 
         //region proposal settings
         $scope.setProposal = function (proposal) {
-
 
             // Is proposal defined?
             if (proposal && $scope.cDProposeForm.$valid) {
@@ -61,8 +56,7 @@
                     alternativeLabels.push(proposal.alternativeLabel2);
                 }
 
-                if ($scope.selectedPosition.row == -1) {
-
+                if ($scope.selectedPosition.row === -1) {
                     //object in rest api format for classes
                     var obj = {
                         "label": proposal.label,
@@ -83,14 +77,12 @@
                     };
                     resources(obj);
                 }
-
             }
         };
         //endregion
 
         //saves new propose class
         var classes = function (obj) {
-
             rest.base($scope.primaryKB).entities.classes.update(obj).exec(
                 // Success, inject into the scope
                 function (response) {
@@ -164,12 +156,12 @@
             $scope.serverResponse.type = 'success';
             $scope.serverResponse.visible = true;
             $scope.messege = "Proposed resource was successfully saved in the knowledge base";
-        }
+        };
         //sets parameters for the alert directive
         var fail = function (info) {
             $scope.serverResponse.type = 'error';
             $scope.serverResponse.visible = true;
             $scope.messege = info.payload.text;
-        }
+        };
     });
 })();
