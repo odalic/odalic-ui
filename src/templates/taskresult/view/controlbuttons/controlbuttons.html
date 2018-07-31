@@ -1,22 +1,22 @@
 <div class="row form-group odalic-hr-pushbtm">
     <!-- Buttons on the right -->
     <div class="col-md-offset-4 col-md-2">
-        <button-load button-class="btn btn-lg btn-block odalic-butt-affirmative" action="reexecute" disabled="false" tooltip-msg="Send the feedback and execute the current task again">
+        <button-load button-class="btn btn-lg btn-block odalic-butt-export" action="reexecute" disabled="false" tooltip-msg="Re-execute the task taking into account your feedback">
             Reexecute
         </button-load>
     </div>
     <div class="col-md-2">
-        <button-load button-class="btn btn-lg btn-block odalic-butt-cancel" action="saveFeedback" disabled="false" tooltip-msg="Send the feedback to the server for future executions">
+        <button-load button-class="btn btn-lg btn-block odalic-butt-cancel" action="saveFeedback" disabled="false" tooltip-msg="Save your feedback to the server for future adjustments of this task">
             Save feedback
         </button-load>
     </div>
     <div class="col-md-2">
-        <button class="btn btn-lg btn-block odalic-butt-cancel" ng-click="miscellaneous.goBack()" uib-tooltip="Return to the list of tasks" tooltip-placement="top">
+        <button class="btn btn-lg btn-block odalic-butt-cancel" ng-click="miscellaneous.goBack()" uib-tooltip="Cancel your feedback and return to the list of tasks" tooltip-placement="top">
             Cancel
         </button>
     </div>
     <div class="col-md-2">
-        <button-load button-class="btn btn-lg btn-block odalic-butt-cancel" action="saveToAdequate" disabled="false" tooltip-msg="Save the resulting Linked Data back to ADEQUATe RDF store">
+        <button-load button-class="btn btn-lg btn-block odalic-butt-cancel" action="saveToAdequate" disabled="false" tooltip-msg="Save the resulting Linked Data to the ADEQUATe RDF store (experimental)">
             Save to RDF store
         </button-load>
     </div>
