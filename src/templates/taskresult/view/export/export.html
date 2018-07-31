@@ -1,6 +1,6 @@
 <!-- Export buttons-->
 <fieldset ng-disabled="feedbackChanged">
-    <legend class="col-md-12">Export/Save results of the transformation in the desired format</legend>
+    <legend class="col-md-12" style="text-align:right">Export/Save results of the transformation in the desired format</legend>
 
     <!-- Warning for pending changes -->
     <div class="col-md-12" ng-if="feedbackChanged">
@@ -9,9 +9,9 @@
     </div>
 
     <div>
-        <div class="pull-left col-md-2">
+        <div class="col-md-offset-6 col-md-2">
             <a-fake ajax="exporting.csv" type="text/csv">
-                <a class="btn btn-lg btn-block odalic-butt-export">Enriched CSV</a>
+                <a class="btn btn-lg btn-block odalic-butt-affirmative">Enriched CSV</a>
             </a-fake>
             &nbsp;
         </div>
@@ -24,15 +24,15 @@
             &nbsp;
         </div>
         -->
-        <div class="pull-left col-md-2">
+        <div class="col-md-2">
             <a-fake ajax="exporting.turtle" type="text/turtle">
-                <a class="btn btn-lg btn-block odalic-butt-export">RDF (Turtle)</a>
+                <a class="btn btn-lg btn-block odalic-butt-affirmative">RDF (Turtle)</a>
             </a-fake>
             &nbsp;
         </div>
-        <div class="pull-left col-md-2">
+        <div class="col-md-2">
             <a-fake ajax="exporting.jsonld" type="application/ld+json">
-                <a class="btn btn-lg btn-block odalic-butt-export">RDF (JSON-LD)</a>
+                <a class="btn btn-lg btn-block odalic-butt-affirmative">RDF (JSON-LD)</a>
             </a-fake>
         </div>
     </div>
